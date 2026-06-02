@@ -32,12 +32,16 @@ export function Section({
               </div>
             )}
             {title && (
-              <h2 className={`text-4xl lg:text-5xl leading-[1.05] ${dark ? "text-white" : "text-navy"}`}>
+              <h2
+                className={`text-4xl lg:text-5xl leading-[1.05] ${dark ? "text-white" : "text-navy"}`}
+              >
                 {title}
               </h2>
             )}
             {intro && (
-              <p className={`mt-6 text-lg leading-relaxed ${dark ? "text-white/70" : "text-muted-foreground"}`}>
+              <p
+                className={`mt-6 text-lg leading-relaxed ${dark ? "text-white/70" : "text-muted-foreground"}`}
+              >
                 {intro}
               </p>
             )}

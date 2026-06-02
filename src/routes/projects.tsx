@@ -11,7 +11,11 @@ export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
       { title: "Projects — Praharsh Infrastructure" },
-      { name: "description", content: "Selected works delivered for India's leading PSUs, state governments and private developers." },
+      {
+        name: "description",
+        content:
+          "Selected works delivered for India's leading PSUs, state governments and private developers.",
+      },
       { property: "og:title", content: "Praharsh Projects" },
       { property: "og:description", content: "A portfolio measured in landmarks." },
     ],
@@ -20,12 +24,60 @@ export const Route = createFileRoute("/projects")({
 });
 
 const projects = [
-  { img: solarImg, tag: "Renewables", title: "150 MW Solar Park", location: "Bikaner, Rajasthan", client: "NTPC Renewable Energy", value: "₹612 Cr", year: "2024" },
-  { img: electricalImg, tag: "Power T&D", title: "400 kV GIS Substation", location: "Pune, Maharashtra", client: "Power Grid Corporation", value: "₹438 Cr", year: "2023" },
-  { img: govtImg, tag: "Government", title: "State Assembly Complex", location: "Bengaluru, Karnataka", client: "Govt. of Karnataka", value: "₹520 Cr", year: "2024" },
-  { img: civilImg, tag: "Civil", title: "Coastal Highway Viaduct", location: "Mangaluru, Karnataka", client: "NHAI", value: "₹389 Cr", year: "2025" },
-  { img: heroImg, tag: "Power T&D", title: "765 kV Transmission Corridor", location: "MP — UP Interstate", client: "Power Grid Corporation", value: "₹712 Cr", year: "2025" },
-  { img: solarImg, tag: "Renewables", title: "85 MW Rooftop C&I Portfolio", location: "Pan-India", client: "Reliance Industries", value: "₹248 Cr", year: "2023" },
+  {
+    img: solarImg,
+    tag: "Renewables",
+    title: "150 MW Solar Park",
+    location: "Bikaner, Rajasthan",
+    client: "NTPC Renewable Energy",
+    value: "₹612 Cr",
+    year: "2024",
+  },
+  {
+    img: electricalImg,
+    tag: "Power T&D",
+    title: "400 kV GIS Substation",
+    location: "Pune, Maharashtra",
+    client: "Power Grid Corporation",
+    value: "₹438 Cr",
+    year: "2023",
+  },
+  {
+    img: govtImg,
+    tag: "Government",
+    title: "State Assembly Complex",
+    location: "Bengaluru, Karnataka",
+    client: "Govt. of Karnataka",
+    value: "₹520 Cr",
+    year: "2024",
+  },
+  {
+    img: civilImg,
+    tag: "Civil",
+    title: "Coastal Highway Viaduct",
+    location: "Mangaluru, Karnataka",
+    client: "NHAI",
+    value: "₹389 Cr",
+    year: "2025",
+  },
+  {
+    img: heroImg,
+    tag: "Power T&D",
+    title: "765 kV Transmission Corridor",
+    location: "MP — UP Interstate",
+    client: "Power Grid Corporation",
+    value: "₹712 Cr",
+    year: "2025",
+  },
+  {
+    img: solarImg,
+    tag: "Renewables",
+    title: "85 MW Rooftop C&I Portfolio",
+    location: "Pan-India",
+    client: "Reliance Industries",
+    value: "₹248 Cr",
+    year: "2023",
+  },
 ];
 
 function Projects() {
@@ -33,9 +85,12 @@ function Projects() {
     <>
       <section className="pt-40 pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="eyebrow text-gold mb-6"><span className="gold-rule mr-3 align-middle" /> Selected Works</div>
+          <div className="eyebrow text-gold mb-6">
+            <span className="gold-rule mr-3 align-middle" /> Selected Works
+          </div>
           <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
-            A portfolio measured<br /> in <span className="italic text-gold">landmarks.</span>
+            A portfolio measured
+            <br /> in <span className="italic text-gold">landmarks.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/70 leading-relaxed">
             Active and recently commissioned projects across renewable, electrical, civil and
@@ -49,7 +104,12 @@ function Projects() {
           {projects.map((p, i) => (
             <article key={p.title} className={`group ${i % 2 === 1 ? "md:mt-20" : ""}`}>
               <div className="image-zoom aspect-[4/3] bg-secondary mb-6">
-                <img src={p.img} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <div className="flex items-baseline justify-between gap-4">
                 <span className="eyebrow text-gold">{p.tag}</span>
