@@ -5,8 +5,11 @@ import { Menu, X } from "lucide-react";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/sectors", label: "Sectors" },
+  { to: "/services", label: "Services" },
   { to: "/projects", label: "Projects" },
+  { to: "/government-capabilities", label: "Government" },
+  { to: "/certifications", label: "Certifications" },
+  { to: "/clients", label: "Clients" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -27,8 +30,8 @@ export function Header() {
         scrolled ? "bg-navy/95 backdrop-blur-md shadow-card" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between gap-6">
+        <Link to="/" className="flex items-center gap-3 group shrink-0">
           <div className="w-10 h-10 grid place-items-center bg-gold text-navy font-display font-semibold text-lg">
             P
           </div>
@@ -38,12 +41,12 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav className="hidden xl:flex items-center gap-7">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="text-sm text-white/85 hover:text-gold transition-colors link-underline"
+              className="text-[0.82rem] text-white/85 hover:text-gold transition-colors link-underline tracking-wide"
               activeProps={{ className: "text-gold" }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -54,13 +57,13 @@ export function Header() {
 
         <Link
           to="/contact"
-          className="hidden lg:inline-flex items-center gap-2 bg-gold text-navy px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors"
+          className="hidden xl:inline-flex items-center gap-2 bg-gold text-navy px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors shrink-0"
         >
           Request Proposal
         </Link>
 
         <button
-          className="lg:hidden text-white"
+          className="xl:hidden text-white"
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
         >
@@ -69,7 +72,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-navy-deep border-t border-white/10">
+        <div className="xl:hidden bg-navy-deep border-t border-white/10">
           <div className="px-6 py-6 flex flex-col gap-4">
             {nav.map((n) => (
               <Link

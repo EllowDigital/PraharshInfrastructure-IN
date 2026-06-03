@@ -10,10 +10,10 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Praharsh Infrastructure is a multi-disciplinary EPC contractor with 14+ years of delivering large-scale civil, electrical and renewable projects across India.",
+          "Praharsh Infrastructure delivers public lighting, solar energy and government supply projects with discipline, integrity and engineering rigour.",
       },
       { property: "og:title", content: "About Praharsh Infrastructure" },
-      { property: "og:description", content: "An engineering institution built on discipline." },
+      { property: "og:description", content: "Building today, empowering tomorrow." },
     ],
   }),
   component: About,
@@ -37,17 +37,17 @@ function About() {
             <span className="gold-rule mr-3 align-middle" /> About Praharsh
           </div>
           <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02] reveal reveal-delay-1">
-            An <span className="italic text-gold">engineering institution</span>, not a contractor.
+            Building today, <span className="italic text-gold">empowering tomorrow.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/75 leading-relaxed reveal reveal-delay-2">
-            Founded in 2010, Praharsh Infrastructure has grown into one of India's most trusted
-            mid-sized EPC firms — recognised for delivering complex government and private projects
-            on schedule and within engineering tolerances measured in millimetres.
+            Praharsh Infrastructure is a multi-disciplinary contractor specialising in public
+            lighting, solar energy, electrical works, government supplies and branding — delivered
+            with the discipline expected of a public-sector partner.
           </p>
         </div>
       </section>
 
-      <Section eyebrow="Our Approach" title="Discipline, transferred from drawing board to field.">
+      <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">
         <div className="grid lg:grid-cols-12 gap-12 -mt-8">
           <div className="lg:col-span-6 image-zoom">
             <img
@@ -62,12 +62,12 @@ function About() {
               {
                 icon: Target,
                 t: "Mission",
-                d: "Deliver infrastructure that endures — engineered, executed and maintained with institutional rigour, accountable to the public and private capital that funds it.",
+                d: "Deliver high-quality infrastructure and utility services with professionalism, integrity, safety, and complete client satisfaction.",
               },
               {
                 icon: Compass,
                 t: "Vision",
-                d: "To be India's most respected mid-sized EPC contractor by 2030, defined by engineering depth rather than aggressive bidding.",
+                d: "To become a leading infrastructure company delivering sustainable and innovative solutions across India.",
               },
               {
                 icon: ShieldCheck,
@@ -77,7 +77,7 @@ function About() {
               {
                 icon: Globe2,
                 t: "Footprint",
-                d: "Project delivery across 18 states with regional offices in Bengaluru, Hyderabad, Pune, Lucknow and Bhubaneswar.",
+                d: "Active project delivery across Uttar Pradesh and expanding nationally — from district headquarters to remote panchayat areas.",
               },
             ].map((b) => (
               <div key={b.t} className="flex gap-6 pb-10 border-b border-border last:border-0">
@@ -94,29 +94,22 @@ function About() {
         </div>
       </Section>
 
-      <Section muted eyebrow="Leadership" title="Engineers running an engineering firm.">
-        <div className="grid md:grid-cols-3 gap-8">
+      <Section muted eyebrow="Core Strengths" title="What sets Praharsh apart.">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
           {[
-            {
-              n: "Rajesh Praharsh",
-              r: "Chairman & Managing Director",
-              b: "32 years across NTPC, L&T and independent practice.",
-            },
-            {
-              n: "Anjali Iyer",
-              r: "Director — Operations",
-              b: "Former PGCIL substation lead. IIT Bombay alumna.",
-            },
-            {
-              n: "Vikram Shenoy",
-              r: "Director — Civil & Infrastructure",
-              b: "Heavy civil specialist with 24 years across NHAI corridors.",
-            },
-          ].map((p) => (
-            <div key={p.n} className="bg-background p-10 card-hover border-t-2 border-gold">
-              <div className="font-display text-2xl text-navy">{p.n}</div>
-              <div className="eyebrow text-gold mt-2">{p.r}</div>
-              <p className="text-sm text-muted-foreground mt-5 leading-relaxed">{p.b}</p>
+            { t: "Government Tender Experience", d: "Decade of e-tenders across state and municipal bodies." },
+            { t: "GeM Procurement Expertise", d: "Active GeM seller with proven order fulfilment record." },
+            { t: "Technical Team", d: "Engineers, electricians and field supervisors trained in-house." },
+            { t: "Quality Assurance", d: "Material inspection and field QA tied to ISO 9001 workflows." },
+            { t: "Sustainable Solutions", d: "Solar-first approach for public lighting deployments." },
+            { t: "Timely Delivery", d: "Contractual milestones met across complex multi-site rollouts." },
+            { t: "Transparent Execution", d: "Audit-ready billing and progress documentation by default." },
+            { t: "Safety Culture", d: "HSE practices embedded in every site mobilisation." },
+            { t: "After-Sales Service", d: "Warranty, AMC and grievance response within SLAs." },
+          ].map((s) => (
+            <div key={s.t} className="bg-background p-8 card-hover">
+              <h3 className="font-display text-xl text-navy">{s.t}</h3>
+              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{s.d}</p>
             </div>
           ))}
         </div>

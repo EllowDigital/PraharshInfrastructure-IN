@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import { ArrowUpRight } from "lucide-react";
 import solarImg from "@/assets/project-solar.jpg";
 import electricalImg from "@/assets/project-electrical.jpg";
 import govtImg from "@/assets/project-govt.jpg";
@@ -14,7 +13,7 @@ export const Route = createFileRoute("/projects")({
       {
         name: "description",
         content:
-          "Selected works delivered for India's leading PSUs, state governments and private developers.",
+          "Major solar street lighting, high mast and government infrastructure projects delivered by Praharsh Infrastructure.",
       },
       { property: "og:title", content: "Praharsh Projects" },
       { property: "og:description", content: "A portfolio measured in landmarks." },
@@ -26,56 +25,98 @@ export const Route = createFileRoute("/projects")({
 const projects = [
   {
     img: solarImg,
-    tag: "Renewables",
-    title: "150 MW Solar Park",
-    location: "Bikaner, Rajasthan",
-    client: "NTPC Renewable Energy",
-    value: "₹612 Cr",
+    tag: "Solar Street Lighting",
+    title: "900 Solar Street Light Project",
+    location: "Barabanki, Uttar Pradesh",
+    client: "District Administration",
+    year: "2024",
+  },
+  {
+    img: solarImg,
+    tag: "Solar Street Lighting",
+    title: "565 Solar Street Light Deployment",
+    location: "Uttar Pradesh",
+    client: "Municipal Corporation",
+    year: "2023",
+  },
+  {
+    img: solarImg,
+    tag: "Solar Street Lighting",
+    title: "160 Solar Street Light Installation",
+    location: "Uttar Pradesh",
+    client: "Nagar Panchayat",
+    year: "2023",
+  },
+  {
+    img: solarImg,
+    tag: "Solar Street Lighting",
+    title: "64 Solar Street Light Project",
+    location: "Rural Development Block",
+    client: "DRDA",
+    year: "2022",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "61 High Mast Lighting Project",
+    location: "Uttar Pradesh",
+    client: "State PWD",
     year: "2024",
   },
   {
     img: electricalImg,
-    tag: "Power T&D",
-    title: "400 kV GIS Substation",
-    location: "Pune, Maharashtra",
-    client: "Power Grid Corporation",
-    value: "₹438 Cr",
+    tag: "High Mast Lighting",
+    title: "57 High Mast Lighting Programme",
+    location: "Uttar Pradesh",
+    client: "Municipal Corporation",
     year: "2023",
   },
   {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "43 High Mast Lighting Installation",
+    location: "Uttar Pradesh",
+    client: "Smart City SPV",
+    year: "2023",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "19 High Mast Lighting Project",
+    location: "Uttar Pradesh",
+    client: "Nagar Nigam",
+    year: "2022",
+  },
+  {
     img: govtImg,
-    tag: "Government",
-    title: "State Assembly Complex",
-    location: "Bengaluru, Karnataka",
-    client: "Govt. of Karnataka",
-    value: "₹520 Cr",
+    tag: "Government Supply",
+    title: "Sanitation & Cleaning Material Supply",
+    location: "Multi-District",
+    client: "State Health Department",
     year: "2024",
   },
   {
     img: civilImg,
-    tag: "Civil",
-    title: "Coastal Highway Viaduct",
-    location: "Mangaluru, Karnataka",
-    client: "NHAI",
-    value: "₹389 Cr",
-    year: "2025",
+    tag: "Infrastructure",
+    title: "Pole Installation Programme",
+    location: "Uttar Pradesh",
+    client: "Electricity Distribution",
+    year: "2023",
   },
   {
     img: heroImg,
-    tag: "Power T&D",
-    title: "765 kV Transmission Corridor",
-    location: "MP — UP Interstate",
-    client: "Power Grid Corporation",
-    value: "₹712 Cr",
-    year: "2025",
+    tag: "Branding & Signage",
+    title: "ACP & Reflective Signage Rollout",
+    location: "Multi-Site",
+    client: "Government Department",
+    year: "2024",
   },
   {
-    img: solarImg,
-    tag: "Renewables",
-    title: "85 MW Rooftop C&I Portfolio",
-    location: "Pan-India",
-    client: "Reliance Industries",
-    value: "₹248 Cr",
+    img: govtImg,
+    tag: "Government Supply",
+    title: "Healthcare Equipment Supply",
+    location: "District Hospitals",
+    client: "Health Mission",
     year: "2023",
   },
 ];
@@ -93,16 +134,16 @@ function Projects() {
             <br /> in <span className="italic text-gold">landmarks.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/70 leading-relaxed">
-            Active and recently commissioned projects across renewable, electrical, civil and
-            government infrastructure — delivered for clients who measure performance in decades.
+            Headline projects across solar street lighting, high mast installations, government
+            supply and public utility infrastructure.
           </p>
         </div>
       </section>
 
       <Section>
-        <div className="grid md:grid-cols-2 gap-x-10 gap-y-16 lg:gap-y-24 -mt-8">
-          {projects.map((p, i) => (
-            <article key={p.title} className={`group ${i % 2 === 1 ? "md:mt-20" : ""}`}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 -mt-8">
+          {projects.map((p) => (
+            <article key={p.title} className="group">
               <div className="image-zoom aspect-[4/3] bg-secondary mb-6">
                 <img
                   src={p.img}
@@ -115,17 +156,11 @@ function Projects() {
                 <span className="eyebrow text-gold">{p.tag}</span>
                 <span className="font-display text-sm text-muted-foreground">{p.year}</span>
               </div>
-              <h3 className="font-display text-3xl text-navy leading-tight mt-3">{p.title}</h3>
+              <h3 className="font-display text-2xl text-navy leading-tight mt-3">{p.title}</h3>
               <div className="text-sm text-muted-foreground mt-2">{p.location}</div>
-              <div className="mt-6 pt-6 border-t border-border flex justify-between items-center">
-                <div>
-                  <div className="eyebrow text-muted-foreground text-[0.65rem]">Client</div>
-                  <div className="text-sm text-navy mt-1">{p.client}</div>
-                </div>
-                <div className="text-right">
-                  <div className="eyebrow text-muted-foreground text-[0.65rem]">Value</div>
-                  <div className="font-display text-lg text-gold mt-1">{p.value}</div>
-                </div>
+              <div className="mt-5 pt-5 border-t border-border">
+                <div className="eyebrow text-muted-foreground text-[0.65rem]">Client</div>
+                <div className="text-sm text-navy mt-1">{p.client}</div>
               </div>
             </article>
           ))}

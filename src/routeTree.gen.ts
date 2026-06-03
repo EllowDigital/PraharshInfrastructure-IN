@@ -9,15 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SectorsRouteImport } from './routes/sectors'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as GovernmentCapabilitiesRouteImport } from './routes/government-capabilities'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ClientsRouteImport } from './routes/clients'
+import { Route as CertificationsRouteImport } from './routes/certifications'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
-const SectorsRoute = SectorsRouteImport.update({
-  id: '/sectors',
-  path: '/sectors',
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -25,9 +28,24 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GovernmentCapabilitiesRoute = GovernmentCapabilitiesRouteImport.update({
+  id: '/government-capabilities',
+  path: '/government-capabilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientsRoute = ClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificationsRoute = CertificationsRouteImport.update({
+  id: '/certifications',
+  path: '/certifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,48 +62,85 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/certifications': typeof CertificationsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
+  '/government-capabilities': typeof GovernmentCapabilitiesRoute
   '/projects': typeof ProjectsRoute
-  '/sectors': typeof SectorsRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/certifications': typeof CertificationsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
+  '/government-capabilities': typeof GovernmentCapabilitiesRoute
   '/projects': typeof ProjectsRoute
-  '/sectors': typeof SectorsRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/certifications': typeof CertificationsRoute
+  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
+  '/government-capabilities': typeof GovernmentCapabilitiesRoute
   '/projects': typeof ProjectsRoute
-  '/sectors': typeof SectorsRoute
+  '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/projects' | '/sectors'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/certifications'
+    | '/clients'
+    | '/contact'
+    | '/government-capabilities'
+    | '/projects'
+    | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/projects' | '/sectors'
-  id: '__root__' | '/' | '/about' | '/contact' | '/projects' | '/sectors'
+  to:
+    | '/'
+    | '/about'
+    | '/certifications'
+    | '/clients'
+    | '/contact'
+    | '/government-capabilities'
+    | '/projects'
+    | '/services'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/certifications'
+    | '/clients'
+    | '/contact'
+    | '/government-capabilities'
+    | '/projects'
+    | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CertificationsRoute: typeof CertificationsRoute
+  ClientsRoute: typeof ClientsRoute
   ContactRoute: typeof ContactRoute
+  GovernmentCapabilitiesRoute: typeof GovernmentCapabilitiesRoute
   ProjectsRoute: typeof ProjectsRoute
-  SectorsRoute: typeof SectorsRoute
+  ServicesRoute: typeof ServicesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sectors': {
-      id: '/sectors'
-      path: '/sectors'
-      fullPath: '/sectors'
-      preLoaderRoute: typeof SectorsRouteImport
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -95,11 +150,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/government-capabilities': {
+      id: '/government-capabilities'
+      path: '/government-capabilities'
+      fullPath: '/government-capabilities'
+      preLoaderRoute: typeof GovernmentCapabilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certifications': {
+      id: '/certifications'
+      path: '/certifications'
+      fullPath: '/certifications'
+      preLoaderRoute: typeof CertificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -122,9 +198,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CertificationsRoute: CertificationsRoute,
+  ClientsRoute: ClientsRoute,
   ContactRoute: ContactRoute,
+  GovernmentCapabilitiesRoute: GovernmentCapabilitiesRoute,
   ProjectsRoute: ProjectsRoute,
-  SectorsRoute: SectorsRoute,
+  ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
