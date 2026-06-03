@@ -454,7 +454,9 @@ function Home() {
               Request a Proposal <ArrowUpRight className="w-4 h-4" />
             </Link>
             <a
-              href="#"
+              href="/docs/company-profile.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 border border-white/30 text-white px-8 py-5 text-sm font-medium hover:border-gold hover:text-gold transition-colors"
             >
               <Download className="w-4 h-4" /> Company Profile

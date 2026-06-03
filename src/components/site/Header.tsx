@@ -32,9 +32,11 @@ export function Header() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-20 flex items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-3 group shrink-0">
-          <div className="w-10 h-10 grid place-items-center bg-gold text-navy font-display font-semibold text-lg">
-            P
-          </div>
+          <img
+            src="/images/logo.jpeg"
+            alt="Praharsh Infrastructure"
+            className="w-10 h-10 object-contain rounded-sm"
+          />
           <div className="leading-tight">
             <div className="font-display text-white text-lg tracking-tight">Praharsh</div>
             <div className="eyebrow text-gold/90 text-[0.6rem]">Infrastructure</div>

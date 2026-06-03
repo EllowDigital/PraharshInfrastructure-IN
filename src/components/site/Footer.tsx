@@ -7,9 +7,11 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 grid place-items-center bg-gold text-navy font-display font-semibold text-lg">
-              P
-            </div>
+            <img
+              src="/images/logo.jpeg"
+              alt="Praharsh Infrastructure"
+              className="w-11 h-11 object-contain rounded-sm"
+            />
             <div>
               <div className="font-display text-white text-lg">Praharsh Infrastructure</div>
               <div className="eyebrow text-gold/90 text-[0.6rem]">
@@ -23,7 +25,9 @@ export function Footer() {
           </p>
 
           <a
-            href="#"
+            href="/docs/company-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-3 bg-gold text-navy px-5 py-3 text-sm font-medium hover:bg-white transition-colors"
           >
             <Download className="w-4 h-4" /> Download Company Profile
