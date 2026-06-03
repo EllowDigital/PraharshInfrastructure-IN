@@ -14,6 +14,7 @@ import {
   Building2,
   Users,
   FileBadge2,
+  FileCheck2,
   Clock,
   HardHat,
   Leaf,
