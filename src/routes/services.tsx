@@ -32,8 +32,8 @@ const services = [
     items: [
       "High Mast Light Installation",
       "Public Lighting Systems",
-      "Pole Installation & Erection",
-      "Urban & Rural Development Projects",
+      "Pole Installation",
+      "Urban/Rural Development Projects",
     ],
   },
   {
@@ -45,7 +45,7 @@ const services = [
       "Solar Street Lights",
       "Solar High Mast Systems",
       "Renewable Energy Installations",
-      "Energy Efficient Lighting Upgrades",
+      "Energy Efficient Lighting",
     ],
   },
   {
@@ -56,8 +56,7 @@ const services = [
     items: [
       "Electrical Infrastructure",
       "Public Utility Lighting",
-      "Cable & Equipment Installation",
-      "Distribution Network Strengthening",
+      "Cable/Equipment Installation",
     ],
   },
   {
@@ -69,7 +68,8 @@ const services = [
       "Healthcare Supplies",
       "Industrial Safety Equipment",
       "Sanitation Products",
-      "Utility Materials & Cleaning Chemicals",
+      "Utility Materials",
+      "Cleaning Chemicals",
     ],
   },
   {

@@ -62,7 +62,7 @@ function About() {
               {
                 icon: Target,
                 t: "Mission",
-                d: "Deliver high-quality infrastructure and utility services with professionalism, integrity, safety, and complete client satisfaction.",
+                d: "Deliver high-quality infrastructure and utility services with professionalism, integrity, safety, and client satisfaction.",
               },
               {
                 icon: Compass,
@@ -125,8 +125,6 @@ function About() {
               t: "Transparent Execution",
               d: "Audit-ready billing and progress documentation by default.",
             },
-            { t: "Safety Culture", d: "HSE practices embedded in every site mobilisation." },
-            { t: "After-Sales Service", d: "Warranty, AMC and grievance response within SLAs." },
           ].map((s) => (
             <div key={s.t} className="bg-background p-8 card-hover">
               <h3 className="font-display text-xl text-navy">{s.t}</h3>
