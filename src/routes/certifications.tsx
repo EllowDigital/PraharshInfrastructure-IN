@@ -39,21 +39,27 @@ const certs = [
   },
   {
     icon: FileBadge2,
-    code: "GeM Seller",
+    code: "GeM Seller ID",
     t: "Government e-Marketplace",
-    d: "Verified seller across lighting, electrical and government supply categories.",
+    d: "Verified GeM seller ID 6498190000819033 across lighting, electrical and government supply categories.",
   },
   {
     icon: Stamp,
-    code: "MSME / Udyam",
-    t: "Registered Enterprise",
-    d: "Udyam-registered MSME — eligible for priority procurement schemes.",
+    code: "UDYAM-UP-50-0034245",
+    t: "Udyam Registration",
+    d: "MSME-registered enterprise holding Udyam Registration for government project supply services.",
   },
   {
     icon: BadgeCheck,
-    code: "GST & PAN",
-    t: "Statutory Registrations",
-    d: "GSTIN, PAN, TAN, EPF, ESI and labour licences in active compliance.",
+    code: "GST: 09GBVPS0920R1ZI",
+    t: "Statutory Registration",
+    d: "GST registered for government procurement and infrastructure contract billing.",
+  },
+  {
+    icon: ShieldCheck,
+    code: "UPSIC Registered Activities",
+    t: "Government Project Category",
+    d: "Solar energy based power generation, manufacturing of electrical lighting equipment, street lighting installation, public infrastructure development.",
   },
 ];
 
@@ -93,9 +99,10 @@ function Certifications() {
       <Section muted eyebrow="Compliance Snapshot" title="Documents available on request.">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 -mt-4">
           {[
-            "GSTIN Certificate",
-            "Udyam (MSME) Certificate",
-            "GeM Seller Profile",
+            "GST: 09GBVPS0920R1ZI",
+            "UDYAM-UP-50-0034245",
+            "GeM Seller ID: 6498190000819033",
+            "UPSIC Registered Activities",
             "ISO 9001:2015",
             "ISO 14001:2015",
             "ISO 45001:2018",

@@ -48,27 +48,27 @@ const services = [
   {
     icon: Lightbulb,
     title: "Infrastructure Development",
-    desc: "High mast lighting, public lighting systems and urban/rural development.",
+    desc: "High Mast Light Installation, Solar Street Light Projects, Electrical Infrastructure Works, Pole Installation & Public Lighting, Rural & Urban Development Works, Smart City Development Projects.",
   },
   {
     icon: Sun,
     title: "Solar Energy Solutions",
-    desc: "Solar street lights, high mast and energy-efficient renewable installations.",
+    desc: "Solar Street Lights, Solar High Mast Systems, Renewable Energy Installations, Energy Efficient Lighting Systems.",
   },
   {
     icon: Zap,
     title: "Electrical Works",
-    desc: "Public utility lighting, cabling and electrical infrastructure.",
+    desc: "LED Street Lighting, Public Utility Lighting, Electrical Equipment Installation, Cable & Pole Installation.",
   },
   {
     icon: Landmark,
     title: "Government Supply",
-    desc: "Healthcare, sanitation, safety and utility material supplies.",
+    desc: "Sanitation Products, Healthcare Supplies, Industrial Safety Equipment, Public Utility Materials, Chemical & Cleaning Supplies.",
   },
   {
     icon: Signpost,
     title: "Branding & Signage",
-    desc: "ACP cladding, reflective signage and government branding works.",
+    desc: "ACP Sheet Cladding, Acrylic Sign Boards, Reflective Signage, Government Branding Works.",
   },
 ];
 

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
@@ -41,14 +41,19 @@ function Contact() {
             {[
               {
                 icon: MapPin,
-                t: "Corporate Office",
-                d: "Praharsh Tower, 4th Floor\nKoramangala Industrial Layout\nBengaluru — 560095, India",
+                t: "Office Address",
+                d: "Plot No. 16, Khara No. 91, Village Chak Malhauri\nWard Chinhat, Lucknow — 226028\nUttar Pradesh, India",
               },
-              { icon: Phone, t: "Phone", d: "+91 80 0000 0000\n+91 80 0000 0001" },
+              { icon: Phone, t: "Phone", d: "+91-7800009165" },
               {
                 icon: Mail,
                 t: "Email",
-                d: "contact@praharsh-infra.com\ntenders@praharsh-infra.com",
+                d: "pspralaysingh@gmail.com",
+              },
+              {
+                icon: FileBadge2,
+                t: "Registrations",
+                d: "GST: 09GBVPS0920R1ZI\nUDYAM: UDYAM-UP-50-0034245\nGeM Seller ID: 6498190000819033",
               },
             ].map((c) => (
               <div key={c.t} className="flex gap-5 pb-10 border-b border-border last:border-0">
@@ -63,14 +68,6 @@ function Contact() {
                 </div>
               </div>
             ))}
-            <div>
-              <div className="eyebrow text-gold mb-3">Regional Offices</div>
-              <div className="grid grid-cols-2 gap-y-2 text-sm text-navy">
-                {["Hyderabad", "Pune", "Lucknow", "Bhubaneswar", "Jaipur", "Chennai"].map((o) => (
-                  <div key={o}>· {o}</div>
-                ))}
-              </div>
-            </div>
           </div>
 
           <div className="lg:col-span-7 bg-secondary p-8 lg:p-12 border-t-2 border-gold">

@@ -20,8 +20,9 @@ export function Footer() {
             </div>
           </div>
           <p className="text-sm leading-relaxed text-white/65 max-w-sm">
-            A multi-disciplinary infrastructure, solar and government supply contractor delivering
-            public lighting, renewable energy and turnkey utility projects across India.
+            Praharsh Infrastructure is a Lucknow-based infrastructure and government supply
+            services company delivering public lighting, solar energy and electrical infrastructure
+            projects across India.
           </p>
 
           <a
@@ -81,15 +82,15 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 mt-0.5 text-gold shrink-0" />
-              Praharsh Tower, Lucknow,
+              Plot No. 16, Khara No. 91, Village Chak Malhauri,
               <br />
-              Uttar Pradesh, India
+              Ward Chinhat, Lucknow — 226028
             </li>
             <li className="flex gap-3">
-              <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" /> +91 0000 000 000
+              <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" /> +91-7800009165
             </li>
             <li className="flex gap-3">
-              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" /> contact@praharshinfra.com
+              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" /> pspralaysingh@gmail.com
             </li>
           </ul>
 
@@ -110,10 +111,10 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
           <div>© {new Date().getFullYear()} Praharsh Infrastructure. All rights reserved.</div>
-          <div className="flex gap-6">
-            <span>ISO 9001:2015</span>
-            <span>GeM Registered</span>
-            <span>MSME Certified</span>
+          <div className="flex flex-wrap gap-6">
+            <span>GST: 09GBVPS0920R1ZI</span>
+            <span>UDYAM-UP-50-0034245</span>
+            <span>GeM Seller ID: 6498190000819033</span>
           </div>
         </div>
       </div>

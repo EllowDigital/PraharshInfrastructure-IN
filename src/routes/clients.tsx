@@ -20,44 +20,31 @@ export const Route = createFileRoute("/clients")({
 
 const clientLogos = [
   { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
-  { src: "/images/clients/client2.png", name: "Panchayati Raj Department", url: "#" },
+  { src: "/images/clients/client5.png", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
+  { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
   { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
   { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
-  { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
   { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
   {
     src: "/images/clients/client8.jfif",
-    name: "Information & Public Relations Department",
+    name: "Information and Public Relations Department UP",
     url: "#",
   },
+  { src: "/images/clients/client2.png", name: "Panchayati Raj Directorate", url: "#" },
 ];
 
 const clientGroups = [
   {
-    label: "Government & Municipal",
+    label: "Official Client Partners",
     list: [
-      "Govt. of Uttar Pradesh",
-      "Barabanki District Administration",
-      "UP Nagar Nigam",
-      "State PWD",
-      "District Rural Development Agency",
-      "Smart City Mission",
-    ],
-  },
-  {
-    label: "PSU & Utilities",
-    list: ["NTPC", "PGCIL", "BHEL", "State Electricity Boards", "UPNEDA", "DISCOMs"],
-  },
-  {
-    label: "Private Sector",
-    list: [
-      "Reliance Industries",
-      "Adani Group",
-      "Tata Projects",
-      "L&T Construction",
-      "Independent Developers",
-      "Industrial Estates",
+      "Uttar Pradesh Government",
+      "UP Global Investors Summit (2023 Lucknow)",
+      "ODOP (One District One Product)",
+      "UPRNN",
+      "UP Tourism",
+      "Basic Shiksha Parishad",
+      "Information and Public Relations Department UP",
+      "Panchayati Raj Directorate",
     ],
   },
 ];
