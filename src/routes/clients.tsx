@@ -18,6 +18,18 @@ export const Route = createFileRoute("/clients")({
   component: Clients,
 });
 
+const clientLogos = [
+  "/images/clients/client1.png",
+  "/images/clients/client2.png",
+  "/images/clients/client3.jfif",
+  "/images/clients/client4.jpg",
+  "/images/clients/client5.png",
+  "/images/clients/client6.webp",
+  "/images/clients/client7.jfif",
+  "/images/clients/client8.jfif",
+  "/images/clients/client9.jfif",
+];
+
 const clientGroups = [
   {
     label: "Government & Municipal",
@@ -104,13 +116,17 @@ function Clients() {
       <section className="bg-navy py-20 border-y border-gold/20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold text-center mb-12">Recognised By</div>
-          <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-y-8 gap-x-6 items-center text-center">
-            {["NTPC", "PGCIL", "NHAI", "CPWD", "BHEL", "GAIL", "IOCL", "UPNEDA"].map((c) => (
+          <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
+            {clientLogos.map((logo, idx) => (
               <div
-                key={c}
-                className="font-display text-xl lg:text-2xl text-white/55 hover:text-gold transition-colors cursor-default tracking-wider"
+                key={idx}
+                className="bg-white p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-sm"
               >
-                {c}
+                <img 
+                  src={logo} 
+                  alt={`Client ${idx + 1}`} 
+                  className="max-h-full max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply" 
+                />
               </div>
             ))}
           </div>
