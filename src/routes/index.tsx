@@ -148,6 +148,18 @@ const testimonials = [
   },
 ];
 
+const clientLogos = [
+  { src: "/images/clients/client1.png", name: "UPNEDA", url: "https://upneda.org.in/" },
+  { src: "/images/clients/client2.png", name: "State PWD", url: "https://uppwd.gov.in/" },
+  { src: "/images/clients/client3.jfif", name: "NTPC", url: "https://www.ntpc.co.in/" },
+  { src: "/images/clients/client4.jpg", name: "PGCIL", url: "https://www.powergrid.in/" },
+  { src: "/images/clients/client5.png", name: "BHEL", url: "https://www.bhel.com/" },
+  { src: "/images/clients/client6.webp", name: "Smart City Mission", url: "https://smartcities.gov.in/" },
+  { src: "/images/clients/client7.jfif", name: "NHAI", url: "https://nhai.gov.in/" },
+  { src: "/images/clients/client8.jfif", name: "CPWD", url: "https://cpwd.gov.in/" },
+  { src: "/images/clients/client9.jfif", name: "GAIL", url: "https://gailonline.com/" },
+];
+
 function Home() {
   return (
     <>
@@ -395,19 +407,57 @@ function Home() {
       </section>
 
       {/* 8. CLIENT LOGOS */}
-      <section className="bg-background py-20 border-b border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="eyebrow text-gold text-center mb-10">
+      <section className="bg-background py-20 border-b border-border overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
+          <div className="eyebrow text-gold text-center">
             Trusted by India's Public & Private Sector
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-y-10 gap-x-6 items-center text-center">
-            {["NTPC", "PGCIL", "NHAI", "CPWD", "BHEL", "GAIL", "UPNEDA", "IOCL"].map((c) => (
-              <div
-                key={c}
-                className="font-display text-xl lg:text-2xl text-navy/50 hover:text-gold transition-colors cursor-default tracking-wider"
+        </div>
+        
+        {/* Mobile/Tablet Grid */}
+        <div className="lg:hidden mx-auto max-w-7xl px-6">
+          <div className="flex flex-wrap justify-center gap-4">
+            {clientLogos.map((client, idx) => (
+              <a
+                key={idx}
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={client.name}
+                className="bg-white p-4 flex items-center justify-center h-24 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] rounded-sm shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                {c}
-              </div>
+                <img 
+                  src={client.src} 
+                  alt={`${client.name} Logo`} 
+                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-105 transition-transform duration-300" 
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* PC Marquee */}
+        <div className="hidden lg:block relative w-full group">
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          
+          <div className="flex animate-marquee pause-on-hover min-w-max items-center">
+            {/* Double the logos for a seamless infinite loop */}
+            {[...clientLogos, ...clientLogos].map((client, idx) => (
+              <a
+                key={idx}
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={client.name}
+                className="bg-white p-6 mx-4 flex items-center justify-center h-28 w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <img 
+                  src={client.src} 
+                  alt={`${client.name} Logo`} 
+                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300" 
+                />
+              </a>
             ))}
           </div>
         </div>

@@ -19,15 +19,15 @@ export const Route = createFileRoute("/clients")({
 });
 
 const clientLogos = [
-  "/images/clients/client1.png",
-  "/images/clients/client2.png",
-  "/images/clients/client3.jfif",
-  "/images/clients/client4.jpg",
-  "/images/clients/client5.png",
-  "/images/clients/client6.webp",
-  "/images/clients/client7.jfif",
-  "/images/clients/client8.jfif",
-  "/images/clients/client9.jfif",
+  { src: "/images/clients/client1.png", name: "UPNEDA", url: "https://upneda.org.in/" },
+  { src: "/images/clients/client2.png", name: "State PWD", url: "https://uppwd.gov.in/" },
+  { src: "/images/clients/client3.jfif", name: "NTPC", url: "https://www.ntpc.co.in/" },
+  { src: "/images/clients/client4.jpg", name: "PGCIL", url: "https://www.powergrid.in/" },
+  { src: "/images/clients/client5.png", name: "BHEL", url: "https://www.bhel.com/" },
+  { src: "/images/clients/client6.webp", name: "Smart City Mission", url: "https://smartcities.gov.in/" },
+  { src: "/images/clients/client7.jfif", name: "NHAI", url: "https://nhai.gov.in/" },
+  { src: "/images/clients/client8.jfif", name: "CPWD", url: "https://cpwd.gov.in/" },
+  { src: "/images/clients/client9.jfif", name: "GAIL", url: "https://gailonline.com/" },
 ];
 
 const clientGroups = [
@@ -117,17 +117,21 @@ function Clients() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold text-center mb-12">Recognised By</div>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {clientLogos.map((logo, idx) => (
-              <div
+            {clientLogos.map((client, idx) => (
+              <a
                 key={idx}
-                className="bg-white p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-sm"
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={client.name}
+                className="bg-white p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-sm shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <img 
-                  src={logo} 
-                  alt={`Client ${idx + 1}`} 
-                  className="max-h-full max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply" 
+                  src={client.src} 
+                  alt={`${client.name} Logo`} 
+                  className="max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" 
                 />
-              </div>
+              </a>
             ))}
           </div>
         </div>
