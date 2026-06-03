@@ -7,6 +7,8 @@ type UseCountUpOptions = {
   triggerOnce?: boolean;
 };
 
+const VISIBILITY_THRESHOLD = 0.35;
+
 export function useCountUp({
   end,
   start = 0,
@@ -17,14 +19,39 @@ export function useCountUp({
   const [isVisible, setIsVisible] = useState(false);
   const targetRef = useRef<HTMLDivElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const hasTriggeredRef = useRef(false);
 
   useEffect(() => {
     const target = targetRef.current;
 
     if (!target) return;
 
+    const setVisible = (visible: boolean) => {
+      if (visible) {
+        if (triggerOnce && hasTriggeredRef.current) {
+          return;
+        }
+
+        hasTriggeredRef.current = true;
+        setIsVisible(true);
+        return;
+      }
+
+      if (!triggerOnce) {
+        setIsVisible(false);
+      }
+    };
+
+    const isInitiallyVisible = () => {
+      const rect = target.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+      return rect.top < viewportHeight && rect.bottom > 0 && rect.left < viewportWidth && rect.right > 0;
+    };
+
     if (typeof IntersectionObserver === "undefined") {
-      setIsVisible(true);
+      setVisible(true);
       return;
     }
 
@@ -32,20 +59,13 @@ export function useCountUp({
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-
-          if (triggerOnce) {
-            observerRef.current?.disconnect();
-          }
-        } else if (!triggerOnce) {
-          setIsVisible(false);
-        }
+        setVisible(entry.isIntersecting);
       },
-      { threshold: 0.35 }
+      { threshold: VISIBILITY_THRESHOLD }
     );
 
     observerRef.current.observe(target);
+    setVisible(isInitiallyVisible());
 
     return () => {
       observerRef.current?.disconnect();
@@ -66,6 +86,8 @@ export function useCountUp({
       setValue(end);
       return;
     }
+
+    setValue(start);
 
     let frame = 0;
     const startedAt = performance.now();
