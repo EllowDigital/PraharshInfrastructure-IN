@@ -82,14 +82,8 @@ const featured = [
   {
     img: solarImg,
     tag: "Solar",
-    title: "900 Solar Street Light Project",
+    title: "900 Solar Street Light Project – Barabanki",
     client: "Barabanki District",
-  },
-  {
-    img: electricalImg,
-    tag: "High Mast",
-    title: "61 High Mast Lighting Project",
-    client: "State PWD",
   },
   {
     img: solarImg,
@@ -98,10 +92,16 @@ const featured = [
     client: "Municipal Corp.",
   },
   {
-    img: govtImg,
-    tag: "Government",
-    title: "Healthcare & Sanitation Supply",
-    client: "Health Mission",
+    img: solarImg,
+    tag: "Solar",
+    title: "160 & 64 Solar Street Light Projects",
+    client: "Nagar Panchayat & DRDA",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast",
+    title: "61, 57, 43, and 19 High Mast Lighting Projects",
+    client: "State PWD & Municipalities",
   },
 ];
 
