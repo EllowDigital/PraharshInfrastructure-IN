@@ -163,32 +163,32 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/80 via-transparent to-transparent" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-24 pt-40 w-full">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-20 pt-32 md:pb-24 md:pt-40 w-full">
           <div className="max-w-3xl">
-            <div className="eyebrow text-gold mb-6 reveal">
+            <div className="eyebrow text-gold mb-4 md:mb-6 reveal">
               <span className="gold-rule mr-3 align-middle" /> Praharsh Infrastructure · Est. 2010
             </div>
-            <h1 className="text-white text-5xl md:text-7xl lg:text-8xl leading-[0.95] reveal reveal-delay-1">
+            <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] md:leading-[0.95] tracking-tight reveal reveal-delay-1">
               Building today,
-              <br />
+              <br className="hidden sm:block" />{" "}
               <span className="text-gold italic font-display">empowering</span> tomorrow.
             </h1>
-            <p className="mt-8 max-w-xl text-white/80 text-lg leading-relaxed reveal reveal-delay-2">
+            <p className="mt-6 md:mt-8 max-w-xl text-white/80 text-base md:text-lg leading-relaxed reveal reveal-delay-2">
               A multi-disciplinary infrastructure, solar and government supply contractor —
               engineering public utility projects with discipline, integrity and measurable
               outcomes.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4 reveal reveal-delay-3">
+            <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 reveal reveal-delay-3">
               <Link
                 to="/projects"
-                className="group inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium tracking-wide hover:bg-white transition-colors"
+                className="group w-full sm:w-auto justify-center inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium tracking-wide hover:bg-white transition-colors"
               >
                 Explore Our Work
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 border border-white/30 text-white px-7 py-4 text-sm font-medium hover:border-gold hover:text-gold transition-colors"
+                className="w-full sm:w-auto justify-center inline-flex items-center gap-3 border border-white/30 text-white px-7 py-4 text-sm font-medium hover:border-gold hover:text-gold transition-colors"
               >
                 Request Proposal
               </Link>
