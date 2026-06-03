@@ -20,7 +20,11 @@ export const Route = createFileRoute("/clients")({
 
 const clientLogos = [
   { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
-  { src: "/images/clients/client5.png", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
+  {
+    src: "/images/clients/client5.png",
+    name: "UP Global Investors Summit (2023 Lucknow)",
+    url: "#",
+  },
   { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
   { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
   { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },

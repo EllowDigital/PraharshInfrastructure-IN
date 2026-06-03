@@ -60,7 +60,7 @@ function About() {
           </div>
           <div className="lg:col-span-6 space-y-10 lg:pt-12">
             {[
-                {
+              {
                 icon: Target,
                 t: "Mission",
                 d: "To provide high-quality infrastructure and utility services; support smart and sustainable public development; deliver projects with integrity and professionalism; ensure timely and cost-effective project execution; maintain long-term client satisfaction.",

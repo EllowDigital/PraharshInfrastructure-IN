@@ -194,7 +194,11 @@ const testimonials = [
 
 const clientLogos = [
   { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
-  { src: "/images/clients/client5.png", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
+  {
+    src: "/images/clients/client5.png",
+    name: "UP Global Investors Summit (2023 Lucknow)",
+    url: "#",
+  },
   { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
   { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
   { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
@@ -233,9 +237,9 @@ function Home() {
               <span className="text-gold italic font-display">empowering</span> tomorrow.
             </h1>
             <p className="mt-6 md:mt-8 max-w-xl text-white/80 text-base md:text-lg leading-relaxed reveal reveal-delay-2">
-              A fast-growing infrastructure, electrical, solar energy and government supply
-              company based in Lucknow, UP. Building a better tomorrow through infrastructure
-              and government supply services.
+              A fast-growing infrastructure, electrical, solar energy and government supply company
+              based in Lucknow, UP. Building a better tomorrow through infrastructure and government
+              supply services.
             </p>
             <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 reveal reveal-delay-3">
               <Link

@@ -47,7 +47,9 @@ export function useCountUp({
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
 
-      return rect.top < viewportHeight && rect.bottom > 0 && rect.left < viewportWidth && rect.right > 0;
+      return (
+        rect.top < viewportHeight && rect.bottom > 0 && rect.left < viewportWidth && rect.right > 0
+      );
     };
 
     if (typeof IntersectionObserver === "undefined") {
@@ -61,7 +63,7 @@ export function useCountUp({
       ([entry]) => {
         setVisible(entry.isIntersecting);
       },
-      { threshold: VISIBILITY_THRESHOLD }
+      { threshold: VISIBILITY_THRESHOLD },
     );
 
     observerRef.current.observe(target);

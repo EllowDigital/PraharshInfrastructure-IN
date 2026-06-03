@@ -20,9 +20,9 @@ export function Footer() {
             </div>
           </div>
           <p className="text-sm leading-relaxed text-white/65 max-w-sm">
-            Praharsh Infrastructure is a Lucknow-based infrastructure and government supply
-            services company delivering public lighting, solar energy and electrical infrastructure
-            projects across India.
+            Praharsh Infrastructure is a Lucknow-based infrastructure and government supply services
+            company delivering public lighting, solar energy and electrical infrastructure projects
+            across India.
           </p>
 
           <a
