@@ -10,7 +10,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Request a proposal or speak with our pre-construction team. Corporate office: Bengaluru, India.",
+          "Speak with our pre-bid team. Corporate office: Plot No. 16, Village Chak Malhauri, Lucknow, Uttar Pradesh.",
       },
       { property: "og:title", content: "Contact Praharsh Infrastructure" },
       { property: "og:description", content: "Engineering teams ready for your project brief." },

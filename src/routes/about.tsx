@@ -40,9 +40,10 @@ function About() {
             Building today, <span className="italic text-gold">empowering tomorrow.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/75 leading-relaxed reveal reveal-delay-2">
-            Praharsh Infrastructure is a multi-disciplinary contractor specialising in public
-            lighting, solar energy, electrical works, government supplies and branding — delivered
-            with the discipline expected of a public-sector partner.
+            Praharsh Infrastructure is a fast-growing infrastructure, electrical, solar energy and
+            government supply company based in Lucknow, UP. We execute government projects through
+            UPSIC, DRDA, Nagar Panchayats and other government departments with a focus on
+            reliability and compliance.
           </p>
         </div>
       </section>
@@ -59,25 +60,25 @@ function About() {
           </div>
           <div className="lg:col-span-6 space-y-10 lg:pt-12">
             {[
-              {
+                {
                 icon: Target,
                 t: "Mission",
-                d: "Deliver high-quality infrastructure and utility services with professionalism, integrity, safety, and client satisfaction.",
+                d: "To provide high-quality infrastructure and utility services; support smart and sustainable public development; deliver projects with integrity and professionalism; ensure timely and cost-effective project execution; maintain long-term client satisfaction.",
               },
               {
                 icon: Compass,
                 t: "Vision",
-                d: "To become a leading infrastructure company delivering sustainable and innovative solutions across India.",
+                d: "To become a trusted and leading infrastructure company delivering innovative, sustainable, and world-class infrastructure solutions across India.",
               },
               {
                 icon: ShieldCheck,
                 t: "Values",
-                d: "Integrity in measurement. Safety without compromise. Documentation as engineering discipline. Quality as the only acceptable variable.",
+                d: "Quality Workmanship, Integrity & Transparency, Professional Excellence, Timely Delivery, Sustainable Development, Customer Satisfaction.",
               },
               {
                 icon: Globe2,
-                t: "Footprint",
-                d: "Active project delivery across Uttar Pradesh and expanding nationally — from district headquarters to remote panchayat areas.",
+                t: "Government Delivery",
+                d: "Project execution through government departments with UPSIC, DRDA, Nagar Panchayats and other statutory partners.",
               },
             ].map((b) => (
               <div key={b.t} className="flex gap-6 pb-10 border-b border-border last:border-0">
@@ -98,32 +99,32 @@ function About() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
           {[
             {
-              t: "Government Tender Experience",
-              d: "Decade of e-tenders across state and municipal bodies.",
+              t: "Experienced Technical Team",
+              d: "Experienced engineers and field supervisors trained for government infrastructure delivery.",
             },
             {
-              t: "GeM Procurement Expertise",
-              d: "Active GeM seller with proven order fulfilment record.",
+              t: "Government Project Expertise",
+              d: "Executed projects for UPSIC, DRDA, Nagar Panchayats and state departments.",
             },
             {
-              t: "Technical Team",
-              d: "Engineers, electricians and field supervisors trained in-house.",
+              t: "Quality Infrastructure Solutions",
+              d: "Quality-certified material usage and public safety compliance on every delivery.",
             },
             {
-              t: "Quality Assurance",
-              d: "Material inspection and field QA tied to ISO 9001 workflows.",
-            },
-            {
-              t: "Sustainable Solutions",
-              d: "Solar-first approach for public lighting deployments.",
+              t: "Transparent Work Process",
+              d: "Proper documentation, reporting and audit-ready project controls.",
             },
             {
               t: "Timely Delivery",
-              d: "Contractual milestones met across complex multi-site rollouts.",
+              d: "On-schedule execution and contractual milestone adherence across sites.",
             },
             {
-              t: "Transparent Execution",
-              d: "Audit-ready billing and progress documentation by default.",
+              t: "Sustainable Development Focus",
+              d: "Solar energy and energy-efficient lighting solutions for public infrastructure.",
+            },
+            {
+              t: "Reliable After-Sales Support",
+              d: "Long-term maintenance support and post-installation verification.",
             },
           ].map((s) => (
             <div key={s.t} className="bg-background p-8 card-hover">

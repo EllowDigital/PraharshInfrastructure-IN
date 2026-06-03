@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Praharsh Infrastructure delivers solar street lighting, high mast installations, electrical works, government supplies and branding projects across India.",
+          "Praharsh Infrastructure delivers infrastructure and government supply services across India — building a better tomorrow through sustainable public lighting, solar and electrical projects.",
       },
       { property: "og:title", content: "Praharsh Infrastructure" },
       { property: "og:description", content: "Building Today, Empowering Tomorrow." },
@@ -82,52 +82,84 @@ const stats = [
 const featured = [
   {
     img: solarImg,
-    tag: "Solar",
+    tag: "Solar Street Lighting",
     title: "900 Solar Street Light Project – Barabanki",
-    client: "Barabanki District",
+    client: "Executed under DRDA standards",
   },
   {
     img: solarImg,
-    tag: "Solar",
+    tag: "Solar Street Lighting",
     title: "565 Solar Street Light Project",
-    client: "Municipal Corp.",
+    client: "Large-scale rural infrastructure",
   },
   {
     img: solarImg,
-    tag: "Solar",
-    title: "160 & 64 Solar Street Light Projects",
-    client: "Nagar Panchayat & DRDA",
+    tag: "Solar Street Lighting",
+    title: "160 Solar Street Light Project",
+    client: "Public lighting deployment",
+  },
+  {
+    img: solarImg,
+    tag: "Solar Street Lighting",
+    title: "64 Solar Street Light Project",
+    client: "Rural electrification initiative",
   },
   {
     img: electricalImg,
-    tag: "High Mast",
-    title: "61, 57, 43, and 19 High Mast Lighting Projects",
-    client: "State PWD & Municipalities",
+    tag: "High Mast Lighting",
+    title: "61 High Mast Lighting Project",
+    client: "Government-approved public illumination",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "57 High Mast 200 Watt Lighting Project",
+    client: "Urban lighting standard rollout",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "43 High Mast Lighting Project",
+    client: "District-level public lighting",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "19 High Mast 200 Watt Lighting Project",
+    client: "Government street illumination",
   },
 ];
 
 const whyUs = [
   {
-    icon: FileBadge2,
-    t: "GeM Procurement Expert",
-    d: "Active GeM seller with category-mapped fulfilment.",
-  },
-  { icon: Award, t: "ISO Certified Operations", d: "9001, 14001 and 45001 management systems." },
-  {
-    icon: Clock,
-    t: "On-Time Delivery",
-    d: "Contractual milestones met across multi-site rollouts.",
-  },
-  {
     icon: HardHat,
-    t: "Field-Trained Crew",
-    d: "In-house electricians, riggers and site supervisors.",
+    t: "Experienced Technical Team",
+    d: "Engineers, electricians and field supervisors trained for public infrastructure delivery.",
   },
-  { icon: Leaf, t: "Sustainable First", d: "Solar-led lighting to cut public energy costs." },
+  {
+    icon: FileBadge2,
+    t: "Government Project Expertise",
+    d: "Proven delivery under state and municipal tender protocols.",
+  },
+  {
+    icon: Award,
+    t: "Quality Infrastructure Solutions",
+    d: "Engineered public lighting, solar and civil works built to long-term performance standards.",
+  },
   {
     icon: ShieldCheck,
-    t: "Transparent Execution",
-    d: "Audit-ready billing and progress documentation.",
+    t: "Transparent Work Process",
+    d: "Audit-ready documentation, reporting and procurement transparency on every contract.",
+  },
+  {
+    icon: Clock,
+    t: "Timely Delivery",
+    d: "Milestone-driven execution with a strong focus on meeting project deadlines.",
+  },
+  {
+    icon: Leaf,
+    t: "Sustainable Development Focus",
+    d: "Solar and energy-efficient lighting projects with long-term operational savings.",
   },
 ];
 
@@ -151,17 +183,17 @@ const testimonials = [
 
 const clientLogos = [
   { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
-  { src: "/images/clients/client2.png", name: "Panchayati Raj Department", url: "#" },
+  { src: "/images/clients/client5.png", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
+  { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
   { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
   { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
-  { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
   { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
   {
     src: "/images/clients/client8.jfif",
-    name: "Information & Public Relations Department",
+    name: "Information and Public Relations Department UP",
     url: "#",
   },
+  { src: "/images/clients/client2.png", name: "Panchayati Raj Directorate", url: "#" },
 ];
 
 function Home() {
@@ -190,9 +222,9 @@ function Home() {
               <span className="text-gold italic font-display">empowering</span> tomorrow.
             </h1>
             <p className="mt-6 md:mt-8 max-w-xl text-white/80 text-base md:text-lg leading-relaxed reveal reveal-delay-2">
-              A multi-disciplinary infrastructure, solar and government supply contractor —
-              engineering public utility projects with discipline, integrity and measurable
-              outcomes.
+              A fast-growing infrastructure, electrical, solar energy and government supply
+              company based in Lucknow, UP. Building a better tomorrow through infrastructure
+              and government supply services.
             </p>
             <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 reveal reveal-delay-3">
               <Link
