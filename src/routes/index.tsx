@@ -157,7 +157,11 @@ const clientLogos = [
   { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
   { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
   { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
-  { src: "/images/clients/client8.jfif", name: "Information & Public Relations Department", url: "#" },
+  {
+    src: "/images/clients/client8.jfif",
+    name: "Information & Public Relations Department",
+    url: "#",
+  },
 ];
 
 function Home() {
@@ -411,7 +415,7 @@ function Home() {
             Trusted by India's Public & Private Sector
           </div>
         </div>
-        
+
         {/* Mobile/Tablet Grid */}
         <div className="lg:hidden mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap justify-center gap-4">
@@ -424,10 +428,10 @@ function Home() {
                 title={client.name}
                 className="bg-white p-4 flex items-center justify-center h-24 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] rounded-sm shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <img 
-                  src={client.src} 
-                  alt={`${client.name} Logo`} 
-                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-105 transition-transform duration-300" 
+                <img
+                  src={client.src}
+                  alt={`${client.name} Logo`}
+                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-105 transition-transform duration-300"
                 />
               </a>
             ))}
@@ -438,7 +442,7 @@ function Home() {
         <div className="hidden lg:block relative w-full group">
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-          
+
           <div className="flex animate-marquee pause-on-hover min-w-max items-center">
             {/* Double the logos for a seamless infinite loop */}
             {[...clientLogos, ...clientLogos].map((client, idx) => (
@@ -450,10 +454,10 @@ function Home() {
                 title={client.name}
                 className="bg-white p-6 mx-4 flex items-center justify-center h-28 w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <img 
-                  src={client.src} 
-                  alt={`${client.name} Logo`} 
-                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300" 
+                <img
+                  src={client.src}
+                  alt={`${client.name} Logo`}
+                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300"
                 />
               </a>
             ))}

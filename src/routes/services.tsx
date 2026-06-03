@@ -53,11 +53,7 @@ const services = [
     img: electricalImg,
     name: "Electrical Works",
     desc: "Turnkey electrical infrastructure for municipal, industrial and public utility projects — including cable laying, panel installation and substation works.",
-    items: [
-      "Electrical Infrastructure",
-      "Public Utility Lighting",
-      "Cable/Equipment Installation",
-    ],
+    items: ["Electrical Infrastructure", "Public Utility Lighting", "Cable/Equipment Installation"],
   },
   {
     icon: Landmark,

@@ -26,7 +26,11 @@ const clientLogos = [
   { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
   { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
   { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
-  { src: "/images/clients/client8.jfif", name: "Information & Public Relations Department", url: "#" },
+  {
+    src: "/images/clients/client8.jfif",
+    name: "Information & Public Relations Department",
+    url: "#",
+  },
 ];
 
 const clientGroups = [
@@ -125,10 +129,10 @@ function Clients() {
                 title={client.name}
                 className="bg-white p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-sm shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <img 
-                  src={client.src} 
-                  alt={`${client.name} Logo`} 
-                  className="max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" 
+                <img
+                  src={client.src}
+                  alt={`${client.name} Logo`}
+                  className="max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
                 />
               </a>
             ))}
