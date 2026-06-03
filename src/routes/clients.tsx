@@ -19,15 +19,14 @@ export const Route = createFileRoute("/clients")({
 });
 
 const clientLogos = [
-  { src: "/images/clients/client1.png", name: "UPNEDA", url: "https://upneda.org.in/" },
-  { src: "/images/clients/client2.png", name: "State PWD", url: "https://uppwd.gov.in/" },
-  { src: "/images/clients/client3.jfif", name: "NTPC", url: "https://www.ntpc.co.in/" },
-  { src: "/images/clients/client4.jpg", name: "PGCIL", url: "https://www.powergrid.in/" },
-  { src: "/images/clients/client5.png", name: "BHEL", url: "https://www.bhel.com/" },
-  { src: "/images/clients/client6.webp", name: "Smart City Mission", url: "https://smartcities.gov.in/" },
-  { src: "/images/clients/client7.jfif", name: "NHAI", url: "https://nhai.gov.in/" },
-  { src: "/images/clients/client8.jfif", name: "CPWD", url: "https://cpwd.gov.in/" },
-  { src: "/images/clients/client9.jfif", name: "GAIL", url: "https://gailonline.com/" },
+  { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
+  { src: "/images/clients/client2.png", name: "Panchayati Raj Department", url: "#" },
+  { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
+  { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
+  { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
+  { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
+  { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
+  { src: "/images/clients/client8.jfif", name: "Information & Public Relations Department", url: "#" },
 ];
 
 const clientGroups = [

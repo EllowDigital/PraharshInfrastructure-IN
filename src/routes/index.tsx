@@ -149,15 +149,14 @@ const testimonials = [
 ];
 
 const clientLogos = [
-  { src: "/images/clients/client1.png", name: "UPNEDA", url: "https://upneda.org.in/" },
-  { src: "/images/clients/client2.png", name: "State PWD", url: "https://uppwd.gov.in/" },
-  { src: "/images/clients/client3.jfif", name: "NTPC", url: "https://www.ntpc.co.in/" },
-  { src: "/images/clients/client4.jpg", name: "PGCIL", url: "https://www.powergrid.in/" },
-  { src: "/images/clients/client5.png", name: "BHEL", url: "https://www.bhel.com/" },
-  { src: "/images/clients/client6.webp", name: "Smart City Mission", url: "https://smartcities.gov.in/" },
-  { src: "/images/clients/client7.jfif", name: "NHAI", url: "https://nhai.gov.in/" },
-  { src: "/images/clients/client8.jfif", name: "CPWD", url: "https://cpwd.gov.in/" },
-  { src: "/images/clients/client9.jfif", name: "GAIL", url: "https://gailonline.com/" },
+  { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
+  { src: "/images/clients/client2.png", name: "Panchayati Raj Department", url: "#" },
+  { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
+  { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
+  { src: "/images/clients/client5.png", name: "ODOP", url: "#" },
+  { src: "/images/clients/client6.webp", name: "UP100", url: "#" },
+  { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
+  { src: "/images/clients/client8.jfif", name: "Information & Public Relations Department", url: "#" },
 ];
 
 function Home() {
@@ -387,19 +386,17 @@ function Home() {
           </div>
           <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
             {[
-              "GeM Portal Registered Seller",
-              "ISO 9001 / 14001 / 45001 Certified",
-              "MSME / Udyam Registered",
-              "EPF, ESI & GST Compliant",
-              "State PWD Empanelled",
-              "Municipal Vendor Approvals",
-            ].map((c) => (
+              { text: "UPSIC Registered", icon: Landmark },
+              { text: "GeM Registered Seller", icon: FileCheck2 },
+              { text: "UDYAM Registered", icon: Building2 },
+              { text: "GST Registered", icon: ShieldCheck },
+            ].map((badge) => (
               <div
-                key={c}
-                className="bg-white/5 border border-white/10 p-5 flex items-center gap-3 backdrop-blur-sm"
+                key={badge.text}
+                className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
               >
-                <CheckCircle2 className="w-5 h-5 text-gold shrink-0" />
-                <span className="text-white/90 text-sm">{c}</span>
+                <badge.icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
+                <span className="text-white font-display tracking-wide">{badge.text}</span>
               </div>
             ))}
           </div>

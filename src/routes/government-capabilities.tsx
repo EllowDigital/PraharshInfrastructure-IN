@@ -8,6 +8,9 @@ import {
   Building2,
   ArrowUpRight,
   CheckCircle2,
+  HardHat,
+  Sun,
+  Zap,
 } from "lucide-react";
 import govtImg from "@/assets/project-govt.jpg";
 
@@ -29,24 +32,34 @@ export const Route = createFileRoute("/government-capabilities")({
 
 const credentials = [
   {
-    icon: FileCheck2,
-    t: "GeM Portal Registered",
-    d: "Active supplier across multiple GeM categories — bid, contract and L1 management.",
-  },
-  {
     icon: ScrollText,
-    t: "Government Tender Experience",
-    d: "Decade-long history of e-tenders with state PWDs, municipalities and PSU departments.",
+    t: "Tender Participation",
+    d: "Comprehensive experience in technical and financial bid submissions across state e-procurement portals.",
   },
   {
-    icon: ShieldCheck,
-    t: "Statutory Compliance",
-    d: "EPF, ESI, GST, labour licences and HSE compliance audited across every active site.",
+    icon: Landmark,
+    t: "Public Sector Execution",
+    d: "Proven track record of delivering multi-site government projects with strict adherence to contractual milestones.",
   },
   {
-    icon: Building2,
-    t: "Empanelled Vendor",
-    d: "Listed contractor with multiple municipal corporations and electricity distribution companies.",
+    icon: FileCheck2,
+    t: "Procurement Support",
+    d: "Active GeM portal seller, facilitating streamlined category-mapped procurement for state and central agencies.",
+  },
+  {
+    icon: HardHat,
+    t: "Infrastructure Development",
+    d: "Turnkey civic works ranging from urban pole installations to high mast lighting across municipal jurisdictions.",
+  },
+  {
+    icon: Sun,
+    t: "Solar Projects",
+    d: "Large-scale deployment of solar street lighting and renewable energy systems for rural and urban development.",
+  },
+  {
+    icon: Zap,
+    t: "Public Utility Works",
+    d: "Execution of essential electrical and public utility infrastructure, including cabling, panel works, and substation upgrades.",
   },
 ];
 
@@ -85,8 +98,8 @@ function Govt() {
         </div>
       </section>
 
-      <Section eyebrow="Credentials" title="Procurement-ready, every day.">
-        <div className="grid md:grid-cols-2 gap-px bg-border -mt-8">
+      <Section eyebrow="Core Competencies" title="Government Capabilities">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
           {credentials.map((c, i) => (
             <div key={c.t} className="bg-background p-10 card-hover">
               <div className="flex items-start justify-between mb-8">
@@ -95,7 +108,7 @@ function Govt() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="font-display text-2xl text-navy leading-tight">{c.t}</h3>
+              <h3 className="font-display text-xl text-navy leading-tight">{c.t}</h3>
               <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{c.d}</p>
             </div>
           ))}
