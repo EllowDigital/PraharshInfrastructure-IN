@@ -28,10 +28,26 @@ export const Route = createFileRoute("/government-capabilities")({
 });
 
 const credentials = [
-  { icon: FileCheck2, t: "GeM Portal Registered", d: "Active supplier across multiple GeM categories — bid, contract and L1 management." },
-  { icon: ScrollText, t: "Government Tender Experience", d: "Decade-long history of e-tenders with state PWDs, municipalities and PSU departments." },
-  { icon: ShieldCheck, t: "Statutory Compliance", d: "EPF, ESI, GST, labour licences and HSE compliance audited across every active site." },
-  { icon: Building2, t: "Empanelled Vendor", d: "Listed contractor with multiple municipal corporations and electricity distribution companies." },
+  {
+    icon: FileCheck2,
+    t: "GeM Portal Registered",
+    d: "Active supplier across multiple GeM categories — bid, contract and L1 management.",
+  },
+  {
+    icon: ScrollText,
+    t: "Government Tender Experience",
+    d: "Decade-long history of e-tenders with state PWDs, municipalities and PSU departments.",
+  },
+  {
+    icon: ShieldCheck,
+    t: "Statutory Compliance",
+    d: "EPF, ESI, GST, labour licences and HSE compliance audited across every active site.",
+  },
+  {
+    icon: Building2,
+    t: "Empanelled Vendor",
+    d: "Listed contractor with multiple municipal corporations and electricity distribution companies.",
+  },
 ];
 
 const departments = [
@@ -103,9 +119,21 @@ function Govt() {
       <Section eyebrow="GeM Expertise" title="A procurement workflow tuned for public buyers.">
         <div className="grid lg:grid-cols-3 gap-px bg-border -mt-8">
           {[
-            { n: "01", t: "Bid Discovery", d: "Daily GeM and state e-procurement portal scanning with category-mapped alerts." },
-            { n: "02", t: "Compliant Submission", d: "In-house tender cell prepares technical and financial bids within standard timelines." },
-            { n: "03", t: "Contract Execution", d: "Dedicated PMC team handles delivery, inspection, billing and warranty servicing." },
+            {
+              n: "01",
+              t: "Bid Discovery",
+              d: "Daily GeM and state e-procurement portal scanning with category-mapped alerts.",
+            },
+            {
+              n: "02",
+              t: "Compliant Submission",
+              d: "In-house tender cell prepares technical and financial bids within standard timelines.",
+            },
+            {
+              n: "03",
+              t: "Contract Execution",
+              d: "Dedicated PMC team handles delivery, inspection, billing and warranty servicing.",
+            },
           ].map((s) => (
             <div key={s.n} className="bg-background p-10">
               <div className="font-display text-5xl text-gold/70">{s.n}</div>

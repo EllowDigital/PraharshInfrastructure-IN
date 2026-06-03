@@ -32,14 +32,7 @@ const clientGroups = [
   },
   {
     label: "PSU & Utilities",
-    list: [
-      "NTPC",
-      "PGCIL",
-      "BHEL",
-      "State Electricity Boards",
-      "UPNEDA",
-      "DISCOMs",
-    ],
+    list: ["NTPC", "PGCIL", "BHEL", "State Electricity Boards", "UPNEDA", "DISCOMs"],
   },
   {
     label: "Private Sector",

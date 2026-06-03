@@ -1,13 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import {
-  Lightbulb,
-  Sun,
-  Zap,
-  Landmark,
-  Signpost,
-  ArrowUpRight,
-} from "lucide-react";
+import { Lightbulb, Sun, Zap, Landmark, Signpost, ArrowUpRight } from "lucide-react";
 import civilImg from "@/assets/project-civil.jpg";
 import solarImg from "@/assets/project-solar.jpg";
 import electricalImg from "@/assets/project-electrical.jpg";

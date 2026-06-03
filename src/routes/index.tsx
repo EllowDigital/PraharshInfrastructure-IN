@@ -44,11 +44,31 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { icon: Lightbulb, title: "Infrastructure Development", desc: "High mast lighting, public lighting systems and urban/rural development." },
-  { icon: Sun, title: "Solar Energy Solutions", desc: "Solar street lights, high mast and energy-efficient renewable installations." },
-  { icon: Zap, title: "Electrical Works", desc: "Public utility lighting, cabling and electrical infrastructure." },
-  { icon: Landmark, title: "Government Supply", desc: "Healthcare, sanitation, safety and utility material supplies." },
-  { icon: Signpost, title: "Branding & Signage", desc: "ACP cladding, reflective signage and government branding works." },
+  {
+    icon: Lightbulb,
+    title: "Infrastructure Development",
+    desc: "High mast lighting, public lighting systems and urban/rural development.",
+  },
+  {
+    icon: Sun,
+    title: "Solar Energy Solutions",
+    desc: "Solar street lights, high mast and energy-efficient renewable installations.",
+  },
+  {
+    icon: Zap,
+    title: "Electrical Works",
+    desc: "Public utility lighting, cabling and electrical infrastructure.",
+  },
+  {
+    icon: Landmark,
+    title: "Government Supply",
+    desc: "Healthcare, sanitation, safety and utility material supplies.",
+  },
+  {
+    icon: Signpost,
+    title: "Branding & Signage",
+    desc: "ACP cladding, reflective signage and government branding works.",
+  },
 ];
 
 const stats = [
@@ -59,25 +79,73 @@ const stats = [
 ];
 
 const featured = [
-  { img: solarImg, tag: "Solar", title: "900 Solar Street Light Project", client: "Barabanki District" },
-  { img: electricalImg, tag: "High Mast", title: "61 High Mast Lighting Project", client: "State PWD" },
-  { img: solarImg, tag: "Solar", title: "565 Solar Street Light Project", client: "Municipal Corp." },
-  { img: govtImg, tag: "Government", title: "Healthcare & Sanitation Supply", client: "Health Mission" },
+  {
+    img: solarImg,
+    tag: "Solar",
+    title: "900 Solar Street Light Project",
+    client: "Barabanki District",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast",
+    title: "61 High Mast Lighting Project",
+    client: "State PWD",
+  },
+  {
+    img: solarImg,
+    tag: "Solar",
+    title: "565 Solar Street Light Project",
+    client: "Municipal Corp.",
+  },
+  {
+    img: govtImg,
+    tag: "Government",
+    title: "Healthcare & Sanitation Supply",
+    client: "Health Mission",
+  },
 ];
 
 const whyUs = [
-  { icon: FileBadge2, t: "GeM Procurement Expert", d: "Active GeM seller with category-mapped fulfilment." },
+  {
+    icon: FileBadge2,
+    t: "GeM Procurement Expert",
+    d: "Active GeM seller with category-mapped fulfilment.",
+  },
   { icon: Award, t: "ISO Certified Operations", d: "9001, 14001 and 45001 management systems." },
-  { icon: Clock, t: "On-Time Delivery", d: "Contractual milestones met across multi-site rollouts." },
-  { icon: HardHat, t: "Field-Trained Crew", d: "In-house electricians, riggers and site supervisors." },
+  {
+    icon: Clock,
+    t: "On-Time Delivery",
+    d: "Contractual milestones met across multi-site rollouts.",
+  },
+  {
+    icon: HardHat,
+    t: "Field-Trained Crew",
+    d: "In-house electricians, riggers and site supervisors.",
+  },
   { icon: Leaf, t: "Sustainable First", d: "Solar-led lighting to cut public energy costs." },
-  { icon: ShieldCheck, t: "Transparent Execution", d: "Audit-ready billing and progress documentation." },
+  {
+    icon: ShieldCheck,
+    t: "Transparent Execution",
+    d: "Audit-ready billing and progress documentation.",
+  },
 ];
 
 const testimonials = [
-  { q: "Praharsh delivered our 900 solar street light deployment ahead of schedule, with documentation audit-ready on day one.", n: "District Administration", r: "Barabanki" },
-  { q: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.", n: "Executive Engineer", r: "State PWD" },
-  { q: "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.", n: "Procurement Officer", r: "Municipal Corp." },
+  {
+    q: "Praharsh delivered our 900 solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    n: "District Administration",
+    r: "Barabanki",
+  },
+  {
+    q: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
+    n: "Executive Engineer",
+    r: "State PWD",
+  },
+  {
+    q: "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
+    n: "Procurement Officer",
+    r: "Municipal Corp.",
+  },
 ];
 
 function Home() {
@@ -106,8 +174,9 @@ function Home() {
               <span className="text-gold italic font-display">empowering</span> tomorrow.
             </h1>
             <p className="mt-8 max-w-xl text-white/80 text-lg leading-relaxed reveal reveal-delay-2">
-              A multi-disciplinary infrastructure, solar and government supply contractor — engineering
-              public utility projects with discipline, integrity and measurable outcomes.
+              A multi-disciplinary infrastructure, solar and government supply contractor —
+              engineering public utility projects with discipline, integrity and measurable
+              outcomes.
             </p>
             <div className="mt-10 flex flex-wrap gap-4 reveal reveal-delay-3">
               <Link
@@ -129,7 +198,10 @@ function Home() {
       </section>
 
       {/* 2. COMPANY OVERVIEW */}
-      <Section eyebrow="Who We Are" title="An infrastructure contractor built for the public sector.">
+      <Section
+        eyebrow="Who We Are"
+        title="An infrastructure contractor built for the public sector."
+      >
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
           <div className="lg:col-span-7 image-zoom">
             <img
@@ -147,9 +219,21 @@ function Home() {
             </p>
             <div className="mt-10 space-y-6">
               {[
-                { icon: Building2, t: "Multi-Vertical Capability", d: "Five integrated business areas under one project management system." },
-                { icon: ShieldCheck, t: "GeM & PSU Empanelled", d: "Verified GeM seller serving municipal, district and PSU clients." },
-                { icon: Award, t: "ISO Certified", d: "9001, 14001 and 45001 audited management systems." },
+                {
+                  icon: Building2,
+                  t: "Multi-Vertical Capability",
+                  d: "Five integrated business areas under one project management system.",
+                },
+                {
+                  icon: ShieldCheck,
+                  t: "GeM & PSU Empanelled",
+                  d: "Verified GeM seller serving municipal, district and PSU clients.",
+                },
+                {
+                  icon: Award,
+                  t: "ISO Certified",
+                  d: "9001, 14001 and 45001 audited management systems.",
+                },
               ].map((b) => (
                 <div key={b.t} className="flex gap-5">
                   <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">

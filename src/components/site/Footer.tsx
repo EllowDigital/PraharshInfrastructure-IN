@@ -12,7 +12,9 @@ export function Footer() {
             </div>
             <div>
               <div className="font-display text-white text-lg">Praharsh Infrastructure</div>
-              <div className="eyebrow text-gold/90 text-[0.6rem]">Building Today, Empowering Tomorrow</div>
+              <div className="eyebrow text-gold/90 text-[0.6rem]">
+                Building Today, Empowering Tomorrow
+              </div>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-white/65 max-w-sm">
@@ -31,11 +33,31 @@ export function Footer() {
         <div className="lg:col-span-2">
           <div className="eyebrow text-gold mb-5">Company</div>
           <ul className="space-y-3 text-sm">
-            <li><Link to="/about" className="hover:text-gold">About Us</Link></li>
-            <li><Link to="/services" className="hover:text-gold">Services</Link></li>
-            <li><Link to="/projects" className="hover:text-gold">Projects</Link></li>
-            <li><Link to="/clients" className="hover:text-gold">Clients</Link></li>
-            <li><Link to="/contact" className="hover:text-gold">Contact</Link></li>
+            <li>
+              <Link to="/about" className="hover:text-gold">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/projects" className="hover:text-gold">
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link to="/clients" className="hover:text-gold">
+                Clients
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-gold">
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -55,7 +77,9 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 mt-0.5 text-gold shrink-0" />
-              Praharsh Tower, Lucknow,<br />Uttar Pradesh, India
+              Praharsh Tower, Lucknow,
+              <br />
+              Uttar Pradesh, India
             </li>
             <li className="flex gap-3">
               <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" /> +91 0000 000 000
@@ -81,9 +105,7 @@ export function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
-          <div>
-            © {new Date().getFullYear()} Praharsh Infrastructure. All rights reserved.
-          </div>
+          <div>© {new Date().getFullYear()} Praharsh Infrastructure. All rights reserved.</div>
           <div className="flex gap-6">
             <span>ISO 9001:2015</span>
             <span>GeM Registered</span>

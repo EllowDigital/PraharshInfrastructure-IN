@@ -19,12 +19,42 @@ export const Route = createFileRoute("/certifications")({
 });
 
 const certs = [
-  { icon: Award, code: "ISO 9001:2015", t: "Quality Management System", d: "Documented quality processes across estimation, procurement, execution and handover." },
-  { icon: ShieldCheck, code: "ISO 14001:2015", t: "Environmental Management", d: "Environmental compliance across every active project site." },
-  { icon: BadgeCheck, code: "ISO 45001:2018", t: "Occupational Health & Safety", d: "Zero-harm safety culture with site-level audits and incident reporting." },
-  { icon: FileBadge2, code: "GeM Seller", t: "Government e-Marketplace", d: "Verified seller across lighting, electrical and government supply categories." },
-  { icon: Stamp, code: "MSME / Udyam", t: "Registered Enterprise", d: "Udyam-registered MSME — eligible for priority procurement schemes." },
-  { icon: BadgeCheck, code: "GST & PAN", t: "Statutory Registrations", d: "GSTIN, PAN, TAN, EPF, ESI and labour licences in active compliance." },
+  {
+    icon: Award,
+    code: "ISO 9001:2015",
+    t: "Quality Management System",
+    d: "Documented quality processes across estimation, procurement, execution and handover.",
+  },
+  {
+    icon: ShieldCheck,
+    code: "ISO 14001:2015",
+    t: "Environmental Management",
+    d: "Environmental compliance across every active project site.",
+  },
+  {
+    icon: BadgeCheck,
+    code: "ISO 45001:2018",
+    t: "Occupational Health & Safety",
+    d: "Zero-harm safety culture with site-level audits and incident reporting.",
+  },
+  {
+    icon: FileBadge2,
+    code: "GeM Seller",
+    t: "Government e-Marketplace",
+    d: "Verified seller across lighting, electrical and government supply categories.",
+  },
+  {
+    icon: Stamp,
+    code: "MSME / Udyam",
+    t: "Registered Enterprise",
+    d: "Udyam-registered MSME — eligible for priority procurement schemes.",
+  },
+  {
+    icon: BadgeCheck,
+    code: "GST & PAN",
+    t: "Statutory Registrations",
+    d: "GSTIN, PAN, TAN, EPF, ESI and labour licences in active compliance.",
+  },
 ];
 
 function Certifications() {

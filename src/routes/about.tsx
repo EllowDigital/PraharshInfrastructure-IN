@@ -97,13 +97,34 @@ function About() {
       <Section muted eyebrow="Core Strengths" title="What sets Praharsh apart.">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
           {[
-            { t: "Government Tender Experience", d: "Decade of e-tenders across state and municipal bodies." },
-            { t: "GeM Procurement Expertise", d: "Active GeM seller with proven order fulfilment record." },
-            { t: "Technical Team", d: "Engineers, electricians and field supervisors trained in-house." },
-            { t: "Quality Assurance", d: "Material inspection and field QA tied to ISO 9001 workflows." },
-            { t: "Sustainable Solutions", d: "Solar-first approach for public lighting deployments." },
-            { t: "Timely Delivery", d: "Contractual milestones met across complex multi-site rollouts." },
-            { t: "Transparent Execution", d: "Audit-ready billing and progress documentation by default." },
+            {
+              t: "Government Tender Experience",
+              d: "Decade of e-tenders across state and municipal bodies.",
+            },
+            {
+              t: "GeM Procurement Expertise",
+              d: "Active GeM seller with proven order fulfilment record.",
+            },
+            {
+              t: "Technical Team",
+              d: "Engineers, electricians and field supervisors trained in-house.",
+            },
+            {
+              t: "Quality Assurance",
+              d: "Material inspection and field QA tied to ISO 9001 workflows.",
+            },
+            {
+              t: "Sustainable Solutions",
+              d: "Solar-first approach for public lighting deployments.",
+            },
+            {
+              t: "Timely Delivery",
+              d: "Contractual milestones met across complex multi-site rollouts.",
+            },
+            {
+              t: "Transparent Execution",
+              d: "Audit-ready billing and progress documentation by default.",
+            },
             { t: "Safety Culture", d: "HSE practices embedded in every site mobilisation." },
             { t: "After-Sales Service", d: "Warranty, AMC and grievance response within SLAs." },
           ].map((s) => (
