@@ -26,6 +26,7 @@ import govtImg from "@/assets/project-govt.jpg";
 import civilImg from "@/assets/project-civil.jpg";
 import teamImg from "@/assets/about-team.jpg";
 import { Section } from "@/components/site/Section";
+import { AnimatedStat } from "@/components/site/AnimatedStat";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -341,8 +342,7 @@ function Home() {
               key={s.l}
               className={`px-6 py-6 ${i < stats.length - 1 ? "lg:border-r border-white/10" : ""}`}
             >
-              <div className="font-display text-5xl lg:text-6xl text-gold">{s.v}</div>
-              <div className="text-xs text-white/65 mt-3 tracking-widest uppercase">{s.l}</div>
+              <AnimatedStat value={s.v} label={s.l} />
             </div>
           ))}
         </div>
