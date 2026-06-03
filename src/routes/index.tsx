@@ -48,27 +48,37 @@ export const Route = createFileRoute("/")({
 const services = [
   {
     icon: Lightbulb,
+    img: civilImg,
     title: "Infrastructure Development",
+    titleShort: "Infrastructure",
     desc: "High Mast Light Installation, Solar Street Light Projects, Electrical Infrastructure Works, Pole Installation & Public Lighting, Rural & Urban Development Works, Smart City Development Projects.",
   },
   {
     icon: Sun,
+    img: solarImg,
     title: "Solar Energy Solutions",
+    titleShort: "Solar Energy",
     desc: "Solar Street Lights, Solar High Mast Systems, Renewable Energy Installations, Energy Efficient Lighting Systems.",
   },
   {
     icon: Zap,
+    img: electricalImg,
     title: "Electrical Works",
+    titleShort: "Electrical",
     desc: "LED Street Lighting, Public Utility Lighting, Electrical Equipment Installation, Cable & Pole Installation.",
   },
   {
     icon: Landmark,
+    img: govtImg,
     title: "Government Supply",
+    titleShort: "Government",
     desc: "Sanitation Products, Healthcare Supplies, Industrial Safety Equipment, Public Utility Materials, Chemical & Cleaning Supplies.",
   },
   {
     icon: Signpost,
+    img: heroImg,
     title: "Branding & Signage",
+    titleShort: "Branding",
     desc: "ACP Sheet Cladding, Acrylic Sign Boards, Reflective Signage, Government Branding Works.",
   },
 ];
@@ -312,24 +322,40 @@ function Home() {
         title="Five business areas. One execution standard."
         intro="Integrated capabilities operating under shared engineering, procurement and HSE systems."
       >
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-border">
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
           {services.map((s, i) => (
-            <div key={s.title} className="bg-background p-8 card-hover group">
-              <div className="flex items-start justify-between mb-8">
-                <s.icon className="w-9 h-9 text-gold" strokeWidth={1.4} />
-                <span className="font-display text-xs text-muted-foreground">
+            <article
+              key={s.title}
+              className="group overflow-hidden bg-background border border-border shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-card"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent" />
+                <div className="absolute left-4 top-4 flex items-center gap-3 rounded-sm bg-white/92 px-3 py-2 backdrop-blur-sm">
+                  <s.icon className="h-5 w-5 text-gold" strokeWidth={1.6} />
+                  <span className="font-display text-sm text-navy">{s.titleShort}</span>
+                </div>
+                <span className="absolute right-4 top-4 font-display text-sm text-white/90">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="font-display text-xl text-navy leading-tight">{s.title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-              <Link
-                to="/services"
-                className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-navy group-hover:text-gold transition-colors"
-              >
-                Explore <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
+
+              <div className="flex h-full flex-col p-7">
+                <h3 className="font-display text-2xl text-navy leading-tight">{s.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <Link
+                  to="/services"
+                  className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-navy transition-colors group-hover:text-gold"
+                >
+                  Explore <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </article>
           ))}
         </div>
       </Section>
