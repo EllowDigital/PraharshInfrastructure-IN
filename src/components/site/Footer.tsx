@@ -69,11 +69,14 @@ export function Footer() {
         <div className="lg:col-span-3">
           <div className="eyebrow text-gold mb-5">Capabilities</div>
           <ul className="space-y-3 text-sm">
-            <li>High Mast Lighting</li>
-            <li>Solar Street Lights</li>
-            <li>Electrical Infrastructure</li>
-            <li>Government Supplies</li>
+            <li>Infrastructure Development</li>
+            <li>Road Infrastructure</li>
+            <li>Solar Energy Solutions</li>
+            <li>Electrical & Lighting Works</li>
+            <li>Outdoor & Indoor Advertising</li>
+            <li>Digital Advertising</li>
             <li>Branding & Signage</li>
+            <li>Government Supply Services</li>
           </ul>
         </div>
 
@@ -82,15 +85,19 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 mt-0.5 text-gold shrink-0" />
-              Plot No. 16, Khara No. 91, Village Chak Malhauri,
-              <br />
-              Ward Chinhat, Lucknow — 226028
+              <span>
+                A-3/1202, Purvanchal Kings Court,
+                <br />
+                Vinamra Khand, Gomti Nagar,
+                <br />
+                Lucknow, Uttar Pradesh — 226010
+              </span>
             </li>
             <li className="flex gap-3">
               <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" /> +91-7800009165
             </li>
             <li className="flex gap-3">
-              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" /> pspralaysingh@gmail.com
+              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" /> info@praharshinfrastructure.com
             </li>
           </ul>
 
