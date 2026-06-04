@@ -1,10 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import { Lightbulb, Sun, Zap, Landmark, Signpost, ArrowUpRight } from "lucide-react";
+import {
+  Lightbulb,
+  Sun,
+  Zap,
+  Landmark,
+  Signpost,
+  ArrowUpRight,
+  Route as RouteIcon,
+  Megaphone,
+  MonitorPlay,
+} from "lucide-react";
 import civilImg from "@/assets/project-civil.jpg";
 import solarImg from "@/assets/project-solar.jpg";
 import electricalImg from "@/assets/project-electrical.jpg";
 import govtImg from "@/assets/project-govt.jpg";
+import roadsImg from "@/assets/hero-slide-roads.jpg";
+import unipoleImg from "@/assets/hero-slide-unipole.jpg";
+import highmastImg from "@/assets/hero-slide-highmast.jpg";
 import heroImg from "@/assets/hero-construction.jpg";
 
 export const Route = createFileRoute("/services")({
@@ -14,10 +27,10 @@ export const Route = createFileRoute("/services")({
       {
         name: "description",
         content:
-          "Infrastructure development, solar energy, electrical works, government supplies and branding services by Praharsh Infrastructure.",
+          "Infrastructure, road, solar, electrical, advertising, digital media, branding and government supply services delivered by Praharsh Infrastructure.",
       },
       { property: "og:title", content: "Our Services" },
-      { property: "og:description", content: "Five integrated business verticals." },
+      { property: "og:description", content: "Eight integrated business verticals." },
     ],
   }),
   component: Services,
@@ -36,6 +49,20 @@ const services = [
       "Pole Installation & Public Lighting",
       "Rural & Urban Development Works",
       "Smart City Development Projects",
+      "Civil Development Works (Roads, Highways & Buildings)",
+    ],
+  },
+  {
+    icon: RouteIcon,
+    img: roadsImg,
+    name: "Road Infrastructure Projects",
+    desc: "Highway, expressway and urban road infrastructure with integrated safety, lighting and smart traffic systems.",
+    items: [
+      "Highway & Expressway Lighting",
+      "Road Safety & Traffic Management Systems",
+      "Asphalt & Concrete Pathway Development",
+      "Retroreflective Road Signage & Markers",
+      "Smart Traffic Control Infrastructure",
     ],
   },
   {
@@ -63,16 +90,30 @@ const services = [
     ],
   },
   {
-    icon: Landmark,
-    img: govtImg,
-    name: "Government Supply Services",
-    desc: "GeM-registered sourcing and delivery of hygiene, safety, healthcare and utility materials.",
+    icon: Megaphone,
+    img: unipoleImg,
+    name: "Outdoor & Indoor Advertising",
+    desc: "End-to-end OOH and indoor brand visibility — from highway unipoles to retail and event environments.",
     items: [
-      "Sanitation Products",
-      "Healthcare Supplies",
-      "Industrial Safety Equipment",
-      "Public Utility Materials",
-      "Chemical & Cleaning Supplies",
+      "Unipoles & Hoardings (OOH)",
+      "Bus Shelter & Transit Advertising",
+      "In-Store & Retail Branding Displays",
+      "Exhibition Stalls & Event Kiosks",
+    ],
+  },
+  {
+    icon: MonitorPlay,
+    img: highmastImg,
+    name: "Digital Advertising",
+    desc: "Digital and DOOH media solutions for government, public and enterprise brand building campaigns.",
+    items: [
+      "Social Media Management",
+      "Bulk SMS & WhatsApp Messages",
+      "Bulk Voice Calling",
+      "DOOH Screens & LED Walls",
+      "360° Media Solutions",
+      "Smart Digital Signage",
+      "Digital Brand Building Solutions",
     ],
   },
   {
@@ -85,6 +126,19 @@ const services = [
       "Acrylic Sign Boards",
       "Reflective Signage",
       "Government Branding Works",
+    ],
+  },
+  {
+    icon: Landmark,
+    img: govtImg,
+    name: "Government Supply Services",
+    desc: "GeM-registered sourcing and delivery of hygiene, safety, healthcare and utility materials.",
+    items: [
+      "Sanitation Products",
+      "Healthcare Supplies",
+      "Industrial Safety Equipment",
+      "Public Utility Materials",
+      "Chemical & Cleaning Supplies",
     ],
   },
 ];
