@@ -152,13 +152,14 @@ function Services() {
             <span className="gold-rule mr-3 align-middle" /> What We Do
           </div>
           <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
-            Five verticals.
+            Eight verticals.
             <br />
             <span className="italic text-gold">One execution standard.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/70 leading-relaxed">
-            Integrated infrastructure, solar, electrical, government supply and branding
-            capabilities — operating under shared engineering, procurement and HSE systems.
+            Integrated infrastructure, road, solar, electrical, advertising, digital media,
+            branding and government supply capabilities — operating under shared engineering,
+            procurement and HSE systems.
           </p>
         </div>
       </section>
