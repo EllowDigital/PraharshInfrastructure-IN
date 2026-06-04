@@ -10,23 +10,27 @@ import {
   Award,
   Quote,
   Download,
-  CheckCircle2,
   Building2,
-  Users,
   FileBadge2,
   FileCheck2,
   Clock,
   HardHat,
   Leaf,
+  Route as RouteIcon,
+  Megaphone,
+  MonitorPlay,
 } from "lucide-react";
-import heroImg from "@/assets/hero-construction.jpg";
+import heroImg from "@/assets/hero-slide-civil.jpg";
 import solarImg from "@/assets/project-solar.jpg";
 import electricalImg from "@/assets/project-electrical.jpg";
 import govtImg from "@/assets/project-govt.jpg";
 import civilImg from "@/assets/project-civil.jpg";
+import roadsImg from "@/assets/hero-slide-roads.jpg";
+import unipoleImg from "@/assets/hero-slide-unipole.jpg";
 import teamImg from "@/assets/about-team.jpg";
 import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
+import { HeroSlider } from "@/components/site/HeroSlider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +39,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Praharsh Infrastructure delivers infrastructure and government supply services across India — building a better tomorrow through sustainable public lighting, solar and electrical projects.",
+          "Praharsh Infrastructure delivers infrastructure, road, solar, electrical, advertising and government supply services across India.",
       },
       { property: "og:title", content: "Praharsh Infrastructure" },
       { property: "og:description", content: "Building Today, Empowering Tomorrow." },
@@ -51,35 +55,56 @@ const services = [
     img: civilImg,
     title: "Infrastructure Development",
     titleShort: "Infrastructure",
-    desc: "High Mast Light Installation, Solar Street Light Projects, Electrical Infrastructure Works, Pole Installation & Public Lighting, Rural & Urban Development Works, Smart City Development Projects.",
+    desc: "High mast lighting, solar street lights, pole installation, public utility works and civil development for roads, highways and buildings.",
+  },
+  {
+    icon: RouteIcon,
+    img: roadsImg,
+    title: "Road Infrastructure",
+    titleShort: "Roads",
+    desc: "Highway & expressway lighting, road safety, asphalt & concrete pathway development, retroreflective signage and smart traffic control.",
   },
   {
     icon: Sun,
     img: solarImg,
     title: "Solar Energy Solutions",
     titleShort: "Solar Energy",
-    desc: "Solar Street Lights, Solar High Mast Systems, Renewable Energy Installations, Energy Efficient Lighting Systems.",
+    desc: "Solar street lights, solar high mast systems, renewable energy installations and energy-efficient public lighting.",
   },
   {
     icon: Zap,
     img: electricalImg,
-    title: "Electrical Works",
+    title: "Electrical & Lighting",
     titleShort: "Electrical",
-    desc: "LED Street Lighting, Public Utility Lighting, Electrical Equipment Installation, Cable & Pole Installation.",
+    desc: "LED street lighting, public utility lighting, electrical equipment installation, cable and pole installation.",
+  },
+  {
+    icon: Megaphone,
+    img: unipoleImg,
+    title: "Outdoor & Indoor Advertising",
+    titleShort: "Advertising",
+    desc: "Unipoles & hoardings (OOH), bus shelter & transit advertising, in-store retail branding, exhibition stalls and event kiosks.",
+  },
+  {
+    icon: MonitorPlay,
+    img: heroImg,
+    title: "Digital Advertising",
+    titleShort: "Digital Media",
+    desc: "Social media, Bulk SMS / WhatsApp / Voice, DOOH screens, LED walls, 360° media solutions and smart digital signage.",
+  },
+  {
+    icon: Signpost,
+    img: govtImg,
+    title: "Branding & Signage",
+    titleShort: "Branding",
+    desc: "ACP sheet cladding, acrylic sign boards, reflective signage and government branding works.",
   },
   {
     icon: Landmark,
     img: govtImg,
     title: "Government Supply",
     titleShort: "Government",
-    desc: "Sanitation Products, Healthcare Supplies, Industrial Safety Equipment, Public Utility Materials, Chemical & Cleaning Supplies.",
-  },
-  {
-    icon: Signpost,
-    img: heroImg,
-    title: "Branding & Signage",
-    titleShort: "Branding",
-    desc: "ACP Sheet Cladding, Acrylic Sign Boards, Reflective Signage, Government Branding Works.",
+    desc: "Sanitation, healthcare, industrial safety, public utility, chemical and cleaning supplies — GeM enabled.",
   },
 ];
 
