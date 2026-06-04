@@ -40,10 +40,10 @@ function About() {
             Building today, <span className="italic text-gold">empowering tomorrow.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/75 leading-relaxed reveal reveal-delay-2">
-            Praharsh Infrastructure is a fast-growing infrastructure, electrical, solar energy and
-            government supply company based in Lucknow, UP. We execute government projects through
-            UPSIC, DRDA, Nagar Panchayats and other government departments with a focus on
-            reliability and compliance.
+            Praharsh Infrastructure is a fast-growing infrastructure, road, solar, electrical,
+            advertising, digital media and government supply company based in Lucknow, UP. We
+            deliver projects for UPSIC, DRDA, UPRNN, Nagar Palika / Panchayat, UP Tourism, UP 100,
+            ODOP and other state and central agencies.
           </p>
         </div>
       </section>

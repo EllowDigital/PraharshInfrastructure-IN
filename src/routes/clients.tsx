@@ -46,16 +46,20 @@ const clientLogos = [
 
 const clientGroups = [
   {
-    label: "Official Client Partners",
+    label: "Government & Public Sector Network",
     list: [
-      "Uttar Pradesh Government",
-      "UP Global Investors Summit (2023 Lucknow)",
-      "ODOP (One District One Product)",
-      "UPRNN",
+      "UPSIC — UP Small Industries Corporation Ltd.",
+      "DRDA — District Rural Development Agency",
+      "UPRNN — UP Rajkiya Nirman Nigam Ltd.",
+      "Nagar Palika / Nagar Panchayat",
       "UP Tourism",
-      "Basic Shiksha Parishad",
-      "Information and Public Relations Department UP",
+      "UP 100",
+      "ODOP — One District One Product",
+      "UP Global Investors Summit (2023 Lucknow)",
       "Panchayati Raj Directorate",
+      "Basic Shiksha Parishad",
+      "Information & Public Relations Department, UP",
+      "Uttar Pradesh Government",
     ],
   },
 ];
