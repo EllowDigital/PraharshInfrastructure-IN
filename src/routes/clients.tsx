@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Quote, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/clients")({
@@ -131,14 +138,47 @@ function Clients() {
         </div>
       </section>
 
-      <Section muted eyebrow="Testimonials" title="What our clients say.">
-        <div className="grid md:grid-cols-3 gap-6 -mt-8">
+      <Section
+        muted
+        eyebrow="Testimonials"
+        title="What our clients say."
+        intro="Swipe through a few recent notes from project stakeholders across the public and private sector."
+      >
+        <div className="lg:hidden -mt-8">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <CarouselContent className="-ml-4">
+              {testimonials.map((t, i) => (
+                <CarouselItem
+                  key={i}
+                  className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]"
+                >
+                  <div className="bg-background p-8 sm:p-10 border-t-2 border-gold shadow-card card-hover h-full">
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">
+                      <Quote className="h-6 w-6" />
+                    </div>
+                    <p className="text-navy leading-relaxed text-base sm:text-lg">{t.q}</p>
+                    <div className="mt-8 pt-6 border-t border-border">
+                      <div className="font-display text-navy text-lg">{t.n}</div>
+                      <div className="text-sm text-muted-foreground mt-1">{t.r}</div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:inline-flex -top-16 left-auto right-14" />
+            <CarouselNext className="hidden md:inline-flex -top-16 right-0" />
+          </Carousel>
+        </div>
+
+        <div className="hidden lg:grid lg:grid-cols-3 gap-6 -mt-8">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-background p-10 border-t-2 border-gold card-hover">
-              <Quote className="w-8 h-8 text-gold mb-6" />
+            <div key={i} className="bg-background p-10 border-t-2 border-gold shadow-card card-hover">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">
+                <Quote className="h-6 w-6" />
+              </div>
               <p className="text-navy leading-relaxed">{t.q}</p>
               <div className="mt-8 pt-6 border-t border-border">
-                <div className="font-display text-navy">{t.n}</div>
+                <div className="font-display text-navy text-lg">{t.n}</div>
                 <div className="text-sm text-muted-foreground mt-1">{t.r}</div>
               </div>
             </div>
