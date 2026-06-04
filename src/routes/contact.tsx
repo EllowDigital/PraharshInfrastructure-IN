@@ -134,13 +134,10 @@ function Contact() {
                 className="space-y-6"
               >
                 <input type="hidden" name="form-name" value="contact" />
-                <input type="hidden" name="bot-field" value="" />
-                <div className="sr-only" aria-hidden="true">
-                  <label>
-                    Don’t fill this out if you’re human:
-                    <input name="bot-field" />
-                  </label>
-                </div>
+                <p className="sr-only">
+                  <label htmlFor="bot-field">Don’t fill this out if you’re human:</label>
+                  <input id="bot-field" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
+                </p>
                 <h2 className="font-display text-3xl text-navy">Request a Proposal</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <Field label="Full Name" name="name" required />
