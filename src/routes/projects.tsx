@@ -3,8 +3,9 @@ import { Section } from "@/components/site/Section";
 import solarImg from "@/assets/project-solar.jpg";
 import electricalImg from "@/assets/project-electrical.jpg";
 import govtImg from "@/assets/project-govt.jpg";
+import roadsImg from "@/assets/hero-slide-roads.jpg";
+import unipoleImg from "@/assets/hero-slide-unipole.jpg";
 import civilImg from "@/assets/project-civil.jpg";
-import heroImg from "@/assets/hero-construction.jpg";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/projects")({
       {
         name: "description",
         content:
-          "Major solar street lighting, high mast and government infrastructure projects delivered by Praharsh Infrastructure.",
+          "Solar, lighting, road, civil, media display and GeM supply projects delivered by Praharsh Infrastructure across India.",
       },
       { property: "og:title", content: "Praharsh Projects" },
       { property: "og:description", content: "A portfolio measured in landmarks." },
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/projects")({
 });
 
 const projects = [
+  // Solar
   {
     img: solarImg,
     tag: "Solar Street Lighting",
@@ -55,6 +57,7 @@ const projects = [
     client: "Nagar Panchayat and DRDA",
     year: "2023",
   },
+  // High Mast
   {
     img: electricalImg,
     tag: "High Mast Lighting",
@@ -86,6 +89,129 @@ const projects = [
     location: "Government street illumination",
     client: "Municipal clients",
     year: "2022",
+  },
+  // Civil & Safety
+  {
+    img: roadsImg,
+    tag: "Road Infrastructure",
+    title: "Highway & Expressway Lighting Project",
+    location: "Multi-corridor public lighting",
+    client: "State highway authorities",
+    year: "2024",
+  },
+  {
+    img: roadsImg,
+    tag: "Road Safety",
+    title: "Road Safety & Signage Installation",
+    location: "Statewide retroreflective signage",
+    client: "PWD & Traffic Police",
+    year: "2024",
+  },
+  {
+    img: civilImg,
+    tag: "Civil Works",
+    title: "Urban Roadway Development Work",
+    location: "Asphalt & concrete pathway delivery",
+    client: "Urban Local Bodies",
+    year: "2023",
+  },
+  {
+    img: roadsImg,
+    tag: "Traffic Management",
+    title: "Traffic Management Infrastructure",
+    location: "Smart traffic control deployment",
+    client: "Municipal & State Police",
+    year: "2024",
+  },
+  // Media & Displays
+  {
+    img: unipoleImg,
+    tag: "Digital Media",
+    title: "High-Definition LED Video Walls",
+    location: "Public & enterprise venues",
+    client: "Government & Corporate",
+    year: "2024",
+  },
+  {
+    img: unipoleImg,
+    tag: "Digital Media",
+    title: "360° Digital Campaign Infrastructure",
+    location: "Multi-platform brand campaigns",
+    client: "Public sector & enterprise",
+    year: "2024",
+  },
+  {
+    img: unipoleImg,
+    tag: "Retail Media",
+    title: "In-Store Retail Display Networks",
+    location: "National retail rollout",
+    client: "Retail brand partners",
+    year: "2023",
+  },
+  {
+    img: unipoleImg,
+    tag: "Outdoor Advertising",
+    title: "Publicity Display & Outdoor Signage Project",
+    location: "Unipoles & hoardings deployment",
+    client: "Information & PR Department UP",
+    year: "2023",
+  },
+  {
+    img: govtImg,
+    tag: "Branding & Signage",
+    title: "ACP Sign Board & Facade Branding Work",
+    location: "Government facility facades",
+    client: "State departments",
+    year: "2023",
+  },
+  {
+    img: govtImg,
+    tag: "Government Branding",
+    title: "Government Branding & Sign Boards",
+    location: "Pan-UP government branding",
+    client: "Multiple government departments",
+    year: "2023",
+  },
+  {
+    img: unipoleImg,
+    tag: "Public Information",
+    title: "Public Information Display Systems",
+    location: "Urban public information rollout",
+    client: "Municipal Corporations",
+    year: "2024",
+  },
+  // GeM Supply
+  {
+    img: govtImg,
+    tag: "GeM Supply",
+    title: "GeM Government Supply Contracts",
+    location: "Pan-India procurement fulfilment",
+    client: "Central & State Agencies",
+    year: "2024",
+  },
+  {
+    img: govtImg,
+    tag: "GeM Supply",
+    title: "Solar & Lighting Equipment Supply",
+    location: "Bulk procurement orders",
+    client: "Government buyers via GeM",
+    year: "2024",
+  },
+  {
+    img: govtImg,
+    tag: "GeM Supply",
+    title: "Signage & Display Material Supply",
+    location: "Government branding rollout",
+    client: "Public sector buyers",
+    year: "2023",
+  },
+  {
+    img: govtImg,
+    tag: "GeM Supply",
+    title: "Civil & Infrastructure Material Supply",
+    location: "Project-tied material delivery",
+    client: "State infrastructure agencies",
+    year: "2023",
   },
 ];
 
