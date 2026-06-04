@@ -10,7 +10,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Speak with our pre-bid team. Corporate office: Plot No. 16, Village Chak Malhauri, Lucknow, Uttar Pradesh.",
+          "Speak with our pre-bid team. Corporate office: A-3/1202, Purvanchal Kings Court, Vinamra Khand, Gomti Nagar, Lucknow — 226010.",
       },
       { property: "og:title", content: "Contact Praharsh Infrastructure" },
       { property: "og:description", content: "Engineering teams ready for your project brief." },
@@ -41,14 +41,14 @@ function Contact() {
             {[
               {
                 icon: MapPin,
-                t: "Office Address",
-                d: "Plot No. 16, Khara No. 91, Village Chak Malhauri\nWard Chinhat, Lucknow — 226028\nUttar Pradesh, India",
+                t: "Corporate Office",
+                d: "A-3/1202, Purvanchal Kings Court\nVinamra Khand, Gomti Nagar\nPO: Gomtinagar, Lucknow — 226010\nUttar Pradesh, India",
               },
               { icon: Phone, t: "Phone", d: "+91-7800009165" },
               {
                 icon: Mail,
                 t: "Email",
-                d: "pspralaysingh@gmail.com",
+                d: "info@praharshinfrastructure.com",
               },
               {
                 icon: FileBadge2,
