@@ -152,10 +152,7 @@ function Clients() {
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-4">
               {testimonials.map((t, i) => (
-                <CarouselItem
-                  key={i}
-                  className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]"
-                >
+                <CarouselItem key={i} className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]">
                   <div className="bg-background p-8 sm:p-10 border-t-2 border-gold shadow-card card-hover h-full">
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">
                       <Quote className="h-6 w-6" />
@@ -176,7 +173,10 @@ function Clients() {
 
         <div className="hidden lg:grid lg:grid-cols-3 gap-6 -mt-8">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-background p-10 border-t-2 border-gold shadow-card card-hover">
+            <div
+              key={i}
+              className="bg-background p-10 border-t-2 border-gold shadow-card card-hover"
+            >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">
                 <Quote className="h-6 w-6" />
               </div>
