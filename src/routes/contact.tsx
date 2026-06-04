@@ -136,7 +136,13 @@ function Contact() {
                 <input type="hidden" name="form-name" value="contact" />
                 <p className="sr-only">
                   <label htmlFor="bot-field">Don’t fill this out if you’re human:</label>
-                  <input id="bot-field" name="bot-field" type="text" tabIndex={-1} autoComplete="off" />
+                  <input
+                    id="bot-field"
+                    name="bot-field"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 </p>
                 <h2 className="font-display text-3xl text-navy">Request a Proposal</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
