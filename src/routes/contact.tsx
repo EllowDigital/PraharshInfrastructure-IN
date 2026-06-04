@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Section } from "@/components/site/Section";
 import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState, type FormEvent } from "react";
+
+import { Section } from "@/components/site/Section";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,8 +20,50 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+type SubmissionState = "idle" | "submitting" | "success" | "error";
+
 function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      body.append(key, String(value));
+    });
+    body.set("form-name", "contact");
+    body.set("bot-field", "");
+
+    setSubmissionState("submitting");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      form.reset();
+      formRef.current?.reset();
+      setSubmissionState("success");
+    } catch {
+      setSubmissionState("error");
+      setErrorMessage("Something went wrong while sending your enquiry. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -71,7 +114,7 @@ function Contact() {
           </div>
 
           <div className="lg:col-span-7 bg-secondary p-8 lg:p-12 border-t-2 border-gold">
-            {submitted ? (
+            {submissionState === "success" ? (
               <div className="py-20 text-center">
                 <div className="eyebrow text-gold mb-4">Thank you</div>
                 <h3 className="font-display text-3xl text-navy">Your enquiry has been received.</h3>
@@ -81,12 +124,23 @@ function Contact() {
               </div>
             ) : (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmitted(true);
-                }}
+                ref={formRef}
+                name="contact"
+                method="POST"
+                action="/"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
                 className="space-y-6"
               >
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" value="" />
+                <div className="sr-only" aria-hidden="true">
+                  <label>
+                    Don’t fill this out if you’re human:
+                    <input name="bot-field" />
+                  </label>
+                </div>
                 <h2 className="font-display text-3xl text-navy">Request a Proposal</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <Field label="Full Name" name="name" required />
@@ -100,11 +154,16 @@ function Contact() {
                   placeholder="e.g. Solar EPC, Civil, Substation, Government Turnkey"
                 />
                 <Field label="Project Brief" name="brief" textarea />
+                {submissionState === "error" ? (
+                  <p className="text-sm text-destructive">{errorMessage}</p>
+                ) : null}
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gold hover:text-navy transition-colors"
+                  disabled={submissionState === "submitting"}
+                  className="inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gold hover:text-navy transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Submit Enquiry <ArrowUpRight className="w-4 h-4" />
+                  {submissionState === "submitting" ? "Sending..." : "Submit Enquiry"}
+                  <ArrowUpRight className="w-4 h-4" />
                 </button>
               </form>
             )}
