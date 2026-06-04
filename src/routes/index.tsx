@@ -305,10 +305,10 @@ function Home() {
       <Section
         muted
         eyebrow="Services"
-        title="Five business areas. One execution standard."
-        intro="Integrated capabilities operating under shared engineering, procurement and HSE systems."
+        title="Eight business areas. One execution standard."
+        intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
       >
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <article
               key={s.title}
