@@ -86,18 +86,24 @@ export function Footer() {
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 mt-0.5 text-gold shrink-0" />
               <span>
-                A-3/1202, Purvanchal Kings Court,
+                A-3/1202, Tower-2, 12th Floor,
                 <br />
-                Vinamra Khand, Gomti Nagar,
+                Purvanchal Kings Court, Vinamra Khand,
                 <br />
-                Lucknow, Uttar Pradesh — 226010
+                Gomti Nagar, Lucknow, Uttar Pradesh — 226010
               </span>
             </li>
             <li className="flex gap-3">
-              <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" /> +91-7800009165
+              <Phone className="w-4 h-4 mt-0.5 text-gold shrink-0" />
+              <a href="tel:+917800009165" className="hover:text-gold">
+                +91-7800009165
+              </a>
             </li>
             <li className="flex gap-3">
-              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" /> info@praharshinfrastructure.com
+              <Mail className="w-4 h-4 mt-0.5 text-gold shrink-0" />
+              <a href="mailto:info@praharshinfrastructure.com" className="hover:text-gold break-all">
+                info@praharshinfrastructure.com
+              </a>
             </li>
           </ul>
 
