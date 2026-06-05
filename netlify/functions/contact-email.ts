@@ -77,12 +77,12 @@ function escapeHtml(text: string): string {
     .replace(/&/g, "&")
     .replace(/</g, "<")
     .replace(/>/g, ">")
-    .replace(/"/g, """)
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
 
 function escapeAttr(text: string): string {
-  return text.replace(/"/g, """);
+  return text.replace(/"/g, "&quot;");
 }
 
 // ── Validation ────────────────────────────────────────────────
