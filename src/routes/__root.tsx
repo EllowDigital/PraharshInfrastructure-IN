@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "../components/site/Header";
 import { Footer } from "../components/site/Footer";
+import { FloatingWhatsApp } from "../components/site/FloatingWhatsApp";
 
 function NotFoundComponent() {
   return (
@@ -91,8 +92,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Civil, Electrical, Solar & Government EPC Contractor.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Praharsh Infrastructure" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "apple-mobile-web-app-title", content: "Praharsh Infrastructure" },
+      {
+        name: "keywords",
+        content:
+          "Solar Street Light Contractor, High Mast Lighting Contractor, Government Infrastructure Contractor, Solar Energy Solutions Lucknow, Electrical Infrastructure Company UP, GeM Registered Supplier, Government Tender Contractor, Praharsh Infrastructure",
+      },
+      { name: "author", content: "Praharsh Infrastructure" },
+      { name: "robots", content: "index, follow" },
+      { name: "theme-color", content: "#0B1F4D" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -116,6 +127,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "/favicon/apple-touch-icon.png?v=20260603",
       },
       { rel: "manifest", href: "/favicon/site.webmanifest?v=20260603" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Praharsh Infrastructure",
+          alternateName: "Praharsh Infrastructure Pvt. Ltd.",
+          url: "https://www.praharshinfrastructure.com",
+          logo: "https://www.praharshinfrastructure.com/images/logo.jpeg",
+          description:
+            "GeM-registered infrastructure, solar, electrical, road, advertising and government supply contractor headquartered in Lucknow, Uttar Pradesh.",
+          telephone: "+91-7800009165",
+          email: "info@praharshinfrastructure.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress:
+              "A-3/1202, Tower-2, 12th Floor, Purvanchal Kings Court, Vinamra Khand, Gomti Nagar",
+            addressLocality: "Lucknow",
+            addressRegion: "Uttar Pradesh",
+            postalCode: "226010",
+            addressCountry: "IN",
+          },
+          areaServed: "IN",
+          sameAs: [],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -148,6 +187,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </QueryClientProvider>
   );
 }

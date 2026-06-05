@@ -85,13 +85,19 @@ function Contact() {
               {
                 icon: MapPin,
                 t: "Corporate Office",
-                d: "A-3/1202, Purvanchal Kings Court\nVinamra Khand, Gomti Nagar\nPO: Gomtinagar, Lucknow — 226010\nUttar Pradesh, India",
+                d: "A-3/1202, Tower-2, 12th Floor\nPurvanchal Kings Court\nVinamra Khand, Gomti Nagar\nLucknow, Uttar Pradesh — 226010\nIndia",
               },
-              { icon: Phone, t: "Phone", d: "+91-7800009165" },
+              {
+                icon: Phone,
+                t: "Phone",
+                d: "+91-7800009165",
+                href: "tel:+917800009165",
+              },
               {
                 icon: Mail,
                 t: "Email",
                 d: "info@praharshinfrastructure.com",
+                href: "mailto:info@praharshinfrastructure.com",
               },
               {
                 icon: FileBadge2,
@@ -105,9 +111,18 @@ function Contact() {
                 </div>
                 <div>
                   <div className="font-display text-xl text-navy">{c.t}</div>
-                  <div className="text-sm text-muted-foreground mt-2 whitespace-pre-line leading-relaxed">
-                    {c.d}
-                  </div>
+                  {c.href ? (
+                    <a
+                      href={c.href}
+                      className="text-sm text-muted-foreground mt-2 block whitespace-pre-line leading-relaxed hover:text-gold transition-colors"
+                    >
+                      {c.d}
+                    </a>
+                  ) : (
+                    <div className="text-sm text-muted-foreground mt-2 whitespace-pre-line leading-relaxed">
+                      {c.d}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

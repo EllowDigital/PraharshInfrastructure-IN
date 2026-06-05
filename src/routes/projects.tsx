@@ -24,73 +24,73 @@ export const Route = createFileRoute("/projects")({
 });
 
 const projects = [
-  // Solar
+  // Solar Light Illumination
   {
     img: solarImg,
     tag: "Solar Street Lighting",
-    title: "900 Solar Street Light Project – Barabanki",
-    location: "Barabanki, Uttar Pradesh",
-    client: "Executed under DRDA standards",
+    title: "Solar Street Light Project (under DRDA)",
+    location: "District Rural Development Agency rollout",
+    client: "DRDA / State Government",
     year: "2024",
   },
   {
     img: solarImg,
     tag: "Solar Street Lighting",
-    title: "565 Solar Street Light Project",
-    location: "Large-scale rural infrastructure",
-    client: "State and district agencies",
+    title: "24-Way Solar Street Light Project",
+    location: "Multi-corridor rural illumination",
+    client: "Government infrastructure agency",
+    year: "2024",
+  },
+  {
+    img: solarImg,
+    tag: "Solar High Mast",
+    title: "Solar 6-Way High Mast Street Light Project",
+    location: "Public hubs & junctions",
+    client: "Municipal & PWD",
     year: "2023",
   },
   {
     img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "160 Solar Street Light Project",
-    location: "Regional public lighting",
-    client: "Government infrastructure",
+    tag: "Solar High Mast",
+    title: "Solar 21-Way High Mast Street Light Project",
+    location: "Large-scale public illumination",
+    client: "State & district agencies",
     year: "2023",
   },
-  {
-    img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "64 Solar Street Light Project",
-    location: "Rural utility electrification",
-    client: "Nagar Panchayat and DRDA",
-    year: "2023",
-  },
-  // High Mast
+  // High Mast Electric Light Illumination
   {
     img: electricalImg,
     tag: "High Mast Lighting",
-    title: "61 High Mast Lighting Project",
-    location: "Government-approved public illumination",
+    title: "16-Way High Mast Lighting Project",
+    location: "Municipal lighting deployment",
+    client: "Urban Local Bodies",
+    year: "2023",
+  },
+  {
+    img: electricalImg,
+    tag: "High Mast Lighting",
+    title: "24-Way High Mast Lighting Project",
+    location: "District-level illumination",
     client: "State PWD",
-    year: "2022",
+    year: "2023",
   },
   {
     img: electricalImg,
     tag: "High Mast Lighting",
-    title: "57 High Mast 200 Watt Lighting Project",
-    location: "Urban infrastructure rollout",
+    title: "16/18-Way High Mast Lighting Project",
+    location: "Combined corridor rollout",
     client: "Municipal authorities",
     year: "2022",
   },
   {
     img: electricalImg,
     tag: "High Mast Lighting",
-    title: "43 High Mast Lighting Project",
-    location: "District public lighting",
+    title: "21-Way High Mast Lighting Project",
+    location: "Government-approved public illumination",
     client: "Public works departments",
     year: "2022",
   },
-  {
-    img: electricalImg,
-    tag: "High Mast Lighting",
-    title: "19 High Mast 200 Watt Lighting Project",
-    location: "Government street illumination",
-    client: "Municipal clients",
-    year: "2022",
-  },
-  // Civil & Safety
+  // Road & Civil
   {
     img: roadsImg,
     tag: "Road Infrastructure",
@@ -123,13 +123,29 @@ const projects = [
     client: "Municipal & State Police",
     year: "2024",
   },
-  // Media & Displays
+  // Media, Signage & Displays
+  {
+    img: unipoleImg,
+    tag: "Outdoor Advertising",
+    title: "Traditional OOH Hoardings",
+    location: "Pan-state unipole & hoarding network",
+    client: "Government & enterprise",
+    year: "2024",
+  },
+  {
+    img: unipoleImg,
+    tag: "Transit & Retail",
+    title: "Transit & Retail Branding",
+    location: "Bus shelters, transit corridors & stores",
+    client: "Public transit & retail partners",
+    year: "2024",
+  },
   {
     img: unipoleImg,
     tag: "Digital Media",
     title: "High-Definition LED Video Walls",
     location: "Public & enterprise venues",
-    client: "Government & Corporate",
+    client: "Government & corporate",
     year: "2024",
   },
   {
@@ -142,18 +158,10 @@ const projects = [
   },
   {
     img: unipoleImg,
-    tag: "Retail Media",
-    title: "In-Store Retail Display Networks",
-    location: "National retail rollout",
-    client: "Retail brand partners",
-    year: "2023",
-  },
-  {
-    img: unipoleImg,
     tag: "Outdoor Advertising",
     title: "Publicity Display & Outdoor Signage Project",
     location: "Unipoles & hoardings deployment",
-    client: "Information & PR Department UP",
+    client: "Information & PR Department, UP",
     year: "2023",
   },
   {
@@ -162,14 +170,6 @@ const projects = [
     title: "ACP Sign Board & Facade Branding Work",
     location: "Government facility facades",
     client: "State departments",
-    year: "2023",
-  },
-  {
-    img: govtImg,
-    tag: "Government Branding",
-    title: "Government Branding & Sign Boards",
-    location: "Pan-UP government branding",
-    client: "Multiple government departments",
     year: "2023",
   },
   {
