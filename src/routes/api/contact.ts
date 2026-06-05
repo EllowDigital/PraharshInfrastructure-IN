@@ -1,4 +1,4 @@
-import type { Handler } from "@netlify/functions";
+import { createFileRoute } from "@tanstack/react-router";
 import { createTransport } from "nodemailer";
 
 // ── HTML email template ──────────────────────────────────────
@@ -158,138 +158,115 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// ── Handler ──────────────────────────────────────────────────
-const handler: Handler = async (event) => {
-  // Only allow POST
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers: corsHeaders(),
-      body: JSON.stringify({ success: false, message: "Method not allowed." }),
-    };
-  }
+export const Route = createFileRoute("/api/contact")({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        // Rate limit
+        const clientIp =
+          request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+          request.headers.get("client-ip") ??
+          "unknown";
+        if (!checkRateLimit(clientIp)) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              message: "Too many requests. Please wait a moment before trying again.",
+            }),
+            { status: 429, headers: { "Content-Type": "application/json" } },
+          );
+        }
 
-  // Rate limit
-  const clientIp =
-    event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ??
-    event.headers["client-ip"] ??
-    "unknown";
-  if (!checkRateLimit(clientIp)) {
-    return {
-      statusCode: 429,
-      headers: corsHeaders(),
-      body: JSON.stringify({
-        success: false,
-        message: "Too many requests. Please wait a moment before trying again.",
-      }),
-    };
-  }
+        let body: Record<string, unknown>;
+        try {
+          body = await request.json();
+        } catch {
+          return new Response(JSON.stringify({ success: false, message: "Invalid JSON body." }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
 
-  // Parse body
-  let body: Record<string, unknown>;
-  try {
-    body = JSON.parse(event.body ?? "{}");
-  } catch {
-    return {
-      statusCode: 400,
-      headers: corsHeaders(),
-      body: JSON.stringify({ success: false, message: "Invalid JSON body." }),
-    };
-  }
+        // Validate
+        const validation = validateBody(body);
+        if (!validation.valid) {
+          // If honeypot triggered (empty errors), pretend success
+          if (validation.errors.length === 0) {
+            return new Response(
+              JSON.stringify({ success: true, message: "Thank you for your enquiry." }),
+              { status: 200, headers: { "Content-Type": "application/json" } },
+            );
+          }
+          return new Response(JSON.stringify({ success: false, errors: validation.errors }), {
+            status: 422,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
 
-  // Validate
-  const validation = validateBody(body);
-  if (!validation.valid) {
-    // If honeypot triggered (empty errors), pretend success
-    if (validation.errors.length === 0) {
-      return {
-        statusCode: 200,
-        headers: corsHeaders(),
-        body: JSON.stringify({ success: true, message: "Thank you for your enquiry." }),
-      };
-    }
-    return {
-      statusCode: 422,
-      headers: corsHeaders(),
-      body: JSON.stringify({ success: false, errors: validation.errors }),
-    };
-  }
+        const { data } = validation;
 
-  const { data } = validation;
+        // Read SMTP config from environment
+        const smtpHost = process.env.SMTP_HOST;
+        const smtpPort = Number(process.env.SMTP_PORT) || 465;
+        const emailUser = process.env.EMAIL_USER;
+        const emailPass = process.env.EMAIL_PASS;
+        const contactReceiver = process.env.CONTACT_RECEIVER;
 
-  // Read SMTP config from environment
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpPort = Number(process.env.SMTP_PORT) || 465;
-  const emailUser = process.env.EMAIL_USER;
-  const emailPass = process.env.EMAIL_PASS;
-  const contactReceiver = process.env.CONTACT_RECEIVER;
+        if (!smtpHost || !emailUser || !emailPass || !contactReceiver) {
+          console.error("api/contact: Missing SMTP environment variables.");
+          return new Response(
+            JSON.stringify({ success: false, message: "Server configuration error." }),
+            { status: 500, headers: { "Content-Type": "application/json" } },
+          );
+        }
 
-  if (!smtpHost || !emailUser || !emailPass || !contactReceiver) {
-    console.error("contact-email: Missing SMTP environment variables.");
-    return {
-      statusCode: 500,
-      headers: corsHeaders(),
-      body: JSON.stringify({ success: false, message: "Server configuration error." }),
-    };
-  }
+        // Create transporter
+        const transporter = createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465, // true for 465, false for other ports
+          auth: {
+            user: emailUser,
+            pass: emailPass,
+          },
+          connectionTimeout: 15_000,
+          greetingTimeout: 10_000,
+          socketTimeout: 15_000,
+        });
 
-  // Create transporter
-  const transporter = createTransport({
-    host: smtpHost,
-    port: smtpPort,
-    secure: smtpPort === 465, // true for 465, false for other ports
-    auth: {
-      user: emailUser,
-      pass: emailPass,
+        try {
+          await transporter.sendMail({
+            from: {
+              name: "Praharsh Website",
+              address: emailUser,
+            },
+            to: contactReceiver,
+            replyTo: {
+              name: data.name,
+              address: data.email,
+            },
+            subject: `New Enquiry from ${data.name} — ${data.projectType || "General"}`,
+            html: buildEmailHtml(data),
+          });
+
+          return new Response(
+            JSON.stringify({
+              success: true,
+              message: "Thank you for your enquiry. Our team will respond within one working day.",
+            }),
+            { status: 200, headers: { "Content-Type": "application/json" } },
+          );
+        } catch (error) {
+          console.error("api/contact: Failed to send email:", error);
+          return new Response(
+            JSON.stringify({
+              success: false,
+              message: "Failed to send your enquiry. Please try again or email us directly.",
+            }),
+            { status: 500, headers: { "Content-Type": "application/json" } },
+          );
+        }
+      },
     },
-    connectionTimeout: 15_000,
-    greetingTimeout: 10_000,
-    socketTimeout: 15_000,
-  });
-
-  try {
-    await transporter.sendMail({
-      from: {
-        name: "Praharsh Website",
-        address: emailUser,
-      },
-      to: contactReceiver,
-      replyTo: {
-        name: data.name,
-        address: data.email,
-      },
-      subject: `New Enquiry from ${data.name} — ${data.projectType || "General"}`,
-      html: buildEmailHtml(data),
-    });
-
-    return {
-      statusCode: 200,
-      headers: corsHeaders(),
-      body: JSON.stringify({
-        success: true,
-        message: "Thank you for your enquiry. Our team will respond within one working day.",
-      }),
-    };
-  } catch (error) {
-    console.error("contact-email: Failed to send email:", error);
-    return {
-      statusCode: 500,
-      headers: corsHeaders(),
-      body: JSON.stringify({
-        success: false,
-        message: "Failed to send your enquiry. Please try again or email us directly.",
-      }),
-    };
-  }
-};
-
-function corsHeaders(): Record<string, string> {
-  return {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "https://praharshinfrastructure.com",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
-}
-
-export { handler };
+  },
+});
