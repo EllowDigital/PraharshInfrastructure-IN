@@ -165,9 +165,9 @@ const whyUs = [
 
 const testimonials = [
   {
-    q: "Praharsh delivered our 900 solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    q: "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
     n: "District Administration",
-    r: "Barabanki",
+    r: "State Government",
   },
   {
     q: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
