@@ -32,36 +32,45 @@ function Contact() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const body = new URLSearchParams();
 
-    formData.forEach((value, key) => {
-      body.append(key, String(value));
-    });
-    body.set("form-name", "contact");
-    body.set("bot-field", "");
+    // Construct JSON payload
+    const data = {
+      name: formData.get("name"),
+      company: formData.get("company"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      projectType: formData.get("type"), // mapped to projectType
+      brief: formData.get("brief"),
+      honeypot: formData.get("bot-field"),
+    };
 
     setSubmissionState("submitting");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/.netlify/functions/contact-email", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: body.toString(),
+        body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error("Form submission failed");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Form submission failed");
       }
 
       form.reset();
       formRef.current?.reset();
       setSubmissionState("success");
-    } catch {
+    } catch (error) {
       setSubmissionState("error");
-      setErrorMessage("Something went wrong while sending your enquiry. Please try again.");
+      const message = error instanceof Error ? error.message : "Something went wrong while sending your enquiry. Please try again.";
+      setErrorMessage(message);
+    }
+      );
     }
   };
 
@@ -138,17 +147,7 @@ function Contact() {
                 </p>
               </div>
             ) : (
-              <form
-                ref={formRef}
-                name="contact"
-                method="POST"
-                action="/"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <input type="hidden" name="form-name" value="contact" />
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <p className="sr-only">
                   <label htmlFor="bot-field">Don’t fill this out if you’re human:</label>
                   <input

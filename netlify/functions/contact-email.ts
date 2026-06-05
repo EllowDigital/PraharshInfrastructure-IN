@@ -96,7 +96,9 @@ interface ContactBody {
   honeypot: string;
 }
 
-function validateBody(body: Record<string, unknown>): { valid: false; errors: string[] } | { valid: true; data: ContactBody } {
+function validateBody(
+  body: Record<string, unknown>,
+): { valid: false; errors: string[] } | { valid: true; data: ContactBody } {
   const errors: string[] = [];
 
   const name = typeof body.name === "string" ? body.name.trim() : "";
@@ -110,13 +112,16 @@ function validateBody(body: Record<string, unknown>): { valid: false; errors: st
   if (!name || name.length < 2) errors.push("Name must be at least 2 characters.");
   if (name.length > 100) errors.push("Name must be under 100 characters.");
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("A valid email address is required.");
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    errors.push("A valid email address is required.");
   if (email.length > 254) errors.push("Email must be under 254 characters.");
 
-  if (phone && !/^[+\d][\d\s\-().]{6,20}$/.test(phone)) errors.push("Phone number format is invalid.");
+  if (phone && !/^[+\d][\d\s\-().]{6,20}$/.test(phone))
+    errors.push("Phone number format is invalid.");
 
   if (company && company.length > 200) errors.push("Company name must be under 200 characters.");
-  if (projectType && projectType.length > 200) errors.push("Project type must be under 200 characters.");
+  if (projectType && projectType.length > 200)
+    errors.push("Project type must be under 200 characters.");
   if (brief && brief.length > 5000) errors.push("Project brief must be under 5000 characters.");
 
   // Honeypot check — if filled, silently succeed but don't send
@@ -165,12 +170,18 @@ const handler: Handler = async (event) => {
   }
 
   // Rate limit
-  const clientIp = event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ?? event.headers["client-ip"] ?? "unknown";
+  const clientIp =
+    event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ??
+    event.headers["client-ip"] ??
+    "unknown";
   if (!checkRateLimit(clientIp)) {
     return {
       statusCode: 429,
       headers: corsHeaders(),
-      body: JSON.stringify({ success: false, message: "Too many requests. Please wait a moment before trying again." }),
+      body: JSON.stringify({
+        success: false,
+        message: "Too many requests. Please wait a moment before trying again.",
+      }),
     };
   }
 
@@ -254,14 +265,20 @@ const handler: Handler = async (event) => {
     return {
       statusCode: 200,
       headers: corsHeaders(),
-      body: JSON.stringify({ success: true, message: "Thank you for your enquiry. Our team will respond within one working day." }),
+      body: JSON.stringify({
+        success: true,
+        message: "Thank you for your enquiry. Our team will respond within one working day.",
+      }),
     };
   } catch (error) {
     console.error("contact-email: Failed to send email:", error);
     return {
       statusCode: 500,
       headers: corsHeaders(),
-      body: JSON.stringify({ success: false, message: "Failed to send your enquiry. Please try again or email us directly." }),
+      body: JSON.stringify({
+        success: false,
+        message: "Failed to send your enquiry. Please try again or email us directly.",
+      }),
     };
   }
 };
