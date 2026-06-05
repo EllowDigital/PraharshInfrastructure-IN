@@ -69,9 +69,9 @@ const clientGroups = [
 
 const testimonials = [
   {
-    q: "Praharsh executed our 900 solar street light deployment ahead of schedule and within statutory tolerances. Documentation was audit-ready on day one.",
+    q: "Praharsh executed our solar street light deployment ahead of schedule and within statutory tolerances. Documentation was audit-ready on day one.",
     n: "District Magistrate Office",
-    r: "Barabanki",
+    r: "State Government",
   },
   {
     q: "Their high mast installation team is among the most disciplined we've engaged. Safety records and material quality were exemplary.",
