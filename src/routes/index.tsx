@@ -119,50 +119,14 @@ const featured = [
   {
     img: solarImg,
     tag: "Solar Street Lighting",
-    title: "900 Solar Street Light Project – Barabanki",
+    title: "Solar Street Light Project",
     client: "Executed under DRDA standards",
   },
   {
-    img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "565 Solar Street Light Project",
-    client: "Large-scale rural infrastructure",
-  },
-  {
-    img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "160 Solar Street Light Project",
-    client: "Public lighting deployment",
-  },
-  {
-    img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "64 Solar Street Light Project",
-    client: "Rural electrification initiative",
-  },
-  {
     img: electricalImg,
     tag: "High Mast Lighting",
-    title: "61 High Mast Lighting Project",
+    title: "High Mast Lighting Project",
     client: "Government-approved public illumination",
-  },
-  {
-    img: electricalImg,
-    tag: "High Mast Lighting",
-    title: "57 High Mast 200 Watt Lighting Project",
-    client: "Urban lighting standard rollout",
-  },
-  {
-    img: electricalImg,
-    tag: "High Mast Lighting",
-    title: "43 High Mast Lighting Project",
-    client: "District-level public lighting",
-  },
-  {
-    img: electricalImg,
-    tag: "High Mast Lighting",
-    title: "19 High Mast 200 Watt Lighting Project",
-    client: "Government street illumination",
   },
 ];
 
@@ -201,9 +165,9 @@ const whyUs = [
 
 const testimonials = [
   {
-    q: "Praharsh delivered our 900 solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    q: "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
     n: "District Administration",
-    r: "Barabanki",
+    r: "State Government",
   },
   {
     q: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
