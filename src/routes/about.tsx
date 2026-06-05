@@ -69,7 +69,7 @@ function About() {
               {
                 icon: Compass,
                 t: "Vision",
-                d: "To become a trusted and leading infrastructure company delivering innovative, sustainable, and world-class infrastructure solutions across India.",
+                d: "To become a trusted and leading infrastructure and 360° branding solutions company, delivering innovative, sustainable, and world-class solutions across India.",
               },
               {
                 icon: ShieldCheck,
