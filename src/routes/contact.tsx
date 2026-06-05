@@ -67,10 +67,11 @@ function Contact() {
       setSubmissionState("success");
     } catch (error) {
       setSubmissionState("error");
-      const message = error instanceof Error ? error.message : "Something went wrong while sending your enquiry. Please try again.";
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while sending your enquiry. Please try again.";
       setErrorMessage(message);
-    }
-      );
     }
   };
 
