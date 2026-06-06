@@ -42,13 +42,13 @@ import digitalMarketingImg from "@/assets/images/home/services/digital-marketing
 import brandDevelopmentImg from "@/assets/images/home/services/brand-development.png";
 import governmentProjectsImg from "@/assets/images/home/services/government-projects.png";
 
-// --- Featured Images ---
+// --- Featured Images --- 
 import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.png";
 import highmastImg from "@/assets/images/home/featured/featured-highmast.png";
 import solarLightingImg from "@/assets/images/home/featured/featured-solar.png";
 import roadInfrastructureImg from "@/assets/images/home/featured/featured-road.png";
 
-// --- Who we are ---
+// --- Who we are ---  
 import teamImg from "@/assets/images/home/about-team.png";
 
 // --- Constants & Data ---
@@ -180,20 +180,17 @@ const WHY_CHOOSE_US = [
 
 const TESTIMONIALS = [
   {
-    quote:
-      "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    quote: "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
     name: "District Administration",
     role: "State Government",
   },
   {
-    quote:
-      "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
+    quote: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
     name: "Executive Engineer",
     role: "State PWD",
   },
   {
-    quote:
-      "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
+    quote: "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
     name: "Procurement Officer",
     role: "Municipal Corp.",
   },
@@ -202,25 +199,13 @@ const TESTIMONIALS = [
 const CLIENT_LOGOS = [
   { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
   { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
-  {
-    src: "/images/clients/client3.jfif",
-    name: "UP Global Investors Summit (2023 Lucknow)",
-    url: "#",
-  },
+  { src: "/images/clients/client3.jfif", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
   { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
   { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
   { src: "/images/clients/client6.webp", name: "UP Tourism Alternate", url: "#" },
   { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
-  {
-    src: "/images/clients/client8.jfif",
-    name: "Information and Public Relations Department UP",
-    url: "#",
-  },
-  {
-    src: "/images/clients/client9.jfif",
-    name: "DIPR (Department of Information and Public Relations)",
-    url: "#",
-  },
+  { src: "/images/clients/client8.jfif", name: "Information and Public Relations Department UP", url: "#" },
+  { src: "/images/clients/client9.jfif", name: "DIPR (Department of Information and Public Relations)", url: "#" },
 ];
 
 const COMPANY_HIGHLIGHTS = [
@@ -260,11 +245,11 @@ export default function Home() {
         title="An infrastructure contractor built for the public sector."
       >
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
-          <div className="lg:col-span-7 image-zoom">
+          <div className="lg:col-span-7 image-zoom overflow-hidden rounded-sm">
             <img
               src={teamImg}
               alt="Praharsh engineering team on site"
-              className="w-full aspect-[4/3] object-cover"
+              className="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
@@ -290,12 +275,17 @@ export default function Home() {
                 );
               })}
             </div>
-            <Link
-              to="/about"
-              className="mt-10 inline-flex items-center gap-2 text-navy font-medium link-underline"
-            >
-              Learn about our company <ArrowUpRight className="w-4 h-4" />
-            </Link>
+     <Link
+  to="/about"
+  className="mt-10 inline-flex items-center gap-3 border border-navy/15 px-6 py-3 text-navy font-semibold group hover:border-gold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+>
+  <span className="relative">
+    Learn about our company
+    <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+  </span>
+
+  <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+</Link>
           </div>
         </div>
       </Section>
@@ -334,9 +324,7 @@ export default function Home() {
 
                 <div className="flex h-full flex-col p-7">
                   <h3 className="font-display text-2xl text-navy leading-tight">{service.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    {service.desc}
-                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{service.desc}</p>
                   <Link
                     to="/services"
                     className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-navy transition-colors group-hover:text-gold"
@@ -385,9 +373,7 @@ export default function Home() {
                 <div>
                   <div className="eyebrow text-gold mb-2">{project.tag}</div>
                   <h3 className="font-display text-2xl text-navy leading-tight">{project.title}</h3>
-                  <div className="text-sm text-muted-foreground mt-2">
-                    Client · {project.client}
-                  </div>
+                  <div className="text-sm text-muted-foreground mt-2">Client · {project.client}</div>
                 </div>
                 <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-transform group-hover:rotate-45 group-hover:text-gold" />
               </div>
@@ -475,6 +461,7 @@ export default function Home() {
         </div>
       </Section>
 
+
       {/* 8. CLIENT LOGOS */}
       <section className="bg-background py-20 border-b border-border overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
@@ -538,6 +525,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-navy-deep">
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
+
             {/* Content */}
             <div className="lg:col-span-8">
               <div className="eyebrow text-gold mb-6">
@@ -546,15 +534,17 @@ export default function Home() {
               </div>
 
               <h2 className="text-white text-4xl lg:text-6xl leading-[1.05] tracking-tight">
-                Building something <span className="italic text-gold">significant?</span>
+                Building something{" "}
+                <span className="italic text-gold">significant?</span>
                 <br />
                 Let's engineer it together.
               </h2>
 
               <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">
-                Government departments, municipal bodies, PSUs, and private developers trust us to
-                deliver infrastructure that lasts. Share your project requirements or RFP and our
-                team will respond within one working day.
+                Government departments, municipal bodies, PSUs, and private
+                developers trust us to deliver infrastructure that lasts.
+                Share your project requirements or RFP and our team will
+                respond within one working day.
               </p>
             </div>
 
@@ -568,6 +558,7 @@ export default function Home() {
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
+
           </div>
         </div>
       </section>
