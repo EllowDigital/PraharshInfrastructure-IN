@@ -1,23 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
 import teamImg from "@/assets/about-team.jpg";
 import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "Praharsh Infrastructure delivers public lighting, solar energy and government supply projects with discipline, integrity and engineering rigour.",
-      },
-      { property: "og:title", content: "About Praharsh Infrastructure" },
-      { property: "og:description", content: "Building today, empowering tomorrow." },
-    ],
-  }),
-  component: About,
-});
 
 function About() {
   return (
@@ -138,3 +121,5 @@ function About() {
     </>
   );
 }
+
+export default About;

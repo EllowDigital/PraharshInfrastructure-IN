@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import slideCivil from "@/assets/hero-slide-civil.jpg";
 import slideHighmast from "@/assets/hero-slide-highmast.jpg";

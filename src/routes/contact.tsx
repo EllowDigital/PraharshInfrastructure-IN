@@ -1,24 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useRef, useState, type FormEvent } from "react";
 
 import { Section } from "@/components/site/Section";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "Speak with our pre-bid team. Corporate office: A-3/1202, Purvanchal Kings Court, Vinamra Khand, Gomti Nagar, Lucknow — 226010.",
-      },
-      { property: "og:title", content: "Contact Praharsh Infrastructure" },
-      { property: "og:description", content: "Engineering teams ready for your project brief." },
-    ],
-  }),
-  component: Contact,
-});
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 
@@ -235,3 +218,5 @@ function Field({
     </label>
   );
 }
+
+export default Contact;

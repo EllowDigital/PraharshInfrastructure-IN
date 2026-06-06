@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
   Landmark,
@@ -13,22 +13,6 @@ import {
   Zap,
 } from "lucide-react";
 import govtImg from "@/assets/project-govt.jpg";
-
-export const Route = createFileRoute("/government-capabilities")({
-  head: () => ({
-    meta: [
-      { title: "Government Capabilities — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "GeM-registered contractor with deep experience in government tenders, public lighting, solar and turnkey state infrastructure projects.",
-      },
-      { property: "og:title", content: "Government Capabilities" },
-      { property: "og:description", content: "Built for the public sector." },
-    ],
-  }),
-  component: Govt,
-});
 
 const credentials = [
   {
@@ -179,3 +163,5 @@ function Govt() {
     </>
   );
 }
+
+export default Govt;

@@ -1,22 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
 import { Award, ShieldCheck, FileBadge2, BadgeCheck, Stamp } from "lucide-react";
-
-export const Route = createFileRoute("/certifications")({
-  head: () => ({
-    meta: [
-      { title: "Certifications — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "ISO certified operations, GeM registration, MSME and statutory compliance credentials of Praharsh Infrastructure.",
-      },
-      { property: "og:title", content: "Certifications & Compliance" },
-      { property: "og:description", content: "Audited, accredited, and accountable." },
-    ],
-  }),
-  component: Certifications,
-});
 
 const certs = [
   {
@@ -122,3 +105,5 @@ function Certifications() {
     </>
   );
 }
+
+export default Certifications;

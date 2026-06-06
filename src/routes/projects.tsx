@@ -1,27 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import solarImg from "@/assets/project-solar.jpg";
-import electricalImg from "@/assets/project-electrical.jpg";
-import govtImg from "@/assets/project-govt.jpg";
-import roadsImg from "@/assets/hero-slide-roads.jpg";
-import unipoleImg from "@/assets/hero-slide-unipole.jpg";
-import civilImg from "@/assets/project-civil.jpg";
-
-export const Route = createFileRoute("/projects")({
-  head: () => ({
-    meta: [
-      { title: "Projects — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "Solar, lighting, road, civil, media display and GeM supply projects delivered by Praharsh Infrastructure across India.",
-      },
-      { property: "og:title", content: "Praharsh Projects" },
-      { property: "og:description", content: "A portfolio measured in landmarks." },
-    ],
-  }),
-  component: Projects,
-});
+// Temporary Project Section Assets
+import civilImg from "@/assets/images/services/img (1).jpg";
+import solarImg from "@/assets/images/services/img (2).jpg";
+import electricalImg from "@/assets/images/services/img (3).jpg";
+import roadsImg from "@/assets/images/services/img (4).jpg";
+import unipoleImg from "@/assets/images/services/img (5).jpg";
+import govtImg from "@/assets/images/services/img (6).jpg";
 
 const projects = [
   // Solar Light Illumination
@@ -223,3 +207,5 @@ function Projects() {
     </>
   );
 }
+
+export default Projects;

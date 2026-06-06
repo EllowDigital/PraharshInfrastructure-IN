@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
   Carousel,
@@ -9,39 +9,28 @@ import {
 } from "@/components/ui/carousel";
 import { Quote, ArrowUpRight } from "lucide-react";
 
-export const Route = createFileRoute("/clients")({
-  head: () => ({
-    meta: [
-      { title: "Clients — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "Government departments, PSUs and private clients served by Praharsh Infrastructure across India.",
-      },
-      { property: "og:title", content: "Our Clients" },
-      { property: "og:description", content: "Trusted by the public and private sector." },
-    ],
-  }),
-  component: Clients,
-});
-
 const clientLogos = [
-  { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
+  { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
+  { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
   {
-    src: "/images/clients/client5.png",
+    src: "/images/clients/client3.jfif",
     name: "UP Global Investors Summit (2023 Lucknow)",
     url: "#",
   },
-  { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
-  { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
-  { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
+  { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
+  { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
+  { src: "/images/clients/client6.webp", name: "UP Tourism", url: "#" },
+  { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
   {
     src: "/images/clients/client8.jfif",
     name: "Information and Public Relations Department UP",
     url: "#",
   },
-  { src: "/images/clients/client2.png", name: "Panchayati Raj Directorate", url: "#" },
+  {
+    src: "/images/clients/client9.jfif",
+    name: "DIPR (Department of Information and Public Relations)",
+    url: "#",
+  },
 ];
 
 const clientGroups = [
@@ -210,3 +199,5 @@ function Clients() {
     </>
   );
 }
+
+export default Clients;

@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
   Lightbulb,
@@ -20,187 +21,234 @@ import {
   Megaphone,
   MonitorPlay,
 } from "lucide-react";
-import heroImg from "@/assets/hero-slide-civil.jpg";
-import solarImg from "@/assets/project-solar.jpg";
-import electricalImg from "@/assets/project-electrical.jpg";
-import govtImg from "@/assets/project-govt.jpg";
-import civilImg from "@/assets/project-civil.jpg";
-import roadsImg from "@/assets/hero-slide-roads.jpg";
-import unipoleImg from "@/assets/hero-slide-unipole.jpg";
-import teamImg from "@/assets/about-team.jpg";
+
+// --- Components ---
 import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { HeroSlider } from "@/components/site/HeroSlider";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Praharsh Infrastructure — Building Today, Empowering Tomorrow" },
-      {
-        name: "description",
-        content:
-          "Praharsh Infrastructure delivers infrastructure, road, solar, electrical, advertising and government supply services across India.",
-      },
-      { property: "og:title", content: "Praharsh Infrastructure" },
-      { property: "og:description", content: "Building Today, Empowering Tomorrow." },
-      { property: "og:image", content: heroImg },
-    ],
-  }),
-  component: Home,
-});
+// --- Assets & Images ---
+import heroImg from "@/assets/hero-slide-civil.jpg";
 
-const services = [
+import teamMembersImg from "@/assets/images/about/team/team-members.jpg";
+
+// --- Services Images ---
+import civilInfrastructureImg from "@/assets/images/home/services/civil-infrastructure.jpg";
+import roadConstructionImg from "@/assets/images/home/services/road-construction.png";
+import solarStreetLightImg from "@/assets/images/home/services/solar-street-light.jpg";
+import electricalSolutionsImg from "@/assets/images/home/services/electrical-solutions.png";
+import outdoorAdvertisingImg from "@/assets/images/home/services/outdoor-advertising.png";
+import digitalMarketingImg from "@/assets/images/home/services/digital-marketing.png";
+import brandDevelopmentImg from "@/assets/images/home/services/brand-development.png";
+import governmentProjectsImg from "@/assets/images/home/services/government-projects.png";
+
+// --- Featured Images ---
+import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.png";
+import highmastImg from "@/assets/images/home/featured/featured-highmast.png";
+import solarLightingImg from "@/assets/images/home/featured/featured-solar.png";
+import roadInfrastructureImg from "@/assets/images/home/featured/featured-road.png";
+
+// --- Who we are ---
+import teamImg from "@/assets/images/home/about-team.png";
+
+// --- Constants & Data ---
+const SERVICES = [
   {
     icon: Lightbulb,
-    img: civilImg,
+    img: civilInfrastructureImg,
     title: "Infrastructure Development",
     titleShort: "Infrastructure",
-    desc: "High mast lighting, solar street lights, pole installation, public utility works and civil development for roads, highways and buildings.",
+    desc: "Comprehensive infrastructure solutions including high-mast lighting, pole installations, solar street lighting systems, and civil development works for public and private sectors.",
   },
   {
     icon: RouteIcon,
-    img: roadsImg,
-    title: "Road Infrastructure",
+    img: roadConstructionImg,
+    title: "Road & Highway Infrastructure",
     titleShort: "Roads",
-    desc: "Highway & expressway lighting, road safety, asphalt & concrete pathway development, retroreflective signage and smart traffic control.",
+    desc: "Specialized road and highway development services including lighting systems, road safety solutions, traffic management infrastructure, and retroreflective signage.",
   },
   {
     icon: Sun,
-    img: solarImg,
+    img: solarStreetLightImg,
     title: "Solar Energy Solutions",
     titleShort: "Solar Energy",
-    desc: "Solar street lights, solar high mast systems, renewable energy installations and energy-efficient public lighting.",
+    desc: "Sustainable solar power solutions featuring solar street lights, high-mast systems, renewable energy projects, and energy-efficient lighting infrastructure.",
   },
   {
     icon: Zap,
-    img: electricalImg,
-    title: "Electrical & Lighting",
+    img: electricalSolutionsImg,
+    title: "Electrical & Lighting Solutions",
     titleShort: "Electrical",
-    desc: "LED street lighting, public utility lighting, electrical equipment installation, cable and pole installation.",
+    desc: "Professional electrical infrastructure services including LED street lighting, utility lighting systems, cable networks, and power distribution installations.",
   },
   {
     icon: Megaphone,
-    img: unipoleImg,
+    img: outdoorAdvertisingImg,
     title: "Outdoor & Indoor Advertising",
     titleShort: "Advertising",
-    desc: "Unipoles & hoardings (OOH), bus shelter & transit advertising, in-store retail branding, exhibition stalls and event kiosks.",
+    desc: "End-to-end advertising infrastructure including unipoles, hoardings, transit media, retail branding, exhibition displays, and promotional installations.",
   },
   {
     icon: MonitorPlay,
-    img: heroImg,
-    title: "Digital Advertising",
+    img: digitalMarketingImg,
+    title: "Digital Media & Advertising",
     titleShort: "Digital Media",
-    desc: "Social media, Bulk SMS / WhatsApp / Voice, DOOH screens, LED walls, 360° media solutions and smart digital signage.",
+    desc: "Integrated digital marketing solutions including social media campaigns, bulk messaging services, DOOH advertising, LED displays, and digital signage.",
   },
   {
     icon: Signpost,
-    img: govtImg,
-    title: "Branding & Signage",
+    img: brandDevelopmentImg,
+    title: "Branding & Signage Solutions",
     titleShort: "Branding",
-    desc: "ACP sheet cladding, acrylic sign boards, reflective signage and government branding works.",
+    desc: "Custom branding and signage services including ACP cladding, acrylic signboards, reflective signage, wayfinding systems, and corporate branding solutions.",
   },
   {
     icon: Landmark,
-    img: govtImg,
-    title: "Government Supply",
+    img: governmentProjectsImg,
+    title: "Government Supply & Procurement",
     titleShort: "Government",
-    desc: "Sanitation, healthcare, industrial safety, public utility, chemical and cleaning supplies — GeM enabled.",
+    desc: "Trusted GeM-enabled supplier providing sanitation products, healthcare equipment, industrial safety solutions, public utility materials, and institutional supplies.",
   },
 ];
 
-const stats = [
-  { v: "900+", l: "Solar Street Lights" },
-  { v: "240+", l: "High Masts Erected" },
-  { v: "14+", l: "Years of Operation" },
-  { v: "50+", l: "Government Clients" },
+const STATS = [
+  { value: "9000+", label: "Solar Street Lights" },
+  { value: "2400+", label: "High Masts Erected" },
+  { value: "14+", label: "Years of Operation" },
+  { value: "50+", label: "Government Clients" },
 ];
 
-const featured = [
+const FEATURED_PROJECTS = [
   {
-    img: solarImg,
-    tag: "Solar Street Lighting",
-    title: "Solar Street Light Project",
-    client: "Executed under DRDA standards",
+    img: roadInfrastructureImg,
+    tag: "Road Infrastructure",
+    title: "Road Construction & Development",
+    client: "Public infrastructure development project",
   },
   {
-    img: electricalImg,
-    tag: "High Mast Lighting",
-    title: "High Mast Lighting Project",
-    client: "Government-approved public illumination",
+    img: featuredSolarProjectImg,
+    tag: "Solar Infrastructure",
+    title: "Solar Street Lighting Network",
+    client: "Public infrastructure development project",
+  },
+  {
+    img: highmastImg,
+    tag: "Lighting Infrastructure",
+    title: "High Mast Lighting System",
+    client: "Government and municipal sector project",
+  },
+  {
+    img: solarLightingImg,
+    tag: "Renewable Energy",
+    title: "Solar Power Infrastructure",
+    client: "Clean energy and sustainability initiative",
   },
 ];
 
-const whyUs = [
+const WHY_CHOOSE_US = [
   {
     icon: HardHat,
-    t: "Experienced Technical Team",
-    d: "Engineers, electricians and field supervisors trained for public infrastructure delivery.",
+    title: "Experienced Technical Team",
+    desc: "Engineers, electricians and field supervisors trained for public infrastructure delivery.",
   },
   {
     icon: FileBadge2,
-    t: "Government Project Expertise",
-    d: "Proven delivery under state and municipal tender protocols.",
+    title: "Government Project Expertise",
+    desc: "Proven delivery under state and municipal tender protocols.",
   },
   {
     icon: Award,
-    t: "Quality Infrastructure Solutions",
-    d: "Engineered public lighting, solar and civil works built to long-term performance standards.",
+    title: "Quality Infrastructure Solutions",
+    desc: "Engineered public lighting, solar and civil works built to long-term performance standards.",
   },
   {
     icon: ShieldCheck,
-    t: "Transparent Work Process",
-    d: "Audit-ready documentation, reporting and procurement transparency on every contract.",
+    title: "Transparent Work Process",
+    desc: "Audit-ready documentation, reporting and procurement transparency on every contract.",
   },
   {
     icon: Clock,
-    t: "Timely Delivery",
-    d: "Milestone-driven execution with a strong focus on meeting project deadlines.",
+    title: "Timely Delivery",
+    desc: "Milestone-driven execution with a strong focus on meeting project deadlines.",
   },
   {
     icon: Leaf,
-    t: "Sustainable Development Focus",
-    d: "Solar and energy-efficient lighting projects with long-term operational savings.",
+    title: "Sustainable Development Focus",
+    desc: "Solar and energy-efficient lighting projects with long-term operational savings.",
   },
 ];
 
-const testimonials = [
+const TESTIMONIALS = [
   {
-    q: "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
-    n: "District Administration",
-    r: "State Government",
+    quote:
+      "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    name: "District Administration",
+    role: "State Government",
   },
   {
-    q: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
-    n: "Executive Engineer",
-    r: "State PWD",
+    quote:
+      "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
+    name: "Executive Engineer",
+    role: "State PWD",
   },
   {
-    q: "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
-    n: "Procurement Officer",
-    r: "Municipal Corp.",
+    quote:
+      "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
+    name: "Procurement Officer",
+    role: "Municipal Corp.",
   },
 ];
 
-const clientLogos = [
-  { src: "/images/clients/client1.png", name: "Uttar Pradesh Government", url: "#" },
+const CLIENT_LOGOS = [
+  { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
+  { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
   {
-    src: "/images/clients/client5.png",
+    src: "/images/clients/client3.jfif",
     name: "UP Global Investors Summit (2023 Lucknow)",
     url: "#",
   },
-  { src: "/images/clients/client3.jfif", name: "ODOP (One District One Product)", url: "#" },
-  { src: "/images/clients/client3.jfif", name: "UPRNN", url: "#" },
-  { src: "/images/clients/client4.jpg", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client7.jfif", name: "Basic Shiksha Parishad", url: "#" },
+  { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
+  { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
+  { src: "/images/clients/client6.webp", name: "UP Tourism Alternate", url: "#" },
+  { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
   {
     src: "/images/clients/client8.jfif",
     name: "Information and Public Relations Department UP",
     url: "#",
   },
-  { src: "/images/clients/client2.png", name: "Panchayati Raj Directorate", url: "#" },
+  {
+    src: "/images/clients/client9.jfif",
+    name: "DIPR (Department of Information and Public Relations)",
+    url: "#",
+  },
 ];
 
-function Home() {
+const COMPANY_HIGHLIGHTS = [
+  {
+    icon: Building2,
+    title: "Multi-Vertical Capability",
+    desc: "Five integrated business areas under one project management system.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "GeM & PSU Empanelled",
+    desc: "Verified GeM seller serving municipal, district and PSU clients.",
+  },
+  {
+    icon: Award,
+    title: "ISO Certified",
+    desc: "9001, 14001 and 45001 audited management systems.",
+  },
+];
+
+const GOV_BADGES = [
+  { text: "UPSIC Registered", icon: Landmark },
+  { text: "GeM Registered Seller", icon: FileCheck2 },
+  { text: "UDYAM Registered", icon: Building2 },
+  { text: "GST Registered", icon: ShieldCheck },
+];
+
+export default function Home() {
   return (
     <>
       {/* 1. HERO */}
@@ -227,33 +275,20 @@ function Home() {
               departments, PSUs and private clients across India.
             </p>
             <div className="mt-10 space-y-6">
-              {[
-                {
-                  icon: Building2,
-                  t: "Multi-Vertical Capability",
-                  d: "Five integrated business areas under one project management system.",
-                },
-                {
-                  icon: ShieldCheck,
-                  t: "GeM & PSU Empanelled",
-                  d: "Verified GeM seller serving municipal, district and PSU clients.",
-                },
-                {
-                  icon: Award,
-                  t: "ISO Certified",
-                  d: "9001, 14001 and 45001 audited management systems.",
-                },
-              ].map((b) => (
-                <div key={b.t} className="flex gap-5">
-                  <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
-                    <b.icon className="w-5 h-5" />
+              {COMPANY_HIGHLIGHTS.map((badge, idx) => {
+                const Icon = badge.icon;
+                return (
+                  <div key={idx} className="flex gap-5">
+                    <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-display text-lg text-navy">{badge.title}</div>
+                      <div className="text-sm text-muted-foreground mt-1">{badge.desc}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-display text-lg text-navy">{b.t}</div>
-                    <div className="text-sm text-muted-foreground mt-1">{b.d}</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <Link
               to="/about"
@@ -273,52 +308,57 @@ function Home() {
         intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
       >
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s, i) => (
-            <article
-              key={s.title}
-              className="group overflow-hidden bg-background border border-border shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-card"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-                <img
-                  src={s.img}
-                  alt={s.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent" />
-                <div className="absolute left-4 top-4 flex items-center gap-3 rounded-sm bg-white/92 px-3 py-2 backdrop-blur-sm">
-                  <s.icon className="h-5 w-5 text-gold" strokeWidth={1.6} />
-                  <span className="font-display text-sm text-navy">{s.titleShort}</span>
+          {SERVICES.map((service, i) => {
+            const Icon = service.icon;
+            return (
+              <article
+                key={i}
+                className="group overflow-hidden bg-background border border-border shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-card"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+                  <img
+                    src={service.img}
+                    alt={service.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent" />
+                  <div className="absolute left-4 top-4 flex items-center gap-3 rounded-sm bg-white/92 px-3 py-2 backdrop-blur-sm">
+                    <Icon className="h-5 w-5 text-gold" strokeWidth={1.6} />
+                    <span className="font-display text-sm text-navy">{service.titleShort}</span>
+                  </div>
+                  <span className="absolute right-4 top-4 font-display text-sm text-white/90">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <span className="absolute right-4 top-4 font-display text-sm text-white/90">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
 
-              <div className="flex h-full flex-col p-7">
-                <h3 className="font-display text-2xl text-navy leading-tight">{s.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <Link
-                  to="/services"
-                  className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-navy transition-colors group-hover:text-gold"
-                >
-                  Explore <ArrowUpRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </article>
-          ))}
+                <div className="flex h-full flex-col p-7">
+                  <h3 className="font-display text-2xl text-navy leading-tight">{service.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    {service.desc}
+                  </p>
+                  <Link
+                    to="/services"
+                    className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-navy transition-colors group-hover:text-gold"
+                  >
+                    Explore <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </Section>
 
       {/* 4. STATISTICS COUNTER */}
       <section className="bg-navy py-20 border-y border-gold/20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
-          {stats.map((s, i) => (
+          {STATS.map((stat, i) => (
             <div
-              key={s.l}
-              className={`px-6 py-6 ${i < stats.length - 1 ? "lg:border-r border-white/10" : ""}`}
+              key={i}
+              className={`px-6 py-6 ${i < STATS.length - 1 ? "lg:border-r border-white/10" : ""}`}
             >
-              <AnimatedStat value={s.v} label={s.l} />
+              <AnimatedStat value={stat.value} label={stat.label} />
             </div>
           ))}
         </div>
@@ -331,21 +371,23 @@ function Home() {
         intro="Headline solar street light and high mast projects recently delivered for government clients."
       >
         <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-          {featured.map((p) => (
-            <article key={p.title} className="group">
+          {FEATURED_PROJECTS.map((project, idx) => (
+            <article key={idx} className="group">
               <div className="image-zoom aspect-[4/3] bg-secondary mb-6">
                 <img
-                  src={p.img}
-                  alt={p.title}
+                  src={project.img}
+                  alt={project.title}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
               </div>
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <div className="eyebrow text-gold mb-2">{p.tag}</div>
-                  <h3 className="font-display text-2xl text-navy leading-tight">{p.title}</h3>
-                  <div className="text-sm text-muted-foreground mt-2">Client · {p.client}</div>
+                  <div className="eyebrow text-gold mb-2">{project.tag}</div>
+                  <h3 className="font-display text-2xl text-navy leading-tight">{project.title}</h3>
+                  <div className="text-sm text-muted-foreground mt-2">
+                    Client · {project.client}
+                  </div>
                 </div>
                 <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-transform group-hover:rotate-45 group-hover:text-gold" />
               </div>
@@ -365,13 +407,16 @@ function Home() {
       {/* 6. WHY CHOOSE US */}
       <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
-          {whyUs.map((w) => (
-            <div key={w.t} className="bg-background p-8 card-hover">
-              <w.icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
-              <h3 className="font-display text-xl text-navy">{w.t}</h3>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{w.d}</p>
-            </div>
-          ))}
+          {WHY_CHOOSE_US.map((reason, idx) => {
+            const Icon = reason.icon;
+            return (
+              <div key={idx} className="bg-background p-8 card-hover">
+                <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
+                <h3 className="font-display text-xl text-navy">{reason.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </Section>
 
@@ -398,23 +443,37 @@ function Home() {
             </Link>
           </div>
           <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {[
-              { text: "UPSIC Registered", icon: Landmark },
-              { text: "GeM Registered Seller", icon: FileCheck2 },
-              { text: "UDYAM Registered", icon: Building2 },
-              { text: "GST Registered", icon: ShieldCheck },
-            ].map((badge) => (
-              <div
-                key={badge.text}
-                className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
-              >
-                <badge.icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
-                <span className="text-white font-display tracking-wide">{badge.text}</span>
-              </div>
-            ))}
+            {GOV_BADGES.map((badge, idx) => {
+              const Icon = badge.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
+                >
+                  <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
+                  <span className="text-white font-display tracking-wide">{badge.text}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {/* 9. TESTIMONIALS */}
+      <Section muted eyebrow="Testimonials" title="What our clients say.">
+        <div className="grid md:grid-cols-3 gap-6 -mt-8">
+          {TESTIMONIALS.map((testimonial, i) => (
+            <div key={i} className="bg-background p-10 border-t-2 border-gold card-hover">
+              <Quote className="w-8 h-8 text-gold mb-6" />
+              <p className="text-navy leading-relaxed">{testimonial.quote}</p>
+              <div className="mt-8 pt-6 border-t border-border">
+                <div className="font-display text-navy">{testimonial.name}</div>
+                <div className="text-sm text-muted-foreground mt-1">{testimonial.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* 8. CLIENT LOGOS */}
       <section className="bg-background py-20 border-b border-border overflow-hidden">
@@ -427,9 +486,9 @@ function Home() {
         {/* Mobile/Tablet Grid */}
         <div className="lg:hidden mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap justify-center gap-4">
-            {clientLogos.map((client, idx) => (
+            {CLIENT_LOGOS.map((client, idx) => (
               <a
-                key={idx}
+                key={`mobile-${idx}`}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -440,6 +499,7 @@ function Home() {
                   src={client.src}
                   alt={`${client.name} Logo`}
                   className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
               </a>
             ))}
@@ -453,9 +513,9 @@ function Home() {
 
           <div className="flex animate-marquee pause-on-hover min-w-max items-center">
             {/* Double the logos for a seamless infinite loop */}
-            {[...clientLogos, ...clientLogos].map((client, idx) => (
+            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((client, idx) => (
               <a
-                key={idx}
+                key={`desktop-${idx}`}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -466,6 +526,7 @@ function Home() {
                   src={client.src}
                   alt={`${client.name} Logo`}
                   className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
                 />
               </a>
             ))}
@@ -473,54 +534,40 @@ function Home() {
         </div>
       </section>
 
-      {/* 9. TESTIMONIALS */}
-      <Section muted eyebrow="Testimonials" title="What our clients say.">
-        <div className="grid md:grid-cols-3 gap-6 -mt-8">
-          {testimonials.map((t, i) => (
-            <div key={i} className="bg-background p-10 border-t-2 border-gold card-hover">
-              <Quote className="w-8 h-8 text-gold mb-6" />
-              <p className="text-navy leading-relaxed">{t.q}</p>
-              <div className="mt-8 pt-6 border-t border-border">
-                <div className="font-display text-navy">{t.n}</div>
-                <div className="text-sm text-muted-foreground mt-1">{t.r}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
       {/* 10. CONTACT CTA */}
       <section className="relative overflow-hidden bg-navy-deep">
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-8">
-            <div className="eyebrow text-gold mb-6">
-              <span className="gold-rule mr-3 align-middle" /> Start a Project
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            {/* Content */}
+            <div className="lg:col-span-8">
+              <div className="eyebrow text-gold mb-6">
+                <span className="gold-rule mr-3 align-middle" />
+                Start a Project
+              </div>
+
+              <h2 className="text-white text-4xl lg:text-6xl leading-[1.05] tracking-tight">
+                Building something <span className="italic text-gold">significant?</span>
+                <br />
+                Let's engineer it together.
+              </h2>
+
+              <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">
+                Government departments, municipal bodies, PSUs, and private developers trust us to
+                deliver infrastructure that lasts. Share your project requirements or RFP and our
+                team will respond within one working day.
+              </p>
             </div>
-            <h2 className="text-white text-4xl lg:text-6xl leading-[1.05]">
-              Building something <span className="italic text-gold">significant?</span>
-              <br />
-              Let's engineer it together.
-            </h2>
-            <p className="mt-6 text-white/70 max-w-xl">
-              Government department, municipal body, PSU or private developer — share your RFP and
-              our pre-bid team will respond within one working day.
-            </p>
-          </div>
-          <div className="lg:col-span-4 flex flex-col gap-4 lg:items-end">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-3 bg-gold text-navy px-8 py-5 text-sm font-medium hover:bg-white transition-colors"
-            >
-              Request a Proposal <ArrowUpRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="/docs/company-profile.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 border border-white/30 text-white px-8 py-5 text-sm font-medium hover:border-gold hover:text-gold transition-colors"
-            >
-              <Download className="w-4 h-4" /> Company Profile
-            </a>
+
+            {/* CTA */}
+            <div className="lg:col-span-4 flex justify-start lg:justify-center">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-3 bg-gold text-navy px-10 py-6 text-base font-semibold hover:bg-white transition-all duration-300"
+              >
+                Request a Proposal
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

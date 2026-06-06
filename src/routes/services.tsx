@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
   Lightbulb,
@@ -11,30 +11,16 @@ import {
   Megaphone,
   MonitorPlay,
 } from "lucide-react";
-import civilImg from "@/assets/project-civil.jpg";
-import solarImg from "@/assets/project-solar.jpg";
-import electricalImg from "@/assets/project-electrical.jpg";
-import govtImg from "@/assets/project-govt.jpg";
-import roadsImg from "@/assets/hero-slide-roads.jpg";
-import unipoleImg from "@/assets/hero-slide-unipole.jpg";
-import highmastImg from "@/assets/hero-slide-highmast.jpg";
-import heroImg from "@/assets/hero-construction.jpg";
 
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Services — Praharsh Infrastructure" },
-      {
-        name: "description",
-        content:
-          "Infrastructure, road, solar, electrical, advertising, digital media, branding and government supply services delivered by Praharsh Infrastructure.",
-      },
-      { property: "og:title", content: "Our Services" },
-      { property: "og:description", content: "Eight integrated business verticals." },
-    ],
-  }),
-  component: Services,
-});
+// Services Page Assets
+import civilImg from "@/assets/images/services/img (1).jpg";
+import solarImg from "@/assets/images/services/img (2).jpg";
+import electricalImg from "@/assets/images/services/img (3).jpg";
+import roadsImg from "@/assets/images/services/img (4).jpg";
+import unipoleImg from "@/assets/images/services/img (5).jpg";
+import highmastImg from "@/assets/images/services/img (6).jpg";
+import brandImg from "@/assets/images/services/img (7).jpg";
+import servicesGovtImg from "@/assets/images/services/img (8).jpg";
 
 const services = [
   {
@@ -118,7 +104,7 @@ const services = [
   },
   {
     icon: Signpost,
-    img: heroImg,
+    img: brandImg,
     name: "Branding & Signage Works",
     desc: "High-strength external signage, cladding and branding solutions for government and infrastructure projects.",
     items: [
@@ -130,7 +116,7 @@ const services = [
   },
   {
     icon: Landmark,
-    img: govtImg,
+    img: servicesGovtImg,
     name: "Government Supply Services",
     desc: "GeM-registered sourcing and delivery of hygiene, safety, healthcare and utility materials.",
     items: [
@@ -223,3 +209,5 @@ function Services() {
     </>
   );
 }
+
+export default Services;
