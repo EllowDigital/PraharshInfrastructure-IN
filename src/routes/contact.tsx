@@ -1,60 +1,190 @@
 import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, useCallback, useEffect, type FormEvent } from "react";
 
 import { Section } from "@/components/site/Section";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
+type FieldErrors = Record<string, string>;
+
+// Validation utilities
+const VALIDATION_RULES = {
+  name: (value: string) => {
+    if (!value?.trim()) return "Name is required";
+    if (value.trim().length < 2) return "Name must be at least 2 characters";
+    if (value.trim().length > 100) return "Name must be less than 100 characters";
+    return "";
+  },
+  email: (value: string) => {
+    if (!value?.trim()) return "Email is required";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) return "Please enter a valid email address";
+    return "";
+  },
+  phone: (value: string) => {
+    if (!value) return ""; // Phone is optional
+    if (!/^\+?[\d\s\-()]{7,}$/.test(value.replace(/\s/g, ""))) {
+      return "Please enter a valid phone number";
+    }
+    return "";
+  },
+  company: (value: string) => {
+    if (value && value.trim().length > 150) return "Company name is too long";
+    return "";
+  },
+  type: (value: string) => {
+    if (value && value.trim().length > 100) return "Project type is too long";
+    return "";
+  },
+  brief: (value: string) => {
+    if (!value?.trim()) return "";
+    if (value.trim().length < 10) return "Project brief must be at least 10 characters";
+    if (value.trim().length > 2000) return "Project brief must be less than 2000 characters";
+    return "";
+  },
+};
 
 function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const submitTimeoutRef = useRef<NodeJS.Timeout>();
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // Auto-dismiss success message after 8 seconds
+  useEffect(() => {
+    if (submissionState === "success") {
+      const timeout = setTimeout(() => {
+        setSubmissionState("idle");
+        setSuccessMessage("");
+      }, 8000);
+      return () => clearTimeout(timeout);
+    }
+  }, [submissionState]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
+    };
+  }, []);
+
+  const validateField = useCallback((name: string, value: string): string => {
+    const validator = VALIDATION_RULES[name as keyof typeof VALIDATION_RULES];
+    return validator ? validator(value) : "";
+  }, []);
+
+  const validateForm = useCallback((formData: FormData): FieldErrors => {
+    const errors: FieldErrors = {};
+
+    Object.entries(VALIDATION_RULES).forEach(([fieldName]) => {
+      const value = (formData.get(fieldName) as string) || "";
+      const error = validateField(fieldName, value);
+      if (error) errors[fieldName] = error;
+    });
+
+    return errors;
+  }, [validateField]);
+
+  const handleFieldBlur = useCallback(
+    (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.currentTarget;
+      const error = validateField(name, value);
+
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    },
+    [validateField]
+  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // Prevent double submission
+    if (submissionState === "submitting") return;
+
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Construct JSON payload
+    // Validate all fields
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setErrorMessage("Please fix the errors above before submitting.");
+      return;
+    }
+
+    setFieldErrors({});
+    setErrorMessage("");
+    setSubmissionState("submitting");
+
+    // Construct and sanitize payload
     const data = {
-      name: formData.get("name"),
-      company: formData.get("company"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      projectType: formData.get("type"), // mapped to projectType
-      brief: formData.get("brief"),
+      name: (formData.get("name") as string)?.trim() || "",
+      company: (formData.get("company") as string)?.trim() || "",
+      email: (formData.get("email") as string)?.trim() || "",
+      phone: (formData.get("phone") as string)?.trim() || "",
+      projectType: (formData.get("type") as string)?.trim() || "",
+      brief: (formData.get("brief") as string)?.trim() || "",
       honeypot: formData.get("bot-field"),
     };
 
-    setSubmissionState("submitting");
-    setErrorMessage("");
-
     try {
-      const response = await fetch("/api/contact", {
+      // Set timeout for fetch (30 seconds)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      submitTimeoutRef.current = timeoutId;
+
+      const response = await fetch("/.netlify/functions/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        throw new Error(
+          result.message || `Server error (${response.status}). Please try again.`
+        );
+      }
 
       const result = await response.json();
 
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Form submission failed");
+      if (!result.success) {
+        throw new Error(result.message || "Form submission failed. Please try again.");
       }
 
       form.reset();
       formRef.current?.reset();
+      setFieldErrors({});
+      setErrorMessage("");
+      setSuccessMessage(
+        "Thank you! Your enquiry has been received. Our team will respond within one working day."
+      );
       setSubmissionState("success");
     } catch (error) {
       setSubmissionState("error");
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Something went wrong while sending your enquiry. Please try again.";
-      setErrorMessage(message);
+
+      if (error instanceof Error) {
+        if (error.name === "AbortError") {
+          setErrorMessage(
+            "Request timed out. Please check your connection and try again."
+          );
+        } else {
+          setErrorMessage(error.message);
+        }
+      } else {
+        setErrorMessage(
+          "An unexpected error occurred. Please try again or contact us directly."
+        );
+      }
     }
   };
 
@@ -124,47 +254,84 @@ function Contact() {
           <div className="lg:col-span-7 bg-secondary p-8 lg:p-12 border-t-2 border-gold">
             {submissionState === "success" ? (
               <div className="py-20 text-center">
-                <div className="eyebrow text-gold mb-4">Thank you</div>
+                <div className="eyebrow text-gold mb-4">✓ Success</div>
                 <h3 className="font-display text-3xl text-navy">Your enquiry has been received.</h3>
-                <p className="mt-4 text-muted-foreground">
-                  Our pre-construction team will respond within one working day.
-                </p>
+                <p className="mt-4 text-muted-foreground">{successMessage}</p>
               </div>
             ) : (
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <p className="sr-only">
-                  <label htmlFor="bot-field">Don’t fill this out if you’re human:</label>
+                  <label htmlFor="bot-field">Don't fill this out if you're human:</label>
                   <input
                     id="bot-field"
                     name="bot-field"
                     type="text"
                     tabIndex={-1}
                     autoComplete="off"
+                    aria-hidden="true"
                   />
                 </p>
                 <h2 className="font-display text-3xl text-navy">Request a Proposal</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <Field label="Full Name" name="name" required />
-                  <Field label="Company / Organisation" name="company" required />
-                  <Field label="Email" name="email" type="email" required />
-                  <Field label="Phone" name="phone" type="tel" />
+                  <FieldWithError
+                    label="Full Name"
+                    name="name"
+                    required
+                    error={fieldErrors.name}
+                    onBlur={handleFieldBlur}
+                  />
+                  <FieldWithError
+                    label="Company / Organisation"
+                    name="company"
+                    error={fieldErrors.company}
+                    onBlur={handleFieldBlur}
+                  />
+                  <FieldWithError
+                    label="Email"
+                    name="email"
+                    type="email"
+                    required
+                    error={fieldErrors.email}
+                    onBlur={handleFieldBlur}
+                  />
+                  <FieldWithError
+                    label="Phone"
+                    name="phone"
+                    type="tel"
+                    error={fieldErrors.phone}
+                    onBlur={handleFieldBlur}
+                  />
                 </div>
-                <Field
+                <FieldWithError
                   label="Project Type"
                   name="type"
                   placeholder="e.g. Solar EPC, Civil, Substation, Government Turnkey"
+                  error={fieldErrors.type}
+                  onBlur={handleFieldBlur}
                 />
-                <Field label="Project Brief" name="brief" textarea />
-                {submissionState === "error" ? (
-                  <p className="text-sm text-destructive">{errorMessage}</p>
-                ) : null}
+                <FieldWithError
+                  label="Project Brief"
+                  name="brief"
+                  textarea
+                  placeholder="Describe your project needs..."
+                  error={fieldErrors.brief}
+                  onBlur={handleFieldBlur}
+                />
+                {errorMessage && (
+                  <div className="p-4 bg-destructive/10 border border-destructive/30 rounded text-destructive text-sm">
+                    {errorMessage}
+                  </div>
+                )}
                 <button
                   type="submit"
                   disabled={submissionState === "submitting"}
                   className="inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gold hover:text-navy transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  aria-busy={submissionState === "submitting"}
                 >
                   {submissionState === "submitting" ? "Sending..." : "Submit Enquiry"}
-                  <ArrowUpRight className="w-4 h-4" />
+                  {submissionState !== "submitting" && (
+                    <ArrowUpRight className="w-4 h-4" />
+                  )}
                 </button>
               </form>
             )}
@@ -175,13 +342,15 @@ function Contact() {
   );
 }
 
-function Field({
+function FieldWithError({
   label,
   name,
   type = "text",
   required,
   placeholder,
   textarea,
+  error,
+  onBlur,
 }: {
   label: string;
   name: string;
@@ -189,9 +358,13 @@ function Field({
   required?: boolean;
   placeholder?: string;
   textarea?: boolean;
+  error?: string;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
   const cls =
-    "w-full bg-background border border-border focus:border-gold outline-none px-4 py-3 text-sm text-navy transition-colors";
+    "w-full bg-background border transition-colors outline-none px-4 py-3 text-sm text-navy focus:border-gold" +
+    (error ? " border-destructive focus:border-destructive" : " border-border");
+
   return (
     <label className="block">
       <span className="eyebrow text-muted-foreground text-[0.65rem] mb-2 block">
@@ -205,6 +378,9 @@ function Field({
           placeholder={placeholder}
           rows={5}
           className={cls}
+          onBlur={onBlur}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${name}-error` : undefined}
         />
       ) : (
         <input
@@ -213,7 +389,15 @@ function Field({
           required={required}
           placeholder={placeholder}
           className={cls}
+          onBlur={onBlur}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${name}-error` : undefined}
         />
+      )}
+      {error && (
+        <p id={`${name}-error`} className="text-xs text-destructive mt-1">
+          {error}
+        </p>
       )}
     </label>
   );
