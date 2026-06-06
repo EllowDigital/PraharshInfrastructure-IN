@@ -116,7 +116,7 @@ function createEmailHtml(payload: ContactPayload): string {
   const rows = fields
     .map(
       ([label, value]) =>
-        `<tr><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #1f2937; width: 120px;">${label}:</td><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${value}</td></tr>`
+        `<tr><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #1f2937; width: 120px;">${label}:</td><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${value}</td></tr>`,
     )
     .join("");
 
@@ -190,7 +190,8 @@ export const handler: Handler = async (event, context) => {
   }
 
   // Get client IP for rate limiting
-  const clientIp = event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+  const clientIp =
+    event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
     event.headers["client-ip"] ||
     context.clientContext?.identity?.sourceIp ||
     "unknown";

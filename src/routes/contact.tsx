@@ -74,17 +74,20 @@ function Contact() {
     return validator ? validator(value) : "";
   }, []);
 
-  const validateForm = useCallback((formData: FormData): FieldErrors => {
-    const errors: FieldErrors = {};
+  const validateForm = useCallback(
+    (formData: FormData): FieldErrors => {
+      const errors: FieldErrors = {};
 
-    Object.entries(VALIDATION_RULES).forEach(([fieldName]) => {
-      const value = (formData.get(fieldName) as string) || "";
-      const error = validateField(fieldName, value);
-      if (error) errors[fieldName] = error;
-    });
+      Object.entries(VALIDATION_RULES).forEach(([fieldName]) => {
+        const value = (formData.get(fieldName) as string) || "";
+        const error = validateField(fieldName, value);
+        if (error) errors[fieldName] = error;
+      });
 
-    return errors;
-  }, [validateField]);
+      return errors;
+    },
+    [validateField],
+  );
 
   const handleFieldBlur = useCallback(
     (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -96,7 +99,7 @@ function Contact() {
         [name]: error,
       }));
     },
-    [validateField]
+    [validateField],
   );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -150,9 +153,7 @@ function Contact() {
 
       if (!response.ok) {
         const result = await response.json().catch(() => ({}));
-        throw new Error(
-          result.message || `Server error (${response.status}). Please try again.`
-        );
+        throw new Error(result.message || `Server error (${response.status}). Please try again.`);
       }
 
       const result = await response.json();
@@ -166,7 +167,7 @@ function Contact() {
       setFieldErrors({});
       setErrorMessage("");
       setSuccessMessage(
-        "Thank you! Your enquiry has been received. Our team will respond within one working day."
+        "Thank you! Your enquiry has been received. Our team will respond within one working day.",
       );
       setSubmissionState("success");
     } catch (error) {
@@ -174,16 +175,12 @@ function Contact() {
 
       if (error instanceof Error) {
         if (error.name === "AbortError") {
-          setErrorMessage(
-            "Request timed out. Please check your connection and try again."
-          );
+          setErrorMessage("Request timed out. Please check your connection and try again.");
         } else {
           setErrorMessage(error.message);
         }
       } else {
-        setErrorMessage(
-          "An unexpected error occurred. Please try again or contact us directly."
-        );
+        setErrorMessage("An unexpected error occurred. Please try again or contact us directly.");
       }
     }
   };
@@ -329,9 +326,7 @@ function Contact() {
                   aria-busy={submissionState === "submitting"}
                 >
                   {submissionState === "submitting" ? "Sending..." : "Submit Enquiry"}
-                  {submissionState !== "submitting" && (
-                    <ArrowUpRight className="w-4 h-4" />
-                  )}
+                  {submissionState !== "submitting" && <ArrowUpRight className="w-4 h-4" />}
                 </button>
               </form>
             )}

@@ -113,53 +113,102 @@ function createEmailHtml(payload: ContactPayload): string {
     ["Brief", sanitizeHtml(payload.brief || "N/A")],
   ];
 
-  const rows = fields
+  const rowsHtml = fields
     .map(
-      ([label, value]) =>
-        `<tr><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; font-weight: 600; color: #1f2937; width: 120px;">${label}:</td><td style="padding: 8px; border-bottom: 1px solid #e5e7eb; color: #4b5563;">${value}</td></tr>`
+      ([label, value]) => `
+        <tr>
+          <td class="row-key">${label}</td>
+          <td class="row-val">${value}</td>
+        </tr>`,
     )
     .join("");
 
-  return `
-<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; color: #1f2937; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: linear-gradient(135deg, #001f3f 0%, #003366 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-    .header h1 { margin: 0; font-size: 24px; }
-    .header p { margin: 8px 0 0 0; opacity: 0.9; }
-    .content { background: white; padding: 20px; border: 1px solid #e5e7eb; border-top: none; }
-    .content table { width: 100%; border-collapse: collapse; }
-    .footer { background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px; text-align: center; font-size: 12px; color: #6b7280; }
-    .timestamp { text-align: right; margin-top: 20px; font-size: 12px; color: #9ca3af; }
+    body { margin:0; padding:0; background:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#1f2937; }
+    .wrapper { width:100%; table-layout:fixed; background:#f4f6f8; padding:24px 0; }
+    .container { width:100%; max-width:620px; margin:0 auto; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(16,24,40,0.08); border:1px solid rgba(16,24,40,0.04); }
+    .header { background:linear-gradient(135deg,#04273a 0%,#0a4370 100%); color:#ffffff; padding:20px 20px; display:flex; align-items:center; gap:16px; }
+    .logo { display:block; width:120px; max-width:33%; height:auto; border-radius:6px; background:white; padding:4px; }
+    .brand { flex:1; }
+    .brand h1 { margin:0; font-size:18px; letter-spacing:0.2px; font-weight:700; }
+    .brand p { margin:4px 0 0 0; font-size:13px; opacity:0.92; }
+    .hero { padding:20px; }
+    .title { font-size:20px; margin:0 0 10px 0; color:#0f172a; font-weight:700; }
+    .subtitle { margin:0 0 18px 0; color:#475569; font-size:14px; }
+    .content-table { width:100%; border-collapse:collapse; margin-bottom:16px; }
+    .row-key { width:36%; padding:12px 12px; background:#f8fafc; color:#475569; font-weight:600; vertical-align:top; border-bottom:1px solid #eef2f7; font-size:14px; }
+    .row-val { padding:12px 12px; color:#0f172a; vertical-align:top; border-bottom:1px solid #eef2f7; font-size:14px; }
+    .timestamp { text-align:right; color:#94a3b8; font-size:12px; margin-top:6px; }
+    .cta { display:block; text-align:center; margin:18px 0 0; }
+    .button { background:#0a66c2; color:#ffffff; text-decoration:none; padding:10px 18px; border-radius:8px; display:inline-block; font-weight:600; font-size:14px; }
+    .footer { background:#fbfdff; padding:16px 20px; border-top:1px solid #eef2f7; color:#64748b; font-size:12px; text-align:center; }
+    .small { font-size:12px; color:#94a3b8; }
+    @media (max-width:420px) {
+      .header { padding:14px; gap:10px; }
+      .logo { width:92px; }
+      .brand h1 { font-size:16px; }
+      .hero { padding:16px; }
+      .row-key, .row-val { display:block; width:100%; box-sizing:border-box; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>New Enquiry Received</h1>
-      <p>From Praharsh Infrastructure Website</p>
-    </div>
-    <div class="content">
-      <table>
-        ${rows}
-      </table>
-      <div class="timestamp">
-        <p>Received: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</p>
-      </div>
-    </div>
-    <div class="footer">
-      <p>This is an automated message from your website contact form.</p>
-      <p>&copy; Praharsh Infrastructure. All rights reserved.</p>
-    </div>
-  </div>
+  <center class="wrapper">
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+      <tr>
+        <td align="center">
+          <table role="presentation" class="container" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td class="header">
+                <img class="logo" src="https://praharshinfrastructure.com/images/logo.jpeg" alt="Praharsh Infrastructure logo" width="140" />
+                <div class="brand" style="line-height:1;">
+                  <h1>Praharsh Infrastructure</h1>
+                  <p style="margin:4px 0 0 0; font-size:13px; opacity:0.95;">New enquiry received from website contact form</p>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="hero" style="padding-top:18px;">
+                <p class="title">New Enquiry — Details</p>
+                <p class="subtitle">Below are the details submitted via the contact form. Reply promptly to convert the lead.</p>
+
+                <table class="content-table" role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  ${rowsHtml}
+                </table>
+
+                <div class="timestamp">
+                  Received: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
+                </div>
+
+                <div class="cta">
+                  <a class="button" href="https://praharshinfrastructure.com" target="_blank" rel="noopener">Open Dashboard</a>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="footer">
+                <div style="max-width:560px; margin:0 auto;">
+                  <div style="margin-bottom:6px;">This is an automated message from your website contact form.</div>
+                  <div style="color:#6b7280; font-size:12px; margin-bottom:6px;">&copy; Praharsh Infrastructure</div>
+                  <div class="small"><a href="https://praharshinfrastructure.com" style="color:#0a66c2; text-decoration:none;">Visit our website</a> &nbsp;|&nbsp; <span style="color:#94a3b8;">Prefer not to receive these messages? Update your settings.</span></div>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
 </body>
-</html>
-  `.trim();
+</html>`;
 }
 
 function createPlainText(payload: ContactPayload): string {
@@ -190,7 +239,8 @@ export const handler: Handler = async (event, context) => {
   }
 
   // Get client IP for rate limiting
-  const clientIp = event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+  const clientIp =
+    event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
     event.headers["client-ip"] ||
     context.clientContext?.identity?.sourceIp ||
     "unknown";
