@@ -338,34 +338,63 @@ export const handler: Handler = async (event, context) => {
         user: smtpUser,
         pass: smtpPass,
       },
-      connectionTimeout: 5000,
-      socketTimeout: 5000,
+      // increase timeouts to allow providers a bit more time
+      connectionTimeout: 20000,
+      socketTimeout: 20000,
       maxConnections: 5,
       maxMessages: 100,
       rateDelta: 1000,
       rateLimit: 10,
     });
 
-    // Verify SMTP connection
-    await transporter.verify();
+    // Log SMTP host/port (do not log secrets)
+    console.log("SMTP config", { host: smtpHost, port: smtpPort, secure: smtpSecure });
+
+    // Verify SMTP connection with safe error reporting
+    try {
+      await transporter.verify();
+      console.log("SMTP verification succeeded");
+    } catch (verifyErr) {
+      console.error(
+        "SMTP verify failed:",
+        verifyErr instanceof Error ? verifyErr.stack || verifyErr.message : String(verifyErr),
+      );
+      throw verifyErr;
+    }
 
     // Create email content
     const htmlContent = createEmailHtml(data);
     const textContent = createPlainText(data);
 
     // Send email
-    const info = await transporter.sendMail({
-      from: `"Praharsh Enquiry" <${smtpUser}>`,
-      to: toEmail,
-      replyTo: data.email,
-      subject: `New Enquiry from ${data.name} - ${data.projectType || "Website Contact"}`,
-      text: textContent,
-      html: htmlContent,
-      headers: {
-        "X-Enquiry-Source": "website-contact-form",
-        "X-Client-IP": clientIp,
-      },
-    });
+    // attempt send with a small retry loop to mitigate transient timeouts
+    let info: any = null;
+    const maxSendAttempts = 3;
+    for (let attempt = 1; attempt <= maxSendAttempts; attempt++) {
+      try {
+        info = await transporter.sendMail({
+          from: `"Praharsh Enquiry" <${smtpUser}>`,
+          to: toEmail,
+          replyTo: data.email,
+          subject: `New Enquiry from ${data.name} - ${data.projectType || "Website Contact"}`,
+          text: textContent,
+          html: htmlContent,
+          headers: {
+            "X-Enquiry-Source": "website-contact-form",
+            "X-Client-IP": clientIp,
+          },
+        });
+        break; // success
+      } catch (sendErr) {
+        console.error(
+          `sendMail attempt ${attempt} failed:`,
+          sendErr instanceof Error ? sendErr.stack || sendErr.message : String(sendErr),
+        );
+        if (attempt === maxSendAttempts) throw sendErr;
+        // small backoff before retrying
+        await new Promise((res) => setTimeout(res, 1000 * attempt));
+      }
+    }
 
     console.log("Email sent successfully", {
       messageId: info.messageId,
