@@ -42,13 +42,13 @@ import digitalMarketingImg from "@/assets/images/home/services/digital-marketing
 import brandDevelopmentImg from "@/assets/images/home/services/brand-development.png";
 import governmentProjectsImg from "@/assets/images/home/services/government-projects.png";
 
-// --- Featured Images --- 
+// --- Featured Images ---
 import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.png";
 import highmastImg from "@/assets/images/home/featured/featured-highmast.png";
 import solarLightingImg from "@/assets/images/home/featured/featured-solar.png";
 import roadInfrastructureImg from "@/assets/images/home/featured/featured-road.png";
 
-// --- Who we are ---  
+// --- Who we are ---
 import teamImg from "@/assets/images/home/about-team.png";
 
 // --- Constants & Data ---
@@ -180,17 +180,20 @@ const WHY_CHOOSE_US = [
 
 const TESTIMONIALS = [
   {
-    quote: "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
+    quote:
+      "Praharsh delivered our solar street light deployment ahead of schedule, with documentation audit-ready on day one.",
     name: "District Administration",
     role: "State Government",
   },
   {
-    quote: "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
+    quote:
+      "Their high mast crew is among the most disciplined we've engaged. Safety and material quality were exemplary.",
     name: "Executive Engineer",
     role: "State PWD",
   },
   {
-    quote: "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
+    quote:
+      "GeM compliance and billing transparency made Praharsh a preferred vendor across our procurement cycles.",
     name: "Procurement Officer",
     role: "Municipal Corp.",
   },
@@ -199,13 +202,25 @@ const TESTIMONIALS = [
 const CLIENT_LOGOS = [
   { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
   { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
-  { src: "/images/clients/client3.jfif", name: "UP Global Investors Summit (2023 Lucknow)", url: "#" },
+  {
+    src: "/images/clients/client3.jfif",
+    name: "UP Global Investors Summit (2023 Lucknow)",
+    url: "#",
+  },
   { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
   { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
   { src: "/images/clients/client6.webp", name: "UP Tourism Alternate", url: "#" },
   { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
-  { src: "/images/clients/client8.jfif", name: "Information and Public Relations Department UP", url: "#" },
-  { src: "/images/clients/client9.jfif", name: "DIPR (Department of Information and Public Relations)", url: "#" },
+  {
+    src: "/images/clients/client8.jfif",
+    name: "Information and Public Relations Department UP",
+    url: "#",
+  },
+  {
+    src: "/images/clients/client9.jfif",
+    name: "DIPR (Department of Information and Public Relations)",
+    url: "#",
+  },
 ];
 
 const COMPANY_HIGHLIGHTS = [
@@ -275,17 +290,17 @@ export default function Home() {
                 );
               })}
             </div>
-     <Link
-  to="/about"
-  className="mt-10 inline-flex items-center gap-3 border border-navy/15 px-6 py-3 text-navy font-semibold group hover:border-gold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
->
-  <span className="relative">
-    Learn about our company
-    <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-  </span>
+            <Link
+              to="/about"
+              className="mt-10 inline-flex items-center gap-3 text-navy font-semibold group"
+            >
+              <span className="relative">
+                Learn about our company
+                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+              </span>
 
-  <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-</Link>
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </Link>
           </div>
         </div>
       </Section>
@@ -297,44 +312,141 @@ export default function Home() {
         title="Eight business areas. One execution standard."
         intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
       >
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((service, i) => {
             const Icon = service.icon;
+
             return (
               <article
                 key={i}
-                className="group overflow-hidden bg-background border border-border shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-card"
+                className="
+            group
+            flex
+            flex-col
+            h-full
+            overflow-hidden
+            bg-white
+            border
+            border-navy/10
+            transition-all
+            duration-500
+            hover:-translate-y-2
+            hover:border-gold/40
+            hover:shadow-2xl
+          "
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+                {/* Image */}
+                <div className="relative h-[240px] overflow-hidden bg-secondary">
                   <img
                     src={service.img}
                     alt={service.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="
+                h-full
+                w-full
+                object-cover
+                object-center
+                transition-transform
+                duration-700
+                group-hover:scale-105
+              "
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/30 via-transparent to-transparent" />
-                  <div className="absolute left-4 top-4 flex items-center gap-3 rounded-sm bg-white/92 px-3 py-2 backdrop-blur-sm">
-                    <Icon className="h-5 w-5 text-gold" strokeWidth={1.6} />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+
+                  {/* Service Badge */}
+                  <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-2 backdrop-blur-sm shadow-sm">
+                    <Icon className="h-4 w-4 text-gold" strokeWidth={1.8} />
                     <span className="font-display text-sm text-navy">{service.titleShort}</span>
                   </div>
-                  <span className="absolute right-4 top-4 font-display text-sm text-white/90">
+
+                  {/* Number Badge */}
+                  <div
+                    className="
+                absolute
+                right-4
+                top-4
+                h-9
+                w-9
+                grid
+                place-items-center
+                rounded-full
+                bg-navy/80
+                text-white
+                text-xs
+                font-semibold
+                backdrop-blur-sm
+              "
+                  >
                     {String(i + 1).padStart(2, "0")}
-                  </span>
+                  </div>
                 </div>
 
-                <div className="flex h-full flex-col p-7">
-                  <h3 className="font-display text-2xl text-navy leading-tight">{service.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{service.desc}</p>
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-7">
+                  <h3 className="font-display text-[1.65rem] leading-tight tracking-tight text-navy">
+                    {service.title}
+                  </h3>
+
+                  <p className="mt-4 text-[15px] leading-7 text-muted-foreground">{service.desc}</p>
+
+                  {/* CTA */}
                   <Link
                     to="/services"
-                    className="mt-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-navy transition-colors group-hover:text-gold"
+                    className="
+                mt-auto
+                pt-8
+                inline-flex
+                items-center
+                gap-3
+                text-navy
+                font-semibold
+                group/link
+              "
                   >
-                    Explore <ArrowUpRight className="h-3.5 w-3.5" />
+                    <span className="relative">
+                      Learn More
+                      <span
+                        className="
+                    absolute
+                    left-0
+                    -bottom-1
+                    h-[2px]
+                    w-0
+                    bg-gold
+                    transition-all
+                    duration-300
+                    group-hover/link:w-full
+                  "
+                      />
+                    </span>
+
+                    <ArrowUpRight
+                      className="
+                  h-4
+                  w-4
+                  transition-all
+                  duration-300
+                  group-hover/link:translate-x-1
+                  group-hover/link:-translate-y-1
+                  group-hover/link:text-gold
+                "
+                    />
                   </Link>
                 </div>
               </article>
             );
           })}
+        </div>
+
+        <div className="mt-20 flex justify-center">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
+          >
+            View All Services
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
       </Section>
 
@@ -360,32 +472,58 @@ export default function Home() {
       >
         <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
           {FEATURED_PROJECTS.map((project, idx) => (
-            <article key={idx} className="group">
-              <div className="image-zoom aspect-[4/3] bg-secondary mb-6">
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+            <article key={idx} className="group flex flex-col">
+              {/* Image */}
+              <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
+                <div className="h-[340px] lg:h-[420px]">
+                  <img
+                    src={project.img}
+                    alt={project.title}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
               </div>
+
+              {/* Content */}
               <div className="flex items-start justify-between gap-6">
                 <div>
                   <div className="eyebrow text-gold mb-2">{project.tag}</div>
+
                   <h3 className="font-display text-2xl text-navy leading-tight">{project.title}</h3>
-                  <div className="text-sm text-muted-foreground mt-2">Client · {project.client}</div>
+
+                  <div className="text-sm text-muted-foreground mt-2">
+                    Client · {project.client}
+                  </div>
+
+                  {/* Learn More Link */}
+                  <Link
+                    to="/projects"
+                    className="mt-5 inline-flex items-center gap-3 text-navy font-semibold group/link"
+                  >
+                    <span className="relative">
+                      Learn More
+                      <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover/link:w-full" />
+                    </span>
+
+                    <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 group-hover/link:text-gold" />
+                  </Link>
                 </div>
-                <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-transform group-hover:rotate-45 group-hover:text-gold" />
+
+                <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-all duration-300 group-hover:rotate-45 group-hover:text-gold" />
               </div>
             </article>
           ))}
         </div>
-        <div className="mt-16 flex justify-center">
+
+        {/* CTA */}
+        <div className="mt-20 flex justify-center">
           <Link
             to="/projects"
             className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
           >
-            View All Projects <ArrowUpRight className="w-4 h-4" />
+            {" "}
+            View All Projects <ArrowUpRight className="w-4 h-4" />{" "}
           </Link>
         </div>
       </Section>
@@ -461,7 +599,6 @@ export default function Home() {
         </div>
       </Section>
 
-
       {/* 8. CLIENT LOGOS */}
       <section className="bg-background py-20 border-b border-border overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
@@ -525,7 +662,6 @@ export default function Home() {
       <section className="relative overflow-hidden bg-navy-deep">
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-
             {/* Content */}
             <div className="lg:col-span-8">
               <div className="eyebrow text-gold mb-6">
@@ -534,17 +670,15 @@ export default function Home() {
               </div>
 
               <h2 className="text-white text-4xl lg:text-6xl leading-[1.05] tracking-tight">
-                Building something{" "}
-                <span className="italic text-gold">significant?</span>
+                Building something <span className="italic text-gold">significant?</span>
                 <br />
                 Let's engineer it together.
               </h2>
 
               <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">
-                Government departments, municipal bodies, PSUs, and private
-                developers trust us to deliver infrastructure that lasts.
-                Share your project requirements or RFP and our team will
-                respond within one working day.
+                Government departments, municipal bodies, PSUs, and private developers trust us to
+                deliver infrastructure that lasts. Share your project requirements or RFP and our
+                team will respond within one working day.
               </p>
             </div>
 
@@ -558,7 +692,6 @@ export default function Home() {
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
-
           </div>
         </div>
       </section>

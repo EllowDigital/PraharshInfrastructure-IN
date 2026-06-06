@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Download, Linkedin, Facebook, Twitter, Youtube } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Download,
+  Linkedin,
+  Facebook,
+  Twitter,
+  Youtube,
+  Instagram,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -111,7 +121,7 @@ export function Footer() {
           </ul>
 
           <div className="mt-6 flex gap-3">
-            {[Linkedin, Facebook, Twitter, Youtube].map((Icon, i) => (
+            {[Linkedin, Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
               <a
                 key={i}
                 href="#"
