@@ -132,22 +132,20 @@ function createEmailHtml(payload: ContactPayload): string {
     body { margin:0; padding:0; background:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#1f2937; }
     .wrapper { width:100%; table-layout:fixed; background:#f4f6f8; padding:24px 0; }
     .container { width:100%; max-width:620px; margin:0 auto; background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(16,24,40,0.08); border:1px solid rgba(16,24,40,0.04); }
-    .header { background:linear-gradient(135deg,#04273a 0%,#0a4370 100%); color:#ffffff; padding:20px 20px; display:flex; align-items:center; gap:16px; }
-    .logo { display:block; width:120px; max-width:33%; height:auto; border-radius:6px; background:white; padding:4px; }
+    .header { background:linear-gradient(135deg,#04273a 0%,#0a4370 100%); color:#ffffff; padding:20px; display:flex; align-items:center; gap:16px; }
+    .logo { display:block; width:120px; max-width:32%; height:auto; border-radius:6px; background:white; padding:4px; }
     .brand { flex:1; }
     .brand h1 { margin:0; font-size:18px; letter-spacing:0.2px; font-weight:700; }
     .brand p { margin:4px 0 0 0; font-size:13px; opacity:0.92; }
     .hero { padding:20px; }
     .title { font-size:20px; margin:0 0 10px 0; color:#0f172a; font-weight:700; }
     .subtitle { margin:0 0 18px 0; color:#475569; font-size:14px; }
-    .content-table { width:100%; border-collapse:collapse; margin-bottom:16px; }
+    .content-table { width:100%; border-collapse:collapse; margin-bottom:8px; }
     .row-key { width:36%; padding:12px 12px; background:#f8fafc; color:#475569; font-weight:600; vertical-align:top; border-bottom:1px solid #eef2f7; font-size:14px; }
     .row-val { padding:12px 12px; color:#0f172a; vertical-align:top; border-bottom:1px solid #eef2f7; font-size:14px; }
-    .timestamp { text-align:right; color:#94a3b8; font-size:12px; margin-top:6px; }
-    .cta { display:block; text-align:center; margin:18px 0 0; }
-    .button { background:#0a66c2; color:#ffffff; text-decoration:none; padding:10px 18px; border-radius:8px; display:inline-block; font-weight:600; font-size:14px; }
     .footer { background:#fbfdff; padding:16px 20px; border-top:1px solid #eef2f7; color:#64748b; font-size:12px; text-align:center; }
     .small { font-size:12px; color:#94a3b8; }
+    .timestamp { text-align:center; color:#6b7280; font-size:12px; margin-top:12px; }
     @media (max-width:420px) {
       .header { padding:14px; gap:10px; }
       .logo { width:92px; }
@@ -176,19 +174,11 @@ function createEmailHtml(payload: ContactPayload): string {
             <tr>
               <td class="hero" style="padding-top:18px;">
                 <p class="title">New Enquiry — Details</p>
-                <p class="subtitle">Below are the details submitted via the contact form. Reply promptly to convert the lead.</p>
+                <p class="subtitle">Below are the details submitted via the contact form.</p>
 
                 <table class="content-table" role="presentation" cellspacing="0" cellpadding="0" border="0">
                   ${rowsHtml}
                 </table>
-
-                <div class="timestamp">
-                  Received: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
-                </div>
-
-                <div class="cta">
-                  <a class="button" href="https://praharshinfrastructure.com" target="_blank" rel="noopener">Open Dashboard</a>
-                </div>
               </td>
             </tr>
 
@@ -197,7 +187,7 @@ function createEmailHtml(payload: ContactPayload): string {
                 <div style="max-width:560px; margin:0 auto;">
                   <div style="margin-bottom:6px;">This is an automated message from your website contact form.</div>
                   <div style="color:#6b7280; font-size:12px; margin-bottom:6px;">&copy; Praharsh Infrastructure</div>
-                  <div class="small"><a href="https://praharshinfrastructure.com" style="color:#0a66c2; text-decoration:none;">Visit our website</a> &nbsp;|&nbsp; <span style="color:#94a3b8;">Prefer not to receive these messages? Update your settings.</span></div>
+                  <div class="timestamp">Received: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</div>
                 </div>
               </td>
             </tr>
@@ -306,7 +296,11 @@ export const handler: Handler = async (event, context) => {
   const smtpUser = process.env.EMAIL_USER;
   const smtpPass = process.env.EMAIL_PASS;
   const smtpPort = Number(process.env.SMTP_PORT ?? 587);
-  const smtpSecure = process.env.SMTP_SECURE === "true";
+  // If SMTP_SECURE is explicitly set, use it; otherwise infer from port (465 => secure)
+  const smtpSecure =
+    typeof process.env.SMTP_SECURE !== "undefined"
+      ? process.env.SMTP_SECURE === "true"
+      : smtpPort === 465;
   const toEmail = process.env.CONTACT_RECEIVER ?? smtpUser;
 
   // Validate environment configuration
@@ -347,8 +341,19 @@ export const handler: Handler = async (event, context) => {
       rateLimit: 10,
     });
 
-    // Log SMTP host/port (do not log secrets)
-    console.log("SMTP config", { host: smtpHost, port: smtpPort, secure: smtpSecure });
+    // Log SMTP host/port (do not log secrets). If SMTP_SECURE wasn't set, we inferred it from port.
+    console.log("SMTP config", {
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      inferredSecure: typeof process.env.SMTP_SECURE === "undefined",
+    });
+
+    if (smtpPort === 465 && !smtpSecure) {
+      console.warn(
+        "Port 465 typically requires SSL/TLS (set SMTP_SECURE=true). Connection may timeout if misconfigured.",
+      );
+    }
 
     // Verify SMTP connection with safe error reporting
     try {
@@ -382,6 +387,8 @@ export const handler: Handler = async (event, context) => {
           headers: {
             "X-Enquiry-Source": "website-contact-form",
             "X-Client-IP": clientIp,
+            // Provide a basic List-Unsubscribe header (mailto) to help inbox providers
+            "List-Unsubscribe": `<mailto:${toEmail}?subject=unsubscribe>`,
           },
         });
         break; // success
