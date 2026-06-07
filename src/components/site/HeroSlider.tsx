@@ -47,28 +47,28 @@ export function HeroSlider() {
             />
           </div>
         ))}
-        {/* Contrast shields */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/80 to-navy/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/85 via-navy-deep/40 to-transparent" />
-        <div className="absolute inset-0 bg-navy-deep/20" />
+        {/* Premium contrast gradient stack for perfect readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/85 to-navy-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/90 via-navy-deep/55 to-navy-deep/20" />
+        <div className="absolute inset-0 bg-navy-deep/30" />
       </div>
 
       {/* Content */}
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10 pb-24 pt-32 md:pb-28 md:pt-40 w-full">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 pb-20 pt-32 sm:pb-24 sm:pt-36 md:pb-28 md:pt-40 w-full">
         <div className="max-w-3xl">
-          <div className="eyebrow text-gold mb-4 md:mb-6 reveal">
+          <div className="eyebrow text-gold mb-4 md:mb-6 reveal text-[0.65rem] sm:text-[0.72rem]">
             <span className="gold-rule mr-3 align-middle" /> Praharsh Infrastructure · Est. 2010
           </div>
-          <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] md:leading-[0.95] tracking-tight reveal reveal-delay-1 drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+          <h1 className="font-display text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] md:leading-[0.98] tracking-tight reveal reveal-delay-1 drop-shadow-[0_4px_30px_rgba(0,0,0,0.55)]">
             Building today,
             <br className="hidden sm:block" />{" "}
-            <span className="text-gold italic font-display">empowering</span> tomorrow.
+            <span className="text-gold italic">empowering</span> tomorrow.
           </h1>
-          <p className="mt-6 md:mt-8 max-w-xl text-white/90 text-base md:text-lg leading-relaxed reveal reveal-delay-2">
+          <p className="mt-5 sm:mt-6 md:mt-8 max-w-xl text-white/90 text-[0.95rem] sm:text-base md:text-lg leading-relaxed reveal reveal-delay-2">
             Infrastructure, road, solar, electrical, advertising and government supply services
             delivered across India — engineered with discipline, governed by transparency.
           </p>
-          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 reveal reveal-delay-3">
+          <div className="mt-7 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 reveal reveal-delay-3">
             <Link
               to="/projects"
               className="group w-full sm:w-auto justify-center inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium tracking-wide hover:bg-white transition-colors"
@@ -85,7 +85,7 @@ export function HeroSlider() {
           </div>
 
           {/* Slide indicators + label */}
-          <div className="mt-14 md:mt-20 flex items-center gap-6 reveal reveal-delay-4">
+          <div className="mt-12 sm:mt-14 md:mt-20 flex items-center gap-5 sm:gap-6 reveal reveal-delay-4">
             <div className="flex gap-2.5">
               {slides.map((s, i) => (
                 <button
@@ -93,12 +93,14 @@ export function HeroSlider() {
                   onClick={() => setActive(i)}
                   aria-label={`Show ${s.label}`}
                   className={`h-[3px] transition-all duration-500 ${
-                    i === active ? "w-12 bg-gold" : "w-6 bg-white/30 hover:bg-white/60"
+                    i === active ? "w-10 sm:w-12 bg-gold" : "w-5 sm:w-6 bg-white/30 hover:bg-white/60"
                   }`}
                 />
               ))}
             </div>
-            <div className="eyebrow text-white/70 text-[0.65rem]">{slides[active].label}</div>
+            <div className="eyebrow text-white/70 text-[0.6rem] sm:text-[0.65rem] truncate">
+              {slides[active].label}
+            </div>
           </div>
         </div>
       </div>

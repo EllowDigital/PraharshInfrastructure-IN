@@ -45,7 +45,7 @@ const VALIDATION_RULES = {
 
 function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const submitTimeoutRef = useRef<NodeJS.Timeout>();
+  const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
