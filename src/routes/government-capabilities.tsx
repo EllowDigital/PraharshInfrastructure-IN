@@ -2,17 +2,15 @@ import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
   Landmark,
-  ShieldCheck,
   FileCheck2,
   ScrollText,
-  Building2,
   ArrowUpRight,
   CheckCircle2,
   HardHat,
   Sun,
   Zap,
 } from "lucide-react";
-import govtImg from "@/assets/project-govt.jpg";
+import govtImg from "@/assets/images/projects/gem-government-supply.png";
 
 const credentials = [
   {
