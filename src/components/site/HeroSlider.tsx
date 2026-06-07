@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import slideCivil from "@/assets/images/home/featured/featured-road.png";
+import slideCivil from "@/assets/images/home/services/civil-infrastructure.jpg";
 import slideHighmast from "@/assets/images/home/featured/featured-highmast.png";
-import slideSolar from "@/assets/images/home/featured/featured-solar.png";
-import slideStreetSolar from "@/assets/images/home/featured/featured-streetsolar.png";
-import slideAdvertising from "@/assets/images/home/services/outdoor-advertising.png";
-import slideGovernment from "@/assets/images/home/services/government-projects.png";
+import slideSolar from "@/assets/images/home/featured/featured-streetsolar.png";
+import slideRoad from "@/assets/images/home/services/road-construction.png";
+import slideGovt from "@/assets/images/home/services/government-projects.png";
 
 const slides = [
-  { src: slideCivil, label: "Heavy Civil & Road Infrastructure" },
   { src: slideHighmast, label: "High Mast Public Lighting" },
-  { src: slideSolar, label: "Solar Energy Projects" },
-  { src: slideStreetSolar, label: "Solar Street Lighting Networks" },
-  { src: slideAdvertising, label: "Outdoor Advertising Solutions" },
-  { src: slideGovernment, label: "Government Supply & Procurement" },
+  { src: slideCivil, label: "Civil Infrastructure & Development" },
+  { src: slideSolar, label: "Solar Street Lighting Networks" },
+  { src: slideRoad, label: "Road & Highway Infrastructure" },
+  { src: slideGovt, label: "Government Supply & Procurement" },
 ] as const;
 
-const INTERVAL = 5500;
+const INTERVAL = 6000;
 
 type HeroSliderProps = {
   onReady?: () => void;
@@ -68,15 +66,15 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
         {slides.map((s, i) => (
           <div
             key={s.src}
-            className="absolute inset-0 transition-opacity duration-[1600ms] ease-in-out will-change-[opacity,transform]"
+            className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out will-change-[opacity,transform]"
             style={{ opacity: i === active ? 1 : 0 }}
             aria-hidden={i !== active}
           >
             <img
               src={s.src}
               alt={s.label}
-              className={`w-full h-full object-cover transition-transform duration-[7000ms] ease-out ${
-                i === active ? "scale-110" : "scale-100"
+              className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
+                i === active ? "scale-105" : "scale-100"
               }`}
               loading={i === 0 ? "eager" : "lazy"}
               fetchPriority={i === 0 ? "high" : "auto"}

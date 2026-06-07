@@ -612,13 +612,13 @@ export default function Home({ onHeroReady }: HomeProps) {
       {/* 9. TESTIMONIALS */}
       <AppErrorBoundary sectionName="home_testimonials">
         <Section muted eyebrow="Testimonials" title="What our clients say.">
-          <div className="lg:hidden -mt-8">
-            <Carousel opts={{ align: "start", loop: true }} className="w-full">
+          <div className="lg:hidden -mt-8 px-2">
+            <Carousel opts={{ align: "center", loop: true }} className="w-full">
               <CarouselContent className="-ml-4">
                 {(TESTIMONIALS ?? []).map((testimonial) => (
                   <CarouselItem
                     key={testimonial.name}
-                    className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]"
+                    className="pl-4 basis-full sm:basis-[80%] md:basis-[60%]"
                   >
                     <div className="bg-background p-8 sm:p-10 border-t-2 border-gold shadow-card card-hover h-full flex flex-col">
                       <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6 shrink-0">

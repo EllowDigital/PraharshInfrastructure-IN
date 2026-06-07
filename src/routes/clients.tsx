@@ -94,15 +94,18 @@ function Clients() {
       </section>
 
       <Section>
-        <div className="bg-border p-px -mt-8 max-w-3xl">
+        <div className="mx-auto max-w-7xl -mt-8">
           {clientGroups.map((g) => (
-            <div key={g.label} className="bg-background p-10">
+            <div
+              key={g.label}
+              className="bg-background p-10 border border-border rounded-xl shadow-card"
+            >
               <div className="eyebrow text-gold mb-6">{g.label}</div>
               <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
                 {g.list.map((c) => (
                   <li
                     key={c}
-                    className="text-navy text-base font-display border-b border-border pb-3 last:border-0 sm:last:border-b"
+                    className="text-navy text-base font-display py-3 border-b border-border last:border-0"
                   >
                     {c}
                   </li>
@@ -117,14 +120,14 @@ function Clients() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold text-center mb-12">Recognised By</div>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {(clientLogos ?? []).map((client) => (
+            {(clientLogos ?? []).map((client, idx) => (
               <a
-                key={client.id}
+                key={`logo-${client.id}-${idx}`}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={client.name}
-                className="bg-white p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-sm shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="bg-background p-6 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.667rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(20%-1.2rem)] group rounded-xl border border-border shadow-card hover:shadow-elevated transition-shadow duration-300"
               >
                 <img
                   src={client.src}

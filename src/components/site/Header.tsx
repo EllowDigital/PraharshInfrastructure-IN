@@ -32,33 +32,14 @@ export function Header() {
 
   // Lock body scroll while mobile menu is open
   useEffect(() => {
-    let prevOverflow: string | null = null;
-    let prevPosition: string | null = null;
-    let prevTop: string | null = null;
-    let scrollY = 0;
-
     if (open) {
-      scrollY = window.scrollY || window.pageYOffset || 0;
-      prevOverflow = document.documentElement.style.overflow;
-      prevPosition = document.body.style.position;
-      prevTop = document.body.style.top;
-
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
 
     return () => {
-      if (open) {
-        document.documentElement.style.overflow = prevOverflow || "";
-        document.body.style.position = prevPosition || "";
-        const top = prevTop || document.body.style.top || "0px";
-        document.body.style.top = "";
-        // restore scroll position
-        const restored = -parseInt(top || "0") || 0;
-        window.scrollTo(0, restored);
-      }
+      document.body.style.overflow = "";
     };
   }, [open]);
 
