@@ -71,7 +71,7 @@ function About() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-navy pt-40 pb-24 text-white">
+      <section className="relative overflow-hidden bg-navy pt-28 sm:pt-36 pb-16 sm:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-20">
           <div
             className="h-full w-full"

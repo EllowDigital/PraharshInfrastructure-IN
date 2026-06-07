@@ -132,7 +132,7 @@ const services = [
 function Services() {
   return (
     <>
-      <section className="pt-40 pb-20 bg-navy text-white">
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> What We Do

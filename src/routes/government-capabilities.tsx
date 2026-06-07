@@ -61,7 +61,7 @@ const departments = [
 function Govt() {
   return (
     <>
-      <section className="relative pt-40 pb-24 bg-navy text-white overflow-hidden">
+      <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <img src={govtImg} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/40" />
