@@ -11,6 +11,8 @@ import {
   Instagram,
 } from "lucide-react";
 
+const socialIcons = [Linkedin, Facebook, Twitter, Instagram, Youtube] as const;
+
 export function Footer() {
   return (
     <footer className="bg-navy-deep text-white/80">
@@ -121,9 +123,9 @@ export function Footer() {
           </ul>
 
           <div className="mt-6 flex gap-3">
-            {[Linkedin, Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+            {socialIcons.map((Icon) => (
               <a
-                key={i}
+                key={Icon.displayName ?? Icon.name}
                 href="#"
                 className="w-9 h-9 grid place-items-center border border-white/20 hover:border-gold hover:text-gold transition-colors"
                 aria-label="Social link"
