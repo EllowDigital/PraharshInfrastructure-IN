@@ -13,14 +13,14 @@ import {
 } from "lucide-react";
 
 // Services Page Assets
-import civilImg from "@/assets/images/services/img (1).jpg";
-import solarImg from "@/assets/images/services/img (2).jpg";
-import electricalImg from "@/assets/images/services/img (3).jpg";
-import roadsImg from "@/assets/images/services/img (4).jpg";
-import unipoleImg from "@/assets/images/services/img (5).jpg";
-import highmastImg from "@/assets/images/services/img (6).jpg";
-import brandImg from "@/assets/images/services/img (7).jpg";
-import servicesGovtImg from "@/assets/images/services/img (8).jpg";
+import civilImg from "@/assets/images/services/civil.png";
+import roadsImg from "@/assets/images/services/road.png";
+import solarImg from "@/assets/images/services/solar.png";
+import electricalImg from "@/assets/images/services/electrical&lighting.png";
+import unipoleImg from "@/assets/images/services/indoor&outdoor.png";
+import DigitalImg from "@/assets/images/services/digital.png";
+import brandImg from "@/assets/images/services/branding.png";
+import servicesGovtImg from "@/assets/images/services/govt.png";
 
 const services = [
   {
@@ -89,7 +89,7 @@ const services = [
   },
   {
     icon: MonitorPlay,
-    img: highmastImg,
+    img: DigitalImg,
     name: "Digital Advertising",
     desc: "Digital and DOOH media solutions for government, public and enterprise brand building campaigns.",
     items: [

@@ -7,29 +7,34 @@ const APPROACH_DATA = [
   {
     icon: Target,
     title: "Mission",
-    description: "To provide high-quality infrastructure and utility services; support smart and sustainable public development; deliver projects with integrity and professionalism; ensure timely and cost-effective project execution; maintain long-term client satisfaction.",
+    description:
+      "To provide high-quality infrastructure and utility services; support smart and sustainable public development; deliver projects with integrity and professionalism; ensure timely and cost-effective project execution; maintain long-term client satisfaction.",
   },
   {
     icon: Compass,
     title: "Vision",
-    description: "To become a trusted and leading infrastructure and 360° branding solutions company, delivering innovative, sustainable, and world-class solutions across India.",
+    description:
+      "To become a trusted and leading infrastructure and 360° branding solutions company, delivering innovative, sustainable, and world-class solutions across India.",
   },
   {
     icon: ShieldCheck,
     title: "Values",
-    description: "Quality Workmanship, Integrity & Transparency, Professional Excellence, Timely Delivery, Sustainable Development, Customer Satisfaction.",
+    description:
+      "Quality Workmanship, Integrity & Transparency, Professional Excellence, Timely Delivery, Sustainable Development, Customer Satisfaction.",
   },
   {
     icon: Globe2,
     title: "Government Delivery",
-    description: "Project execution through government departments with UPSIC, DRDA, Nagar Panchayats and other statutory partners.",
+    description:
+      "Project execution through government departments with UPSIC, DRDA, Nagar Panchayats and other statutory partners.",
   },
 ];
 
 const CORE_STRENGTHS = [
   {
     title: "Experienced Technical Team",
-    description: "Experienced engineers and field supervisors trained for government infrastructure delivery.",
+    description:
+      "Experienced engineers and field supervisors trained for government infrastructure delivery.",
   },
   {
     title: "Government Project Expertise",
@@ -57,7 +62,8 @@ const CORE_STRENGTHS = [
   },
   {
     title: "Client-Centered Collaboration",
-    description: "Transparent communication, proactive coordination, and client-focused project execution.",
+    description:
+      "Transparent communication, proactive coordination, and client-focused project execution.",
   },
 ];
 
@@ -70,7 +76,8 @@ function About() {
           <div
             className="h-full w-full"
             style={{
-              backgroundImage: "radial-gradient(circle at 20% 30%, rgba(212,160,23,0.4), transparent 50%)",
+              backgroundImage:
+                "radial-gradient(circle at 20% 30%, rgba(212,160,23,0.4), transparent 50%)",
             }}
             aria-hidden="true"
           />
@@ -113,8 +120,8 @@ function About() {
               {APPROACH_DATA.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <li 
-                    key={item.title} 
+                  <li
+                    key={item.title}
                     className="mb-10 flex gap-6 border-b border-border pb-10 last:mb-0 last:border-0 last:pb-0"
                   >
                     <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-navy text-gold shadow-sm">
@@ -122,7 +129,9 @@ function About() {
                     </div>
                     <div>
                       <h3 className="font-display text-2xl text-navy">{item.title}</h3>
-                      <p className="mt-3 leading-relaxed text-muted-foreground">{item.description}</p>
+                      <p className="mt-3 leading-relaxed text-muted-foreground">
+                        {item.description}
+                      </p>
                     </div>
                   </li>
                 );
@@ -138,7 +147,9 @@ function About() {
           {CORE_STRENGTHS.map((strength) => (
             <li key={strength.title} className="card-hover bg-background p-8">
               <h3 className="font-display text-xl text-navy">{strength.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{strength.description}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {strength.description}
+              </p>
             </li>
           ))}
         </ul>
