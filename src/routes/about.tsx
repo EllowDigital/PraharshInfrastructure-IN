@@ -89,7 +89,7 @@ function About() {
             About Praharsh
           </div>
 
-          <h1 className="reveal reveal-delay-1 max-w-4xl text-5xl leading-[1.02] lg:text-7xl">
+          <h1 className="reveal reveal-delay-1 max-w-4xl text-4xl sm:text-5xl lg:text-7xl leading-[1.05] lg:leading-[1.02]">
             Building today, <span className="italic text-gold">empowering tomorrow.</span>
           </h1>
 

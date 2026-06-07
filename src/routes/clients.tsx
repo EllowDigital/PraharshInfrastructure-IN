@@ -82,7 +82,7 @@ function Clients() {
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> Our Clients
           </div>
-          <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl max-w-4xl leading-[1.05] lg:leading-[1.02]">
             Trusted by India's
             <br />
             <span className="italic text-gold">public & private sector.</span>

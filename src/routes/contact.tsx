@@ -192,7 +192,7 @@ function Contact() {
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> Get in Touch
           </div>
-          <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl max-w-4xl leading-[1.05] lg:leading-[1.02]">
             Let's engineer something <span className="italic text-gold">significant.</span>
           </h1>
         </div>
