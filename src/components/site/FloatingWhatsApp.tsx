@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Bot, User, Loader2, ChevronUp } from "lucide-react";
 
 const PHONE = "917800009165";
 
@@ -22,15 +22,27 @@ export function FloatingWhatsApp() {
   const [step, setStep] = useState(0); // 0: brief, 1: name, 2: email
   const [formData, setFormData] = useState({ brief: "", name: "", email: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
+
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 240);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleSend = async () => {
     const text = inputValue.trim();
@@ -143,7 +155,16 @@ export function FloatingWhatsApp() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+      {showScrollTop && (
+        <button
+          onClick={handleScrollTop}
+          aria-label="Scroll back to top"
+          className="w-11 h-11 rounded-full bg-navy text-white shadow-2xl shadow-black/25 flex items-center justify-center hover:bg-navy/90 transition"
+        >
+          <ChevronUp className="w-5 h-5" />
+        </button>
+      )}
       {isOpen && (
         <div className="mb-4 w-[320px] sm:w-[360px] bg-white rounded-lg shadow-2xl shadow-black/20 overflow-hidden flex flex-col border border-border animate-in slide-in-from-bottom-5 duration-300">
           {/* Header */}
