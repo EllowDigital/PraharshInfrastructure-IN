@@ -1,16 +1,31 @@
 import { Section } from "@/components/site/Section";
-// Temporary Project Section Assets
-import civilImg from "@/assets/images/services/img (1).jpg";
-import solarImg from "@/assets/images/services/img (2).jpg";
-import electricalImg from "@/assets/images/services/img (3).jpg";
-import roadsImg from "@/assets/images/services/img (4).jpg";
-import unipoleImg from "@/assets/images/services/img (5).jpg";
-import govtImg from "@/assets/images/services/img (6).jpg";
+// --- Assets/Porjects ---
+import solarStreetLightingImg from "@/assets/images/projects/solar-street-lighting.png";
+import solarHighMastImg from "@/assets/images/projects/solar-high-mast-lighting.png";
+import highMastLightingImg from "@/assets/images/projects/high-mast-lighting.png";
+
+import highwayLightingInfrastructureImg from "@/assets/images/projects/highway-lighting-infrastructure.png";
+import roadSafetySignageImg from "@/assets/images/projects/road-safety-signage.png";
+import urbanRoadDevelopmentImg from "@/assets/images/projects/urban-road-development.png";
+import trafficManagementInfrastructureImg from "@/assets/images/projects/traffic-management-infrastructure.png";
+
+import traditionalHoardingsImg from "@/assets/images/projects/traditional-hoardings.png";
+import transitRetailBrandingImg from "@/assets/images/projects/transit-retail-branding.png";
+import ledVideoWallsImg from "@/assets/images/projects/led-video-walls.png";
+import digitalCampaignInfrastructureImg from "@/assets/images/projects/digital-campaign-infrastructure.png";
+import publicityDisplaySignageImg from "@/assets/images/projects/publicity-display-signage.png";
+import acpFacadeBrandingImg from "@/assets/images/projects/acp-facade-branding.png";
+import publicInformationDisplayImg from "@/assets/images/projects/public-information-display.png";
+
+import gemGovernmentSupplyImg from "@/assets/images/projects/gem-government-supply.png";
+import solarLightingEquipmentSupplyImg from "@/assets/images/projects/solar-lighting-equipment-supply.png";
+import signageDisplayMaterialSupplyImg from "@/assets/images/projects/signage-display-material-supply.png";
+import civilInfrastructureMaterialSupplyImg from "@/assets/images/projects/civil-infrastructure-material-supply.png";
 
 const projects = [
   // Solar Light Illumination
   {
-    img: solarImg,
+    img: solarStreetLightingImg,
     tag: "Solar Street Lighting",
     title: "Solar Street Light Project",
     location: "District Rural Development Agency rollout",
@@ -18,33 +33,35 @@ const projects = [
     year: "2024",
   },
   {
-    img: solarImg,
+    img: solarHighMastImg,
     tag: "Solar High Mast",
     title: "Solar High Mast Street Light Project",
     location: "Public hubs & junctions",
     client: "Municipal & PWD",
     year: "2023",
   },
+
   // High Mast Electric Light Illumination
   {
-    img: electricalImg,
+    img: highMastLightingImg,
     tag: "High Mast Lighting",
     title: "High Mast Lighting Project",
     location: "Municipal lighting deployment",
     client: "Urban Local Bodies",
     year: "2023",
   },
+
   // Road & Civil
   {
-    img: roadsImg,
+    img: highwayLightingInfrastructureImg,
     tag: "Road Infrastructure",
     title: "Highway & Expressway Lighting Project",
     location: "Multi-corridor public lighting",
-    client: "State highway authorities",
+    client: "State Highway Authorities",
     year: "2024",
   },
   {
-    img: roadsImg,
+    img: roadSafetySignageImg,
     tag: "Road Safety",
     title: "Road Safety & Signage Installation",
     location: "Statewide retroreflective signage",
@@ -52,7 +69,7 @@ const projects = [
     year: "2024",
   },
   {
-    img: civilImg,
+    img: urbanRoadDevelopmentImg,
     tag: "Civil Works",
     title: "Urban Roadway Development Work",
     location: "Asphalt & concrete pathway delivery",
@@ -60,48 +77,49 @@ const projects = [
     year: "2023",
   },
   {
-    img: roadsImg,
+    img: trafficManagementInfrastructureImg,
     tag: "Traffic Management",
     title: "Traffic Management Infrastructure",
     location: "Smart traffic control deployment",
     client: "Municipal & State Police",
     year: "2024",
   },
+
   // Media, Signage & Displays
   {
-    img: unipoleImg,
+    img: traditionalHoardingsImg,
     tag: "Outdoor Advertising",
     title: "Traditional OOH Hoardings",
     location: "Pan-state unipole & hoarding network",
-    client: "Government & enterprise",
+    client: "Government & Enterprise",
     year: "2024",
   },
   {
-    img: unipoleImg,
+    img: transitRetailBrandingImg,
     tag: "Transit & Retail",
     title: "Transit & Retail Branding",
     location: "Bus shelters, transit corridors & stores",
-    client: "Public transit & retail partners",
+    client: "Public Transit & Retail Partners",
     year: "2024",
   },
   {
-    img: unipoleImg,
+    img: ledVideoWallsImg,
     tag: "Digital Media",
     title: "High-Definition LED Video Walls",
     location: "Public & enterprise venues",
-    client: "Government & corporate",
+    client: "Government & Corporate",
     year: "2024",
   },
   {
-    img: unipoleImg,
+    img: digitalCampaignInfrastructureImg,
     tag: "Digital Media",
     title: "360° Digital Campaign Infrastructure",
     location: "Multi-platform brand campaigns",
-    client: "Public sector & enterprise",
+    client: "Public Sector & Enterprise",
     year: "2024",
   },
   {
-    img: unipoleImg,
+    img: publicityDisplaySignageImg,
     tag: "Outdoor Advertising",
     title: "Publicity Display & Outdoor Signage Project",
     location: "Unipoles & hoardings deployment",
@@ -109,24 +127,25 @@ const projects = [
     year: "2023",
   },
   {
-    img: govtImg,
+    img: acpFacadeBrandingImg,
     tag: "Branding & Signage",
     title: "ACP Sign Board & Facade Branding Work",
     location: "Government facility facades",
-    client: "State departments",
+    client: "State Departments",
     year: "2023",
   },
   {
-    img: unipoleImg,
+    img: publicInformationDisplayImg,
     tag: "Public Information",
     title: "Public Information Display Systems",
     location: "Urban public information rollout",
     client: "Municipal Corporations",
     year: "2024",
   },
+
   // GeM Supply
   {
-    img: govtImg,
+    img: gemGovernmentSupplyImg,
     tag: "GeM Supply",
     title: "GeM Government Supply Contracts",
     location: "Pan-India procurement fulfilment",
@@ -134,27 +153,27 @@ const projects = [
     year: "2024",
   },
   {
-    img: govtImg,
+    img: solarLightingEquipmentSupplyImg,
     tag: "GeM Supply",
     title: "Solar & Lighting Equipment Supply",
     location: "Bulk procurement orders",
-    client: "Government buyers via GeM",
+    client: "Government Buyers via GeM",
     year: "2024",
   },
   {
-    img: govtImg,
+    img: signageDisplayMaterialSupplyImg,
     tag: "GeM Supply",
     title: "Signage & Display Material Supply",
     location: "Government branding rollout",
-    client: "Public sector buyers",
+    client: "Public Sector Buyers",
     year: "2023",
   },
   {
-    img: govtImg,
+    img: civilInfrastructureMaterialSupplyImg,
     tag: "GeM Supply",
     title: "Civil & Infrastructure Material Supply",
     location: "Project-tied material delivery",
-    client: "State infrastructure agencies",
+    client: "State Infrastructure Agencies",
     year: "2023",
   },
 ];

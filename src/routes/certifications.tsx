@@ -67,9 +67,12 @@ function Certifications() {
       </section>
 
       <Section>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 -mt-8">
           {certs.map((c) => (
-            <div key={c.code} className="bg-background p-10 card-hover">
+            <div
+              key={c.code}
+              className="bg-background border border-border rounded-3xl p-10 card-hover"
+            >
               <c.icon className="w-10 h-10 text-gold mb-6" strokeWidth={1.4} />
               <div className="eyebrow text-gold mb-2">{c.code}</div>
               <h3 className="font-display text-2xl text-navy leading-tight">{c.t}</h3>

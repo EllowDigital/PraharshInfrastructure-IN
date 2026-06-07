@@ -661,7 +661,7 @@ export default function Home() {
             <div className="lg:col-span-4 flex justify-start lg:justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 bg-gold text-navy px-10 py-6 text-base font-semibold hover:bg-white transition-all duration-300"
+                className="inline-flex items-center gap-3 bg-gold text-navy px-8 py-5 text-sm font-semibold hover:bg-white transition-all duration-300"
               >
                 Request a Proposal
                 <ArrowUpRight className="w-4 h-4" />
