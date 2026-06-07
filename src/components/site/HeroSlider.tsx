@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import slideCivil from "@/assets/hero-slide-civil.jpg";
-import slideHighmast from "@/assets/hero-slide-highmast.jpg";
-import slideSolar from "@/assets/hero-slide-solar.jpg";
-import slideRoads from "@/assets/hero-slide-roads.jpg";
-import slideUnipole from "@/assets/hero-slide-unipole.jpg";
+import slideCivil from "@/assets/images/home/featured/featured-road.png";
+import slideHighmast from "@/assets/images/home/featured/featured-highmast.png";
+import slideSolar from "@/assets/images/home/featured/featured-solar.png";
+import slideStreetSolar from "@/assets/images/home/featured/featured-streetsolar.png";
+import slideAdvertising from "@/assets/images/home/services/outdoor-advertising.png";
+import slideGovernment from "@/assets/images/home/services/government-projects.png";
 
 const slides = [
-  { src: slideCivil, label: "Heavy Civil Infrastructure" },
+  { src: slideCivil, label: "Heavy Civil & Road Infrastructure" },
   { src: slideHighmast, label: "High Mast Public Lighting" },
-  { src: slideSolar, label: "Solar Energy Fields" },
-  { src: slideRoads, label: "Urban Road Networks" },
-  { src: slideUnipole, label: "Outdoor Advertising Unipoles" },
+  { src: slideSolar, label: "Solar Energy Projects" },
+  { src: slideStreetSolar, label: "Solar Street Lighting Networks" },
+  { src: slideAdvertising, label: "Outdoor Advertising Solutions" },
+  { src: slideGovernment, label: "Government Supply & Procurement" },
 ] as const;
 
 const INTERVAL = 5500;

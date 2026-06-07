@@ -10,23 +10,26 @@ import {
 import { Quote, ArrowUpRight } from "lucide-react";
 
 const clientLogos = [
-  { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
-  { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
+  { id: 1, src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
+  { id: 2, src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
   {
+    id: 3,
     src: "/images/clients/client3.jfif",
     name: "UP Global Investors Summit (2023 Lucknow)",
     url: "#",
   },
-  { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
-  { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client6.webp", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
+  { id: 4, src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
+  { id: 5, src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
+  { id: 6, src: "/images/clients/client6.webp", name: "UP Tourism (Variant)", url: "#" },
+  { id: 7, src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
   {
+    id: 8,
     src: "/images/clients/client8.jfif",
     name: "Information and Public Relations Department UP",
     url: "#",
   },
   {
+    id: 9,
     src: "/images/clients/client9.jfif",
     name: "DIPR (Department of Information and Public Relations)",
     url: "#",
@@ -91,15 +94,15 @@ function Clients() {
       </section>
 
       <Section>
-        <div className="grid lg:grid-cols-3 gap-px bg-border -mt-8">
+        <div className="bg-border p-px -mt-8 max-w-3xl">
           {clientGroups.map((g) => (
             <div key={g.label} className="bg-background p-10">
               <div className="eyebrow text-gold mb-6">{g.label}</div>
-              <ul className="space-y-4">
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
                 {g.list.map((c) => (
                   <li
                     key={c}
-                    className="text-navy text-lg font-display border-b border-border pb-3 last:border-0"
+                    className="text-navy text-base font-display border-b border-border pb-3 last:border-0 sm:last:border-b"
                   >
                     {c}
                   </li>
@@ -116,7 +119,7 @@ function Clients() {
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
             {(clientLogos ?? []).map((client) => (
               <a
-                key={client.name}
+                key={client.id}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"

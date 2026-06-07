@@ -35,9 +35,7 @@ function AppShell() {
     <>
       <Preloader
         isVisible={!isReady}
-        progressLabel={
-          location.pathname === "/" ? "Loading hero and interface" : "Loading interface"
-        }
+        progressLabel="Loading..."
       />
       <ScrollToTop />
       <AppErrorBoundary sectionName="site_shell">
@@ -122,7 +120,7 @@ function AppShell() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AppShell />
     </BrowserRouter>
   );
