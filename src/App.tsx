@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
+import { ScrollToTop } from "@/components/site/ScrollToTop";
 import About from "@/routes/about";
 import Certifications from "@/routes/certifications";
 import Clients from "@/routes/clients";
@@ -14,6 +15,7 @@ import Services from "@/routes/services";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <main className="min-h-screen">
         <Routes>
