@@ -110,6 +110,10 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
+  #root {
+    min-height: 100vh;
+    background-color: var(--navy-deep);
+  }
   h1,
   h2,
   h3,
@@ -248,5 +252,28 @@
   }
   .pause-on-hover:hover {
     animation-play-state: paused;
+  }
+
+  @keyframes preloader-bar {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(60%);
+    }
+    100% {
+      transform: translateX(220%);
+    }
+  }
+  .preloader-bar {
+    animation: preloader-bar 1.8s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .animate-marquee,
+    .preloader-bar {
+      animation: none !important;
+    }
   }
 }
