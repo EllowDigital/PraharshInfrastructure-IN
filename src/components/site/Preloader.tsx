@@ -21,7 +21,9 @@ export function Preloader({ isVisible, progressLabel = "Loading..." }: Preloader
           <div className="absolute inset-0 rounded-full border-2 border-white/10" />
           <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-gold animate-spin" />
         </div>
-        <p className="mt-6 text-white/70 text-sm tracking-widest uppercase font-medium">{progressLabel}</p>
+        <p className="mt-6 text-white/70 text-sm tracking-widest uppercase font-medium">
+          {progressLabel}
+        </p>
       </div>
     </div>
   );

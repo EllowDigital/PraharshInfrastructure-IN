@@ -33,10 +33,7 @@ function AppShell() {
 
   return (
     <>
-      <Preloader
-        isVisible={!isReady}
-        progressLabel="Loading..."
-      />
+      <Preloader isVisible={!isReady} progressLabel="Loading..." />
       <ScrollToTop />
       <AppErrorBoundary sectionName="site_shell">
         <Header />

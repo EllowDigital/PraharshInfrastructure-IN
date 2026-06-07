@@ -616,12 +616,17 @@ export default function Home({ onHeroReady }: HomeProps) {
             <Carousel opts={{ align: "start", loop: true }} className="w-full">
               <CarouselContent className="-ml-4">
                 {(TESTIMONIALS ?? []).map((testimonial) => (
-                  <CarouselItem key={testimonial.name} className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]">
+                  <CarouselItem
+                    key={testimonial.name}
+                    className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]"
+                  >
                     <div className="bg-background p-8 sm:p-10 border-t-2 border-gold shadow-card card-hover h-full flex flex-col">
                       <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6 shrink-0">
                         <Quote className="h-6 w-6" />
                       </div>
-                      <p className="text-navy leading-relaxed text-base sm:text-lg flex-1">{testimonial.quote}</p>
+                      <p className="text-navy leading-relaxed text-base sm:text-lg flex-1">
+                        {testimonial.quote}
+                      </p>
                       <div className="mt-8 pt-6 border-t border-border shrink-0">
                         <div className="font-display text-navy text-lg">{testimonial.name}</div>
                         <div className="text-sm text-muted-foreground mt-1">{testimonial.role}</div>

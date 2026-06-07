@@ -137,9 +137,7 @@ export function Header() {
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/5">
-          <div className="font-display text-white text-lg tracking-tight">
-            Menu
-          </div>
+          <div className="font-display text-white text-lg tracking-tight">Menu</div>
           <button
             className="text-white/70 hover:text-white p-2 -mr-2 grid place-items-center transition-colors"
             onClick={() => setOpen(false)}
@@ -148,7 +146,7 @@ export function Header() {
             <X className="w-6 h-6 sm:w-7 sm:h-7" />
           </button>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-2">
           {nav.map((n) => (
             <NavLink
@@ -166,7 +164,7 @@ export function Header() {
             </NavLink>
           ))}
         </div>
-        
+
         <div className="p-6 mt-auto border-t border-white/5">
           <Link
             to="/contact"
