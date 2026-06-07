@@ -114,9 +114,9 @@ function Clients() {
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold text-center mb-12">Recognised By</div>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {clientLogos.map((client, idx) => (
+            {(clientLogos ?? []).map((client) => (
               <a
-                key={idx}
+                key={client.name}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -143,8 +143,8 @@ function Clients() {
         <div className="lg:hidden -mt-8">
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-4">
-              {testimonials.map((t, i) => (
-                <CarouselItem key={i} className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]">
+              {(testimonials ?? []).map((t) => (
+                <CarouselItem key={t.n} className="pl-4 basis-[88%] sm:basis-[70%] md:basis-[56%]">
                   <div className="bg-background p-8 sm:p-10 border-t-2 border-gold shadow-card card-hover h-full">
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">
                       <Quote className="h-6 w-6" />
@@ -164,9 +164,9 @@ function Clients() {
         </div>
 
         <div className="hidden lg:grid lg:grid-cols-3 gap-6 -mt-8">
-          {testimonials.map((t, i) => (
+          {(testimonials ?? []).map((t) => (
             <div
-              key={i}
+              key={`${t.n}-${t.r}`}
               className="bg-background p-10 border-t-2 border-gold shadow-card card-hover"
             >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-6">

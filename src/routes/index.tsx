@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   Award,
   Quote,
-  Download,
   Building2,
   FileBadge2,
   FileCheck2,
@@ -25,12 +24,8 @@ import {
 // --- Components ---
 import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
+import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
-
-// --- Assets & Images ---
-import heroImg from "@/assets/hero-slide-civil.jpg";
-
-import teamMembersImg from "@/assets/images/about/team/team-members.jpg";
 
 // --- Services Images ---
 import civilInfrastructureImg from "@/assets/images/home/services/civil-infrastructure.jpg";
@@ -248,17 +243,24 @@ const GOV_BADGES = [
   { text: "GST Registered", icon: ShieldCheck },
 ];
 
-export default function Home() {
+type HomeProps = {
+  onHeroReady?: () => void;
+};
+
+export default function Home({ onHeroReady }: HomeProps) {
   return (
     <>
       {/* 1. HERO */}
-      <HeroSlider />
+      <AppErrorBoundary sectionName="home_hero">
+        <HeroSlider onReady={onHeroReady} />
+      </AppErrorBoundary>
 
       {/* 2. COMPANY OVERVIEW */}
-      <Section
-        eyebrow="Who We Are"
-        title="An infrastructure contractor built for the public sector."
-      >
+      <AppErrorBoundary sectionName="home_company_overview">
+        <Section
+          eyebrow="Who We Are"
+          title="An infrastructure contractor built for the public sector."
+        >
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
           <div className="lg:col-span-7 image-zoom overflow-hidden rounded-sm">
             <img
@@ -275,10 +277,10 @@ export default function Home() {
               departments, PSUs and private clients across India.
             </p>
             <div className="mt-10 space-y-6">
-              {COMPANY_HIGHLIGHTS.map((badge, idx) => {
+              {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
                 const Icon = badge.icon;
                 return (
-                  <div key={idx} className="flex gap-5">
+                  <div key={badge.title} className="flex gap-5">
                     <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
                       <Icon className="w-5 h-5" />
                     </div>
@@ -303,22 +305,24 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </Section>
+        </Section>
+      </AppErrorBoundary>
 
       {/* 3. SERVICE HIGHLIGHTS */}
-      <Section
-        muted
-        eyebrow="Services"
-        title="Eight business areas. One execution standard."
-        intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
-      >
+      <AppErrorBoundary sectionName="home_services">
+        <Section
+          muted
+          eyebrow="Services"
+          title="Eight business areas. One execution standard."
+          intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
+        >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service, i) => {
+          {(SERVICES ?? []).map((service, i) => {
             const Icon = service.icon;
 
             return (
               <article
-                key={i}
+                key={service.title}
                 className="
             group
             flex
@@ -448,31 +452,35 @@ export default function Home() {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
-      </Section>
+        </Section>
+      </AppErrorBoundary>
 
       {/* 4. STATISTICS COUNTER */}
-      <section className="bg-navy py-20 border-y border-gold/20">
+      <AppErrorBoundary sectionName="home_stats">
+        <section className="bg-navy py-20 border-y border-gold/20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
-          {STATS.map((stat, i) => (
+          {(STATS ?? []).map((stat, i) => (
             <div
-              key={i}
+              key={stat.label}
               className={`px-6 py-6 ${i < STATS.length - 1 ? "lg:border-r border-white/10" : ""}`}
             >
               <AnimatedStat value={stat.value} label={stat.label} />
             </div>
           ))}
         </div>
-      </section>
+        </section>
+      </AppErrorBoundary>
 
       {/* 5. FEATURED PROJECTS */}
-      <Section
-        eyebrow="Featured Projects"
-        title="A portfolio measured in landmarks."
-        intro="Headline solar street light and high mast projects recently delivered for government clients."
-      >
+      <AppErrorBoundary sectionName="home_featured_projects">
+        <Section
+          eyebrow="Featured Projects"
+          title="A portfolio measured in landmarks."
+          intro="Headline solar street light and high mast projects recently delivered for government clients."
+        >
         <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-          {FEATURED_PROJECTS.map((project, idx) => (
-            <article key={idx} className="group flex flex-col">
+          {(FEATURED_PROJECTS ?? []).map((project) => (
+            <article key={project.title} className="group flex flex-col">
               {/* Image */}
               <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
                 <div className="h-[340px] lg:h-[420px]">
@@ -526,15 +534,17 @@ export default function Home() {
             View All Projects <ArrowUpRight className="w-4 h-4" />{" "}
           </Link>
         </div>
-      </Section>
+        </Section>
+      </AppErrorBoundary>
 
       {/* 6. WHY CHOOSE US */}
-      <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
+      <AppErrorBoundary sectionName="home_why_choose_us">
+        <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
-          {WHY_CHOOSE_US.map((reason, idx) => {
+          {(WHY_CHOOSE_US ?? []).map((reason) => {
             const Icon = reason.icon;
             return (
-              <div key={idx} className="bg-background p-8 card-hover">
+              <div key={reason.title} className="bg-background p-8 card-hover">
                 <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
                 <h3 className="font-display text-xl text-navy">{reason.title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
@@ -542,10 +552,12 @@ export default function Home() {
             );
           })}
         </div>
-      </Section>
+        </Section>
+      </AppErrorBoundary>
 
       {/* 7. GOVERNMENT CREDENTIALS */}
-      <section className="relative overflow-hidden">
+      <AppErrorBoundary sectionName="home_government_credentials">
+        <section className="relative overflow-hidden">
         <div className="absolute inset-0 gradient-navy" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
@@ -567,11 +579,11 @@ export default function Home() {
             </Link>
           </div>
           <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {GOV_BADGES.map((badge, idx) => {
+            {(GOV_BADGES ?? []).map((badge) => {
               const Icon = badge.icon;
               return (
                 <div
-                  key={idx}
+                  key={badge.text}
                   className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
                 >
                   <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
@@ -581,13 +593,15 @@ export default function Home() {
             })}
           </div>
         </div>
-      </section>
+        </section>
+      </AppErrorBoundary>
 
       {/* 9. TESTIMONIALS */}
-      <Section muted eyebrow="Testimonials" title="What our clients say.">
+      <AppErrorBoundary sectionName="home_testimonials">
+        <Section muted eyebrow="Testimonials" title="What our clients say.">
         <div className="grid md:grid-cols-3 gap-6 -mt-8">
-          {TESTIMONIALS.map((testimonial, i) => (
-            <div key={i} className="bg-background p-10 border-t-2 border-gold card-hover">
+          {(TESTIMONIALS ?? []).map((testimonial) => (
+            <div key={testimonial.name} className="bg-background p-10 border-t-2 border-gold card-hover">
               <Quote className="w-8 h-8 text-gold mb-6" />
               <p className="text-navy leading-relaxed">{testimonial.quote}</p>
               <div className="mt-8 pt-6 border-t border-border">
@@ -597,10 +611,12 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </Section>
+        </Section>
+      </AppErrorBoundary>
 
       {/* 8. CLIENT LOGOS */}
-      <section className="bg-background py-20 border-b border-border overflow-hidden">
+      <AppErrorBoundary sectionName="home_client_logos">
+        <section className="bg-background py-20 border-b border-border overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
           <div className="eyebrow text-gold text-center">
             Trusted by India's Public & Private Sector
@@ -631,10 +647,12 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      </AppErrorBoundary>
 
       {/* 10. CONTACT CTA */}
-      <section className="relative overflow-hidden bg-navy-deep">
+      <AppErrorBoundary sectionName="home_contact_cta">
+        <section className="relative overflow-hidden bg-navy-deep">
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             {/* Content */}
@@ -669,7 +687,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </AppErrorBoundary>
     </>
   );
 }

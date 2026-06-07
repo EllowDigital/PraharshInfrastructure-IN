@@ -13,17 +13,51 @@ const slides = [
   { src: slideSolar, label: "Solar Energy Fields" },
   { src: slideRoads, label: "Urban Road Networks" },
   { src: slideUnipole, label: "Outdoor Advertising Unipoles" },
-];
+] as const;
 
 const INTERVAL = 5500;
 
-export function HeroSlider() {
+type HeroSliderProps = {
+  onReady?: () => void;
+};
+
+export function HeroSlider({ onReady }: HeroSliderProps) {
   const [active, setActive] = useState(0);
+  const [hasReportedReady, setHasReportedReady] = useState(false);
+
+  const reportReady = () => {
+    if (hasReportedReady) return;
+    setHasReportedReady(true);
+    onReady?.();
+  };
 
   useEffect(() => {
     const id = setInterval(() => setActive((i) => (i + 1) % slides.length), INTERVAL);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    const firstSlide = slides[0]?.src;
+    if (!firstSlide || typeof window === "undefined") {
+      reportReady();
+      return;
+    }
+
+    const image = new window.Image();
+    image.src = firstSlide;
+    if (image.complete) {
+      reportReady();
+      return;
+    }
+
+    image.onload = reportReady;
+    image.onerror = reportReady;
+
+    return () => {
+      image.onload = null;
+      image.onerror = null;
+    };
+  }, [hasReportedReady, onReady]);
 
   return (
     <section className="relative min-h-[100svh] flex items-end overflow-hidden bg-navy-deep">
@@ -44,6 +78,8 @@ export function HeroSlider() {
               }`}
               loading={i === 0 ? "eager" : "lazy"}
               fetchPriority={i === 0 ? "high" : "auto"}
+              onLoad={i === 0 ? reportReady : undefined}
+              onError={i === 0 ? reportReady : undefined}
             />
           </div>
         ))}
@@ -99,7 +135,7 @@ export function HeroSlider() {
               ))}
             </div>
             <div className="eyebrow text-white/70 text-[0.6rem] sm:text-[0.65rem] truncate">
-              {slides[active].label}
+              {slides[active]?.label ?? slides[0]?.label ?? "Infrastructure delivery"}
             </div>
           </div>
         </div>
