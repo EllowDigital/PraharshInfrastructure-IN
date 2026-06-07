@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
@@ -59,6 +60,7 @@ const departments = [
 function Govt() {
   return (
     <>
+      <SEO title="Praharsh Infrastructure" />
       <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <img src={govtImg} alt="" className="w-full h-full object-cover" />

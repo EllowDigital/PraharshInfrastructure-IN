@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
 import { Award, ShieldCheck, FileBadge2, BadgeCheck, Stamp } from "lucide-react";
 
@@ -49,6 +50,7 @@ const certs = [
 function Certifications() {
   return (
     <>
+      <SEO title="Praharsh Infrastructure" />
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">

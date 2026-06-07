@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
@@ -90,6 +91,7 @@ const testimonials = [
 function Clients() {
   return (
     <>
+      <SEO title="Praharsh Infrastructure" />
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">

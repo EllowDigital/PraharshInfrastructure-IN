@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -268,6 +269,7 @@ type HomeProps = {
 export default function Home({ onHeroReady }: HomeProps) {
   return (
     <>
+      <SEO title="Praharsh Infrastructure" />
       {/* 1. HERO */}
       <AppErrorBoundary sectionName="home_hero">
         <HeroSlider onReady={onHeroReady} />

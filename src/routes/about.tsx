@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
 import teamImg from "@/assets/images/about/about.png";
 import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
@@ -70,6 +71,7 @@ const CORE_STRENGTHS = [
 function About() {
   return (
     <main>
+      <SEO title="Praharsh Infrastructure" />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-navy pt-28 sm:pt-36 pb-16 sm:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-20">

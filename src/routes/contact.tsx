@@ -1,3 +1,4 @@
+import { SEO } from "@/components/site/SEO";
 import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useRef, useState, useCallback, useEffect, type FormEvent } from "react";
 
@@ -187,6 +188,7 @@ function Contact() {
 
   return (
     <>
+      <SEO title="Praharsh Infrastructure" />
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
