@@ -9,28 +9,38 @@ import {
 } from "@/components/ui/carousel";
 import { Quote, ArrowUpRight } from "lucide-react";
 
+import client1 from "@/assets/images/clients/client1.png";
+import client2 from "@/assets/images/clients/client2.png";
+import client3 from "@/assets/images/clients/client3.jfif";
+import client4 from "@/assets/images/clients/client4.jpg";
+import client5 from "@/assets/images/clients/client5.png";
+import client6 from "@/assets/images/clients/client6.webp";
+import client7 from "@/assets/images/clients/client7.jfif";
+import client8 from "@/assets/images/clients/client8.jfif";
+import client9 from "@/assets/images/clients/client9.jfif";
+
 const clientLogos = [
-  { id: 1, src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
-  { id: 2, src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
+  { id: 1, src: client1, name: "Panchayati Raj Directorate", url: "#" },
+  { id: 2, src: client2, name: "ODOP (One District One Product)", url: "#" },
   {
     id: 3,
-    src: "/images/clients/client3.jfif",
+    src: client3,
     name: "UP Global Investors Summit (2023 Lucknow)",
     url: "#",
   },
-  { id: 4, src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
-  { id: 5, src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
-  { id: 6, src: "/images/clients/client6.webp", name: "UP Tourism (Variant)", url: "#" },
-  { id: 7, src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
+  { id: 4, src: client4, name: "Uttar Pradesh Rajkya", url: "#" },
+  { id: 5, src: client5, name: "UP Tourism", url: "#" },
+  { id: 6, src: client6, name: "UP Tourism (Variant)", url: "#" },
+  { id: 7, src: client7, name: "UP 100", url: "#" },
   {
     id: 8,
-    src: "/images/clients/client8.jfif",
+    src: client8,
     name: "Information and Public Relations Department UP",
     url: "#",
   },
   {
     id: 9,
-    src: "/images/clients/client9.jfif",
+    src: client9,
     name: "DIPR (Department of Information and Public Relations)",
     url: "#",
   },

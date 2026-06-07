@@ -44,6 +44,17 @@ import digitalMarketingImg from "@/assets/images/home/services/digital-marketing
 import brandDevelopmentImg from "@/assets/images/home/services/brand-development.png";
 import governmentProjectsImg from "@/assets/images/home/services/government-projects.png";
 
+// --- Client Images ---
+import client1 from "@/assets/images/clients/client1.png";
+import client2 from "@/assets/images/clients/client2.png";
+import client3 from "@/assets/images/clients/client3.jfif";
+import client4 from "@/assets/images/clients/client4.jpg";
+import client5 from "@/assets/images/clients/client5.png";
+import client6 from "@/assets/images/clients/client6.webp";
+import client7 from "@/assets/images/clients/client7.jfif";
+import client8 from "@/assets/images/clients/client8.jfif";
+import client9 from "@/assets/images/clients/client9.jfif";
+
 // --- Featured Images ---
 import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.png";
 import highmastImg from "@/assets/images/home/featured/featured-highmast.png";
@@ -202,24 +213,24 @@ const TESTIMONIALS = [
 ];
 
 const CLIENT_LOGOS = [
-  { src: "/images/clients/client1.png", name: "Panchayati Raj Directorate", url: "#" },
-  { src: "/images/clients/client2.png", name: "ODOP (One District One Product)", url: "#" },
+  { src: client1, name: "Panchayati Raj Directorate", url: "#" },
+  { src: client2, name: "ODOP (One District One Product)", url: "#" },
   {
-    src: "/images/clients/client3.jfif",
+    src: client3,
     name: "UP Global Investors Summit (2023 Lucknow)",
     url: "#",
   },
-  { src: "/images/clients/client4.jpg", name: "Uttar Pradesh Rajkya", url: "#" },
-  { src: "/images/clients/client5.png", name: "UP Tourism", url: "#" },
-  { src: "/images/clients/client6.webp", name: "UP Tourism Alternate", url: "#" },
-  { src: "/images/clients/client7.jfif", name: "UP 100", url: "#" },
+  { src: client4, name: "Uttar Pradesh Rajkya", url: "#" },
+  { src: client5, name: "UP Tourism", url: "#" },
+  { src: client6, name: "UP Tourism Alternate", url: "#" },
+  { src: client7, name: "UP 100", url: "#" },
   {
-    src: "/images/clients/client8.jfif",
+    src: client8,
     name: "Information and Public Relations Department UP",
     url: "#",
   },
   {
-    src: "/images/clients/client9.jfif",
+    src: client9,
     name: "DIPR (Department of Information and Public Relations)",
     url: "#",
   },

@@ -6,6 +6,7 @@ import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { Preloader } from "@/components/site/Preloader";
 import { ScrollToTop } from "@/components/site/ScrollToTop";
+import { SEO } from "@/components/site/SEO";
 import About from "@/routes/about";
 import Certifications from "@/routes/certifications";
 import Clients from "@/routes/clients";
@@ -33,6 +34,7 @@ function AppShell() {
 
   return (
     <>
+      <SEO />
       <Preloader isVisible={!isReady} progressLabel="Loading..." />
       <ScrollToTop />
       <AppErrorBoundary sectionName="site_shell">
