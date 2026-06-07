@@ -24,7 +24,9 @@ export function Section({
     <section className={`${bg} ${className}`}>
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-28 xl:py-32">
         {(eyebrow || title || intro) && (
-          <div className={`max-w-3xl mb-10 sm:mb-14 lg:mb-16 ${align === "center" ? "mx-auto text-center" : ""}`}>
+          <div
+            className={`max-w-3xl mb-10 sm:mb-14 lg:mb-16 ${align === "center" ? "mx-auto text-center" : ""}`}
+          >
             {eyebrow && (
               <div className={`eyebrow mb-4 ${dark ? "text-gold" : "text-gold"}`}>
                 <span className="gold-rule mr-3 align-middle" />

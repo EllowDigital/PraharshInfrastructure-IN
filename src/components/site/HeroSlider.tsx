@@ -97,8 +97,8 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
           </div>
           <h1 className="font-display text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] md:leading-[0.98] tracking-tight reveal reveal-delay-1 drop-shadow-[0_4px_30px_rgba(0,0,0,0.55)]">
             Building today,
-            <br className="hidden sm:block" />{" "}
-            <span className="text-gold italic">empowering</span> tomorrow.
+            <br className="hidden sm:block" /> <span className="text-gold italic">empowering</span>{" "}
+            tomorrow.
           </h1>
           <p className="mt-5 sm:mt-6 md:mt-8 max-w-xl text-white/90 text-[0.95rem] sm:text-base md:text-lg leading-relaxed reveal reveal-delay-2">
             Infrastructure, road, solar, electrical, advertising and government supply services
@@ -129,7 +129,9 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                   onClick={() => setActive(i)}
                   aria-label={`Show ${s.label}`}
                   className={`h-[3px] transition-all duration-500 ${
-                    i === active ? "w-10 sm:w-12 bg-gold" : "w-5 sm:w-6 bg-white/30 hover:bg-white/60"
+                    i === active
+                      ? "w-10 sm:w-12 bg-gold"
+                      : "w-5 sm:w-6 bg-white/30 hover:bg-white/60"
                   }`}
                 />
               ))}

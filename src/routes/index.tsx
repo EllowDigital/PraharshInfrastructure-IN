@@ -261,50 +261,50 @@ export default function Home({ onHeroReady }: HomeProps) {
           eyebrow="Who We Are"
           title="An infrastructure contractor built for the public sector."
         >
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
-          <div className="lg:col-span-7 image-zoom overflow-hidden rounded-sm">
-            <img
-              src={teamImg}
-              alt="Praharsh engineering team on site"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <div className="lg:col-span-5 lg:pt-8">
-            <p className="text-lg text-foreground/80 leading-relaxed">
-              Praharsh Infrastructure delivers solar street lighting, high mast installations,
-              electrical works, government supplies and branding — to municipal corporations, state
-              departments, PSUs and private clients across India.
-            </p>
-            <div className="mt-10 space-y-6">
-              {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
-                const Icon = badge.icon;
-                return (
-                  <div key={badge.title} className="flex gap-5">
-                    <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-display text-lg text-navy">{badge.title}</div>
-                      <div className="text-sm text-muted-foreground mt-1">{badge.desc}</div>
-                    </div>
-                  </div>
-                );
-              })}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
+            <div className="lg:col-span-7 image-zoom overflow-hidden rounded-sm">
+              <img
+                src={teamImg}
+                alt="Praharsh engineering team on site"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
-            <Link
-              to="/about"
-              className="mt-10 inline-flex items-center gap-3 text-navy font-semibold group"
-            >
-              <span className="relative">
-                Learn about our company
-                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-              </span>
+            <div className="lg:col-span-5 lg:pt-8">
+              <p className="text-lg text-foreground/80 leading-relaxed">
+                Praharsh Infrastructure delivers solar street lighting, high mast installations,
+                electrical works, government supplies and branding — to municipal corporations,
+                state departments, PSUs and private clients across India.
+              </p>
+              <div className="mt-10 space-y-6">
+                {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
+                  const Icon = badge.icon;
+                  return (
+                    <div key={badge.title} className="flex gap-5">
+                      <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="font-display text-lg text-navy">{badge.title}</div>
+                        <div className="text-sm text-muted-foreground mt-1">{badge.desc}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <Link
+                to="/about"
+                className="mt-10 inline-flex items-center gap-3 text-navy font-semibold group"
+              >
+                <span className="relative">
+                  Learn about our company
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+                </span>
 
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
+            </div>
           </div>
-        </div>
         </Section>
       </AppErrorBoundary>
 
@@ -316,14 +316,14 @@ export default function Home({ onHeroReady }: HomeProps) {
           title="Eight business areas. One execution standard."
           intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
         >
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {(SERVICES ?? []).map((service, i) => {
-            const Icon = service.icon;
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {(SERVICES ?? []).map((service, i) => {
+              const Icon = service.icon;
 
-            return (
-              <article
-                key={service.title}
-                className="
+              return (
+                <article
+                  key={service.title}
+                  className="
             group
             flex
             flex-col
@@ -338,13 +338,13 @@ export default function Home({ onHeroReady }: HomeProps) {
             hover:border-gold/40
             hover:shadow-2xl
           "
-              >
-                {/* Image */}
-                <div className="relative h-[240px] overflow-hidden bg-secondary">
-                  <img
-                    src={service.img}
-                    alt={service.title}
-                    className="
+                >
+                  {/* Image */}
+                  <div className="relative h-[240px] overflow-hidden bg-secondary">
+                    <img
+                      src={service.img}
+                      alt={service.title}
+                      className="
                 h-full
                 w-full
                 object-cover
@@ -353,20 +353,20 @@ export default function Home({ onHeroReady }: HomeProps) {
                 duration-700
                 group-hover:scale-105
               "
-                    loading="lazy"
-                  />
+                      loading="lazy"
+                    />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
 
-                  {/* Service Badge */}
-                  <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-2 backdrop-blur-sm shadow-sm">
-                    <Icon className="h-4 w-4 text-gold" strokeWidth={1.8} />
-                    <span className="font-display text-sm text-navy">{service.titleShort}</span>
-                  </div>
+                    {/* Service Badge */}
+                    <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-2 backdrop-blur-sm shadow-sm">
+                      <Icon className="h-4 w-4 text-gold" strokeWidth={1.8} />
+                      <span className="font-display text-sm text-navy">{service.titleShort}</span>
+                    </div>
 
-                  {/* Number Badge */}
-                  <div
-                    className="
+                    {/* Number Badge */}
+                    <div
+                      className="
                 absolute
                 right-4
                 top-4
@@ -381,23 +381,25 @@ export default function Home({ onHeroReady }: HomeProps) {
                 font-semibold
                 backdrop-blur-sm
               "
-                  >
-                    {String(i + 1).padStart(2, "0")}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
                   </div>
-                </div>
 
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-display text-[1.65rem] leading-tight tracking-tight text-navy">
-                    {service.title}
-                  </h3>
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col p-7">
+                    <h3 className="font-display text-[1.65rem] leading-tight tracking-tight text-navy">
+                      {service.title}
+                    </h3>
 
-                  <p className="mt-4 text-[15px] leading-7 text-muted-foreground">{service.desc}</p>
+                    <p className="mt-4 text-[15px] leading-7 text-muted-foreground">
+                      {service.desc}
+                    </p>
 
-                  {/* CTA */}
-                  <Link
-                    to="/services"
-                    className="
+                    {/* CTA */}
+                    <Link
+                      to="/services"
+                      className="
                 mt-auto
                 pt-8
                 inline-flex
@@ -407,11 +409,11 @@ export default function Home({ onHeroReady }: HomeProps) {
                 font-semibold
                 group/link
               "
-                  >
-                    <span className="relative">
-                      Learn More
-                      <span
-                        className="
+                    >
+                      <span className="relative">
+                        Learn More
+                        <span
+                          className="
                     absolute
                     left-0
                     -bottom-1
@@ -422,11 +424,11 @@ export default function Home({ onHeroReady }: HomeProps) {
                     duration-300
                     group-hover/link:w-full
                   "
-                      />
-                    </span>
+                        />
+                      </span>
 
-                    <ArrowUpRight
-                      className="
+                      <ArrowUpRight
+                        className="
                   h-4
                   w-4
                   transition-all
@@ -435,39 +437,39 @@ export default function Home({ onHeroReady }: HomeProps) {
                   group-hover/link:-translate-y-1
                   group-hover/link:text-gold
                 "
-                    />
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+                      />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
 
-        <div className="mt-20 flex justify-center">
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
-          >
-            View All Services
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </div>
+          <div className="mt-20 flex justify-center">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
+            >
+              View All Services
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
         </Section>
       </AppErrorBoundary>
 
       {/* 4. STATISTICS COUNTER */}
       <AppErrorBoundary sectionName="home_stats">
         <section className="bg-navy py-20 border-y border-gold/20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
-          {(STATS ?? []).map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`px-6 py-6 ${i < STATS.length - 1 ? "lg:border-r border-white/10" : ""}`}
-            >
-              <AnimatedStat value={stat.value} label={stat.label} />
-            </div>
-          ))}
-        </div>
+          <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
+            {(STATS ?? []).map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`px-6 py-6 ${i < STATS.length - 1 ? "lg:border-r border-white/10" : ""}`}
+              >
+                <AnimatedStat value={stat.value} label={stat.label} />
+              </div>
+            ))}
+          </div>
         </section>
       </AppErrorBoundary>
 
@@ -478,215 +480,222 @@ export default function Home({ onHeroReady }: HomeProps) {
           title="A portfolio measured in landmarks."
           intro="Headline solar street light and high mast projects recently delivered for government clients."
         >
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-          {(FEATURED_PROJECTS ?? []).map((project) => (
-            <article key={project.title} className="group flex flex-col">
-              {/* Image */}
-              <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
-                <div className="h-[340px] lg:h-[420px]">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
+            {(FEATURED_PROJECTS ?? []).map((project) => (
+              <article key={project.title} className="group flex flex-col">
+                {/* Image */}
+                <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
+                  <div className="h-[340px] lg:h-[420px]">
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <div className="eyebrow text-gold mb-2">{project.tag}</div>
+                {/* Content */}
+                <div className="flex items-start justify-between gap-6">
+                  <div>
+                    <div className="eyebrow text-gold mb-2">{project.tag}</div>
 
-                  <h3 className="font-display text-2xl text-navy leading-tight">{project.title}</h3>
+                    <h3 className="font-display text-2xl text-navy leading-tight">
+                      {project.title}
+                    </h3>
 
-                  <div className="text-sm text-muted-foreground mt-2">
-                    Client · {project.client}
+                    <div className="text-sm text-muted-foreground mt-2">
+                      Client · {project.client}
+                    </div>
+
+                    {/* Learn More Link */}
+                    <Link
+                      to="/projects"
+                      className="mt-5 inline-flex items-center gap-3 text-navy font-semibold group/link"
+                    >
+                      <span className="relative">
+                        Learn More
+                        <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover/link:w-full" />
+                      </span>
+
+                      <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 group-hover/link:text-gold" />
+                    </Link>
                   </div>
 
-                  {/* Learn More Link */}
-                  <Link
-                    to="/projects"
-                    className="mt-5 inline-flex items-center gap-3 text-navy font-semibold group/link"
-                  >
-                    <span className="relative">
-                      Learn More
-                      <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover/link:w-full" />
-                    </span>
-
-                    <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 group-hover/link:text-gold" />
-                  </Link>
+                  <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-all duration-300 group-hover:rotate-45 group-hover:text-gold" />
                 </div>
+              </article>
+            ))}
+          </div>
 
-                <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-all duration-300 group-hover:rotate-45 group-hover:text-gold" />
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-20 flex justify-center">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
-          >
-            {" "}
-            View All Projects <ArrowUpRight className="w-4 h-4" />{" "}
-          </Link>
-        </div>
+          {/* CTA */}
+          <div className="mt-20 flex justify-center">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
+            >
+              {" "}
+              View All Projects <ArrowUpRight className="w-4 h-4" />{" "}
+            </Link>
+          </div>
         </Section>
       </AppErrorBoundary>
 
       {/* 6. WHY CHOOSE US */}
       <AppErrorBoundary sectionName="home_why_choose_us">
         <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
-          {(WHY_CHOOSE_US ?? []).map((reason) => {
-            const Icon = reason.icon;
-            return (
-              <div key={reason.title} className="bg-background p-8 card-hover">
-                <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
-                <h3 className="font-display text-xl text-navy">{reason.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
-              </div>
-            );
-          })}
-        </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
+            {(WHY_CHOOSE_US ?? []).map((reason) => {
+              const Icon = reason.icon;
+              return (
+                <div key={reason.title} className="bg-background p-8 card-hover">
+                  <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
+                  <h3 className="font-display text-xl text-navy">{reason.title}</h3>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {reason.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </Section>
       </AppErrorBoundary>
 
       {/* 7. GOVERNMENT CREDENTIALS */}
       <AppErrorBoundary sectionName="home_government_credentials">
         <section className="relative overflow-hidden">
-        <div className="absolute inset-0 gradient-navy" />
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-5">
-            <div className="eyebrow text-gold mb-6">
-              <span className="gold-rule mr-3 align-middle" /> Government Credentials
+          <div className="absolute inset-0 gradient-navy" />
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
+            <div className="lg:col-span-5">
+              <div className="eyebrow text-gold mb-6">
+                <span className="gold-rule mr-3 align-middle" /> Government Credentials
+              </div>
+              <h2 className="text-white text-4xl lg:text-5xl leading-[1.05]">
+                Procurement-ready. <span className="italic text-gold">Tender-trained.</span>
+              </h2>
+              <p className="mt-6 text-white/75 leading-relaxed max-w-md">
+                Praharsh is structured specifically to deliver public-sector projects — from GeM
+                procurement to turnkey civic works.
+              </p>
+              <Link
+                to="/government-capabilities"
+                className="mt-10 inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium hover:bg-white transition-colors"
+              >
+                See Government Capabilities <ArrowUpRight className="w-4 h-4" />
+              </Link>
             </div>
-            <h2 className="text-white text-4xl lg:text-5xl leading-[1.05]">
-              Procurement-ready. <span className="italic text-gold">Tender-trained.</span>
-            </h2>
-            <p className="mt-6 text-white/75 leading-relaxed max-w-md">
-              Praharsh is structured specifically to deliver public-sector projects — from GeM
-              procurement to turnkey civic works.
-            </p>
-            <Link
-              to="/government-capabilities"
-              className="mt-10 inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium hover:bg-white transition-colors"
-            >
-              See Government Capabilities <ArrowUpRight className="w-4 h-4" />
-            </Link>
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
+              {(GOV_BADGES ?? []).map((badge) => {
+                const Icon = badge.icon;
+                return (
+                  <div
+                    key={badge.text}
+                    className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
+                  >
+                    <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
+                    <span className="text-white font-display tracking-wide">{badge.text}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {(GOV_BADGES ?? []).map((badge) => {
-              const Icon = badge.icon;
-              return (
-                <div
-                  key={badge.text}
-                  className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
-                >
-                  <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
-                  <span className="text-white font-display tracking-wide">{badge.text}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
         </section>
       </AppErrorBoundary>
 
       {/* 9. TESTIMONIALS */}
       <AppErrorBoundary sectionName="home_testimonials">
         <Section muted eyebrow="Testimonials" title="What our clients say.">
-        <div className="grid md:grid-cols-3 gap-6 -mt-8">
-          {(TESTIMONIALS ?? []).map((testimonial) => (
-            <div key={testimonial.name} className="bg-background p-10 border-t-2 border-gold card-hover">
-              <Quote className="w-8 h-8 text-gold mb-6" />
-              <p className="text-navy leading-relaxed">{testimonial.quote}</p>
-              <div className="mt-8 pt-6 border-t border-border">
-                <div className="font-display text-navy">{testimonial.name}</div>
-                <div className="text-sm text-muted-foreground mt-1">{testimonial.role}</div>
+          <div className="grid md:grid-cols-3 gap-6 -mt-8">
+            {(TESTIMONIALS ?? []).map((testimonial) => (
+              <div
+                key={testimonial.name}
+                className="bg-background p-10 border-t-2 border-gold card-hover"
+              >
+                <Quote className="w-8 h-8 text-gold mb-6" />
+                <p className="text-navy leading-relaxed">{testimonial.quote}</p>
+                <div className="mt-8 pt-6 border-t border-border">
+                  <div className="font-display text-navy">{testimonial.name}</div>
+                  <div className="text-sm text-muted-foreground mt-1">{testimonial.role}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </Section>
       </AppErrorBoundary>
 
       {/* 8. CLIENT LOGOS */}
       <AppErrorBoundary sectionName="home_client_logos">
         <section className="bg-background py-20 border-b border-border overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
-          <div className="eyebrow text-gold text-center">
-            Trusted by India's Public & Private Sector
+          <div className="mx-auto max-w-7xl px-6 lg:px-10 mb-8 lg:mb-12">
+            <div className="eyebrow text-gold text-center">
+              Trusted by India's Public & Private Sector
+            </div>
           </div>
-        </div>
 
-        <div className="relative w-full overflow-hidden group">
-          <div className="absolute inset-y-0 left-0 w-28 sm:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-28 sm:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+          <div className="relative w-full overflow-hidden group">
+            <div className="absolute inset-y-0 left-0 w-28 sm:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-28 sm:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-          <div className="flex animate-marquee pause-on-hover min-w-max items-center gap-4 py-6 px-6 sm:px-10">
-            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((client, idx) => (
-              <a
-                key={`logo-marquee-${idx}`}
-                href={client.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={client.name}
-                className="bg-white p-4 flex items-center justify-center h-24 w-40 sm:h-28 sm:w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <img
-                  src={client.src}
-                  alt={`${client.name} Logo`}
-                  className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300"
-                  loading="lazy"
-                />
-              </a>
-            ))}
+            <div className="flex animate-marquee pause-on-hover min-w-max items-center gap-4 py-6 px-6 sm:px-10">
+              {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((client, idx) => (
+                <a
+                  key={`logo-marquee-${idx}`}
+                  href={client.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={client.name}
+                  className="bg-white p-4 flex items-center justify-center h-24 w-40 sm:h-28 sm:w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
+                >
+                  <img
+                    src={client.src}
+                    alt={`${client.name} Logo`}
+                    className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
         </section>
       </AppErrorBoundary>
 
       {/* 10. CONTACT CTA */}
       <AppErrorBoundary sectionName="home_contact_cta">
         <section className="relative overflow-hidden bg-navy-deep">
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Content */}
-            <div className="lg:col-span-8">
-              <div className="eyebrow text-gold mb-6">
-                <span className="gold-rule mr-3 align-middle" />
-                Start a Project
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              {/* Content */}
+              <div className="lg:col-span-8">
+                <div className="eyebrow text-gold mb-6">
+                  <span className="gold-rule mr-3 align-middle" />
+                  Start a Project
+                </div>
+
+                <h2 className="text-white text-4xl lg:text-6xl leading-[1.05] tracking-tight">
+                  Building something <span className="italic text-gold">significant?</span>
+                  <br />
+                  Let's engineer it together.
+                </h2>
+
+                <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">
+                  Government departments, municipal bodies, PSUs, and private developers trust us to
+                  deliver infrastructure that lasts. Share your project requirements or RFP and our
+                  team will respond within one working day.
+                </p>
               </div>
 
-              <h2 className="text-white text-4xl lg:text-6xl leading-[1.05] tracking-tight">
-                Building something <span className="italic text-gold">significant?</span>
-                <br />
-                Let's engineer it together.
-              </h2>
-
-              <p className="mt-8 text-white/70 max-w-2xl text-lg leading-relaxed">
-                Government departments, municipal bodies, PSUs, and private developers trust us to
-                deliver infrastructure that lasts. Share your project requirements or RFP and our
-                team will respond within one working day.
-              </p>
-            </div>
-
-            {/* CTA */}
-            <div className="lg:col-span-4 flex justify-start lg:justify-center">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-3 bg-gold text-navy px-8 py-5 text-sm font-semibold hover:bg-white transition-all duration-300"
-              >
-                Request a Proposal
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
+              {/* CTA */}
+              <div className="lg:col-span-4 flex justify-start lg:justify-center">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-3 bg-gold text-navy px-8 py-5 text-sm font-semibold hover:bg-white transition-all duration-300"
+                >
+                  Request a Proposal
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
         </section>
       </AppErrorBoundary>
     </>

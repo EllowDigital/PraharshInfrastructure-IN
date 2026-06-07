@@ -35,7 +35,9 @@ function AppShell() {
     <>
       <Preloader
         isVisible={!isReady}
-        progressLabel={location.pathname === "/" ? "Loading hero and interface" : "Loading interface"}
+        progressLabel={
+          location.pathname === "/" ? "Loading hero and interface" : "Loading interface"
+        }
       />
       <ScrollToTop />
       <AppErrorBoundary sectionName="site_shell">
