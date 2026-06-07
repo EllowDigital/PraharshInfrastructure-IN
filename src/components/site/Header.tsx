@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
 const nav = [
@@ -15,12 +15,49 @@ const nav = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  
+  // Use a ref for the open state to access it in the scroll listener without recreating it
+  const openRef = useRef(open);
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          setScrolled(currentScrollY > 20);
+
+          // 1. Auto-hide header on scroll down, show on scroll up
+          if (currentScrollY > lastScrollY && currentScrollY > 80) {
+            setHidden(true);
+          } else {
+            setHidden(false);
+          }
+
+          // 2. Automatically close mobile menu if user scrolls
+          if (openRef.current && Math.abs(currentScrollY - lastScrollY) > 15) {
+            setOpen(false);
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Run once on mount to set initial state
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -28,35 +65,29 @@ export function Header() {
   // Close mobile menu on route change
   useEffect(() => {
     setOpen(false);
+    setHidden(false); // Ensure header shows when navigating to a new page
   }, [location.pathname]);
-
-  // Lock body scroll while mobile menu is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-navy-deep/95 backdrop-blur-md shadow-card border-b border-white/5"
-          : "bg-gradient-to-b from-navy-deep/60 to-transparent"
+      className={`fixed top-0 inset-x-0 z-50 transition-transform duration-500 ease-in-out ${
+        hidden && !open ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+      <div 
+        className={`absolute inset-0 transition-colors duration-500 ${
+          scrolled || open
+            ? "bg-navy-deep/95 backdrop-blur-md shadow-card border-b border-white/5"
+            : "bg-gradient-to-b from-navy-deep/70 to-transparent"
+        }`} 
+      />
+      
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4 z-50">
         <Link to="/" className="flex items-center gap-3 group shrink-0">
           <img
             src="/images/logo.jpeg"
             alt="Praharsh Infrastructure"
-            className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-sm"
+            className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-sm shadow-sm"
           />
           <div className="leading-tight">
             <div className="font-display text-white text-base sm:text-lg tracking-tight">
@@ -68,6 +99,7 @@ export function Header() {
           </div>
         </Link>
 
+        {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
           {nav.map((n) => (
             <NavLink
@@ -87,73 +119,64 @@ export function Header() {
 
         <Link
           to="/contact"
-          className="hidden lg:inline-flex items-center gap-2 bg-gold text-navy px-4 xl:px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors shrink-0"
+          className="hidden lg:inline-flex items-center gap-2 bg-gold text-navy px-4 xl:px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors shadow-sm shrink-0"
         >
           Request Proposal
         </Link>
 
+        {/* Mobile Toggle Button */}
         <button
-          className="lg:hidden text-white p-2 -mr-2 grid place-items-center"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
+          className="lg:hidden text-white p-2 -mr-2 grid place-items-center transition-transform active:scale-95 z-50"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
         >
-          <Menu className="w-6 h-6 sm:w-7 sm:h-7" />
+          {open ? (
+            <X className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
+          ) : (
+            <Menu className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
+          )}
         </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Mobile Menu Fullscreen Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 z-[59] ${
+        className={`lg:hidden absolute top-0 left-0 w-full h-[100dvh] bg-navy-deep/98 backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col pt-24 border-t border-white/5 ${
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
-
-      {/* Mobile Drawer */}
-      <div
-        className={`lg:hidden fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-navy shadow-2xl transition-transform duration-300 ease-out border-l border-white/5 flex flex-col z-[60] ${
-          open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!open}
       >
-        <div className="flex items-center justify-between p-5 sm:p-6 border-b border-white/5">
-          <div className="font-display text-white text-lg tracking-tight">Menu</div>
-          <button
-            className="text-white/70 hover:text-white p-2 -mr-2 grid place-items-center transition-colors"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-          >
-            <X className="w-6 h-6 sm:w-7 sm:h-7" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-2">
-          {nav.map((n) => (
+        <div className="flex-1 overflow-y-auto px-6 pb-12 flex flex-col items-center justify-center gap-7">
+          {nav.map((n, i) => (
             <NavLink
               key={n.to}
               to={n.to}
               end={n.to === "/"}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `py-3.5 border-b border-white/5 text-sm sm:text-base tracking-wide transition-colors ${
-                  isActive ? "text-gold font-medium" : "text-white/80 hover:text-white"
-                }`
+                `text-2xl sm:text-3xl font-display tracking-tight transition-all duration-500 transform ${
+                  open ? "translate-y-0 opacity-100 scale-100" : "translate-y-8 opacity-0 scale-95"
+                } ${isActive ? "text-gold" : "text-white/80 hover:text-white"}`
               }
+              style={{ transitionDelay: `${open ? i * 60 + 100 : 0}ms` }}
             >
               {n.label}
             </NavLink>
           ))}
-        </div>
-
-        <div className="p-6 mt-auto border-t border-white/5">
-          <Link
-            to="/contact"
-            onClick={() => setOpen(false)}
-            className="flex items-center justify-center w-full bg-gold text-navy py-3.5 px-4 text-sm sm:text-base font-medium tracking-wide hover:bg-white transition-colors"
+          
+          <div 
+            className={`w-full max-w-xs mt-6 pt-8 border-t border-white/10 flex flex-col items-center transition-all duration-500 transform ${
+              open ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            }`}
+            style={{ transitionDelay: `${open ? nav.length * 60 + 150 : 0}ms` }}
           >
-            Request Proposal
-          </Link>
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="w-full inline-flex items-center justify-center bg-gold text-navy py-4 px-8 text-base font-medium tracking-wide hover:bg-white hover:scale-[1.02] transition-all duration-300 shadow-lg"
+            >
+              Request Proposal
+            </Link>
+          </div>
         </div>
       </div>
     </header>
