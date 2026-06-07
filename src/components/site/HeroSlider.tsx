@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronRight, ChevronLeft } from "lucide-react";
 import slideCivil from "@/assets/images/home/services/civil-infrastructure.jpg";
 import slideHighmast from "@/assets/images/home/featured/featured-highmast.png";
 import slideSolar from "@/assets/images/home/featured/featured-streetsolar.png";
@@ -24,6 +24,7 @@ type HeroSliderProps = {
 export function HeroSlider({ onReady }: HeroSliderProps) {
   const [active, setActive] = useState(0);
   const [hasReportedReady, setHasReportedReady] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const reportReady = () => {
     if (hasReportedReady) return;
@@ -32,9 +33,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
   };
 
   useEffect(() => {
+    if (isHovered) return;
     const id = setInterval(() => setActive((i) => (i + 1) % slides.length), INTERVAL);
     return () => clearInterval(id);
-  }, []);
+  }, [isHovered]);
 
   useEffect(() => {
     const firstSlide = slides[0]?.src;
@@ -59,21 +61,31 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
     };
   }, [hasReportedReady, onReady]);
 
+  const nextSlide = () => setActive((i) => (i + 1) % slides.length);
+  const prevSlide = () => setActive((i) => (i - 1 + slides.length) % slides.length);
+
   return (
-    <section className="relative min-h-[100svh] flex items-end overflow-hidden bg-navy-deep">
-      {/* Slides */}
-      <div className="absolute inset-0">
+    <section 
+      className="relative min-h-[100dvh] w-full flex flex-col justify-center overflow-hidden bg-navy-deep"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Slides Background */}
+      <div className="absolute inset-0 z-0">
         {slides.map((s, i) => (
           <div
             key={s.src}
-            className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out will-change-[opacity,transform]"
-            style={{ opacity: i === active ? 1 : 0 }}
+            className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
+            style={{ 
+              opacity: i === active ? 1 : 0,
+              zIndex: i === active ? 1 : 0
+            }}
             aria-hidden={i !== active}
           >
             <img
               src={s.src}
               alt={s.label}
-              className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
+              className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
                 i === active ? "scale-105" : "scale-100"
               }`}
               loading={i === 0 ? "eager" : "lazy"}
@@ -83,63 +95,95 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             />
           </div>
         ))}
-        {/* Premium contrast gradient stack for perfect readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/85 to-navy-deep/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/90 via-navy-deep/55 to-navy-deep/20" />
-        <div className="absolute inset-0 bg-navy-deep/30" />
+        {/* Premium multi-layered gradient for optimal text legibility */}
+        <div className="absolute inset-0 z-10 bg-navy-deep/60" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-deep via-navy-deep/80 to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-navy-deep/90 via-navy-deep/70 to-transparent sm:via-navy-deep/50 md:w-3/4" />
       </div>
 
-      {/* Content */}
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 pb-20 pt-32 sm:pb-24 sm:pt-36 md:pb-28 md:pt-40 w-full">
-        <div className="max-w-3xl">
-          <div className="eyebrow text-gold mb-4 md:mb-6 reveal text-[0.65rem] sm:text-[0.72rem]">
-            <span className="gold-rule mr-3 align-middle" /> Praharsh Infrastructure · Est. 2010
+      {/* Main Content Area */}
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 py-24 sm:py-32 md:py-40 flex flex-col justify-center flex-1">
+        <div className="max-w-3xl lg:max-w-4xl pt-10 sm:pt-0">
+          <div className="eyebrow flex items-center text-gold mb-5 md:mb-7 reveal text-[0.7rem] sm:text-[0.75rem] md:text-[0.8rem] tracking-[0.2em] sm:tracking-[0.25em]">
+            <span className="w-8 sm:w-12 h-[2px] bg-gold mr-4 sm:mr-5" /> 
+            Praharsh Infrastructure · Est. 2010
           </div>
-          <h1 className="font-display text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] md:leading-[0.98] tracking-tight reveal reveal-delay-1 drop-shadow-[0_4px_30px_rgba(0,0,0,0.55)]">
+          
+          <h1 className="font-display text-white text-[clamp(2.5rem,6vw+1rem,5.5rem)] leading-[1.1] md:leading-[1.05] tracking-tight reveal reveal-delay-1 drop-shadow-2xl">
             Building today,
-            <br className="hidden sm:block" /> <span className="text-gold italic">empowering</span>{" "}
+            <br />
+            <span className="text-gold font-serif italic pr-2">empowering</span>{" "}
             tomorrow.
           </h1>
-          <p className="mt-5 sm:mt-6 md:mt-8 max-w-xl text-white/90 text-[0.95rem] sm:text-base md:text-lg leading-relaxed reveal reveal-delay-2">
+          
+          <p className="mt-6 md:mt-8 max-w-xl text-white/90 text-base sm:text-lg md:text-xl leading-relaxed reveal reveal-delay-2 font-light drop-shadow-md">
             Infrastructure, road, solar, electrical, advertising and government supply services
             delivered across India — engineered with discipline, governed by transparency.
           </p>
-          <div className="mt-7 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 reveal reveal-delay-3">
+          
+          <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-5 reveal reveal-delay-3">
             <Link
               to="/projects"
-              className="group w-full sm:w-auto justify-center inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium tracking-wide hover:bg-white transition-colors"
+              className="group w-full sm:w-auto inline-flex justify-center items-center gap-3 bg-gold text-navy px-8 py-4 sm:py-4.5 text-sm sm:text-[15px] font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl rounded-sm"
             >
               Explore Our Work
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
+              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
             <Link
               to="/contact"
-              className="w-full sm:w-auto justify-center inline-flex items-center gap-3 border border-white/40 text-white px-7 py-4 text-sm font-medium hover:border-gold hover:text-gold hover:bg-white/5 backdrop-blur-sm transition-colors"
+              className="group w-full sm:w-auto inline-flex justify-center items-center gap-3 bg-white/5 backdrop-blur-md border border-white/30 text-white px-8 py-4 sm:py-4.5 text-sm sm:text-[15px] font-medium tracking-wide hover:bg-white/15 hover:border-white transition-all duration-300 rounded-sm"
             >
               Request Proposal
             </Link>
           </div>
+        </div>
+      </div>
 
-          {/* Slide indicators + label */}
-          <div className="mt-12 sm:mt-14 md:mt-20 flex items-center gap-5 sm:gap-6 reveal reveal-delay-4">
-            <div className="flex gap-2.5">
-              {slides.map((s, i) => (
-                <button
-                  key={s.src}
-                  onClick={() => setActive(i)}
-                  aria-label={`Show ${s.label}`}
-                  className={`h-[3px] transition-all duration-500 ${
-                    i === active
-                      ? "w-10 sm:w-12 bg-gold"
-                      : "w-5 sm:w-6 bg-white/30 hover:bg-white/60"
-                  }`}
+      {/* Bottom Navigation & Controls */}
+      <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 pb-8 sm:pb-12 reveal reveal-delay-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mt-auto">
+        
+        {/* Slide Indicators */}
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-2 sm:gap-3 items-center">
+            {slides.map((s, i) => (
+              <button
+                key={s.src}
+                onClick={() => setActive(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className="group relative h-4 flex items-center cursor-pointer"
+              >
+                <div 
+                  className={`h-[2px] transition-all duration-500 rounded-full ${
+                    i === active 
+                      ? "w-12 sm:w-16 bg-gold" 
+                      : "w-6 sm:w-8 bg-white/30 group-hover:bg-white/60"
+                  }`} 
                 />
-              ))}
-            </div>
-            <div className="eyebrow text-white/70 text-[0.6rem] sm:text-[0.65rem] truncate">
-              {slides[active]?.label ?? slides[0]?.label ?? "Infrastructure delivery"}
-            </div>
+              </button>
+            ))}
           </div>
+          <div className="eyebrow text-white/80 text-[0.65rem] sm:text-[0.7rem] uppercase tracking-widest font-medium">
+            <span className="text-gold mr-2">{String(active + 1).padStart(2, '0')}</span> 
+            / {String(slides.length).padStart(2, '0')} — {slides[active]?.label}
+          </div>
+        </div>
+
+        {/* Next/Prev Arrows */}
+        <div className="hidden sm:flex gap-3">
+          <button 
+            onClick={prevSlide}
+            aria-label="Previous slide"
+            className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300 group"
+          >
+            <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
+          </button>
+          <button 
+            onClick={nextSlide}
+            aria-label="Next slide"
+            className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300 group"
+          >
+            <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
     </section>

@@ -686,7 +686,7 @@ export default function Home({ onHeroReady }: HomeProps) {
                   <img
                     src={client.src}
                     alt={`${client.name} Logo`}
-                    className="max-h-full max-w-full object-contain mix-blend-multiply hover:scale-110 transition-transform duration-300"
+                    className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
                     loading="lazy"
                   />
                 </a>

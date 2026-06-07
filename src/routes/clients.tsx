@@ -132,7 +132,7 @@ function Clients() {
                 <img
                   src={client.src}
                   alt={`${client.name} Logo`}
-                  className="max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                  className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </a>
             ))}
