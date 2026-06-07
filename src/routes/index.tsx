@@ -268,8 +268,9 @@ export default function Home({ onHeroReady }: HomeProps) {
           eyebrow="Who We Are"
           title="An infrastructure contractor built for the public sector."
         >
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start -mt-8">
-            <div className="lg:col-span-7 image-zoom overflow-hidden rounded-sm">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center -mt-4">
+            <div className="lg:col-span-6 lg:order-last image-zoom overflow-hidden rounded-xl shadow-2xl relative aspect-[3/2]">
+              <div className="absolute inset-0 bg-navy/10 mix-blend-multiply z-10" />
               <img
                 src={teamImg}
                 alt="Praharsh engineering team on site"
@@ -277,38 +278,38 @@ export default function Home({ onHeroReady }: HomeProps) {
                 loading="lazy"
               />
             </div>
-            <div className="lg:col-span-5 lg:pt-8">
-              <p className="text-lg text-foreground/80 leading-relaxed">
+            <div className="lg:col-span-6 lg:py-10">
+              <p className="text-lg sm:text-xl text-foreground/80 leading-relaxed font-light">
                 Praharsh Infrastructure delivers solar street lighting, high mast installations,
                 electrical works, government supplies and branding — to municipal corporations,
                 state departments, PSUs and private clients across India.
               </p>
-              <div className="mt-10 space-y-6">
+
+              <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-1 space-y-0 lg:space-y-8">
                 {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
                   const Icon = badge.icon;
                   return (
-                    <div key={badge.title} className="flex gap-5">
-                      <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
-                        <Icon className="w-5 h-5" />
+                    <div key={badge.title} className="flex gap-5 group">
+                      <div className="w-14 h-14 shrink-0 grid place-items-center bg-secondary text-navy rounded-lg group-hover:bg-navy group-hover:text-gold transition-colors duration-300">
+                        <Icon className="w-6 h-6" strokeWidth={1.5} />
                       </div>
-                      <div>
-                        <div className="font-display text-lg text-navy">{badge.title}</div>
-                        <div className="text-sm text-muted-foreground mt-1">{badge.desc}</div>
+                      <div className="flex-1">
+                        <div className="font-display text-xl text-navy">{badge.title}</div>
+                        <div className="text-[15px] text-muted-foreground mt-2 leading-relaxed">
+                          {badge.desc}
+                        </div>
                       </div>
                     </div>
                   );
                 })}
               </div>
+
               <Link
                 to="/about"
-                className="mt-10 inline-flex items-center gap-3 text-navy font-semibold group"
+                className="mt-12 inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-sm font-semibold hover:bg-gold hover:text-navy transition-all duration-300 rounded-sm shadow-md hover:shadow-lg"
               >
-                <span className="relative">
-                  Learn about our company
-                  <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-                </span>
-
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                Learn About Our Company
+                <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -323,7 +324,7 @@ export default function Home({ onHeroReady }: HomeProps) {
           title="Eight business areas. One execution standard."
           intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
         >
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-6">
             {(SERVICES ?? []).map((service, i) => {
               const Icon = service.icon;
 
@@ -336,9 +337,10 @@ export default function Home({ onHeroReady }: HomeProps) {
             flex-col
             h-full
             overflow-hidden
-            bg-white
+            bg-background
             border
-            border-navy/10
+            border-border/50
+            rounded-xl
             transition-all
             duration-500
             hover:-translate-y-2
@@ -347,7 +349,7 @@ export default function Home({ onHeroReady }: HomeProps) {
           "
                 >
                   {/* Image */}
-                  <div className="relative h-[240px] overflow-hidden bg-secondary">
+                  <div className="relative h-[220px] overflow-hidden bg-secondary">
                     <img
                       src={service.img}
                       alt={service.title}
@@ -358,17 +360,19 @@ export default function Home({ onHeroReady }: HomeProps) {
                 object-center
                 transition-transform
                 duration-700
-                group-hover:scale-105
+                group-hover:scale-110
               "
                       loading="lazy"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {/* Service Badge */}
-                    <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-2 backdrop-blur-sm shadow-sm">
-                      <Icon className="h-4 w-4 text-gold" strokeWidth={1.8} />
-                      <span className="font-display text-sm text-navy">{service.titleShort}</span>
+                    <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-1.5 rounded-md backdrop-blur-md shadow-sm transform transition-transform duration-500 group-hover:-translate-y-1">
+                      <Icon className="h-4 w-4 text-gold" strokeWidth={2} />
+                      <span className="font-display text-[0.8rem] text-navy font-semibold">
+                        {service.titleShort}
+                      </span>
                     </div>
 
                     {/* Number Badge */}
@@ -376,17 +380,19 @@ export default function Home({ onHeroReady }: HomeProps) {
                       className="
                 absolute
                 right-4
-                top-4
-                h-9
-                w-9
+                bottom-4
+                h-8
+                w-8
                 grid
                 place-items-center
                 rounded-full
-                bg-navy/80
-                text-white
+                bg-navy/90
+                text-gold
                 text-xs
-                font-semibold
+                font-bold
                 backdrop-blur-sm
+                shadow-md
+                transform transition-all duration-500 group-hover:scale-110 group-hover:bg-gold group-hover:text-navy
               "
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -394,12 +400,12 @@ export default function Home({ onHeroReady }: HomeProps) {
                   </div>
 
                   {/* Content */}
-                  <div className="flex flex-1 flex-col p-7">
-                    <h3 className="font-display text-[1.65rem] leading-tight tracking-tight text-navy">
+                  <div className="flex flex-1 flex-col p-6 sm:p-7">
+                    <h3 className="font-display text-xl sm:text-[1.35rem] leading-tight tracking-tight text-navy group-hover:text-gold transition-colors duration-300">
                       {service.title}
                     </h3>
 
-                    <p className="mt-4 text-[15px] leading-7 text-muted-foreground">
+                    <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground line-clamp-3">
                       {service.desc}
                     </p>
 
@@ -408,12 +414,15 @@ export default function Home({ onHeroReady }: HomeProps) {
                       to="/services"
                       className="
                 mt-auto
-                pt-8
+                pt-6
                 inline-flex
                 items-center
-                gap-3
+                gap-2
+                text-[0.9rem]
                 text-navy
-                font-semibold
+                font-bold
+                uppercase
+                tracking-wider
                 group/link
               "
                     >
@@ -452,13 +461,13 @@ export default function Home({ onHeroReady }: HomeProps) {
             })}
           </div>
 
-          <div className="mt-20 flex justify-center">
+          <div className="mt-16 sm:mt-20 flex justify-center">
             <Link
               to="/services"
-              className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
+              className="inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-[0.95rem] font-semibold hover:bg-gold hover:text-navy transition-all duration-300 rounded-sm shadow-md hover:shadow-lg"
             >
               View All Services
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowUpRight className="w-5 h-5" />
             </Link>
           </div>
         </Section>

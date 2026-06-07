@@ -65,7 +65,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
   const prevSlide = () => setActive((i) => (i - 1 + slides.length) % slides.length);
 
   return (
-    <section 
+    <section
       className="relative min-h-[100dvh] w-full flex flex-col justify-center overflow-hidden bg-navy-deep"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -76,9 +76,9 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
           <div
             key={s.src}
             className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
-            style={{ 
+            style={{
               opacity: i === active ? 1 : 0,
-              zIndex: i === active ? 1 : 0
+              zIndex: i === active ? 1 : 0,
             }}
             aria-hidden={i !== active}
           >
@@ -105,22 +105,21 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
       <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 py-24 sm:py-32 md:py-40 flex flex-col justify-center flex-1">
         <div className="max-w-3xl lg:max-w-4xl pt-10 sm:pt-0">
           <div className="eyebrow flex items-center text-gold mb-5 md:mb-7 reveal text-[0.7rem] sm:text-[0.75rem] md:text-[0.8rem] tracking-[0.2em] sm:tracking-[0.25em]">
-            <span className="w-8 sm:w-12 h-[2px] bg-gold mr-4 sm:mr-5" /> 
+            <span className="w-8 sm:w-12 h-[2px] bg-gold mr-4 sm:mr-5" />
             Praharsh Infrastructure · Est. 2010
           </div>
-          
+
           <h1 className="font-display text-white text-[clamp(2.5rem,6vw+1rem,5.5rem)] leading-[1.1] md:leading-[1.05] tracking-tight reveal reveal-delay-1 drop-shadow-2xl">
             Building today,
             <br />
-            <span className="text-gold font-serif italic pr-2">empowering</span>{" "}
-            tomorrow.
+            <span className="text-gold font-serif italic pr-2">empowering</span> tomorrow.
           </h1>
-          
+
           <p className="mt-6 md:mt-8 max-w-xl text-white/90 text-base sm:text-lg md:text-xl leading-relaxed reveal reveal-delay-2 font-light drop-shadow-md">
             Infrastructure, road, solar, electrical, advertising and government supply services
             delivered across India — engineered with discipline, governed by transparency.
           </p>
-          
+
           <div className="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-5 reveal reveal-delay-3">
             <Link
               to="/projects"
@@ -141,7 +140,6 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
 
       {/* Bottom Navigation & Controls */}
       <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 pb-8 sm:pb-12 reveal reveal-delay-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mt-auto">
-        
         {/* Slide Indicators */}
         <div className="flex flex-col gap-3">
           <div className="flex gap-2 sm:gap-3 items-center">
@@ -152,32 +150,32 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                 aria-label={`Go to slide ${i + 1}`}
                 className="group relative h-4 flex items-center cursor-pointer"
               >
-                <div 
+                <div
                   className={`h-[2px] transition-all duration-500 rounded-full ${
-                    i === active 
-                      ? "w-12 sm:w-16 bg-gold" 
+                    i === active
+                      ? "w-12 sm:w-16 bg-gold"
                       : "w-6 sm:w-8 bg-white/30 group-hover:bg-white/60"
-                  }`} 
+                  }`}
                 />
               </button>
             ))}
           </div>
           <div className="eyebrow text-white/80 text-[0.65rem] sm:text-[0.7rem] uppercase tracking-widest font-medium">
-            <span className="text-gold mr-2">{String(active + 1).padStart(2, '0')}</span> 
-            / {String(slides.length).padStart(2, '0')} — {slides[active]?.label}
+            <span className="text-gold mr-2">{String(active + 1).padStart(2, "0")}</span>/{" "}
+            {String(slides.length).padStart(2, "0")} — {slides[active]?.label}
           </div>
         </div>
 
         {/* Next/Prev Arrows */}
         <div className="hidden sm:flex gap-3">
-          <button 
+          <button
             onClick={prevSlide}
             aria-label="Previous slide"
             className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300 group"
           >
             <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
           </button>
-          <button 
+          <button
             onClick={nextSlide}
             aria-label="Next slide"
             className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/50 transition-all duration-300 group"

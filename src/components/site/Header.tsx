@@ -18,7 +18,7 @@ export function Header() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  
+
   // Use a ref for the open state to access it in the scroll listener without recreating it
   const openRef = useRef(open);
   useEffect(() => {
@@ -33,7 +33,7 @@ export function Header() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          
+
           setScrolled(currentScrollY > 20);
 
           // 1. Auto-hide header on scroll down, show on scroll up
@@ -74,14 +74,14 @@ export function Header() {
         hidden && !open ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div 
+      <div
         className={`absolute inset-0 transition-colors duration-500 ${
           scrolled || open
             ? "bg-navy-deep/95 backdrop-blur-md shadow-card border-b border-white/5"
             : "bg-gradient-to-b from-navy-deep/70 to-transparent"
-        }`} 
+        }`}
       />
-      
+
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4 z-50">
         <Link to="/" className="flex items-center gap-3 group shrink-0">
           <img
@@ -162,8 +162,8 @@ export function Header() {
               {n.label}
             </NavLink>
           ))}
-          
-          <div 
+
+          <div
             className={`w-full max-w-xs mt-6 pt-8 border-t border-white/10 flex flex-col items-center transition-all duration-500 transform ${
               open ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
             }`}
