@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   Award,
   Quote,
-  Download,
   Building2,
   FileBadge2,
   FileCheck2,
@@ -26,11 +25,6 @@ import {
 import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { HeroSlider } from "@/components/site/HeroSlider";
-
-// --- Assets & Images ---
-import heroImg from "@/assets/hero-slide-civil.jpg";
-
-import teamMembersImg from "@/assets/images/about/team/team-members.jpg";
 
 // --- Services Images ---
 import civilInfrastructureImg from "@/assets/images/home/services/civil-infrastructure.jpg";
@@ -248,11 +242,15 @@ const GOV_BADGES = [
   { text: "GST Registered", icon: ShieldCheck },
 ];
 
-export default function Home() {
+type HomeProps = {
+  onHeroReady?: () => void;
+};
+
+export default function Home({ onHeroReady }: HomeProps) {
   return (
     <>
       {/* 1. HERO */}
-      <HeroSlider />
+      <HeroSlider onReady={onHeroReady} />
 
       {/* 2. COMPANY OVERVIEW */}
       <Section
@@ -275,10 +273,10 @@ export default function Home() {
               departments, PSUs and private clients across India.
             </p>
             <div className="mt-10 space-y-6">
-              {COMPANY_HIGHLIGHTS.map((badge, idx) => {
+              {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
                 const Icon = badge.icon;
                 return (
-                  <div key={idx} className="flex gap-5">
+                  <div key={badge.title} className="flex gap-5">
                     <div className="w-11 h-11 shrink-0 grid place-items-center bg-navy text-gold">
                       <Icon className="w-5 h-5" />
                     </div>
@@ -313,12 +311,12 @@ export default function Home() {
         intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
       >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service, i) => {
+          {(SERVICES ?? []).map((service, i) => {
             const Icon = service.icon;
 
             return (
               <article
-                key={i}
+                key={service.title}
                 className="
             group
             flex
@@ -453,9 +451,9 @@ export default function Home() {
       {/* 4. STATISTICS COUNTER */}
       <section className="bg-navy py-20 border-y border-gold/20">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
-          {STATS.map((stat, i) => (
+          {(STATS ?? []).map((stat, i) => (
             <div
-              key={i}
+              key={stat.label}
               className={`px-6 py-6 ${i < STATS.length - 1 ? "lg:border-r border-white/10" : ""}`}
             >
               <AnimatedStat value={stat.value} label={stat.label} />
@@ -471,8 +469,8 @@ export default function Home() {
         intro="Headline solar street light and high mast projects recently delivered for government clients."
       >
         <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-          {FEATURED_PROJECTS.map((project, idx) => (
-            <article key={idx} className="group flex flex-col">
+          {(FEATURED_PROJECTS ?? []).map((project) => (
+            <article key={project.title} className="group flex flex-col">
               {/* Image */}
               <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
                 <div className="h-[340px] lg:h-[420px]">
@@ -531,10 +529,10 @@ export default function Home() {
       {/* 6. WHY CHOOSE US */}
       <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
-          {WHY_CHOOSE_US.map((reason, idx) => {
+          {(WHY_CHOOSE_US ?? []).map((reason) => {
             const Icon = reason.icon;
             return (
-              <div key={idx} className="bg-background p-8 card-hover">
+              <div key={reason.title} className="bg-background p-8 card-hover">
                 <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
                 <h3 className="font-display text-xl text-navy">{reason.title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{reason.desc}</p>
@@ -567,11 +565,11 @@ export default function Home() {
             </Link>
           </div>
           <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {GOV_BADGES.map((badge, idx) => {
+            {(GOV_BADGES ?? []).map((badge) => {
               const Icon = badge.icon;
               return (
                 <div
-                  key={idx}
+                  key={badge.text}
                   className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
                 >
                   <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
@@ -586,8 +584,8 @@ export default function Home() {
       {/* 9. TESTIMONIALS */}
       <Section muted eyebrow="Testimonials" title="What our clients say.">
         <div className="grid md:grid-cols-3 gap-6 -mt-8">
-          {TESTIMONIALS.map((testimonial, i) => (
-            <div key={i} className="bg-background p-10 border-t-2 border-gold card-hover">
+          {(TESTIMONIALS ?? []).map((testimonial) => (
+            <div key={testimonial.name} className="bg-background p-10 border-t-2 border-gold card-hover">
               <Quote className="w-8 h-8 text-gold mb-6" />
               <p className="text-navy leading-relaxed">{testimonial.quote}</p>
               <div className="mt-8 pt-6 border-t border-border">
