@@ -380,15 +380,14 @@ export const handler: Handler = async (event, context) => {
         info = await transporter.sendMail({
           from: `"Praharsh Enquiry" <${smtpUser}>`,
           to: toEmail,
+          cc: "pralaysingh@icloud.com",
           replyTo: data.email,
-          subject: `New Enquiry from ${data.name} - ${data.projectType || "Website Contact"}`,
+          subject: `[Website Enquiry] ${data.name} - ${data.projectType || "General Inquiry"}`,
+          messageId: `<${Date.now()}@praharshinfrastructure.com>`,
           text: textContent,
           html: htmlContent,
           headers: {
             "X-Enquiry-Source": "website-contact-form",
-            "X-Client-IP": clientIp,
-            // Provide a basic List-Unsubscribe header (mailto) to help inbox providers
-            "List-Unsubscribe": `<mailto:${toEmail}?subject=unsubscribe>`,
           },
         });
         break; // success
