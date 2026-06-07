@@ -132,12 +132,12 @@ const services = [
 function Services() {
   return (
     <>
-      <section className="pt-40 pb-20 bg-navy text-white">
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> What We Do
           </div>
-          <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl max-w-4xl leading-[1.05] lg:leading-[1.02]">
             Eight verticals.
             <br />
             <span className="italic text-gold">One execution standard.</span>

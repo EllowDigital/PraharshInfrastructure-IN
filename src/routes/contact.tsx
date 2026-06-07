@@ -45,7 +45,7 @@ const VALIDATION_RULES = {
 
 function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const submitTimeoutRef = useRef<NodeJS.Timeout>();
+  const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
@@ -187,12 +187,12 @@ function Contact() {
 
   return (
     <>
-      <section className="pt-40 pb-20 bg-navy text-white">
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> Get in Touch
           </div>
-          <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl max-w-4xl leading-[1.05] lg:leading-[1.02]">
             Let's engineer something <span className="italic text-gold">significant.</span>
           </h1>
         </div>

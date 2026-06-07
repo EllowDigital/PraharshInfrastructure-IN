@@ -61,7 +61,7 @@ const departments = [
 function Govt() {
   return (
     <>
-      <section className="relative pt-40 pb-24 bg-navy text-white overflow-hidden">
+      <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <img src={govtImg} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/40" />
@@ -70,7 +70,7 @@ function Govt() {
           <div className="eyebrow text-gold mb-6">
             <span className="gold-rule mr-3 align-middle" /> Public Sector
           </div>
-          <h1 className="text-5xl lg:text-7xl max-w-4xl leading-[1.02]">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl max-w-4xl leading-[1.05] lg:leading-[1.02]">
             Built for the
             <br />
             <span className="italic text-gold">government tender.</span>

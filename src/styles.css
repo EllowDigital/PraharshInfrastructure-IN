@@ -98,6 +98,11 @@
   html {
     scroll-behavior: smooth;
   }
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
