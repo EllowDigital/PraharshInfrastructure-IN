@@ -1012,8 +1012,9 @@ export function FloatingWhatsApp() {
                           <a
                             key={a.id}
                             href={a.href}
-                            target={a.external ? "_blank" : undefined}
-                            rel={a.external ? "noopener noreferrer" : undefined}
+                            target={a.external || a.kind === "whatsapp" ? "_blank" : undefined}
+                            rel={a.external || a.kind === "whatsapp" ? "noopener noreferrer" : undefined}
+                            onClick={(e) => handleActionClick(a, e)}
                             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors ${cls}`}
                           >
                             {Icon && <Icon className="w-3.5 h-3.5" />}
