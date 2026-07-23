@@ -58,12 +58,13 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
   const isPaused = hovering || userPaused || prefersReducedMotion;
 
   const reportReady = useCallback(() => {
-    setHasReportedReady((prev) => {
-      if (prev) return prev;
-      onReady?.();
-      return true;
-    });
-  }, [onReady]);
+    setHasReportedReady((prev) => (prev ? prev : true));
+  }, []);
+
+  useEffect(() => {
+    if (hasReportedReady) onReady?.();
+  }, [hasReportedReady, onReady]);
+
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
