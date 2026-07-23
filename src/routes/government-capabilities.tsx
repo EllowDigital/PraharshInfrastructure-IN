@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SpecialitiesMarquee, GOVERNMENT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Link } from "react-router-dom";
 import { Section } from "@/components/site/Section";
 import {
@@ -61,6 +62,7 @@ function Govt() {
   return (
     <>
       <SEO title="Praharsh Infrastructure" />
+      <SpecialitiesMarquee items={GOVERNMENT_ITEMS} variant="navy" direction="right" ariaLabel="Government-sector capabilities" />
       <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <img src={govtImg} alt="" className="w-full h-full object-cover" />
