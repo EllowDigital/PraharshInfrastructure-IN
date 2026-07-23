@@ -114,12 +114,8 @@ function Clients() {
   return (
     <>
       <SEO title="Clients & Partners · Praharsh Infrastructure" />
-      <SpecialitiesMarquee
-        items={CLIENTS_ITEMS}
-        variant="ivory"
-        direction="left"
-        ariaLabel="Clients and government partners"
-      />
+
+
 
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-24 bg-navy text-white overflow-hidden">
@@ -163,6 +159,12 @@ function Clients() {
           </div>
         </div>
       </section>
+      <SpecialitiesMarquee
+        items={CLIENTS_ITEMS}
+        variant="ivory"
+        direction="left"
+        ariaLabel="Clients and government partners"
+      />
 
       {/* CLIENT NETWORK BENTO */}
       <Section eyebrow="Client Network" title="Departments and partners across India.">

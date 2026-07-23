@@ -135,7 +135,7 @@ function Services() {
   return (
     <>
       <SEO title="Praharsh Infrastructure" />
-      <SpecialitiesMarquee items={SERVICES_ITEMS} variant="navy" direction="left" ariaLabel="Our service capabilities" />
+      
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
@@ -153,6 +153,7 @@ function Services() {
           </p>
         </div>
       </section>
+      <SpecialitiesMarquee items={SERVICES_ITEMS} variant="navy" direction="left" ariaLabel="Our service capabilities" />
 
       <div className="bg-background">
         {services.map((s, i) => (
