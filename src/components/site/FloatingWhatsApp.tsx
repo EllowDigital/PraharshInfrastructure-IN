@@ -722,15 +722,33 @@ export function FloatingWhatsApp() {
       setIsSending(false);
       setFlow({ kind: "idle" });
 
-      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
-      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("Callback request from website")}&body=${encodeURIComponent(summary)}`;
+      const waHref = buildWaUrl(summary);
+      const mailSubject = "Callback request from website";
+      const mailHref = buildMailUrl(mailSubject, summary);
 
       pushBot({
         text: saved ? dict.human_success(saved.reference) : dict.save_failed,
         actions: [
-          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
-          { id: "wa", label: "WhatsApp", href: waHref, variant: "ghost", icon: MessageCircle, external: true },
-          { id: "email", label: "Email", href: mailHref, variant: "ghost", icon: Mail },
+          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
+          {
+            id: "wa",
+            label: "WhatsApp",
+            href: waHref,
+            variant: "ghost",
+            icon: MessageCircle,
+            external: true,
+            kind: "whatsapp",
+            copyText: summary,
+          },
+          {
+            id: "email",
+            label: "Email",
+            href: mailHref,
+            variant: "ghost",
+            icon: Mail,
+            kind: "email",
+            copyText: `To: ${EMAIL}\nSubject: ${mailSubject}\n\n${summary}`,
+          },
         ],
         chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
       });
