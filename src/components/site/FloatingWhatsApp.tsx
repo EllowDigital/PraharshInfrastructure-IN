@@ -25,7 +25,7 @@ import {
   User,
   Trash2,
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+// Database-free build: leads are sent via WhatsApp/Email only.
 import { CHAT_LOCALES, t, type ChatLocale } from "@/lib/chat-i18n";
 
 const PHONE_DISPLAY = "+91 78000 09165";
@@ -531,9 +531,9 @@ export function FloatingWhatsApp() {
     });
   }, [dict, pushBot, pushUser]);
 
-  // --- Save lead to CRM ---
+  // --- Lead reference (client-side only, no database) ---
   const saveLead = useCallback(
-    async (payload: {
+    async (_payload: {
       name: string;
       phone?: string;
       email?: string;
@@ -544,22 +544,10 @@ export function FloatingWhatsApp() {
       preferred_time?: string;
       status?: "new" | "handoff_requested";
     }): Promise<{ reference: string } | null> => {
-      try {
-        const { data, error } = await supabase.functions.invoke("save-chat-lead", {
-          body: { ...payload, language: locale, source: "chat_widget" },
-        });
-        if (error) {
-          console.error("save-chat-lead error:", error);
-          return null;
-        }
-        if (data && (data as any).ok) return { reference: (data as any).reference };
-        return null;
-      } catch (e) {
-        console.error("save lead exception:", e);
-        return null;
-      }
+      const ref = `PIPL-${Date.now().toString(36).toUpperCase()}`;
+      return { reference: ref };
     },
-    [locale],
+    [],
   );
 
   // --- File uploads ---
@@ -587,26 +575,13 @@ export function FloatingWhatsApp() {
           }
           const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80);
           const path = `${new Date().toISOString().slice(0, 10)}/${uid()}-${safeName}`;
-          const { error } = await supabase.storage
-            .from("chat-attachments")
-            .upload(path, file, {
-              contentType: file.type || "application/octet-stream",
-              upsert: false,
-            });
-          if (error) {
-            console.error("upload error:", error);
-            setAttachError(error.message);
-            continue;
-          }
-          const { data: signed } = await supabase.storage
-            .from("chat-attachments")
-            .createSignedUrl(path, 60 * 60 * 24 * 30); // 30 days
+          // No database/storage — attach metadata only; user shares the file directly on WhatsApp/Email.
           uploaded.push({
             name: file.name,
             size: file.size,
             type: file.type || ext,
             path,
-            signed_url: signed?.signedUrl,
+            signed_url: undefined,
           });
         }
         if (uploaded.length) setPendingFiles((p) => [...p, ...uploaded]);
