@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import {
   MessageCircle,
   X,
@@ -19,9 +19,15 @@ import {
   Sparkles,
   ArrowLeft,
   CheckCircle2,
+  Paperclip,
+  Globe,
+  HelpCircle,
+  User,
+  Trash2,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { CHAT_LOCALES, t, type ChatLocale } from "@/lib/chat-i18n";
 
-// --- Contact constants ---
 const PHONE_DISPLAY = "+91 78000 09165";
 const PHONE_WA = "917800009165";
 const EMAIL = "info@praharshinfrastructure.com";
@@ -29,19 +35,27 @@ const ADDRESS =
   "Tower-2, 12th Floor, Assotech Business Cresterra, Sector 135, Noida";
 const HOURS = "Mon – Sat · 10:00 AM – 7:00 PM IST";
 
-type Message = {
-  id: string;
-  sender: "bot" | "user";
-  text?: string;
-  chips?: Chip[];
-  actions?: ActionButton[];
-  richCard?: RichCard;
+const MAX_FILES = 5;
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const ACCEPT = ".pdf,.dwg,.dxf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png";
+const ACCEPTED_EXT = [
+  "pdf", "dwg", "dxf", "doc", "docx", "xls", "xlsx", "jpg", "jpeg", "png",
+];
+
+const LOCALE_STORAGE_KEY = "praharsh_chat_locale";
+
+type UploadedFile = {
+  name: string;
+  size: number;
+  type: string;
+  path?: string;
+  signed_url?: string;
 };
 
 type Chip = {
   id: string;
   label: string;
-  next: MenuKey | "quote_start" | "human_handoff";
+  onClick: () => void;
   icon?: React.ComponentType<{ className?: string }>;
 };
 
@@ -59,121 +73,96 @@ type RichCard = {
   lines: { icon: React.ComponentType<{ className?: string }>; text: string }[];
 };
 
-type MenuKey =
-  | "root"
-  | "services"
-  | "svc_solar"
-  | "svc_electrical"
-  | "svc_civil"
-  | "svc_govt"
-  | "svc_ads"
-  | "contact"
-  | "hours"
-  | "projects"
-  | "certs";
+type Message = {
+  id: string;
+  sender: "bot" | "user";
+  text?: string;
+  chips?: Chip[];
+  actions?: ActionButton[];
+  richCard?: RichCard;
+  files?: UploadedFile[];
+};
+
+type Flow =
+  | { kind: "idle" }
+  | { kind: "quote"; step: QuoteStep; data: QuoteData }
+  | { kind: "handoff"; step: HandoffStep; data: HandoffData };
+
+type QuoteStep = "service" | "name" | "email" | "phone" | "budget" | "brief" | "attach" | "done";
+type HandoffStep = "name" | "phone" | "email" | "time" | "topic" | "done";
+
+type QuoteData = {
+  service: string;
+  name: string;
+  email: string;
+  phone: string;
+  budget: string;
+  brief: string;
+  files: UploadedFile[];
+};
+
+type HandoffData = {
+  name: string;
+  phone: string;
+  email: string;
+  time: string;
+  topic: string;
+};
 
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-
 const waLink = (text: string) =>
   `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(text)}`;
 
-// --- Menu builders ---
-const ROOT_CHIPS: Chip[] = [
-  { id: "svc", label: "Explore Services", next: "services", icon: Sparkles },
-  { id: "quote", label: "Request a Quote", next: "quote_start", icon: FileText },
-  { id: "contact", label: "Contact & Location", next: "contact", icon: MapPin },
-  { id: "projects", label: "View Projects", next: "projects", icon: Building2 },
-  { id: "certs", label: "Certifications", next: "certs", icon: CheckCircle2 },
-  { id: "hours", label: "Business Hours", next: "hours", icon: Clock },
-  { id: "human", label: "Talk to a Human", next: "human_handoff", icon: MessageCircle },
-];
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-const SERVICE_CHIPS: Chip[] = [
-  { id: "solar", label: "Solar Street Lighting", next: "svc_solar", icon: Sun },
-  { id: "elec", label: "High-Mast & Electrical", next: "svc_electrical", icon: Zap },
-  { id: "civil", label: "Civil & Road Works", next: "svc_civil", icon: RouteIcon },
-  { id: "govt", label: "Government Supply (GeM)", next: "svc_govt", icon: Landmark },
-  { id: "ads", label: "Outdoor & Digital Ads", next: "svc_ads", icon: Sparkles },
-];
-
-const SERVICE_COPY: Record<
-  Exclude<MenuKey, "root" | "services" | "contact" | "hours" | "projects" | "certs">,
-  { title: string; desc: string; waPrompt: string }
-> = {
-  svc_solar: {
-    title: "Solar Street Lighting",
-    desc: "Turnkey design, supply and installation of solar street lights and high-mast solar systems for municipalities, panchayats and PSUs.",
-    waPrompt: "I'd like a quote for Solar Street Lighting.",
-  },
-  svc_electrical: {
-    title: "High-Mast & Electrical",
-    desc: "High-mast towers, LED street lighting, substations, cable networks and utility electrification.",
-    waPrompt: "I'd like a quote for High-Mast / Electrical works.",
-  },
-  svc_civil: {
-    title: "Civil & Road Infrastructure",
-    desc: "Roads, highways, bridges, civil development and traffic infrastructure under PWD-grade execution.",
-    waPrompt: "I'd like details on Civil & Road Infrastructure projects.",
-  },
-  svc_govt: {
-    title: "Government Supply (GeM)",
-    desc: "GeM-verified supplier for sanitation, safety, healthcare and public utility procurement.",
-    waPrompt: "I'd like to discuss a Government / GeM supply requirement.",
-  },
-  svc_ads: {
-    title: "Outdoor & Digital Advertising",
-    desc: "Hoardings, unipoles, DOOH, LED walls, digital campaigns and branded signage.",
-    waPrompt: "I'd like a quote for Advertising / Signage.",
-  },
+const formatBytes = (b: number) => {
+  if (b < 1024) return `${b} B`;
+  if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
+  return `${(b / 1024 / 1024).toFixed(1)} MB`;
 };
-
-const CONTACT_CARD: RichCard = {
-  title: "Reach us directly",
-  lines: [
-    { icon: Phone, text: PHONE_DISPLAY },
-    { icon: Mail, text: EMAIL },
-    { icon: MapPin, text: ADDRESS },
-    { icon: Clock, text: HOURS },
-  ],
-};
-
-const CONTACT_ACTIONS: ActionButton[] = [
-  { id: "call", label: "Call Now", href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
-  {
-    id: "wa",
-    label: "WhatsApp",
-    href: waLink("Hello Praharsh Infrastructure, I have an enquiry."),
-    variant: "ghost",
-    icon: MessageCircle,
-    external: true,
-  },
-  { id: "email", label: "Email", href: `mailto:${EMAIL}`, variant: "ghost", icon: Mail },
-];
-
-// --- Quote flow ---
-type QuoteStep = "idle" | "service" | "name" | "email" | "phone" | "brief" | "done";
 
 export function FloatingWhatsApp() {
   const [isOpen, setIsOpen] = useState(false);
+  const [locale, setLocaleState] = useState<ChatLocale>("en");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [quoteStep, setQuoteStep] = useState<QuoteStep>("idle");
-  const [quoteData, setQuoteData] = useState({
-    service: "",
-    name: "",
-    email: "",
-    phone: "",
-    brief: "",
-  });
+  const [flow, setFlow] = useState<Flow>({ kind: "idle" });
   const [isSending, setIsSending] = useState(false);
+  const [pendingFiles, setPendingFiles] = useState<UploadedFile[]>([]);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const [attachError, setAttachError] = useState<string | null>(null);
+  const [showLangMenu, setShowLangMenu] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const dict = useMemo(() => t(locale), [locale]);
+
+  // --- Locale persistence ---
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+      if (saved && CHAT_LOCALES.some((l) => l.code === saved)) {
+        setLocaleState(saved as ChatLocale);
+      }
+    } catch {}
+  }, []);
+
+  const setLocale = useCallback((l: ChatLocale) => {
+    setLocaleState(l);
+    try {
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, l);
+    } catch {}
+    setShowLangMenu(false);
+  }, []);
+
+  // --- Scroll ---
+  const scrollToBottom = () =>
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  };
-
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
@@ -185,272 +174,509 @@ export function FloatingWhatsApp() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Bot message helper
+  // --- Bot / user helpers ---
   const pushBot = useCallback((msg: Omit<Message, "id" | "sender">) => {
     setMessages((prev) => [...prev, { id: uid(), sender: "bot", ...msg }]);
   }, []);
-  const pushUser = useCallback((text: string) => {
-    setMessages((prev) => [...prev, { id: uid(), sender: "user", text }]);
+  const pushUser = useCallback((text?: string, files?: UploadedFile[]) => {
+    setMessages((prev) => [...prev, { id: uid(), sender: "user", text, files }]);
   }, []);
 
-  // Greeting on first open
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      pushBot({
-        text: "Hi 👋 — I'm the Praharsh Assistant. Pick an option below or type your question. I'll route you to the right team.",
-        chips: ROOT_CHIPS,
-      });
-    }
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 250);
-    }
-  }, [isOpen, messages.length, pushBot]);
-
-  // Menu navigation
-  const goTo = useCallback(
-    (key: MenuKey) => {
-      if (key === "root") {
-        pushBot({
-          text: "What would you like to do next?",
-          chips: ROOT_CHIPS,
-        });
-        return;
-      }
-      if (key === "services") {
-        pushBot({
-          text: "Which service are you interested in?",
-          chips: SERVICE_CHIPS,
-        });
-        return;
-      }
-      if (key === "contact") {
-        pushBot({
-          text: "Here's how to reach us — tap any option:",
-          richCard: CONTACT_CARD,
-          actions: CONTACT_ACTIONS,
-        });
-        return;
-      }
-      if (key === "hours") {
-        pushBot({
-          text: `We're available ${HOURS}. Outside these hours, drop a message here and we'll reply the next business morning.`,
-          chips: [
-            { id: "quote", label: "Request a Quote", next: "quote_start", icon: FileText },
-            { id: "back", label: "Back to Menu", next: "root", icon: ArrowLeft },
-          ],
-        });
-        return;
-      }
-      if (key === "projects") {
-        pushBot({
-          text: "See our recent work — solar street lighting, high-mast, roads and government supply.",
-          actions: [
-            {
-              id: "view",
-              label: "Open Projects Page",
-              href: "/projects",
-              variant: "primary",
-              icon: Building2,
-            },
-          ],
-          chips: [{ id: "back", label: "Back to Menu", next: "root", icon: ArrowLeft }],
-        });
-        return;
-      }
-      if (key === "certs") {
-        pushBot({
-          text: "We are ISO 9001:2015 certified, GeM verified, UDYAM & GST registered, and PWD / UPPCL empanelled.",
-          actions: [
-            {
-              id: "view",
-              label: "View Certifications",
-              href: "/certifications",
-              variant: "primary",
-              icon: CheckCircle2,
-            },
-          ],
-          chips: [{ id: "back", label: "Back to Menu", next: "root", icon: ArrowLeft }],
-        });
-        return;
-      }
-      // Service detail pages
-      const s = SERVICE_COPY[key];
-      if (s) {
-        pushBot({
-          text: `**${s.title}** — ${s.desc}`,
-          actions: [
-            {
-              id: "quote",
-              label: "Get a Quote on WhatsApp",
-              href: waLink(s.waPrompt),
-              variant: "primary",
-              icon: MessageCircle,
-              external: true,
-            },
-            {
-              id: "call",
-              label: "Call",
-              href: `tel:${PHONE_WA}`,
-              variant: "ghost",
-              icon: Phone,
-            },
-          ],
-          chips: [
-            { id: "quote_form", label: "Fill Quote Form", next: "quote_start", icon: FileText },
-            { id: "back_svc", label: "Other Services", next: "services", icon: ArrowLeft },
-            { id: "menu", label: "Main Menu", next: "root" },
-          ],
-        });
-      }
-    },
-    [pushBot],
+  // --- Service chips builder ---
+  const serviceChips = useCallback(
+    (onPick: (label: string) => void): Chip[] => [
+      { id: "solar", label: dict.service_solar, icon: Sun, onClick: () => onPick(dict.service_solar) },
+      { id: "elec", label: dict.service_electrical, icon: Zap, onClick: () => onPick(dict.service_electrical) },
+      { id: "civil", label: dict.service_civil, icon: RouteIcon, onClick: () => onPick(dict.service_civil) },
+      { id: "govt", label: dict.service_govt, icon: Landmark, onClick: () => onPick(dict.service_govt) },
+      { id: "ads", label: dict.service_ads, icon: Sparkles, onClick: () => onPick(dict.service_ads) },
+    ],
+    [dict],
   );
 
-  const startQuote = useCallback(() => {
-    setQuoteData({ service: "", name: "", email: "", phone: "", brief: "" });
-    setQuoteStep("service");
-    pushBot({
-      text: "Great — a 30-second form. Which service is this quote for?",
-      chips: SERVICE_CHIPS.map((c) => ({ ...c, next: "quote_start" })),
-    });
-  }, [pushBot]);
+  // --- Root menu ---
+  const rootChips = useCallback((): Chip[] => [
+    { id: "svc", label: dict.chip_services, icon: Sparkles, onClick: () => showServices() },
+    { id: "quote", label: dict.chip_quote, icon: FileText, onClick: () => startQuote() },
+    { id: "faq", label: dict.chip_faq, icon: HelpCircle, onClick: () => showFaq() },
+    { id: "contact", label: dict.chip_contact, icon: MapPin, onClick: () => showContact() },
+    { id: "projects", label: dict.chip_projects, icon: Building2, onClick: () => showProjects() },
+    { id: "certs", label: dict.chip_certs, icon: CheckCircle2, onClick: () => showCerts() },
+    { id: "hours", label: dict.chip_hours, icon: Clock, onClick: () => showHours() },
+    { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  ], [dict]);
 
-  const humanHandoff = useCallback(() => {
+  const goRoot = useCallback(() => {
+    pushBot({ text: dict.menu_prompt, chips: rootChips() });
+  }, [dict, pushBot, rootChips]);
+
+  const showServices = useCallback(() => {
     pushBot({
-      text: "Connecting you to our team on WhatsApp — you can also call or email us directly.",
+      text: dict.services_prompt,
+      chips: [
+        ...serviceChips(() => {}),
+        { id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot },
+      ],
+    });
+  }, [dict, pushBot, serviceChips, goRoot]);
+
+  const showContact = useCallback(() => {
+    pushBot({
+      text: dict.contact_prompt,
+      richCard: {
+        title: dict.contact_title,
+        lines: [
+          { icon: Phone, text: PHONE_DISPLAY },
+          { icon: Mail, text: EMAIL },
+          { icon: MapPin, text: ADDRESS },
+          { icon: Clock, text: HOURS },
+        ],
+      },
       actions: [
+        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
         {
           id: "wa",
-          label: "Open WhatsApp",
-          href: waLink("Hello — I'd like to speak to your team."),
-          variant: "primary",
+          label: "WhatsApp",
+          href: waLink("Hello Praharsh Infrastructure, I have an enquiry."),
+          variant: "ghost",
           icon: MessageCircle,
           external: true,
         },
-        { id: "call", label: "Call Now", href: `tel:${PHONE_WA}`, variant: "ghost", icon: Phone },
-        { id: "email", label: "Email Us", href: `mailto:${EMAIL}`, variant: "ghost", icon: Mail },
+        { id: "email", label: "Email", href: `mailto:${EMAIL}`, variant: "ghost", icon: Mail },
       ],
-      chips: [{ id: "menu", label: "Back to Menu", next: "root", icon: ArrowLeft }],
+      chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
     });
-  }, [pushBot]);
+  }, [dict, pushBot, goRoot]);
 
-  // Chip click
-  const onChipClick = (chip: Chip) => {
-    pushUser(chip.label);
+  const showHours = useCallback(() => {
+    pushBot({
+      text: dict.hours_msg(HOURS),
+      chips: [
+        { id: "quote", label: dict.chip_quote, icon: FileText, onClick: () => startQuote() },
+        { id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot },
+      ],
+    });
+  }, [dict, pushBot, goRoot]);
 
-    // In-flight quote flow: chips are service pickers
-    if (quoteStep === "service") {
-      const svc = SERVICE_CHIPS.find((c) => c.id === chip.id);
-      if (svc) {
-        setQuoteData((p) => ({ ...p, service: svc.label }));
-        setQuoteStep("name");
-        setTimeout(
-          () => pushBot({ text: "Perfect. What's your **name**?" }),
-          350,
+  const showProjects = useCallback(() => {
+    pushBot({
+      text: dict.projects_msg,
+      actions: [
+        { id: "view", label: dict.open_projects, href: "/projects", variant: "primary", icon: Building2 },
+      ],
+      chips: [{ id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+    });
+  }, [dict, pushBot, goRoot]);
+
+  const showCerts = useCallback(() => {
+    pushBot({
+      text: dict.certs_msg,
+      actions: [
+        { id: "view", label: dict.view_certs, href: "/certifications", variant: "primary", icon: CheckCircle2 },
+      ],
+      chips: [{ id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+    });
+  }, [dict, pushBot, goRoot]);
+
+  // --- FAQ ---
+  const faqItems = useMemo(
+    () => [
+      { id: "svc", q: dict.faq_services_q, a: dict.faq_services_a },
+      { id: "time", q: dict.faq_timeline_q, a: dict.faq_timeline_a },
+      { id: "cert", q: dict.faq_certifications_q, a: dict.faq_certifications_a },
+      { id: "cov", q: dict.faq_coverage_q, a: dict.faq_coverage_a },
+      { id: "pay", q: dict.faq_payment_q, a: dict.faq_payment_a },
+      { id: "war", q: dict.faq_warranty_q, a: dict.faq_warranty_a },
+      { id: "tender", q: dict.faq_tender_q, a: dict.faq_tender_a },
+    ],
+    [dict],
+  );
+
+  const showFaq = useCallback(() => {
+    pushBot({
+      text: dict.faq_prompt,
+      chips: [
+        ...faqItems.map((f) => ({
+          id: f.id,
+          label: f.q,
+          icon: HelpCircle,
+          onClick: () => answerFaq(f.q, f.a),
+        })),
+        { id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot },
+      ],
+    });
+  }, [dict, pushBot, faqItems, goRoot]);
+
+  const answerFaq = useCallback(
+    (q: string, a: string) => {
+      pushUser(q);
+      setTimeout(
+        () =>
+          pushBot({
+            text: a,
+            chips: [
+              { id: "another", label: dict.chip_ask_another, icon: HelpCircle, onClick: showFaq },
+              { id: "quote", label: dict.chip_start_quote, icon: FileText, onClick: () => startQuote() },
+              { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
+              { id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot },
+            ],
+          }),
+        250,
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [dict, pushBot, pushUser, showFaq, goRoot],
+  );
+
+  // --- Quote flow ---
+  const startQuote = useCallback(() => {
+    setFlow({
+      kind: "quote",
+      step: "service",
+      data: { service: "", name: "", email: "", phone: "", budget: "", brief: "", files: [] },
+    });
+    setPendingFiles([]);
+    setAttachError(null);
+    pushBot({
+      text: dict.quote_intro,
+      chips: serviceChips((label) => {
+        pushUser(label);
+        setFlow((f) =>
+          f.kind === "quote"
+            ? { ...f, step: "name", data: { ...f.data, service: label } }
+            : f,
         );
+        setTimeout(() => pushBot({ text: dict.quote_name }), 300);
+      }),
+    });
+  }, [dict, pushBot, pushUser, serviceChips]);
+
+  const askBudget = useCallback(() => {
+    pushBot({
+      text: dict.quote_budget,
+      chips: dict.quote_budget_ranges.map((r, i) => ({
+        id: `br-${i}`,
+        label: r,
+        onClick: () => {
+          pushUser(r);
+          setFlow((f) =>
+            f.kind === "quote" ? { ...f, step: "brief", data: { ...f.data, budget: r } } : f,
+          );
+          setTimeout(() => pushBot({ text: dict.quote_brief }), 200);
+        },
+      })),
+    });
+  }, [dict, pushBot, pushUser]);
+
+  const askAttach = useCallback(() => {
+    setPendingFiles([]);
+    setAttachError(null);
+    setFlow((f) => (f.kind === "quote" ? { ...f, step: "attach" } : f));
+    pushBot({ text: dict.quote_attach_prompt });
+  }, [dict, pushBot]);
+
+  // --- Handoff flow ---
+  const startHandoff = useCallback(() => {
+    setFlow({
+      kind: "handoff",
+      step: "name",
+      data: { name: "", phone: "", email: "", time: "", topic: "" },
+    });
+    pushBot({ text: dict.human_intro });
+    setTimeout(() => pushBot({ text: dict.quote_name }), 400);
+  }, [dict, pushBot]);
+
+  const askHandoffTime = useCallback(() => {
+    pushBot({
+      text: dict.human_time_prompt,
+      chips: dict.human_time_options.map((opt, i) => ({
+        id: `ht-${i}`,
+        label: opt,
+        icon: Clock,
+        onClick: () => {
+          pushUser(opt);
+          setFlow((f) =>
+            f.kind === "handoff" ? { ...f, step: "topic", data: { ...f.data, time: opt } } : f,
+          );
+          setTimeout(() => pushBot({ text: dict.human_topic }), 200);
+        },
+      })),
+    });
+  }, [dict, pushBot, pushUser]);
+
+  // --- Save lead to CRM ---
+  const saveLead = useCallback(
+    async (payload: {
+      name: string;
+      phone?: string;
+      email?: string;
+      project_type?: string;
+      budget_range?: string;
+      message?: string;
+      attachments?: UploadedFile[];
+      preferred_time?: string;
+      status?: "new" | "handoff_requested";
+    }): Promise<{ reference: string } | null> => {
+      try {
+        const { data, error } = await supabase.functions.invoke("save-chat-lead", {
+          body: { ...payload, language: locale, source: "chat_widget" },
+        });
+        if (error) {
+          console.error("save-chat-lead error:", error);
+          return null;
+        }
+        if (data && (data as any).ok) return { reference: (data as any).reference };
+        return null;
+      } catch (e) {
+        console.error("save lead exception:", e);
+        return null;
+      }
+    },
+    [locale],
+  );
+
+  // --- File uploads ---
+  const handleFilesPicked = useCallback(
+    async (fileList: FileList | null) => {
+      if (!fileList || fileList.length === 0) return;
+      setAttachError(null);
+      const files = Array.from(fileList);
+      if (pendingFiles.length + files.length > MAX_FILES) {
+        setAttachError(dict.quote_attach_max);
         return;
       }
-    }
+      setUploadingFile(true);
+      const uploaded: UploadedFile[] = [];
+      try {
+        for (const file of files) {
+          if (file.size > MAX_FILE_BYTES) {
+            setAttachError(dict.quote_attach_error_size);
+            continue;
+          }
+          const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+          if (!ACCEPTED_EXT.includes(ext)) {
+            setAttachError(dict.quote_attach_error_type);
+            continue;
+          }
+          const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 80);
+          const path = `${new Date().toISOString().slice(0, 10)}/${uid()}-${safeName}`;
+          const { error } = await supabase.storage
+            .from("chat-attachments")
+            .upload(path, file, {
+              contentType: file.type || "application/octet-stream",
+              upsert: false,
+            });
+          if (error) {
+            console.error("upload error:", error);
+            setAttachError(error.message);
+            continue;
+          }
+          const { data: signed } = await supabase.storage
+            .from("chat-attachments")
+            .createSignedUrl(path, 60 * 60 * 24 * 30); // 30 days
+          uploaded.push({
+            name: file.name,
+            size: file.size,
+            type: file.type || ext,
+            path,
+            signed_url: signed?.signedUrl,
+          });
+        }
+        if (uploaded.length) setPendingFiles((p) => [...p, ...uploaded]);
+      } finally {
+        setUploadingFile(false);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+      }
+    },
+    [dict, pendingFiles.length],
+  );
 
-    setTimeout(() => {
-      if (chip.next === "quote_start") return startQuote();
-      if (chip.next === "human_handoff") return humanHandoff();
-      goTo(chip.next as MenuKey);
-    }, 300);
+  const removePendingFile = (idx: number) => {
+    setPendingFiles((p) => p.filter((_, i) => i !== idx));
   };
 
-  // Free-text send — either quote flow or fallback keyword routing
-  const handleSend = async () => {
+  const finalizeQuote = useCallback(
+    async (quoteData: QuoteData) => {
+      setIsSending(true);
+      const filesText =
+        quoteData.files.length > 0
+          ? "\n\n*Attachments:*\n" +
+            quoteData.files
+              .map(
+                (f) =>
+                  `• ${f.name} (${formatBytes(f.size)})${f.signed_url ? ` — ${f.signed_url}` : ""}`,
+              )
+              .join("\n")
+          : "";
+
+      const summary =
+        `New Quote Request\n\n` +
+        `*Service:* ${quoteData.service}\n` +
+        `*Name:* ${quoteData.name}\n` +
+        `*Email:* ${quoteData.email}\n` +
+        `*Phone:* ${quoteData.phone}\n` +
+        `*Budget:* ${quoteData.budget}\n` +
+        `*Requirement:* ${quoteData.brief}` +
+        filesText;
+
+      const saved = await saveLead({
+        name: quoteData.name,
+        email: quoteData.email,
+        phone: quoteData.phone,
+        project_type: quoteData.service,
+        budget_range: quoteData.budget,
+        message: quoteData.brief,
+        attachments: quoteData.files,
+        status: "new",
+      });
+
+      setIsSending(false);
+      setFlow({ kind: "idle" });
+      setPendingFiles([]);
+
+      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
+      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`Quote Request — ${quoteData.service}`)}&body=${encodeURIComponent(summary)}`;
+
+      if (saved) {
+        pushBot({
+          text: `${dict.quote_success_title}\n\n${dict.quote_success_body(saved.reference)}`,
+          actions: [
+            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
+            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
+          ],
+          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+        });
+      } else {
+        pushBot({
+          text: dict.save_failed,
+          actions: [
+            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
+            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
+          ],
+          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+        });
+      }
+    },
+    [dict, goRoot, pushBot, saveLead],
+  );
+
+  const finalizeHandoff = useCallback(
+    async (data: HandoffData) => {
+      setIsSending(true);
+      const summary =
+        `Human Handoff Request\n\n` +
+        `*Name:* ${data.name}\n` +
+        `*Phone:* ${data.phone}\n` +
+        `*Email:* ${data.email}\n` +
+        `*Preferred time:* ${data.time}\n` +
+        `*Topic:* ${data.topic}`;
+
+      const saved = await saveLead({
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        message: data.topic,
+        preferred_time: data.time,
+        status: "handoff_requested",
+      });
+
+      setIsSending(false);
+      setFlow({ kind: "idle" });
+
+      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
+      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("Callback request from website")}&body=${encodeURIComponent(summary)}`;
+
+      pushBot({
+        text: saved ? dict.human_success(saved.reference) : dict.save_failed,
+        actions: [
+          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
+          { id: "wa", label: "WhatsApp", href: waHref, variant: "ghost", icon: MessageCircle, external: true },
+          { id: "email", label: "Email", href: mailHref, variant: "ghost", icon: Mail },
+        ],
+        chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+      });
+    },
+    [dict, goRoot, pushBot, saveLead],
+  );
+
+  // --- Free-text send ---
+  const handleSend = () => {
     const text = inputValue.trim();
     if (!text) return;
     pushUser(text);
     setInputValue("");
 
-    // Quote flow
-    if (quoteStep === "name") {
-      setQuoteData((p) => ({ ...p, name: text }));
-      setQuoteStep("email");
-      setTimeout(() => pushBot({ text: `Thanks ${text}! Your **email**?` }), 300);
-      return;
-    }
-    if (quoteStep === "email") {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
-        setTimeout(
-          () => pushBot({ text: "That doesn't look like a valid email — please try again." }),
-          200,
-        );
+    // Quote flow text steps
+    if (flow.kind === "quote") {
+      if (flow.step === "name") {
+        setFlow({ ...flow, step: "email", data: { ...flow.data, name: text } });
+        setTimeout(() => pushBot({ text: dict.quote_email_prompt(text) }), 250);
         return;
       }
-      setQuoteData((p) => ({ ...p, email: text }));
-      setQuoteStep("phone");
-      setTimeout(() => pushBot({ text: "Your **phone number** (with country code)?" }), 300);
-      return;
-    }
-    if (quoteStep === "phone") {
-      setQuoteData((p) => ({ ...p, phone: text }));
-      setQuoteStep("brief");
-      setTimeout(
-        () =>
-          pushBot({
-            text: "Last one — briefly describe your **requirement** (quantity, location, timeline).",
-          }),
-        300,
-      );
-      return;
-    }
-    if (quoteStep === "brief") {
-      const finalData = { ...quoteData, brief: text };
-      setQuoteData(finalData);
-      setIsSending(true);
-      setTimeout(() => {
-        setIsSending(false);
-        setQuoteStep("done");
-        const summary = `New Quote Request%0A%0A*Service:* ${finalData.service}%0A*Name:* ${finalData.name}%0A*Email:* ${finalData.email}%0A*Phone:* ${finalData.phone}%0A*Requirement:* ${text}`;
-        pushBot({
-          text: "✅ Got it! Sending your enquiry to our team on WhatsApp — we typically respond within 1 business hour.",
-          actions: [
-            {
-              id: "wa",
-              label: "Send on WhatsApp",
-              href: `https://wa.me/${PHONE_WA}?text=${summary}`,
-              variant: "primary",
-              icon: MessageCircle,
-              external: true,
-            },
-            {
-              id: "email",
-              label: "Email Instead",
-              href: `mailto:${EMAIL}?subject=Quote Request — ${encodeURIComponent(finalData.service)}&body=${encodeURIComponent(`Name: ${finalData.name}\nPhone: ${finalData.phone}\nRequirement: ${text}`)}`,
-              variant: "ghost",
-              icon: Mail,
-            },
-          ],
-          chips: [{ id: "menu", label: "Back to Menu", next: "root", icon: ArrowLeft }],
-        });
-      }, 900);
-      return;
+      if (flow.step === "email") {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
+          setTimeout(() => pushBot({ text: dict.quote_email_invalid }), 200);
+          return;
+        }
+        setFlow({ ...flow, step: "phone", data: { ...flow.data, email: text } });
+        setTimeout(() => pushBot({ text: dict.quote_phone }), 250);
+        return;
+      }
+      if (flow.step === "phone") {
+        setFlow({ ...flow, step: "budget", data: { ...flow.data, phone: text } });
+        setTimeout(() => askBudget(), 250);
+        return;
+      }
+      if (flow.step === "brief") {
+        setFlow({ ...flow, step: "attach", data: { ...flow.data, brief: text } });
+        setTimeout(() => askAttach(), 250);
+        return;
+      }
     }
 
-    // Free text keyword routing
+    // Handoff flow text steps
+    if (flow.kind === "handoff") {
+      if (flow.step === "name") {
+        setFlow({ ...flow, step: "phone", data: { ...flow.data, name: text } });
+        setTimeout(() => pushBot({ text: dict.quote_phone }), 250);
+        return;
+      }
+      if (flow.step === "phone") {
+        setFlow({ ...flow, step: "email", data: { ...flow.data, phone: text } });
+        setTimeout(() => pushBot({ text: dict.quote_email_prompt(flow.data.name || "") }), 250);
+        return;
+      }
+      if (flow.step === "email") {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
+          setTimeout(() => pushBot({ text: dict.quote_email_invalid }), 200);
+          return;
+        }
+        setFlow({ ...flow, step: "time", data: { ...flow.data, email: text } });
+        setTimeout(() => askHandoffTime(), 250);
+        return;
+      }
+      if (flow.step === "topic") {
+        const final = { ...flow.data, topic: text };
+        setFlow({ ...flow, step: "done", data: final });
+        finalizeHandoff(final);
+        return;
+      }
+    }
+
+    // Fallback keyword routing
     const lower = text.toLowerCase();
     setTimeout(() => {
-      if (/(quote|price|cost|estimate|budget)/.test(lower)) return startQuote();
-      if (/(solar)/.test(lower)) return goTo("svc_solar");
-      if (/(mast|electric|led|light)/.test(lower)) return goTo("svc_electrical");
-      if (/(road|civil|highway|bridge)/.test(lower)) return goTo("svc_civil");
-      if (/(gem|govt|government|tender)/.test(lower)) return goTo("svc_govt");
-      if (/(ad|signage|hoard|digital|dooh)/.test(lower)) return goTo("svc_ads");
-      if (/(contact|call|phone|email|address|location|reach)/.test(lower))
-        return goTo("contact");
-      if (/(hour|time|open|available)/.test(lower)) return goTo("hours");
-      if (/(project|portfolio|work|case)/.test(lower)) return goTo("projects");
-      if (/(cert|iso|gem|empanel)/.test(lower)) return goTo("certs");
-      if (/(human|agent|talk|person|team)/.test(lower)) return humanHandoff();
-      pushBot({
-        text: "I can help with services, quotes, projects or contact info. Choose one below, or tap **Talk to a Human** to reach our team.",
-        chips: ROOT_CHIPS,
-      });
-    }, 400);
+      if (/(quote|price|cost|estimate|budget|कोट|मूल्य|कीमत|কোট)/.test(lower)) return startQuote();
+      if (/(faq|question|help|प्रश्न|প্রশ্ন)/.test(lower)) return showFaq();
+      if (/(solar|सोलर|সোলার)/.test(lower)) return startQuote();
+      if (/(contact|call|phone|email|address|संपर्क|যোগাযোগ)/.test(lower)) return showContact();
+      if (/(hour|time|open|समय|সময়)/.test(lower)) return showHours();
+      if (/(project|portfolio|प्रोजेक्ट|প্রকল্প)/.test(lower)) return showProjects();
+      if (/(cert|iso|प्रमाण|সার্টিফিকেট)/.test(lower)) return showCerts();
+      if (/(human|agent|talk|person|प्रतिनिधि|প্রতিনিধি)/.test(lower)) return startHandoff();
+      pushBot({ text: dict.fallback, chips: rootChips() });
+    }, 300);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -462,10 +688,47 @@ export function FloatingWhatsApp() {
 
   const resetChat = () => {
     setMessages([]);
-    setQuoteStep("idle");
-    setQuoteData({ service: "", name: "", email: "", phone: "", brief: "" });
+    setFlow({ kind: "idle" });
     setInputValue("");
+    setPendingFiles([]);
+    setAttachError(null);
   };
+
+  // Greeting when opened / when locale changes on open
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      pushBot({ text: dict.greeting, chips: rootChips() });
+      setTimeout(() => inputRef.current?.focus(), 250);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, dict]);
+
+  // When locale changes mid-conversation, offer a menu refresh
+  useEffect(() => {
+    if (isOpen && messages.length > 0 && flow.kind === "idle") {
+      pushBot({ text: dict.menu_prompt, chips: rootChips() });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
+
+  // --- Render helpers ---
+  const currentPlaceholder = (() => {
+    if (flow.kind === "quote") {
+      if (flow.step === "email") return dict.input_email_placeholder;
+      if (flow.step === "phone") return dict.input_phone_placeholder;
+      if (flow.step === "name") return dict.input_name_placeholder;
+      if (flow.step === "brief") return dict.input_brief_placeholder;
+    }
+    if (flow.kind === "handoff") {
+      if (flow.step === "email") return dict.input_email_placeholder;
+      if (flow.step === "phone") return dict.input_phone_placeholder;
+      if (flow.step === "name") return dict.input_name_placeholder;
+      if (flow.step === "topic") return dict.input_brief_placeholder;
+    }
+    return dict.input_placeholder;
+  })();
+
+  const showAttachPanel = flow.kind === "quote" && flow.step === "attach";
 
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3">
@@ -483,10 +746,10 @@ export function FloatingWhatsApp() {
         <div
           role="dialog"
           aria-label="Praharsh Assistant chat"
-          className="w-[calc(100vw-2rem)] sm:w-[380px] max-w-[420px] h-[70vh] max-h-[600px] bg-white rounded-2xl shadow-2xl shadow-black/30 overflow-hidden flex flex-col border border-border animate-in slide-in-from-bottom-5 duration-300"
+          className="w-[calc(100vw-2rem)] sm:w-[400px] max-w-[440px] h-[78vh] max-h-[640px] bg-white rounded-2xl shadow-2xl shadow-black/30 overflow-hidden flex flex-col border border-border animate-in slide-in-from-bottom-5 duration-300"
         >
           {/* Header */}
-          <div className="bg-navy-deep p-4 flex items-center justify-between border-b border-white/5">
+          <div className="bg-navy-deep p-4 flex items-center justify-between border-b border-white/5 relative">
             <div className="flex items-center gap-3 min-w-0">
               <div className="relative shrink-0">
                 <div className="bg-gold/15 p-2 rounded-full ring-2 ring-gold/30">
@@ -495,23 +758,49 @@ export function FloatingWhatsApp() {
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full ring-2 ring-navy-deep" />
               </div>
               <div className="min-w-0">
-                <h3 className="text-white font-display text-sm truncate">Praharsh Assistant</h3>
-                <p className="text-white/60 text-[0.68rem] truncate">
-                  Online · replies in a few minutes
-                </p>
+                <h3 className="text-white font-display text-sm truncate">{dict.header_title}</h3>
+                <p className="text-white/60 text-[0.68rem] truncate">{dict.header_status}</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
+              <div className="relative">
+                <button
+                  onClick={() => setShowLangMenu((v) => !v)}
+                  title={dict.language}
+                  aria-label={dict.language}
+                  aria-expanded={showLangMenu}
+                  className="inline-flex items-center gap-1 text-white/70 hover:text-gold text-[0.68rem] font-semibold uppercase tracking-widest px-2 py-1 transition-colors"
+                >
+                  <Globe className="w-3.5 h-3.5" />
+                  {locale.toUpperCase()}
+                </button>
+                {showLangMenu && (
+                  <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-2xl border border-border py-1 min-w-[140px] z-10">
+                    {CHAT_LOCALES.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => setLocale(l.code)}
+                        className={`w-full text-left px-3 py-2 text-xs hover:bg-secondary transition-colors ${
+                          l.code === locale ? "font-bold text-navy" : "text-navy-deep/80"
+                        }`}
+                      >
+                        {l.native}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button
                 onClick={resetChat}
-                title="Restart chat"
+                title={dict.reset}
+                aria-label={dict.reset}
                 className="text-white/50 hover:text-gold text-[0.65rem] uppercase tracking-widest px-2 py-1 transition-colors"
               >
-                Reset
+                {dict.reset}
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                aria-label="Close chat"
+                aria-label={dict.close}
                 className="text-white/60 hover:text-white transition-colors p-1"
               >
                 <X className="w-5 h-5" />
@@ -520,7 +809,11 @@ export function FloatingWhatsApp() {
           </div>
 
           {/* Chat window */}
-          <div className="flex-1 bg-secondary/40 p-4 overflow-y-auto flex flex-col gap-3">
+          <div
+            ref={messagesRef}
+            className="flex-1 bg-secondary/40 p-4 overflow-y-auto flex flex-col gap-3"
+            aria-live="polite"
+          >
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -538,21 +831,35 @@ export function FloatingWhatsApp() {
                 >
                   {m.text && (
                     <div
-                      className={`p-3 rounded-2xl text-sm leading-relaxed ${
+                      className={`p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
                         m.sender === "user"
                           ? "bg-navy text-white rounded-tr-sm"
                           : "bg-white border border-border/50 text-navy-deep rounded-tl-sm shadow-sm"
                       }`}
                       dangerouslySetInnerHTML={{
-                        __html: m.text
-                          .replace(/&/g, "&amp;")
-                          .replace(/</g, "&lt;")
-                          .replace(
-                            /\*\*(.+?)\*\*/g,
-                            '<strong class="font-semibold">$1</strong>',
-                          ),
+                        __html: escapeHtml(m.text).replace(
+                          /\*\*(.+?)\*\*/g,
+                          '<strong class="font-semibold">$1</strong>',
+                        ),
                       }}
                     />
+                  )}
+
+                  {m.files && m.files.length > 0 && (
+                    <div className="flex flex-col gap-1.5 w-full">
+                      {m.files.map((f, i) => (
+                        <div
+                          key={i}
+                          className="bg-white/80 border border-navy/20 rounded-lg px-3 py-2 text-xs text-navy-deep flex items-center gap-2"
+                        >
+                          <Paperclip className="w-3.5 h-3.5 text-gold shrink-0" />
+                          <span className="truncate flex-1">{f.name}</span>
+                          <span className="text-navy-deep/50 shrink-0">
+                            {formatBytes(f.size)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   )}
 
                   {m.richCard && (
@@ -608,11 +915,11 @@ export function FloatingWhatsApp() {
                         return (
                           <button
                             key={c.id}
-                            onClick={() => onChipClick(c)}
-                            className="inline-flex items-center gap-1.5 bg-white border border-navy/15 text-navy-deep hover:bg-navy hover:text-white hover:border-navy px-3 py-1.5 rounded-full text-[0.72rem] font-medium transition-colors shadow-sm"
+                            onClick={c.onClick}
+                            className="inline-flex items-center gap-1.5 bg-white border border-navy/15 text-navy-deep hover:bg-navy hover:text-white hover:border-navy px-3 py-1.5 rounded-full text-[0.72rem] font-medium transition-colors shadow-sm text-left"
                           >
-                            {Icon && <Icon className="w-3 h-3" />}
-                            {c.label}
+                            {Icon && <Icon className="w-3 h-3 shrink-0" />}
+                            <span>{c.label}</span>
                           </button>
                         );
                       })}
@@ -622,6 +929,83 @@ export function FloatingWhatsApp() {
               </div>
             ))}
 
+            {/* Attachment panel */}
+            {showAttachPanel && flow.kind === "quote" && (
+              <div className="bg-white border border-navy/15 rounded-xl p-3 shadow-sm">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  accept={ACCEPT}
+                  className="hidden"
+                  onChange={(e) => handleFilesPicked(e.target.files)}
+                />
+                <div className="flex items-center gap-2 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingFile || pendingFiles.length >= MAX_FILES}
+                    className="inline-flex items-center gap-1.5 bg-navy text-white text-[0.7rem] font-semibold uppercase tracking-wider px-3 py-2 rounded-lg hover:bg-gold hover:text-navy disabled:opacity-50 transition-colors"
+                  >
+                    {uploadingFile ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Paperclip className="w-3.5 h-3.5" />
+                    )}
+                    {dict.quote_attach_add}
+                  </button>
+                  <span className="text-[0.68rem] text-navy-deep/60">
+                    {pendingFiles.length}/{MAX_FILES}
+                  </span>
+                </div>
+                {pendingFiles.length > 0 && (
+                  <div className="space-y-1.5 mb-2">
+                    {pendingFiles.map((f, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-2 bg-secondary/70 rounded-md px-2 py-1.5 text-[0.72rem] text-navy-deep"
+                      >
+                        <Paperclip className="w-3 h-3 text-gold shrink-0" />
+                        <span className="truncate flex-1">{f.name}</span>
+                        <span className="text-navy-deep/50 shrink-0">
+                          {formatBytes(f.size)}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => removePendingFile(i)}
+                          aria-label="Remove file"
+                          className="text-navy-deep/40 hover:text-red-500 shrink-0"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {attachError && (
+                  <div className="text-[0.7rem] text-red-600 mb-2">{attachError}</div>
+                )}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const data = { ...flow.data, files: pendingFiles };
+                      pushUser(
+                        pendingFiles.length
+                          ? `📎 ${pendingFiles.length} file(s) attached`
+                          : "—",
+                        pendingFiles,
+                      );
+                      finalizeQuote(data);
+                    }}
+                    className="flex-1 bg-gold text-navy-deep text-[0.72rem] font-bold uppercase tracking-wider px-3 py-2 rounded-lg hover:bg-navy hover:text-gold transition-colors"
+                  >
+                    {pendingFiles.length ? dict.quote_attach_continue : dict.quote_attach_skip}
+                  </button>
+                </div>
+              </div>
+            )}
+
             {isSending && (
               <div className="flex gap-2 justify-start">
                 <div className="w-7 h-7 rounded-full bg-navy flex items-center justify-center shrink-0">
@@ -629,7 +1013,7 @@ export function FloatingWhatsApp() {
                 </div>
                 <div className="bg-white border border-border/50 text-navy p-3 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-2">
                   <Loader2 className="w-4 h-4 animate-spin text-gold" />
-                  <span className="text-sm">Sending your enquiry…</span>
+                  <span className="text-sm">{dict.quote_sending}</span>
                 </div>
               </div>
             )}
@@ -663,12 +1047,12 @@ export function FloatingWhatsApp() {
             <span className="w-px h-3 bg-border shrink-0" />
             <button
               onClick={() => {
-                pushUser("Main menu");
-                setTimeout(() => goTo("root"), 200);
+                pushUser(dict.chip_menu);
+                setTimeout(goRoot, 150);
               }}
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
-              <ArrowLeft className="w-3 h-3" /> Menu
+              <ArrowLeft className="w-3 h-3" /> {dict.chip_menu}
             </button>
           </div>
 
@@ -680,17 +1064,7 @@ export function FloatingWhatsApp() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={
-                quoteStep === "email"
-                  ? "you@example.com"
-                  : quoteStep === "phone"
-                    ? "+91 98xxx xxxxx"
-                    : quoteStep === "name"
-                      ? "Your name"
-                      : quoteStep === "brief"
-                        ? "Describe your requirement…"
-                        : "Type a message or pick an option…"
-              }
+              placeholder={currentPlaceholder}
               className="flex-1 bg-secondary/50 border border-border/60 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold/60 transition-all"
               disabled={isSending}
               aria-label="Chat message"
@@ -698,7 +1072,7 @@ export function FloatingWhatsApp() {
             <button
               onClick={handleSend}
               disabled={!inputValue.trim() || isSending}
-              aria-label="Send message"
+              aria-label={dict.send}
               className="w-10 h-10 rounded-full bg-gold text-navy flex items-center justify-center shrink-0 disabled:opacity-40 hover:bg-navy hover:text-gold active:scale-95 transition-all shadow-md"
             >
               <Send className="w-4 h-4" />
@@ -710,12 +1084,14 @@ export function FloatingWhatsApp() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          aria-label="Open Praharsh Assistant chat"
+          aria-label={dict.open_chat}
           className="group relative flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1da851] text-white rounded-full shadow-2xl shadow-black/30 pl-4 pr-5 py-3.5 transition-all duration-300 hover:scale-[1.03]"
         >
           <span className="absolute inset-0 rounded-full animate-ping bg-[#25D366]/40 -z-10" />
           <MessageCircle className="w-5 h-5 shrink-0" strokeWidth={2.2} />
-          <span className="hidden sm:inline text-sm font-semibold tracking-wide">Chat with us</span>
+          <span className="hidden sm:inline text-sm font-semibold tracking-wide">
+            {dict.open_chat}
+          </span>
           <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full ring-2 ring-white animate-pulse" />
         </button>
       )}

@@ -28,6 +28,7 @@ import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { SpecialitiesMarquee } from "@/components/site/SpecialitiesMarquee";
+import { AccreditationsPanel } from "@/components/site/AccreditationsPanel";
 import {
   Carousel,
   CarouselContent,
@@ -641,38 +642,8 @@ export default function Home({ onHeroReady }: HomeProps) {
             </div>
 
             {/* Accreditations panel (light) */}
-            <div className="col-span-12 lg:col-span-5 bg-secondary p-8 sm:p-10 flex flex-col justify-between min-h-[400px]">
-              <div>
-                <div className="eyebrow text-navy-deep/60 mb-3 text-xs">
-                  <span className="inline-block w-8 h-[2px] bg-gold mr-3 align-middle" />
-                  Accredited & Authorized
-                </div>
-                <h4 className="font-display text-3xl sm:text-4xl text-navy-deep italic leading-tight mb-8">
-                  Procurement- <br />ready. Tender-trained.
-                </h4>
-                <div className="space-y-4">
-                  {[
-                    "GeM Authorized OEM Supplier",
-                    "ISO 9001:2015 Certified Organization",
-                    "PWD & Irrigation Dept. Empanelled",
-                    "UPPCL Empanelled Contractor",
-                    "UDYAM & GST Registered",
-                  ].map((t) => (
-                    <div key={t} className="flex items-center gap-4 text-navy-deep/75">
-                      <div className="w-6 h-px bg-gold shrink-0" />
-                      <span className="text-sm font-medium">{t}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <Link
-                to="/government-capabilities"
-                className="mt-10 inline-flex items-center justify-center gap-3 bg-navy-deep text-white py-4 uppercase tracking-[0.22em] text-xs font-bold hover:bg-gold hover:text-navy-deep transition-colors"
-              >
-                See Government Capabilities
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-            </div>
+            <AccreditationsPanel />
+
           </div>
         </section>
       </AppErrorBoundary>
