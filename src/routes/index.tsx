@@ -27,6 +27,7 @@ import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
+import { SpecialitiesMarquee } from "@/components/site/SpecialitiesMarquee";
 import {
   Carousel,
   CarouselContent,
