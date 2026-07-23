@@ -1,32 +1,61 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ChevronRight, ChevronLeft, ShieldCheck, Award, Building2 } from "lucide-react";
-import slideCivil from "@/assets/images/home/services/civil-infrastructure.jpg";
-import slideHighmast from "@/assets/images/home/featured/featured-highmast.png";
-import slideSolar from "@/assets/images/home/featured/featured-streetsolar.png";
-import slideRoad from "@/assets/images/home/services/road-construction.png";
-import slideGovt from "@/assets/images/home/services/government-projects.png";
+import {
+  ArrowUpRight,
+  ChevronRight,
+  ChevronLeft,
+  ShieldCheck,
+  Award,
+  Building2,
+  Pause,
+  Play,
+} from "lucide-react";
 
-const slides = [
-  { src: slideHighmast, label: "High Mast Public Lighting", sector: "Public Lighting" },
-  { src: slideCivil, label: "Civil Infrastructure & Development", sector: "Civil Works" },
-  { src: slideSolar, label: "Solar Street Lighting Networks", sector: "Renewables" },
-  { src: slideRoad, label: "Road & Highway Infrastructure", sector: "Roads" },
-  { src: slideGovt, label: "Government Supply & Procurement", sector: "GeM Supply" },
-] as const;
+// Responsive picture sources (avif/webp/jpg) via vite-imagetools
+const IMG_QUERY = "?w=640;1024;1600;1920&format=avif;webp;jpg&as=picture";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore -- imagetools query
+import slideCivil from "@/assets/images/home/services/civil-infrastructure.jpg?w=640;1024;1600;1920&format=avif;webp;jpg&as=picture";
+// @ts-ignore
+import slideHighmast from "@/assets/images/home/featured/featured-highmast.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
+// @ts-ignore
+import slideSolar from "@/assets/images/home/featured/featured-streetsolar.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
+// @ts-ignore
+import slideRoad from "@/assets/images/home/services/road-construction.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
+// @ts-ignore
+import slideGovt from "@/assets/images/home/services/government-projects.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
+
+type PictureData = {
+  sources: Record<string, string>;
+  img: { src: string; w: number; h: number };
+};
+
+const slides: ReadonlyArray<{
+  data: PictureData;
+  label: string;
+  sector: string;
+}> = [
+  { data: slideHighmast as unknown as PictureData, label: "High Mast Public Lighting", sector: "Public Lighting" },
+  { data: slideCivil as unknown as PictureData, label: "Civil Infrastructure & Development", sector: "Civil Works" },
+  { data: slideSolar as unknown as PictureData, label: "Solar Street Lighting Networks", sector: "Renewables" },
+  { data: slideRoad as unknown as PictureData, label: "Road & Highway Infrastructure", sector: "Roads" },
+  { data: slideGovt as unknown as PictureData, label: "Government Supply & Procurement", sector: "GeM Supply" },
+];
 
 const INTERVAL = 6000;
+void IMG_QUERY;
 
-type HeroSliderProps = {
-  onReady?: () => void;
-};
+type HeroSliderProps = { onReady?: () => void };
 
 export function HeroSlider({ onReady }: HeroSliderProps) {
   const [active, setActive] = useState(0);
   const [hasReportedReady, setHasReportedReady] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const regionRef = useRef<HTMLElement | null>(null);
+
+  const isPaused = hovering || userPaused || prefersReducedMotion;
 
   const reportReady = useCallback(() => {
     setHasReportedReady((prev) => {
@@ -36,7 +65,6 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
     });
   }, [onReady]);
 
-  // Detect prefers-reduced-motion
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,23 +74,21 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
     return () => mq.removeEventListener?.("change", update);
   }, []);
 
-  // Autoplay (respects pause + reduced motion)
   useEffect(() => {
-    if (isPaused || prefersReducedMotion) return;
+    if (isPaused) return;
     const id = setInterval(() => setActive((i) => (i + 1) % slides.length), INTERVAL);
     return () => clearInterval(id);
-  }, [isPaused, prefersReducedMotion]);
+  }, [isPaused]);
 
-  // Preload first slide + report ready
   useEffect(() => {
-    const firstSlide = slides[0]?.src;
-    if (!firstSlide || typeof window === "undefined") {
+    const firstSrc = slides[0]?.data.img.src;
+    if (!firstSrc || typeof window === "undefined") {
       reportReady();
       return;
     }
     const image = new window.Image();
     image.decoding = "async";
-    image.src = firstSlide;
+    image.src = firstSrc;
     if (image.complete) {
       reportReady();
       return;
@@ -81,20 +107,15 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
     [],
   );
 
-  // Keyboard navigation
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === "ArrowRight") {
+    if (e.key === "ArrowRight") { e.preventDefault(); nextSlide(); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); prevSlide(); }
+    else if (e.key === "Home") { e.preventDefault(); setActive(0); }
+    else if (e.key === "End") { e.preventDefault(); setActive(slides.length - 1); }
+    else if (e.key === " " || e.key === "Spacebar") {
+      // Space toggles play/pause
       e.preventDefault();
-      nextSlide();
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      prevSlide();
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      setActive(0);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      setActive(slides.length - 1);
+      setUserPaused((p) => !p);
     }
   };
 
@@ -106,19 +127,21 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
       aria-label="Praharsh Infrastructure highlights"
       tabIndex={0}
       onKeyDown={onKeyDown}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={() => setIsPaused(false)}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      onFocus={() => setHovering(true)}
+      onBlur={() => setHovering(false)}
       className="relative min-h-[100svh] w-full flex flex-col justify-center overflow-hidden bg-navy-deep focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset"
     >
       {/* Slides Background */}
-      <div className="absolute inset-0 z-0" aria-live={prefersReducedMotion ? "off" : "polite"}>
+      <div className="absolute inset-0 z-0">
         {slides.map((s, i) => {
           const isActive = i === active;
+          const { sources, img } = s.data;
           return (
             <div
-              key={s.src}
+              key={img.src}
+              id={`hero-slide-${i}`}
               className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
               style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
               role="group"
@@ -126,26 +149,35 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
               aria-label={`${i + 1} of ${slides.length}: ${s.label}`}
               aria-hidden={!isActive}
             >
-              <img
-                src={s.src}
-                alt=""
-                width={1920}
-                height={1080}
-                sizes="100vw"
-                draggable={false}
-                className={`w-full h-full object-cover ${
-                  prefersReducedMotion
-                    ? ""
-                    : `transition-transform duration-[9000ms] ease-out ${
-                        isActive ? "scale-110" : "scale-100"
-                      }`
-                }`}
-                loading={i === 0 ? "eager" : "lazy"}
-                fetchPriority={i === 0 ? "high" : "auto"}
-                decoding={i === 0 ? "sync" : "async"}
-                onLoad={i === 0 ? reportReady : undefined}
-                onError={i === 0 ? reportReady : undefined}
-              />
+              <picture>
+                {Object.entries(sources).map(([fmt, srcSet]) => (
+                  <source
+                    key={fmt}
+                    type={`image/${fmt}`}
+                    srcSet={srcSet}
+                    sizes="100vw"
+                  />
+                ))}
+                <img
+                  src={img.src}
+                  width={img.w}
+                  height={img.h}
+                  alt=""
+                  draggable={false}
+                  className={`w-full h-full object-cover ${
+                    prefersReducedMotion
+                      ? ""
+                      : `transition-transform duration-[9000ms] ease-out ${
+                          isActive ? "scale-110" : "scale-100"
+                        }`
+                  }`}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
+                  decoding={i === 0 ? "sync" : "async"}
+                  onLoad={i === 0 ? reportReady : undefined}
+                  onError={i === 0 ? reportReady : undefined}
+                />
+              </picture>
             </div>
           );
         })}
@@ -155,7 +187,12 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
         <div className="absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.35)_100%)]" />
       </div>
 
-      {/* Main Content Area */}
+      {/* SR-only live announcer */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        Slide {active + 1} of {slides.length}: {slides[active]?.label}
+      </div>
+
+      {/* Main Content */}
       <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 pt-28 sm:pt-32 md:pt-36 pb-40 sm:pb-44 flex flex-col justify-center flex-1">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <div className="lg:col-span-8 xl:col-span-7">
@@ -207,11 +244,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
           <div className="hidden lg:flex lg:col-span-4 xl:col-span-5 justify-end reveal reveal-delay-3">
             <div className="w-full max-w-sm bg-white/[0.04] backdrop-blur-xl border border-white/15 p-7 xl:p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] rounded-sm">
               <div className="eyebrow text-gold text-[0.65rem] tracking-[0.28em] mb-4">Now Showcasing</div>
-              <div
-                className="font-display text-white text-2xl xl:text-3xl leading-tight mb-3 min-h-[3.5rem] transition-opacity duration-500"
-                key={active}
-                aria-live="polite"
-              >
+              <div className="font-display text-white text-2xl xl:text-3xl leading-tight mb-3 min-h-[3.5rem] transition-opacity duration-500" key={active}>
                 {slides[active]?.label}
               </div>
               <div className="text-white/60 text-xs tracking-[0.2em] uppercase mb-6">
@@ -235,13 +268,13 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
         </div>
       </div>
 
-      {/* Bottom Navigation & Controls */}
+      {/* Bottom Nav & Controls */}
       <div className="absolute bottom-0 inset-x-0 z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 pb-6 sm:pb-10 reveal reveal-delay-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-5">
         <div className="flex flex-col gap-3 w-full sm:w-auto">
           <div className="flex gap-2 sm:gap-3 items-center" role="tablist" aria-label="Select slide">
             {slides.map((s, i) => (
               <button
-                key={s.src}
+                key={s.data.img.src}
                 type="button"
                 role="tab"
                 onClick={() => setActive(i)}
@@ -252,9 +285,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
               >
                 <div
                   className={`h-[2px] transition-all duration-500 rounded-full ${
-                    i === active
-                      ? "w-10 sm:w-16 bg-gold"
-                      : "w-5 sm:w-8 bg-white/25 group-hover:bg-white/60"
+                    i === active ? "w-10 sm:w-16 bg-gold" : "w-5 sm:w-8 bg-white/25 group-hover:bg-white/60"
                   }`}
                 />
               </button>
@@ -266,7 +297,16 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
           </div>
         </div>
 
-        <div className="hidden sm:flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => setUserPaused((p) => !p)}
+            aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
+            aria-pressed={userPaused}
+            className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-gold hover:text-navy hover:border-gold active:scale-95 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+          >
+            {userPaused ? <Play className="w-4 h-4" aria-hidden="true" /> : <Pause className="w-4 h-4" aria-hidden="true" />}
+          </button>
           <button
             type="button"
             onClick={prevSlide}
@@ -291,20 +331,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
         <div
           key={active + (isPaused ? "-p" : "")}
           className="h-full bg-gold origin-left"
-          style={{
-            animation:
-              isPaused || prefersReducedMotion
-                ? "none"
-                : `heroProgress ${INTERVAL}ms linear forwards`,
-          }}
+          style={{ animation: isPaused ? "none" : `heroProgress ${INTERVAL}ms linear forwards` }}
         />
       </div>
-      <style>{`
-        @keyframes heroProgress {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
-        }
-      `}</style>
+      <style>{`@keyframes heroProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
     </section>
   );
 }
