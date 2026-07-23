@@ -29,11 +29,76 @@ import { supabase } from "@/integrations/supabase/client";
 import { CHAT_LOCALES, t, type ChatLocale } from "@/lib/chat-i18n";
 
 const PHONE_DISPLAY = "+91 78000 09165";
-const PHONE_WA = "917800009165";
+const PHONE_WA = "917800009165"; // digits only for wa.me
+const PHONE_TEL = "+917800009165"; // E.164 for tel:
 const EMAIL = "info@praharshinfrastructure.com";
 const ADDRESS =
   "Tower-2, 12th Floor, Assotech Business Cresterra, Sector 135, Noida";
 const HOURS = "Mon – Sat · 10:00 AM – 7:00 PM IST";
+
+// --- Robust cross-window openers ---------------------------------------------
+// In the Lovable preview iframe, `wa.me` follows a redirect to `api.whatsapp.com`
+// which is blocked in-frame (ERR_BLOCKED_BY_RESPONSE). We must open in the TOP
+// window (or a new tab) and provide a copy fallback if the browser blocks it.
+function isInIframe(): boolean {
+  try {
+    return typeof window !== "undefined" && window.self !== window.top;
+  } catch {
+    return true; // cross-origin access threw — we ARE in an iframe
+  }
+}
+
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Open an external URL as reliably as possible.
+ * Order: window.open (new tab) → top.location → self.location.
+ * Returns true if we believe navigation was initiated.
+ */
+function openExternal(url: string): boolean {
+  try {
+    const win = window.open(url, "_blank", "noopener,noreferrer");
+    if (win) return true;
+  } catch {}
+  try {
+    if (isInIframe() && window.top) {
+      (window.top as Window).location.href = url;
+      return true;
+    }
+  } catch {}
+  try {
+    window.location.href = url;
+    return true;
+  } catch {}
+  return false;
+}
+
+function buildWaUrl(text: string): string {
+  return `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(text)}`;
+}
+
+function buildMailUrl(subject: string, body: string): string {
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
@@ -66,7 +131,12 @@ type ActionButton = {
   variant: "primary" | "ghost";
   icon?: React.ComponentType<{ className?: string }>;
   external?: boolean;
+  /** kind drives fallback behavior: whatsapp/email get openExternal + clipboard, tel stays as-is */
+  kind?: "whatsapp" | "email" | "tel" | "link";
+  /** text to copy to clipboard as a fallback if the browser blocks navigation */
+  copyText?: string;
 };
+
 
 type RichCard = {
   title: string;
@@ -110,8 +180,7 @@ type HandoffData = {
 };
 
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-const waLink = (text: string) =>
-  `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(text)}`;
+const waLink = (text: string) => buildWaUrl(text);
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -134,6 +203,53 @@ export function FloatingWhatsApp() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [attachError, setAttachError] = useState<string | null>(null);
   const [showLangMenu, setShowLangMenu] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimerRef = useRef<number | null>(null);
+
+  const showNotice = useCallback((text: string, ms = 4500) => {
+    setNotice(text);
+    if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
+    noticeTimerRef.current = window.setTimeout(() => setNotice(null), ms);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
+    };
+  }, []);
+
+  const handleActionClick = useCallback(
+    async (a: ActionButton, e: React.MouseEvent) => {
+      const kind =
+        a.kind ??
+        (a.href.startsWith("tel:")
+          ? "tel"
+          : a.href.startsWith("mailto:")
+            ? "email"
+            : a.href.startsWith("https://wa.me") || a.href.startsWith("https://api.whatsapp")
+              ? "whatsapp"
+              : "link");
+
+      // tel: links are safe as normal anchors — let default happen
+      if (kind === "tel") return;
+
+      e.preventDefault();
+      const opened = openExternal(a.href);
+      if (!opened && a.copyText) {
+        const ok = await copyToClipboard(a.copyText);
+        showNotice(
+          ok
+            ? `Couldn't open ${kind === "whatsapp" ? "WhatsApp" : "your email app"} — the message was copied to your clipboard. Paste it into ${kind === "whatsapp" ? `WhatsApp (${PHONE_DISPLAY})` : `an email to ${EMAIL}`}.`
+            : `Couldn't open ${kind === "whatsapp" ? "WhatsApp" : "email"}. Please contact us at ${PHONE_DISPLAY} or ${EMAIL}.`,
+          7000,
+        );
+      } else if (!opened) {
+        showNotice(`Couldn't open the link. Please call ${PHONE_DISPLAY} or email ${EMAIL}.`, 6000);
+      }
+    },
+    [showNotice],
+  );
+
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -234,7 +350,7 @@ export function FloatingWhatsApp() {
         ],
       },
       actions: [
-        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
+        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
         {
           id: "wa",
           label: "WhatsApp",
@@ -242,8 +358,18 @@ export function FloatingWhatsApp() {
           variant: "ghost",
           icon: MessageCircle,
           external: true,
+          kind: "whatsapp",
+          copyText: "Hello Praharsh Infrastructure, I have an enquiry.",
         },
-        { id: "email", label: "Email", href: `mailto:${EMAIL}`, variant: "ghost", icon: Mail },
+        {
+          id: "email",
+          label: "Email",
+          href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+          variant: "ghost",
+          icon: Mail,
+          kind: "email",
+          copyText: EMAIL,
+        },
       ],
       chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
     });
@@ -535,28 +661,40 @@ export function FloatingWhatsApp() {
       setFlow({ kind: "idle" });
       setPendingFiles([]);
 
-      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
-      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`Quote Request — ${quoteData.service}`)}&body=${encodeURIComponent(summary)}`;
+      const waHref = buildWaUrl(summary);
+      const mailSubject = `Quote Request — ${quoteData.service}`;
+      const mailHref = buildMailUrl(mailSubject, summary);
 
-      if (saved) {
-        pushBot({
-          text: `${dict.quote_success_title}\n\n${dict.quote_success_body(saved.reference)}`,
-          actions: [
-            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
-            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
-          ],
-          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
-        });
-      } else {
-        pushBot({
-          text: dict.save_failed,
-          actions: [
-            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
-            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
-          ],
-          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
-        });
-      }
+      const actions: ActionButton[] = [
+        {
+          id: "wa",
+          label: dict.quote_send_wa,
+          href: waHref,
+          variant: "primary",
+          icon: MessageCircle,
+          external: true,
+          kind: "whatsapp",
+          copyText: summary,
+        },
+        {
+          id: "email",
+          label: dict.quote_send_email,
+          href: mailHref,
+          variant: "ghost",
+          icon: Mail,
+          kind: "email",
+          copyText: `To: ${EMAIL}\nSubject: ${mailSubject}\n\n${summary}`,
+        },
+      ];
+
+      pushBot({
+        text: saved
+          ? `${dict.quote_success_title}\n\n${dict.quote_success_body(saved.reference)}`
+          : dict.save_failed,
+        actions,
+        chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+      });
+
     },
     [dict, goRoot, pushBot, saveLead],
   );
@@ -584,15 +722,33 @@ export function FloatingWhatsApp() {
       setIsSending(false);
       setFlow({ kind: "idle" });
 
-      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
-      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent("Callback request from website")}&body=${encodeURIComponent(summary)}`;
+      const waHref = buildWaUrl(summary);
+      const mailSubject = "Callback request from website";
+      const mailHref = buildMailUrl(mailSubject, summary);
 
       pushBot({
         text: saved ? dict.human_success(saved.reference) : dict.save_failed,
         actions: [
-          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
-          { id: "wa", label: "WhatsApp", href: waHref, variant: "ghost", icon: MessageCircle, external: true },
-          { id: "email", label: "Email", href: mailHref, variant: "ghost", icon: Mail },
+          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
+          {
+            id: "wa",
+            label: "WhatsApp",
+            href: waHref,
+            variant: "ghost",
+            icon: MessageCircle,
+            external: true,
+            kind: "whatsapp",
+            copyText: summary,
+          },
+          {
+            id: "email",
+            label: "Email",
+            href: mailHref,
+            variant: "ghost",
+            icon: Mail,
+            kind: "email",
+            copyText: `To: ${EMAIL}\nSubject: ${mailSubject}\n\n${summary}`,
+          },
         ],
         chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
       });
@@ -896,8 +1052,9 @@ export function FloatingWhatsApp() {
                           <a
                             key={a.id}
                             href={a.href}
-                            target={a.external ? "_blank" : undefined}
-                            rel={a.external ? "noopener noreferrer" : undefined}
+                            target={a.external || a.kind === "whatsapp" ? "_blank" : undefined}
+                            rel={a.external || a.kind === "whatsapp" ? "noopener noreferrer" : undefined}
+                            onClick={(e) => handleActionClick(a, e)}
                             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors ${cls}`}
                           >
                             {Icon && <Icon className="w-3.5 h-3.5" />}
@@ -1020,26 +1177,68 @@ export function FloatingWhatsApp() {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Inline notice (clipboard fallback etc) */}
+          {notice && (
+            <div className="bg-gold/15 border-t border-gold/40 text-navy-deep text-[0.72rem] leading-relaxed px-3 py-2 flex items-start gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
+              <span className="flex-1">{notice}</span>
+              <button
+                type="button"
+                onClick={() => setNotice(null)}
+                aria-label="Dismiss"
+                className="text-navy-deep/50 hover:text-navy-deep shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+
           {/* Quick action bar */}
           <div className="border-t border-border bg-white px-3 py-2 flex items-center gap-2 overflow-x-auto scrollbar-none">
             <a
-              href={`tel:${PHONE_WA}`}
+              href={`tel:${PHONE_TEL}`}
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <Phone className="w-3 h-3" /> Call
             </a>
             <span className="w-px h-3 bg-border shrink-0" />
             <a
-              href={waLink("Hello Praharsh Infrastructure, I have an enquiry.")}
+              href={buildWaUrl("Hello Praharsh Infrastructure, I have an enquiry.")}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) =>
+                handleActionClick(
+                  {
+                    id: "qa-wa",
+                    label: "WhatsApp",
+                    href: buildWaUrl("Hello Praharsh Infrastructure, I have an enquiry."),
+                    variant: "ghost",
+                    kind: "whatsapp",
+                    copyText: "Hello Praharsh Infrastructure, I have an enquiry.",
+                  },
+                  e,
+                )
+              }
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
             <span className="w-px h-3 bg-border shrink-0" />
             <a
-              href={`mailto:${EMAIL}`}
+              href={buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry.")}
+              onClick={(e) =>
+                handleActionClick(
+                  {
+                    id: "qa-email",
+                    label: "Email",
+                    href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+                    variant: "ghost",
+                    kind: "email",
+                    copyText: EMAIL,
+                  },
+                  e,
+                )
+              }
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <Mail className="w-3 h-3" /> Email
