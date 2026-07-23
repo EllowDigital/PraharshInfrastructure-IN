@@ -40,7 +40,7 @@ function AppShell() {
       <AppErrorBoundary sectionName="site_shell">
         <Header />
       </AppErrorBoundary>
-      <main className="min-h-screen">
+      <main className="min-h-dvh">
         <Routes>
           <Route
             path="/"

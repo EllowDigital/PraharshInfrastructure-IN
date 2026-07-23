@@ -71,9 +71,8 @@ const CORE_STRENGTHS = [
 
 function About() {
   return (
-    <main>
+    <>
       <SEO title="Praharsh Infrastructure" />
-      <SpecialitiesMarquee items={ABOUT_ITEMS} variant="gold" direction="right" ariaLabel="About Praharsh Infrastructure" />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-navy pt-28 sm:pt-36 pb-16 sm:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-20">
@@ -106,6 +105,7 @@ function About() {
           </p>
         </div>
       </section>
+      <SpecialitiesMarquee items={ABOUT_ITEMS} variant="gold" direction="right" ariaLabel="About Praharsh Infrastructure" />
 
       {/* Approach Section */}
       <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">
@@ -158,7 +158,7 @@ function About() {
           ))}
         </ul>
       </Section>
-    </main>
+    </>
   );
 }
 

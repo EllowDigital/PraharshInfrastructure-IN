@@ -106,12 +106,8 @@ function Govt() {
   return (
     <>
       <SEO title="Government Capabilities · Praharsh Infrastructure" />
-      <SpecialitiesMarquee
-        items={GOVERNMENT_ITEMS}
-        variant="navy"
-        direction="right"
-        ariaLabel="Government-sector capabilities"
-      />
+
+
 
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-28 bg-navy text-white overflow-hidden">
@@ -179,6 +175,12 @@ function Govt() {
           </div>
         </div>
       </section>
+      <SpecialitiesMarquee
+        items={GOVERNMENT_ITEMS}
+        variant="navy"
+        direction="right"
+        ariaLabel="Government-sector capabilities"
+      />
 
       {/* TRUST STAT STRIP */}
       <section className="bg-navy-deep border-y border-gold/20">
