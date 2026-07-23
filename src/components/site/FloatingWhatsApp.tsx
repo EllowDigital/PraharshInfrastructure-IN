@@ -661,28 +661,40 @@ export function FloatingWhatsApp() {
       setFlow({ kind: "idle" });
       setPendingFiles([]);
 
-      const waHref = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(summary)}`;
-      const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`Quote Request — ${quoteData.service}`)}&body=${encodeURIComponent(summary)}`;
+      const waHref = buildWaUrl(summary);
+      const mailSubject = `Quote Request — ${quoteData.service}`;
+      const mailHref = buildMailUrl(mailSubject, summary);
 
-      if (saved) {
-        pushBot({
-          text: `${dict.quote_success_title}\n\n${dict.quote_success_body(saved.reference)}`,
-          actions: [
-            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
-            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
-          ],
-          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
-        });
-      } else {
-        pushBot({
-          text: dict.save_failed,
-          actions: [
-            { id: "wa", label: dict.quote_send_wa, href: waHref, variant: "primary", icon: MessageCircle, external: true },
-            { id: "email", label: dict.quote_send_email, href: mailHref, variant: "ghost", icon: Mail },
-          ],
-          chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
-        });
-      }
+      const actions: ActionButton[] = [
+        {
+          id: "wa",
+          label: dict.quote_send_wa,
+          href: waHref,
+          variant: "primary",
+          icon: MessageCircle,
+          external: true,
+          kind: "whatsapp",
+          copyText: summary,
+        },
+        {
+          id: "email",
+          label: dict.quote_send_email,
+          href: mailHref,
+          variant: "ghost",
+          icon: Mail,
+          kind: "email",
+          copyText: `To: ${EMAIL}\nSubject: ${mailSubject}\n\n${summary}`,
+        },
+      ];
+
+      pushBot({
+        text: saved
+          ? `${dict.quote_success_title}\n\n${dict.quote_success_body(saved.reference)}`
+          : dict.save_failed,
+        actions,
+        chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
+      });
+
     },
     [dict, goRoot, pushBot, saveLead],
   );
