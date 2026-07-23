@@ -8,7 +8,7 @@ type Accreditation = {
   short: string;
   authority: string;
   scope: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number | string }>;
   details: string[];
 };
 
