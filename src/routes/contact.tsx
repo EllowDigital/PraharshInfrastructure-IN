@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SpecialitiesMarquee, CONTACT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useRef, useState, useCallback, useEffect, type FormEvent } from "react";
 
@@ -189,6 +190,7 @@ function Contact() {
   return (
     <>
       <SEO title="Praharsh Infrastructure" />
+
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
@@ -199,6 +201,12 @@ function Contact() {
           </h1>
         </div>
       </section>
+      <SpecialitiesMarquee
+        items={CONTACT_ITEMS}
+        variant="gold"
+        direction="right"
+        ariaLabel="How to reach Praharsh Infrastructure"
+      />
 
       <Section>
         <div className="grid lg:grid-cols-12 gap-16 -mt-8">

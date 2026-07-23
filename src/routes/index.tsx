@@ -27,6 +27,8 @@ import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
+import { SpecialitiesMarquee } from "@/components/site/SpecialitiesMarquee";
+import { AccreditationsPanel } from "@/components/site/AccreditationsPanel";
 import {
   Carousel,
   CarouselContent,
@@ -275,220 +277,232 @@ export default function Home({ onHeroReady }: HomeProps) {
         <HeroSlider onReady={onHeroReady} />
       </AppErrorBoundary>
 
-      {/* 2. COMPANY OVERVIEW */}
-      <AppErrorBoundary sectionName="home_company_overview">
-        <Section
-          eyebrow="Who We Are"
-          title="An infrastructure contractor built for the public sector."
-        >
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-center -mt-4">
-            <div className="lg:col-span-6 lg:order-last image-zoom overflow-hidden rounded-xl shadow-2xl relative aspect-[3/2]">
-              <div className="absolute inset-0 bg-navy/10 mix-blend-multiply z-10" />
-              <img
-                src={teamImg}
-                alt="Praharsh engineering team on site"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="lg:col-span-6 lg:py-10">
-              <p className="text-lg sm:text-xl text-foreground/80 leading-relaxed font-light">
-                Praharsh Infrastructure delivers solar street lighting, high mast installations,
-                electrical works, government supplies and branding — to municipal corporations,
-                state departments, PSUs and private clients across India.
-              </p>
+      <AppErrorBoundary sectionName="home_specialities_marquee">
+        <SpecialitiesMarquee />
+      </AppErrorBoundary>
 
-              <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-1 space-y-0 lg:space-y-8">
-                {(COMPANY_HIGHLIGHTS ?? []).map((badge) => {
-                  const Icon = badge.icon;
-                  return (
-                    <div key={badge.title} className="flex gap-5 group">
-                      <div className="w-14 h-14 shrink-0 grid place-items-center bg-secondary text-navy rounded-lg group-hover:bg-navy group-hover:text-gold transition-colors duration-300">
-                        <Icon className="w-6 h-6" strokeWidth={1.5} />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-display text-xl text-navy">{badge.title}</div>
-                        <div className="text-[15px] text-muted-foreground mt-2 leading-relaxed">
-                          {badge.desc}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+      {/* 2. BENTO — WHO WE ARE + HEADLINE STATS */}
+      <AppErrorBoundary sectionName="home_bento_intro">
+        <section className="bg-navy-deep py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+              {/* Editorial headline tile */}
+              <div className="col-span-12 lg:col-span-8 bg-navy border border-navy-mid p-8 sm:p-12 lg:p-16 flex flex-col justify-end min-h-[420px] lg:min-h-[520px] relative overflow-hidden group image-zoom">
+                <img
+                  src={teamImg}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
+                  loading="lazy"
+                  aria-hidden="true"
+                />
+                <div className="absolute top-6 sm:top-8 right-6 sm:right-8">
+                  <span className="uppercase tracking-[0.22em] text-gold text-[0.65rem] sm:text-xs font-semibold">
+                    Established 2010
+                  </span>
+                </div>
+                <div className="relative">
+                  <h2 className="font-display text-white leading-[1.05] text-[clamp(2rem,4.2vw,4.5rem)] mb-6 sm:mb-8 text-balance">
+                    Building the <span className="italic text-gold">framework</span> of tomorrow's
+                    India.
+                  </h2>
+                  <p className="text-white/70 max-w-xl text-base sm:text-lg leading-relaxed font-light">
+                    With 15+ years of disciplined delivery, Praharsh Infrastructure bridges vision
+                    and reality through precision engineering and sustainable public infrastructure.
+                  </p>
+                  <Link
+                    to="/about"
+                    className="mt-8 inline-flex items-center gap-3 text-white text-sm font-semibold group/link"
+                  >
+                    <span className="relative">
+                      About the Company
+                      <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-gold origin-left scale-x-50 transition-transform duration-300 group-hover/link:scale-x-100" />
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-gold transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                  </Link>
+                </div>
               </div>
 
+              {/* Stats column */}
+              <div className="col-span-12 lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 grid-rows-1 lg:grid-rows-2 gap-4 sm:gap-5 lg:gap-6">
+                <div className="bg-gold p-6 sm:p-8 flex flex-col justify-between min-h-[180px]">
+                  <span className="uppercase tracking-[0.22em] text-navy-deep text-[0.65rem] sm:text-xs font-bold">
+                    Track Record
+                  </span>
+                  <div>
+                    <div className="font-display text-5xl sm:text-6xl text-navy-deep leading-none">
+                      500+
+                    </div>
+                    <div className="text-navy-deep/80 text-xs sm:text-sm font-medium mt-2">
+                      Projects Delivered
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-navy-mid p-6 sm:p-8 flex flex-col justify-between text-white min-h-[180px]">
+                  <span className="uppercase tracking-[0.22em] text-gold text-[0.65rem] sm:text-xs font-bold">
+                    Reach
+                  </span>
+                  <div>
+                    <div className="font-display text-5xl sm:text-6xl leading-none">25+</div>
+                    <div className="text-white/60 text-xs sm:text-sm mt-2">
+                      States Across the Nation
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </AppErrorBoundary>
+
+      {/* 3. BENTO — SERVICES */}
+      <AppErrorBoundary sectionName="home_services">
+        <section className="bg-navy-deep pb-20 sm:pb-24 lg:pb-28 px-5 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+              {/* Section header */}
+              <div className="col-span-12 lg:col-span-4 p-2 sm:p-4 flex flex-col justify-end mb-2 lg:mb-0">
+                <div className="eyebrow text-gold mb-3 text-xs">
+                  <span className="gold-rule mr-3 align-middle" />
+                  Services
+                </div>
+                <h3 className="font-display text-white text-4xl sm:text-5xl leading-[1.05] mb-4">
+                  Specialized <br />
+                  <span className="italic text-gold">Verticals.</span>
+                </h3>
+                <p className="text-white/55 text-sm sm:text-base leading-relaxed max-w-sm">
+                  Integrated solutions across civil engineering, renewable energy, and public sector
+                  supply chains — one execution standard.
+                </p>
+              </div>
+
+              {/* Hero service tile (large) */}
+              {(() => {
+                const feature = SERVICES[0];
+                const FeatureIcon = feature.icon;
+                return (
+                  <Link
+                    to="/services"
+                    className="col-span-12 lg:col-span-8 relative bg-navy border border-navy-mid p-8 sm:p-10 hover:border-gold/40 transition-all group min-h-[320px] flex flex-col justify-end overflow-hidden"
+                  >
+                    <img
+                      src={feature.img}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
+                      loading="lazy"
+                      aria-hidden="true"
+                    />
+                    <div className="relative">
+                      <div className="flex justify-between items-start mb-10 sm:mb-14">
+                        <div className="h-12 w-12 border border-gold flex items-center justify-center text-gold">
+                          <FeatureIcon className="w-6 h-6" strokeWidth={1.5} />
+                        </div>
+                        <ArrowUpRight className="w-6 h-6 text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </div>
+                      <h4 className="font-display text-3xl sm:text-4xl text-white mb-3">
+                        {feature.title}
+                      </h4>
+                      <p className="text-white/60 text-sm sm:text-base max-w-md leading-relaxed">
+                        {feature.desc}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })()}
+
+              {/* Two medium tiles */}
+              {SERVICES.slice(1, 3).map((s) => {
+                const Icon = s.icon;
+                return (
+                  <Link
+                    key={s.title}
+                    to="/services"
+                    className="col-span-12 sm:col-span-6 lg:col-span-3 bg-navy/40 border border-navy-mid p-7 sm:p-8 hover:border-gold/40 hover:bg-navy transition-all group flex flex-col justify-between min-h-[240px]"
+                  >
+                    <Icon className="w-10 h-10 text-gold" strokeWidth={1.5} />
+                    <div>
+                      <h4 className="font-display text-xl text-white mb-2 leading-tight">
+                        {s.title}
+                      </h4>
+                      <p className="text-white/45 text-xs leading-relaxed line-clamp-3">{s.desc}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+
+              {/* Gold GeM highlight tile */}
+              {(() => {
+                const gov = SERVICES.find((s) => s.icon === Landmark) ?? SERVICES[7];
+                return (
+                  <Link
+                    to="/government-capabilities"
+                    className="col-span-12 lg:col-span-6 bg-gold p-8 sm:p-10 flex flex-col justify-between hover:bg-gold/90 transition-all min-h-[260px] group"
+                  >
+                    <div>
+                      <div className="eyebrow text-navy-deep/70 text-[0.65rem] mb-4">
+                        Government Portal
+                      </div>
+                      <h4 className="font-display text-3xl sm:text-4xl text-navy-deep italic mb-4">
+                        {gov.title}
+                      </h4>
+                      <p className="text-navy-deep/70 text-sm sm:text-base max-w-md leading-relaxed">
+                        {gov.desc}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-3 mt-8">
+                      {["ISO 9001:2015", "UPPCL Empanelled", "GeM Verified"].map((t) => (
+                        <span
+                          key={t}
+                          className="px-3 py-1 border border-navy-deep text-[0.65rem] uppercase font-bold text-navy-deep tracking-wider"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                );
+              })()}
+
+              {/* Small tiles row (remaining verticals) */}
+              {SERVICES.slice(3, 7).map((s, i) => {
+                const bgVariants = ["bg-navy-mid", "bg-navy", "bg-navy/40", "bg-navy"];
+                const Icon = s.icon;
+                return (
+                  <Link
+                    key={s.title}
+                    to="/services"
+                    className={`col-span-6 sm:col-span-6 lg:col-span-3 ${bgVariants[i]} border border-navy-mid p-6 sm:p-7 hover:border-gold/40 transition-all group flex flex-col justify-between min-h-[160px]`}
+                  >
+                    <Icon className="w-7 h-7 text-gold" strokeWidth={1.5} />
+                    <div>
+                      <div className="text-[0.6rem] uppercase tracking-[0.22em] text-gold/70 mb-2">
+                        {s.titleShort}
+                      </div>
+                      <h4 className="font-display text-lg sm:text-xl text-white leading-snug">
+                        {s.title}
+                      </h4>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* View all */}
+            <div className="mt-10 sm:mt-12 flex justify-center">
               <Link
-                to="/about"
-                className="mt-12 inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-sm font-semibold hover:bg-gold hover:text-navy transition-all duration-300 rounded-sm shadow-md hover:shadow-lg"
+                to="/services"
+                className="inline-flex items-center gap-3 border border-white/20 text-white px-8 py-4 text-xs uppercase tracking-[0.22em] font-semibold hover:bg-gold hover:text-navy-deep hover:border-gold transition-all"
               >
-                Learn About Our Company
+                View All Services
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
-        </Section>
+        </section>
       </AppErrorBoundary>
 
-      {/* 3. SERVICE HIGHLIGHTS */}
-      <AppErrorBoundary sectionName="home_services">
-        <Section
-          muted
-          eyebrow="Services"
-          title="Eight business areas. One execution standard."
-          intro="Integrated capabilities across infrastructure, roads, energy, advertising and government supply — operating under shared engineering, procurement and HSE systems."
-        >
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-6">
-            {(SERVICES ?? []).map((service, i) => {
-              const Icon = service.icon;
-
-              return (
-                <article
-                  key={service.title}
-                  className="
-            group
-            flex
-            flex-col
-            h-full
-            overflow-hidden
-            bg-background
-            border
-            border-border/50
-            rounded-xl
-            transition-all
-            duration-500
-            hover:-translate-y-2
-            hover:border-gold/40
-            hover:shadow-2xl
-          "
-                >
-                  {/* Image */}
-                  <div className="relative h-[220px] overflow-hidden bg-secondary">
-                    <img
-                      src={service.img}
-                      alt={service.title}
-                      className="
-                h-full
-                w-full
-                object-cover
-                object-center
-                transition-transform
-                duration-700
-                group-hover:scale-110
-              "
-                      loading="lazy"
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    {/* Service Badge */}
-                    <div className="absolute left-4 top-4 flex items-center gap-2 bg-white/95 px-3 py-1.5 rounded-md backdrop-blur-md shadow-sm transform transition-transform duration-500 group-hover:-translate-y-1">
-                      <Icon className="h-4 w-4 text-gold" strokeWidth={2} />
-                      <span className="font-display text-[0.8rem] text-navy font-semibold">
-                        {service.titleShort}
-                      </span>
-                    </div>
-
-                    {/* Number Badge */}
-                    <div
-                      className="
-                absolute
-                right-4
-                bottom-4
-                h-8
-                w-8
-                grid
-                place-items-center
-                rounded-full
-                bg-navy/90
-                text-gold
-                text-xs
-                font-bold
-                backdrop-blur-sm
-                shadow-md
-                transform transition-all duration-500 group-hover:scale-110 group-hover:bg-gold group-hover:text-navy
-              "
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col p-6 sm:p-7">
-                    <h3 className="font-display text-xl sm:text-[1.35rem] leading-tight tracking-tight text-navy group-hover:text-gold transition-colors duration-300">
-                      {service.title}
-                    </h3>
-
-                    <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground line-clamp-3">
-                      {service.desc}
-                    </p>
-
-                    {/* CTA */}
-                    <Link
-                      to="/services"
-                      className="
-                mt-auto
-                pt-6
-                inline-flex
-                items-center
-                gap-2
-                text-[0.9rem]
-                text-navy
-                font-bold
-                uppercase
-                tracking-wider
-                group/link
-              "
-                    >
-                      <span className="relative">
-                        Learn More
-                        <span
-                          className="
-                    absolute
-                    left-0
-                    -bottom-1
-                    h-[2px]
-                    w-0
-                    bg-gold
-                    transition-all
-                    duration-300
-                    group-hover/link:w-full
-                  "
-                        />
-                      </span>
-
-                      <ArrowUpRight
-                        className="
-                  h-4
-                  w-4
-                  transition-all
-                  duration-300
-                  group-hover/link:translate-x-1
-                  group-hover/link:-translate-y-1
-                  group-hover/link:text-gold
-                "
-                      />
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-16 sm:mt-20 flex justify-center">
-            <Link
-              to="/services"
-              className="inline-flex items-center gap-3 bg-navy text-white px-8 py-4 text-[0.95rem] font-semibold hover:bg-gold hover:text-navy transition-all duration-300 rounded-sm shadow-md hover:shadow-lg"
-            >
-              View All Services
-              <ArrowUpRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </Section>
-      </AppErrorBoundary>
-
-      {/* 4. STATISTICS COUNTER */}
+      {/* 4. STATS STRIP */}
       <AppErrorBoundary sectionName="home_stats">
-        <section className="bg-navy py-20 border-y border-gold/20">
+        <section className="bg-navy py-16 border-y border-gold/20">
           <div className="mx-auto max-w-7xl px-6 lg:px-10 grid grid-cols-2 lg:grid-cols-4">
             {(STATS ?? []).map((stat, i) => (
               <div
@@ -502,131 +516,121 @@ export default function Home({ onHeroReady }: HomeProps) {
         </section>
       </AppErrorBoundary>
 
-      {/* 5. FEATURED PROJECTS */}
+      {/* 5. FEATURED PROJECTS — asymmetric bento */}
       <AppErrorBoundary sectionName="home_featured_projects">
-        <Section
-          eyebrow="Featured Projects"
-          title="A portfolio measured in landmarks."
-          intro="Headline solar street light and high mast projects recently delivered for government clients."
-        >
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-14">
-            {(FEATURED_PROJECTS ?? []).map((project) => (
-              <article key={project.title} className="group flex flex-col">
-                {/* Image */}
-                <div className="image-zoom overflow-hidden bg-secondary/40 border border-border/40 mb-6">
-                  <div className="h-[340px] lg:h-[420px]">
-                    <img
-                      src={project.img}
-                      alt={project.title}
-                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
+        <section className="bg-navy-deep py-20 sm:py-24 lg:py-28 px-5 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 sm:mb-12">
+              <div>
+                <div className="eyebrow text-gold mb-3 text-xs">
+                  <span className="gold-rule mr-3 align-middle" />
+                  Case Studies
                 </div>
-
-                {/* Content */}
-                <div className="flex items-start justify-between gap-6">
-                  <div>
-                    <div className="eyebrow text-gold mb-2">{project.tag}</div>
-
-                    <h3 className="font-display text-2xl text-navy leading-tight">
-                      {project.title}
-                    </h3>
-
-                    <div className="text-sm text-muted-foreground mt-2">
-                      Client · {project.client}
-                    </div>
-
-                    {/* Learn More Link */}
-                    <Link
-                      to="/projects"
-                      className="mt-5 inline-flex items-center gap-3 text-navy font-semibold group/link"
-                    >
-                      <span className="relative">
-                        Learn More
-                        <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-gold transition-all duration-300 group-hover/link:w-full" />
-                      </span>
-
-                      <ArrowUpRight className="w-4 h-4 transition-all duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 group-hover/link:text-gold" />
-                    </Link>
-                  </div>
-
-                  <ArrowUpRight className="w-6 h-6 text-navy mt-1 shrink-0 transition-all duration-300 group-hover:rotate-45 group-hover:text-gold" />
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="mt-20 flex justify-center">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-3 bg-navy text-white px-7 py-4 text-sm font-medium hover:bg-gold hover:text-navy transition-colors"
-            >
-              {" "}
-              View All Projects <ArrowUpRight className="w-4 h-4" />{" "}
-            </Link>
-          </div>
-        </Section>
-      </AppErrorBoundary>
-
-      {/* 6. WHY CHOOSE US */}
-      <AppErrorBoundary sectionName="home_why_choose_us">
-        <Section muted eyebrow="Why Choose Us" title="Engineered for accountability.">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border -mt-8">
-            {(WHY_CHOOSE_US ?? []).map((reason) => {
-              const Icon = reason.icon;
-              return (
-                <div key={reason.title} className="bg-background p-8 card-hover">
-                  <Icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.4} />
-                  <h3 className="font-display text-xl text-navy">{reason.title}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                    {reason.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
-      </AppErrorBoundary>
-
-      {/* 7. GOVERNMENT CREDENTIALS */}
-      <AppErrorBoundary sectionName="home_government_credentials">
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 gradient-navy" />
-          <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 lg:py-32 grid lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-5">
-              <div className="eyebrow text-gold mb-6">
-                <span className="gold-rule mr-3 align-middle" /> Government Credentials
+                <h2 className="font-display text-white text-4xl sm:text-5xl leading-[1.05] max-w-2xl">
+                  A portfolio measured in <span className="italic text-gold">landmarks.</span>
+                </h2>
               </div>
-              <h2 className="text-white text-4xl lg:text-5xl leading-[1.05]">
-                Procurement-ready. <span className="italic text-gold">Tender-trained.</span>
-              </h2>
-              <p className="mt-6 text-white/75 leading-relaxed max-w-md">
-                Praharsh is structured specifically to deliver public-sector projects — from GeM
-                procurement to turnkey civic works.
-              </p>
               <Link
-                to="/government-capabilities"
-                className="mt-10 inline-flex items-center gap-3 bg-gold text-navy px-7 py-4 text-sm font-medium hover:bg-white transition-colors"
+                to="/projects"
+                className="text-white text-xs uppercase tracking-[0.22em] font-semibold border-b border-gold pb-1 hover:text-gold transition-colors self-start sm:self-auto"
               >
-                See Government Capabilities <ArrowUpRight className="w-4 h-4" />
+                View Portfolio
               </Link>
             </div>
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-              {(GOV_BADGES ?? []).map((badge) => {
-                const Icon = badge.icon;
+
+            <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+              {/* Large feature project */}
+              <Link
+                to="/projects"
+                className="col-span-12 lg:col-span-7 relative overflow-hidden border border-navy-mid group min-h-[380px] lg:min-h-[520px] image-zoom"
+              >
+                <img
+                  src={FEATURED_PROJECTS[0].img}
+                  alt={FEATURED_PROJECTS[0].title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
+                <div className="relative h-full flex flex-col justify-end p-8 sm:p-10">
+                  <div className="eyebrow text-gold mb-2 text-[0.7rem]">
+                    {FEATURED_PROJECTS[0].tag}
+                  </div>
+                  <h3 className="font-display text-white text-2xl sm:text-4xl leading-tight mb-3 max-w-xl">
+                    {FEATURED_PROJECTS[0].title}
+                  </h3>
+                  <div className="text-white/70 text-sm">
+                    Client · {FEATURED_PROJECTS[0].client}
+                  </div>
+                </div>
+              </Link>
+
+              {/* Right column list of case studies */}
+              <div className="col-span-12 lg:col-span-5 bg-navy border border-navy-mid p-8 sm:p-10 flex flex-col">
+                <div className="space-y-5 flex-1">
+                  {FEATURED_PROJECTS.slice(1).map((p) => (
+                    <Link key={p.title} to="/projects" className="group block">
+                      <div className="flex justify-between items-end gap-4 border-b border-navy-mid pb-4 group-hover:border-gold/60 transition-colors">
+                        <div className="min-w-0">
+                          <span className="text-gold text-[0.65rem] uppercase tracking-[0.22em] font-semibold">
+                            {p.tag}
+                          </span>
+                          <h5 className="font-display text-lg sm:text-xl text-white mt-1 leading-tight">
+                            {p.title}
+                          </h5>
+                        </div>
+                        <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-all shrink-0" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <Link
+                  to="/projects"
+                  className="mt-8 inline-flex items-center justify-center gap-3 bg-navy-deep text-white py-4 uppercase tracking-[0.22em] text-xs font-bold hover:bg-gold hover:text-navy-deep transition-colors"
+                >
+                  Browse All Projects
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </AppErrorBoundary>
+
+      {/* 6. WHY CHOOSE US + ACCREDITATIONS SPLIT */}
+      <AppErrorBoundary sectionName="home_why_choose_us">
+        <section className="bg-navy-deep pb-20 sm:pb-24 lg:pb-28 px-5 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-7xl grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+            {/* Why choose us — bento of 6 tiles */}
+            <div className="col-span-12 lg:col-span-7 grid grid-cols-2 gap-4 sm:gap-5">
+              <div className="col-span-2 mb-2">
+                <div className="eyebrow text-gold mb-3 text-xs">
+                  <span className="gold-rule mr-3 align-middle" />
+                  Why Choose Us
+                </div>
+                <h2 className="font-display text-white text-4xl sm:text-5xl leading-[1.05]">
+                  Engineered for <span className="italic text-gold">accountability.</span>
+                </h2>
+              </div>
+              {(WHY_CHOOSE_US ?? []).map((reason) => {
+                const Icon = reason.icon;
                 return (
                   <div
-                    key={badge.text}
-                    className="bg-white/5 border border-white/20 p-6 flex flex-col items-center justify-center text-center gap-4 backdrop-blur-sm rounded-sm hover:bg-white/10 transition-colors shadow-sm"
+                    key={reason.title}
+                    className="bg-navy border border-navy-mid p-6 sm:p-7 hover:border-gold/40 transition-colors group"
                   >
-                    <Icon className="w-8 h-8 text-gold shrink-0" strokeWidth={1.5} />
-                    <span className="text-white font-display tracking-wide">{badge.text}</span>
+                    <Icon className="w-7 h-7 text-gold mb-4" strokeWidth={1.4} />
+                    <h3 className="font-display text-lg text-white leading-tight">
+                      {reason.title}
+                    </h3>
+                    <p className="mt-2 text-xs sm:text-sm text-white/55 leading-relaxed">
+                      {reason.desc}
+                    </p>
                   </div>
                 );
               })}
             </div>
+
+            {/* Accreditations panel (light) */}
+            <AccreditationsPanel />
           </div>
         </section>
       </AppErrorBoundary>
