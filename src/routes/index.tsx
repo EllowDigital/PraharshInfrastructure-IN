@@ -28,6 +28,7 @@ import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { SpecialitiesMarquee } from "@/components/site/SpecialitiesMarquee";
+import { AccreditationsPanel } from "@/components/site/AccreditationsPanel";
 import {
   Carousel,
   CarouselContent,
