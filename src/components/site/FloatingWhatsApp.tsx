@@ -1177,26 +1177,68 @@ export function FloatingWhatsApp() {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Inline notice (clipboard fallback etc) */}
+          {notice && (
+            <div className="bg-gold/15 border-t border-gold/40 text-navy-deep text-[0.72rem] leading-relaxed px-3 py-2 flex items-start gap-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-gold shrink-0 mt-0.5" />
+              <span className="flex-1">{notice}</span>
+              <button
+                type="button"
+                onClick={() => setNotice(null)}
+                aria-label="Dismiss"
+                className="text-navy-deep/50 hover:text-navy-deep shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+
           {/* Quick action bar */}
           <div className="border-t border-border bg-white px-3 py-2 flex items-center gap-2 overflow-x-auto scrollbar-none">
             <a
-              href={`tel:${PHONE_WA}`}
+              href={`tel:${PHONE_TEL}`}
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <Phone className="w-3 h-3" /> Call
             </a>
             <span className="w-px h-3 bg-border shrink-0" />
             <a
-              href={waLink("Hello Praharsh Infrastructure, I have an enquiry.")}
+              href={buildWaUrl("Hello Praharsh Infrastructure, I have an enquiry.")}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) =>
+                handleActionClick(
+                  {
+                    id: "qa-wa",
+                    label: "WhatsApp",
+                    href: buildWaUrl("Hello Praharsh Infrastructure, I have an enquiry."),
+                    variant: "ghost",
+                    kind: "whatsapp",
+                    copyText: "Hello Praharsh Infrastructure, I have an enquiry.",
+                  },
+                  e,
+                )
+              }
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <MessageCircle className="w-3 h-3" /> WhatsApp
             </a>
             <span className="w-px h-3 bg-border shrink-0" />
             <a
-              href={`mailto:${EMAIL}`}
+              href={buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry.")}
+              onClick={(e) =>
+                handleActionClick(
+                  {
+                    id: "qa-email",
+                    label: "Email",
+                    href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+                    variant: "ghost",
+                    kind: "email",
+                    copyText: EMAIL,
+                  },
+                  e,
+                )
+              }
               className="shrink-0 inline-flex items-center gap-1.5 text-[0.68rem] font-semibold text-navy hover:text-gold uppercase tracking-wider"
             >
               <Mail className="w-3 h-3" /> Email
