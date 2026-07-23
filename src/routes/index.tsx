@@ -27,6 +27,7 @@ import { Section } from "@/components/site/Section";
 import { AnimatedStat } from "@/components/site/AnimatedStat";
 import { AppErrorBoundary } from "@/components/site/ErrorBoundary";
 import { HeroSlider } from "@/components/site/HeroSlider";
+import { SpecialitiesMarquee } from "@/components/site/SpecialitiesMarquee";
 import {
   Carousel,
   CarouselContent,
@@ -273,6 +274,10 @@ export default function Home({ onHeroReady }: HomeProps) {
       {/* 1. HERO */}
       <AppErrorBoundary sectionName="home_hero">
         <HeroSlider onReady={onHeroReady} />
+      </AppErrorBoundary>
+
+      <AppErrorBoundary sectionName="home_specialities_marquee">
+        <SpecialitiesMarquee />
       </AppErrorBoundary>
 
       {/* 2. COMPANY OVERVIEW */}
