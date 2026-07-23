@@ -131,7 +131,12 @@ type ActionButton = {
   variant: "primary" | "ghost";
   icon?: React.ComponentType<{ className?: string }>;
   external?: boolean;
+  /** kind drives fallback behavior: whatsapp/email get openExternal + clipboard, tel stays as-is */
+  kind?: "whatsapp" | "email" | "tel" | "link";
+  /** text to copy to clipboard as a fallback if the browser blocks navigation */
+  copyText?: string;
 };
+
 
 type RichCard = {
   title: string;
