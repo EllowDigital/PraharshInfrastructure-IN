@@ -276,6 +276,10 @@ export default function Home({ onHeroReady }: HomeProps) {
         <HeroSlider onReady={onHeroReady} />
       </AppErrorBoundary>
 
+      <AppErrorBoundary sectionName="home_specialities_marquee">
+        <SpecialitiesMarquee />
+      </AppErrorBoundary>
+
       {/* 2. COMPANY OVERVIEW */}
       <AppErrorBoundary sectionName="home_company_overview">
         <Section
