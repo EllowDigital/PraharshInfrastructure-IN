@@ -302,9 +302,8 @@ export default function Home({ onHeroReady }: HomeProps) {
                 </div>
                 <div className="relative">
                   <h2 className="font-display text-white leading-[1.05] text-[clamp(2rem,4.2vw,4.5rem)] mb-6 sm:mb-8 text-balance">
-                    Building the{" "}
-                    <span className="italic text-gold">framework</span>{" "}
-                    of tomorrow's India.
+                    Building the <span className="italic text-gold">framework</span> of tomorrow's
+                    India.
                   </h2>
                   <p className="text-white/70 max-w-xl text-base sm:text-lg leading-relaxed font-light">
                     With 15+ years of disciplined delivery, Praharsh Infrastructure bridges vision
@@ -424,9 +423,7 @@ export default function Home({ onHeroReady }: HomeProps) {
                       <h4 className="font-display text-xl text-white mb-2 leading-tight">
                         {s.title}
                       </h4>
-                      <p className="text-white/45 text-xs leading-relaxed line-clamp-3">
-                        {s.desc}
-                      </p>
+                      <p className="text-white/45 text-xs leading-relaxed line-clamp-3">{s.desc}</p>
                     </div>
                   </Link>
                 );
@@ -467,12 +464,7 @@ export default function Home({ onHeroReady }: HomeProps) {
 
               {/* Small tiles row (remaining verticals) */}
               {SERVICES.slice(3, 7).map((s, i) => {
-                const bgVariants = [
-                  "bg-navy-mid",
-                  "bg-navy",
-                  "bg-navy/40",
-                  "bg-navy",
-                ];
+                const bgVariants = ["bg-navy-mid", "bg-navy", "bg-navy/40", "bg-navy"];
                 const Icon = s.icon;
                 return (
                   <Link
@@ -576,11 +568,7 @@ export default function Home({ onHeroReady }: HomeProps) {
               <div className="col-span-12 lg:col-span-5 bg-navy border border-navy-mid p-8 sm:p-10 flex flex-col">
                 <div className="space-y-5 flex-1">
                   {FEATURED_PROJECTS.slice(1).map((p) => (
-                    <Link
-                      key={p.title}
-                      to="/projects"
-                      className="group block"
-                    >
+                    <Link key={p.title} to="/projects" className="group block">
                       <div className="flex justify-between items-end gap-4 border-b border-navy-mid pb-4 group-hover:border-gold/60 transition-colors">
                         <div className="min-w-0">
                           <span className="text-gold text-[0.65rem] uppercase tracking-[0.22em] font-semibold">
@@ -643,11 +631,9 @@ export default function Home({ onHeroReady }: HomeProps) {
 
             {/* Accreditations panel (light) */}
             <AccreditationsPanel />
-
           </div>
         </section>
       </AppErrorBoundary>
-
 
       {/* 9. TESTIMONIALS */}
       <AppErrorBoundary sectionName="home_testimonials">

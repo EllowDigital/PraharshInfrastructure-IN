@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { ArrowUpRight, X, CheckCircle2, ShieldCheck, Award, Landmark, Building2, FileCheck2 } from "lucide-react";
+import {
+  ArrowUpRight,
+  X,
+  CheckCircle2,
+  ShieldCheck,
+  Award,
+  Landmark,
+  Building2,
+  FileCheck2,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 type Accreditation = {
@@ -131,7 +140,8 @@ export function AccreditationsPanel() {
           Accredited & Authorized
         </div>
         <h4 className="font-display text-3xl sm:text-4xl text-navy-deep italic leading-tight mb-8">
-          Procurement- <br />ready. Tender-trained.
+          Procurement- <br />
+          ready. Tender-trained.
         </h4>
         <ul className="space-y-2">
           {ITEMS.map((it) => {
@@ -167,13 +177,7 @@ export function AccreditationsPanel() {
   );
 }
 
-function AccreditationModal({
-  item,
-  onClose,
-}: {
-  item: Accreditation;
-  onClose: () => void;
-}) {
+function AccreditationModal({ item, onClose }: { item: Accreditation; onClose: () => void }) {
   const Icon = item.icon;
   return (
     <div
@@ -232,7 +236,10 @@ function AccreditationModal({
             </div>
             <ul className="space-y-2">
               {item.details.map((d, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-navy-deep/85 leading-relaxed">
+                <li
+                  key={i}
+                  className="flex items-start gap-2.5 text-sm text-navy-deep/85 leading-relaxed"
+                >
                   <CheckCircle2 className="w-4 h-4 text-gold shrink-0 mt-0.5" />
                   <span>{d}</span>
                 </li>

@@ -107,8 +107,6 @@ function Govt() {
     <>
       <SEO title="Government Capabilities · Praharsh Infrastructure" />
 
-
-
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-28 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-25">
@@ -205,7 +203,10 @@ function Govt() {
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gold/5 group-hover:bg-gold/10 transition-colors" />
               <div className="relative flex items-start justify-between mb-8">
                 <div className="w-14 h-14 rounded-sm bg-gold/10 flex items-center justify-center group-hover:bg-gold transition-colors">
-                  <c.icon className="w-7 h-7 text-gold group-hover:text-navy transition-colors" strokeWidth={1.5} />
+                  <c.icon
+                    className="w-7 h-7 text-gold group-hover:text-navy transition-colors"
+                    strokeWidth={1.5}
+                  />
                 </div>
                 <span className="font-display text-sm text-muted-foreground">
                   {String(i + 1).padStart(2, "0")}

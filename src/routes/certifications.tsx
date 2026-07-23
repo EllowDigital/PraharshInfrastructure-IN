@@ -52,7 +52,7 @@ function Certifications() {
   return (
     <>
       <SEO title="Praharsh Infrastructure" />
-      
+
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 bg-navy text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="eyebrow text-gold mb-6">
@@ -69,7 +69,12 @@ function Certifications() {
           </p>
         </div>
       </section>
-      <SpecialitiesMarquee items={CERTIFICATIONS_ITEMS} variant="gold" direction="left" ariaLabel="Certifications and accreditations" />
+      <SpecialitiesMarquee
+        items={CERTIFICATIONS_ITEMS}
+        variant="gold"
+        direction="left"
+        ariaLabel="Certifications and accreditations"
+      />
 
       <Section>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 -mt-8">

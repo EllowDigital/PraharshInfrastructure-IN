@@ -32,8 +32,7 @@ const PHONE_DISPLAY = "+91 78000 09165";
 const PHONE_WA = "917800009165"; // digits only for wa.me
 const PHONE_TEL = "+917800009165"; // E.164 for tel:
 const EMAIL = "info@praharshinfrastructure.com";
-const ADDRESS =
-  "Tower-2, 12th Floor, Assotech Business Cresterra, Sector 135, Noida";
+const ADDRESS = "Tower-2, 12th Floor, Assotech Business Cresterra, Sector 135, Noida";
 const HOURS = "Mon – Sat · 10:00 AM – 7:00 PM IST";
 
 // --- Robust cross-window openers ---------------------------------------------
@@ -99,13 +98,10 @@ function buildMailUrl(subject: string, body: string): string {
   return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const ACCEPT = ".pdf,.dwg,.dxf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png";
-const ACCEPTED_EXT = [
-  "pdf", "dwg", "dxf", "doc", "docx", "xls", "xlsx", "jpg", "jpeg", "png",
-];
+const ACCEPTED_EXT = ["pdf", "dwg", "dxf", "doc", "docx", "xls", "xlsx", "jpg", "jpeg", "png"];
 
 const LOCALE_STORAGE_KEY = "praharsh_chat_locale";
 
@@ -136,7 +132,6 @@ type ActionButton = {
   /** text to copy to clipboard as a fallback if the browser blocks navigation */
   copyText?: string;
 };
-
 
 type RichCard = {
   title: string;
@@ -250,7 +245,6 @@ export function FloatingWhatsApp() {
     [showNotice],
   );
 
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -301,27 +295,55 @@ export function FloatingWhatsApp() {
   // --- Service chips builder ---
   const serviceChips = useCallback(
     (onPick: (label: string) => void): Chip[] => [
-      { id: "solar", label: dict.service_solar, icon: Sun, onClick: () => onPick(dict.service_solar) },
-      { id: "elec", label: dict.service_electrical, icon: Zap, onClick: () => onPick(dict.service_electrical) },
-      { id: "civil", label: dict.service_civil, icon: RouteIcon, onClick: () => onPick(dict.service_civil) },
-      { id: "govt", label: dict.service_govt, icon: Landmark, onClick: () => onPick(dict.service_govt) },
-      { id: "ads", label: dict.service_ads, icon: Sparkles, onClick: () => onPick(dict.service_ads) },
+      {
+        id: "solar",
+        label: dict.service_solar,
+        icon: Sun,
+        onClick: () => onPick(dict.service_solar),
+      },
+      {
+        id: "elec",
+        label: dict.service_electrical,
+        icon: Zap,
+        onClick: () => onPick(dict.service_electrical),
+      },
+      {
+        id: "civil",
+        label: dict.service_civil,
+        icon: RouteIcon,
+        onClick: () => onPick(dict.service_civil),
+      },
+      {
+        id: "govt",
+        label: dict.service_govt,
+        icon: Landmark,
+        onClick: () => onPick(dict.service_govt),
+      },
+      {
+        id: "ads",
+        label: dict.service_ads,
+        icon: Sparkles,
+        onClick: () => onPick(dict.service_ads),
+      },
     ],
     [dict],
   );
 
   // --- Root menu ---
-  const rootChips = useCallback((): Chip[] => [
-    { id: "svc", label: dict.chip_services, icon: Sparkles, onClick: () => showServices() },
-    { id: "quote", label: dict.chip_quote, icon: FileText, onClick: () => startQuote() },
-    { id: "faq", label: dict.chip_faq, icon: HelpCircle, onClick: () => showFaq() },
-    { id: "contact", label: dict.chip_contact, icon: MapPin, onClick: () => showContact() },
-    { id: "projects", label: dict.chip_projects, icon: Building2, onClick: () => showProjects() },
-    { id: "certs", label: dict.chip_certs, icon: CheckCircle2, onClick: () => showCerts() },
-    { id: "hours", label: dict.chip_hours, icon: Clock, onClick: () => showHours() },
-    { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  ], [dict]);
+  const rootChips = useCallback(
+    (): Chip[] => [
+      { id: "svc", label: dict.chip_services, icon: Sparkles, onClick: () => showServices() },
+      { id: "quote", label: dict.chip_quote, icon: FileText, onClick: () => startQuote() },
+      { id: "faq", label: dict.chip_faq, icon: HelpCircle, onClick: () => showFaq() },
+      { id: "contact", label: dict.chip_contact, icon: MapPin, onClick: () => showContact() },
+      { id: "projects", label: dict.chip_projects, icon: Building2, onClick: () => showProjects() },
+      { id: "certs", label: dict.chip_certs, icon: CheckCircle2, onClick: () => showCerts() },
+      { id: "hours", label: dict.chip_hours, icon: Clock, onClick: () => showHours() },
+      { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    ],
+    [dict],
+  );
 
   const goRoot = useCallback(() => {
     pushBot({ text: dict.menu_prompt, chips: rootChips() });
@@ -350,7 +372,14 @@ export function FloatingWhatsApp() {
         ],
       },
       actions: [
-        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
+        {
+          id: "call",
+          label: PHONE_DISPLAY,
+          href: `tel:${PHONE_TEL}`,
+          variant: "primary",
+          icon: Phone,
+          kind: "tel",
+        },
         {
           id: "wa",
           label: "WhatsApp",
@@ -364,7 +393,10 @@ export function FloatingWhatsApp() {
         {
           id: "email",
           label: "Email",
-          href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+          href: buildMailUrl(
+            "Website Enquiry",
+            "Hello Praharsh Infrastructure, I have an enquiry.",
+          ),
           variant: "ghost",
           icon: Mail,
           kind: "email",
@@ -389,7 +421,13 @@ export function FloatingWhatsApp() {
     pushBot({
       text: dict.projects_msg,
       actions: [
-        { id: "view", label: dict.open_projects, href: "/projects", variant: "primary", icon: Building2 },
+        {
+          id: "view",
+          label: dict.open_projects,
+          href: "/projects",
+          variant: "primary",
+          icon: Building2,
+        },
       ],
       chips: [{ id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
     });
@@ -399,7 +437,13 @@ export function FloatingWhatsApp() {
     pushBot({
       text: dict.certs_msg,
       actions: [
-        { id: "view", label: dict.view_certs, href: "/certifications", variant: "primary", icon: CheckCircle2 },
+        {
+          id: "view",
+          label: dict.view_certs,
+          href: "/certifications",
+          variant: "primary",
+          icon: CheckCircle2,
+        },
       ],
       chips: [{ id: "back", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
     });
@@ -443,7 +487,12 @@ export function FloatingWhatsApp() {
             text: a,
             chips: [
               { id: "another", label: dict.chip_ask_another, icon: HelpCircle, onClick: showFaq },
-              { id: "quote", label: dict.chip_start_quote, icon: FileText, onClick: () => startQuote() },
+              {
+                id: "quote",
+                label: dict.chip_start_quote,
+                icon: FileText,
+                onClick: () => startQuote(),
+              },
               { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
               { id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot },
             ],
@@ -469,9 +518,7 @@ export function FloatingWhatsApp() {
       chips: serviceChips((label) => {
         pushUser(label);
         setFlow((f) =>
-          f.kind === "quote"
-            ? { ...f, step: "name", data: { ...f.data, service: label } }
-            : f,
+          f.kind === "quote" ? { ...f, step: "name", data: { ...f.data, service: label } } : f,
         );
         setTimeout(() => pushBot({ text: dict.quote_name }), 300);
       }),
@@ -669,7 +716,6 @@ export function FloatingWhatsApp() {
         actions,
         chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
       });
-
     },
     [dict, goRoot, pushBot, saveLead],
   );
@@ -704,7 +750,14 @@ export function FloatingWhatsApp() {
       pushBot({
         text: saved ? dict.human_success(saved.reference) : dict.save_failed,
         actions: [
-          { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
+          {
+            id: "call",
+            label: PHONE_DISPLAY,
+            href: `tel:${PHONE_TEL}`,
+            variant: "primary",
+            icon: Phone,
+            kind: "tel",
+          },
           {
             id: "wa",
             label: "WhatsApp",
@@ -985,9 +1038,7 @@ export function FloatingWhatsApp() {
                         >
                           <Paperclip className="w-3.5 h-3.5 text-gold shrink-0" />
                           <span className="truncate flex-1">{f.name}</span>
-                          <span className="text-navy-deep/50 shrink-0">
-                            {formatBytes(f.size)}
-                          </span>
+                          <span className="text-navy-deep/50 shrink-0">{formatBytes(f.size)}</span>
                         </div>
                       ))}
                     </div>
@@ -1028,7 +1079,11 @@ export function FloatingWhatsApp() {
                             key={a.id}
                             href={a.href}
                             target={a.external || a.kind === "whatsapp" ? "_blank" : undefined}
-                            rel={a.external || a.kind === "whatsapp" ? "noopener noreferrer" : undefined}
+                            rel={
+                              a.external || a.kind === "whatsapp"
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
                             onClick={(e) => handleActionClick(a, e)}
                             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors ${cls}`}
                           >
@@ -1099,9 +1154,7 @@ export function FloatingWhatsApp() {
                       >
                         <Paperclip className="w-3 h-3 text-gold shrink-0" />
                         <span className="truncate flex-1">{f.name}</span>
-                        <span className="text-navy-deep/50 shrink-0">
-                          {formatBytes(f.size)}
-                        </span>
+                        <span className="text-navy-deep/50 shrink-0">{formatBytes(f.size)}</span>
                         <button
                           type="button"
                           onClick={() => removePendingFile(i)}
@@ -1123,9 +1176,7 @@ export function FloatingWhatsApp() {
                     onClick={() => {
                       const data = { ...flow.data, files: pendingFiles };
                       pushUser(
-                        pendingFiles.length
-                          ? `📎 ${pendingFiles.length} file(s) attached`
-                          : "—",
+                        pendingFiles.length ? `📎 ${pendingFiles.length} file(s) attached` : "—",
                         pendingFiles,
                       );
                       finalizeQuote(data);
@@ -1200,13 +1251,19 @@ export function FloatingWhatsApp() {
             </a>
             <span className="w-px h-3 bg-border shrink-0" />
             <a
-              href={buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry.")}
+              href={buildMailUrl(
+                "Website Enquiry",
+                "Hello Praharsh Infrastructure, I have an enquiry.",
+              )}
               onClick={(e) =>
                 handleActionClick(
                   {
                     id: "qa-email",
                     label: "Email",
-                    href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+                    href: buildMailUrl(
+                      "Website Enquiry",
+                      "Hello Praharsh Infrastructure, I have an enquiry.",
+                    ),
                     variant: "ghost",
                     kind: "email",
                     copyText: EMAIL,

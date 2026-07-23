@@ -35,11 +35,31 @@ const slides: ReadonlyArray<{
   label: string;
   sector: string;
 }> = [
-  { data: slideHighmast as unknown as PictureData, label: "High Mast Public Lighting", sector: "Public Lighting" },
-  { data: slideCivil as unknown as PictureData, label: "Civil Infrastructure & Development", sector: "Civil Works" },
-  { data: slideSolar as unknown as PictureData, label: "Solar Street Lighting Networks", sector: "Renewables" },
-  { data: slideRoad as unknown as PictureData, label: "Road & Highway Infrastructure", sector: "Roads" },
-  { data: slideGovt as unknown as PictureData, label: "Government Supply & Procurement", sector: "GeM Supply" },
+  {
+    data: slideHighmast as unknown as PictureData,
+    label: "High Mast Public Lighting",
+    sector: "Public Lighting",
+  },
+  {
+    data: slideCivil as unknown as PictureData,
+    label: "Civil Infrastructure & Development",
+    sector: "Civil Works",
+  },
+  {
+    data: slideSolar as unknown as PictureData,
+    label: "Solar Street Lighting Networks",
+    sector: "Renewables",
+  },
+  {
+    data: slideRoad as unknown as PictureData,
+    label: "Road & Highway Infrastructure",
+    sector: "Roads",
+  },
+  {
+    data: slideGovt as unknown as PictureData,
+    label: "Government Supply & Procurement",
+    sector: "GeM Supply",
+  },
 ];
 
 const INTERVAL = 6000;
@@ -64,7 +84,6 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
   useEffect(() => {
     if (hasReportedReady) onReady?.();
   }, [hasReportedReady, onReady]);
-
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
@@ -109,11 +128,19 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
   );
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === "ArrowRight") { e.preventDefault(); nextSlide(); }
-    else if (e.key === "ArrowLeft") { e.preventDefault(); prevSlide(); }
-    else if (e.key === "Home") { e.preventDefault(); setActive(0); }
-    else if (e.key === "End") { e.preventDefault(); setActive(slides.length - 1); }
-    else if (e.key === " " || e.key === "Spacebar") {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setActive(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setActive(slides.length - 1);
+    } else if (e.key === " " || e.key === "Spacebar") {
       // Space toggles play/pause
       e.preventDefault();
       setUserPaused((p) => !p);
@@ -152,12 +179,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             >
               <picture>
                 {Object.entries(sources).map(([fmt, srcSet]) => (
-                  <source
-                    key={fmt}
-                    type={`image/${fmt}`}
-                    srcSet={srcSet}
-                    sizes="100vw"
-                  />
+                  <source key={fmt} type={`image/${fmt}`} srcSet={srcSet} sizes="100vw" />
                 ))}
                 <img
                   src={img.src}
@@ -203,8 +225,8 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             </div>
 
             <h1 className="font-display text-white text-[clamp(2.1rem,4.6vw+0.6rem,5.5rem)] leading-[1.05] tracking-tight reveal reveal-delay-1 drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)] text-balance max-w-[16ch] sm:max-w-[18ch]">
-              Building today,{" "}
-              <span className="text-gold font-serif italic pr-2">empowering</span> tomorrow.
+              Building today, <span className="text-gold font-serif italic pr-2">empowering</span>{" "}
+              tomorrow.
             </h1>
 
             <p className="mt-5 sm:mt-7 md:mt-8 max-w-[38ch] sm:max-w-[52ch] text-white/85 text-[0.98rem] sm:text-lg md:text-xl leading-relaxed reveal reveal-delay-2 font-light text-pretty">
@@ -234,9 +256,17 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                 { icon: Award, label: "GeM Registered" },
                 { icon: Building2, label: "PWD & UPPCL Empanelled" },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 text-white/75 text-[0.72rem] sm:text-xs tracking-wide">
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold shrink-0" aria-hidden="true" />
-                  <span className="uppercase tracking-[0.15em] font-medium whitespace-nowrap">{label}</span>
+                <div
+                  key={label}
+                  className="flex items-center gap-2 text-white/75 text-[0.72rem] sm:text-xs tracking-wide"
+                >
+                  <Icon
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span className="uppercase tracking-[0.15em] font-medium whitespace-nowrap">
+                    {label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -244,8 +274,13 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
 
           <div className="hidden lg:flex lg:col-span-4 xl:col-span-5 justify-end reveal reveal-delay-3">
             <div className="w-full max-w-sm bg-white/[0.04] backdrop-blur-xl border border-white/15 p-7 xl:p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] rounded-sm">
-              <div className="eyebrow text-gold text-[0.65rem] tracking-[0.28em] mb-4">Now Showcasing</div>
-              <div className="font-display text-white text-2xl xl:text-3xl leading-tight mb-3 min-h-[3.5rem] transition-opacity duration-500" key={active}>
+              <div className="eyebrow text-gold text-[0.65rem] tracking-[0.28em] mb-4">
+                Now Showcasing
+              </div>
+              <div
+                className="font-display text-white text-2xl xl:text-3xl leading-tight mb-3 min-h-[3.5rem] transition-opacity duration-500"
+                key={active}
+              >
                 {slides[active]?.label}
               </div>
               <div className="text-white/60 text-xs tracking-[0.2em] uppercase mb-6">
@@ -259,8 +294,12 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                   { k: "25+", v: "States" },
                 ].map((s) => (
                   <div key={s.v}>
-                    <div className="font-display text-gold text-2xl xl:text-3xl leading-none">{s.k}</div>
-                    <div className="text-white/60 text-[0.65rem] uppercase tracking-[0.15em] mt-1.5">{s.v}</div>
+                    <div className="font-display text-gold text-2xl xl:text-3xl leading-none">
+                      {s.k}
+                    </div>
+                    <div className="text-white/60 text-[0.65rem] uppercase tracking-[0.15em] mt-1.5">
+                      {s.v}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -272,7 +311,11 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
       {/* Bottom Nav & Controls */}
       <div className="absolute bottom-0 inset-x-0 z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-10 pb-6 sm:pb-10 reveal reveal-delay-4 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-5">
         <div className="flex flex-col gap-3 w-full sm:w-auto">
-          <div className="flex gap-2 sm:gap-3 items-center" role="tablist" aria-label="Select slide">
+          <div
+            className="flex gap-2 sm:gap-3 items-center"
+            role="tablist"
+            aria-label="Select slide"
+          >
             {slides.map((s, i) => (
               <button
                 key={s.data.img.src}
@@ -286,7 +329,9 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
               >
                 <div
                   className={`h-[2px] transition-all duration-500 rounded-full ${
-                    i === active ? "w-10 sm:w-16 bg-gold" : "w-5 sm:w-8 bg-white/25 group-hover:bg-white/60"
+                    i === active
+                      ? "w-10 sm:w-16 bg-gold"
+                      : "w-5 sm:w-8 bg-white/25 group-hover:bg-white/60"
                   }`}
                 />
               </button>
@@ -306,7 +351,11 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             aria-pressed={userPaused}
             className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-gold hover:text-navy hover:border-gold active:scale-95 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
           >
-            {userPaused ? <Play className="w-4 h-4" aria-hidden="true" /> : <Pause className="w-4 h-4" aria-hidden="true" />}
+            {userPaused ? (
+              <Play className="w-4 h-4" aria-hidden="true" />
+            ) : (
+              <Pause className="w-4 h-4" aria-hidden="true" />
+            )}
           </button>
           <button
             type="button"
@@ -314,7 +363,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             aria-label="Previous slide"
             className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-gold hover:text-navy hover:border-gold active:scale-95 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
           >
-            <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
+            <ChevronLeft
+              className="w-5 h-5 transition-transform group-hover:-translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
           <button
             type="button"
@@ -322,7 +374,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
             aria-label="Next slide"
             className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white hover:bg-gold hover:text-navy hover:border-gold active:scale-95 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
           >
-            <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            <ChevronRight
+              className="w-5 h-5 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>

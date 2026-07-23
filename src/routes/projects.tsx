@@ -223,7 +223,7 @@ function Projects() {
   return (
     <>
       <SEO title="Praharsh Infrastructure" />
-      
+
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-24 bg-navy text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep to-transparent z-0 opacity-80" />
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
@@ -240,7 +240,12 @@ function Projects() {
           </p>
         </div>
       </section>
-      <SpecialitiesMarquee items={PROJECTS_ITEMS} variant="ivory" direction="right" ariaLabel="Project portfolio highlights" />
+      <SpecialitiesMarquee
+        items={PROJECTS_ITEMS}
+        variant="ivory"
+        direction="right"
+        ariaLabel="Project portfolio highlights"
+      />
 
       <Section className="pb-24">
         {/* Filters */}

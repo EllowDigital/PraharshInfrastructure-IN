@@ -192,9 +192,7 @@ export function SpecialitiesMarquee({
                   className={`w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0 ${s.icon}`}
                   aria-hidden="true"
                 />
-                <span className={`text-[0.72rem] sm:text-xs ${s.label}`}>
-                  {it.label}
-                </span>
+                <span className={`text-[0.72rem] sm:text-xs ${s.label}`}>{it.label}</span>
                 <span className={`ml-4 sm:ml-6 ${s.dot}`}>{separator}</span>
               </div>
             );

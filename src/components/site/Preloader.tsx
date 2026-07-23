@@ -56,4 +56,3 @@ export function Preloader({ isVisible }: PreloaderProps) {
     </div>
   );
 }
-

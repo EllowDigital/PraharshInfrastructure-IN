@@ -145,12 +145,10 @@ const en: Dict = {
   faq_tender_q: "Do you participate in GeM & PSU tenders?",
   faq_tender_a:
     "Yes — GeM Authorized Seller with active bid participation. We handle EMD, technical bid, BOQ, compliance affidavits and post-award execution end-to-end.",
-  quote_intro:
-    "Great — a 30-second form. Which service is this quote for?",
+  quote_intro: "Great — a 30-second form. Which service is this quote for?",
   quote_name: "Perfect. What's your **name**?",
   quote_email_prompt: (n) => `Thanks ${n}! Your **email**?`,
-  quote_email_invalid:
-    "That doesn't look like a valid email — please try again.",
+  quote_email_invalid: "That doesn't look like a valid email — please try again.",
   quote_phone: "Your **phone number** (with country code)?",
   quote_budget: "Approximate **budget range** for this project?",
   quote_budget_ranges: [
@@ -161,8 +159,7 @@ const en: Dict = {
     "> ₹5 Cr",
     "Not sure yet",
   ],
-  quote_brief:
-    "Briefly describe your **requirement** (quantity, location, timeline).",
+  quote_brief: "Briefly describe your **requirement** (quantity, location, timeline).",
   quote_attach_prompt:
     "Optional: attach **drawings, BOQ, or spec sheets** (PDF · DWG · DOC · XLS · JPG/PNG, up to 5 files, 10 MB each).",
   quote_attach_add: "Add files",
@@ -177,8 +174,7 @@ const en: Dict = {
     `Your enquiry is logged (ref: **${ref}**). Our team responds within 1 business hour. You can also forward the summary to WhatsApp or email below.`,
   quote_send_wa: "Send on WhatsApp",
   quote_send_email: "Email Instead",
-  human_intro:
-    "Let's get you a real person. A few quick details and we'll call you back.",
+  human_intro: "Let's get you a real person. A few quick details and we'll call you back.",
   human_time_prompt: "What's the **best time** to reach you?",
   human_time_options: [
     "Morning (10 AM – 1 PM)",
@@ -231,10 +227,8 @@ const hi: Dict = {
   services_prompt: "किस सेवा में रुचि है?",
   contact_prompt: "हम तक इन तरीक़ों से पहुँचें:",
   contact_title: "सीधे संपर्क करें",
-  hours_msg: (h) =>
-    `हम ${h} उपलब्ध हैं। इसके बाद संदेश छोड़ें, अगली सुबह उत्तर मिलेगा।`,
-  projects_msg:
-    "हमारे हाल के कार्य देखें — सोलर स्ट्रीट लाइट, हाई-मास्ट, सड़कें व सरकारी आपूर्ति।",
+  hours_msg: (h) => `हम ${h} उपलब्ध हैं। इसके बाद संदेश छोड़ें, अगली सुबह उत्तर मिलेगा।`,
+  projects_msg: "हमारे हाल के कार्य देखें — सोलर स्ट्रीट लाइट, हाई-मास्ट, सड़कें व सरकारी आपूर्ति।",
   open_projects: "प्रोजेक्ट पेज खोलें",
   certs_msg:
     "हम ISO 9001:2015 प्रमाणित, GeM पंजीकृत, UDYAM व GST पंजीकृत तथा PWD/UPPCL सूचीबद्ध हैं।",
@@ -261,8 +255,7 @@ const hi: Dict = {
   faq_tender_q: "क्या आप GeM व PSU टेंडर में भाग लेते हैं?",
   faq_tender_a:
     "जी हाँ — GeM अधिकृत विक्रेता। EMD, तकनीकी बिड, BOQ, अनुपालन शपथ-पत्र व निष्पादन तक पूरा प्रबंधन।",
-  quote_intro:
-    "बढ़िया — 30 सेकंड का फ़ॉर्म। यह कोटेशन किस सेवा के लिए है?",
+  quote_intro: "बढ़िया — 30 सेकंड का फ़ॉर्म। यह कोटेशन किस सेवा के लिए है?",
   quote_name: "अच्छा! आपका **नाम** क्या है?",
   quote_email_prompt: (n) => `धन्यवाद ${n}! आपका **ईमेल**?`,
   quote_email_invalid: "यह ईमेल सही नहीं लगता — कृपया पुनः लिखें।",
@@ -276,8 +269,7 @@ const hi: Dict = {
     "> ₹5 करोड़",
     "अभी तय नहीं",
   ],
-  quote_brief:
-    "अपनी **आवश्यकता** संक्षेप में बताएँ (मात्रा, स्थान, समयसीमा)।",
+  quote_brief: "अपनी **आवश्यकता** संक्षेप में बताएँ (मात्रा, स्थान, समयसीमा)।",
   quote_attach_prompt:
     "वैकल्पिक: **ड्राइंग, BOQ या स्पेसिफ़िकेशन** जोड़ें (PDF · DWG · DOC · XLS · JPG/PNG, अधिकतम 5 फ़ाइल, 10 MB प्रत्येक)।",
   quote_attach_add: "फ़ाइल जोड़ें",
@@ -292,15 +284,9 @@ const hi: Dict = {
     `आपका अनुरोध दर्ज हो गया (संदर्भ: **${ref}**). हमारी टीम 1 कार्य-घंटे में उत्तर देगी। नीचे WhatsApp या ईमेल से भी भेज सकते हैं।`,
   quote_send_wa: "WhatsApp पर भेजें",
   quote_send_email: "ईमेल भेजें",
-  human_intro:
-    "हम आपको प्रतिनिधि से जोड़ते हैं — कुछ जानकारी दें, हम कॉल करेंगे।",
+  human_intro: "हम आपको प्रतिनिधि से जोड़ते हैं — कुछ जानकारी दें, हम कॉल करेंगे।",
   human_time_prompt: "आपको कब कॉल करना ठीक रहेगा?",
-  human_time_options: [
-    "सुबह (10 AM – 1 PM)",
-    "दोपहर (1 PM – 4 PM)",
-    "शाम (4 PM – 7 PM)",
-    "कभी भी",
-  ],
+  human_time_options: ["सुबह (10 AM – 1 PM)", "दोपहर (1 PM – 4 PM)", "शाम (4 PM – 7 PM)", "कभी भी"],
   human_topic: "किस विषय पर बात करना चाहेंगे?",
   human_success: (ref) =>
     `✅ हैंडऑफ़ अनुरोध दर्ज (संदर्भ: **${ref}**). टीम आपके चुने समय पर कॉल करेगी। तुरंत आवश्यकता हो तो सीधे कॉल करें।`,
@@ -316,8 +302,7 @@ const hi: Dict = {
   service_civil: "सिविल व सड़क कार्य",
   service_govt: "सरकारी आपूर्ति (GeM)",
   service_ads: "आउटडोर व डिजिटल विज्ञापन",
-  save_failed:
-    "अभी सहेजा नहीं जा सका, लेकिन आप नीचे WhatsApp या ईमेल से भेज सकते हैं।",
+  save_failed: "अभी सहेजा नहीं जा सका, लेकिन आप नीचे WhatsApp या ईमेल से भेज सकते हैं।",
   send: "भेजें",
   language: "भाषा",
 };
@@ -346,13 +331,10 @@ const bn: Dict = {
   services_prompt: "কোন পরিষেবায় আগ্রহী?",
   contact_prompt: "আমাদের সাথে সরাসরি যোগাযোগ করুন:",
   contact_title: "সরাসরি যোগাযোগ",
-  hours_msg: (h) =>
-    `আমরা ${h} উপলব্ধ। এই সময়ের বাইরে বার্তা রাখুন, পরের সকালে উত্তর পাবেন।`,
-  projects_msg:
-    "সাম্প্রতিক কাজ দেখুন — সোলার স্ট্রিট লাইট, হাই-মাস্ট, সড়ক ও সরকারি সরবরাহ।",
+  hours_msg: (h) => `আমরা ${h} উপলব্ধ। এই সময়ের বাইরে বার্তা রাখুন, পরের সকালে উত্তর পাবেন।`,
+  projects_msg: "সাম্প্রতিক কাজ দেখুন — সোলার স্ট্রিট লাইট, হাই-মাস্ট, সড়ক ও সরকারি সরবরাহ।",
   open_projects: "প্রকল্প পাতা খুলুন",
-  certs_msg:
-    "আমরা ISO 9001:2015, GeM, UDYAM, GST এবং PWD/UPPCL তালিকাভুক্ত।",
+  certs_msg: "আমরা ISO 9001:2015, GeM, UDYAM, GST এবং PWD/UPPCL তালিকাভুক্ত।",
   view_certs: "সার্টিফিকেট দেখুন",
   faq_prompt: "যেকোনো প্রশ্নে ট্যাপ করুন — সাথে সাথে উত্তর:",
   faq_services_q: "আপনারা কী কী পরিষেবা দেন?",
@@ -371,8 +353,7 @@ const bn: Dict = {
   faq_payment_a:
     "মানক: অর্ডারে ৩০% অগ্রিম, ডিসপ্যাচে ৪০%, ইনস্টলে ৩০%। GeM/সরকারি টেন্ডার ক্রেতার শিডিউল অনুযায়ী।",
   faq_warranty_q: "ওয়ারেন্টি ও AMC আছে কি?",
-  faq_warranty_a:
-    "হ্যাঁ — সোলারে ৫ বছর, হাই-মাস্ট ও LED-তে ২ বছর, ত্রৈমাসিক রক্ষণাবেক্ষণসহ AMC।",
+  faq_warranty_a: "হ্যাঁ — সোলারে ৫ বছর, হাই-মাস্ট ও LED-তে ২ বছর, ত্রৈমাসিক রক্ষণাবেক্ষণসহ AMC।",
   faq_tender_q: "GeM ও PSU টেন্ডারে অংশ নেন?",
   faq_tender_a:
     "হ্যাঁ — GeM অনুমোদিত বিক্রেতা। EMD, টেকনিক্যাল বিড, BOQ, কমপ্লায়েন্স ও নির্বাহন পর্যন্ত সম্পূর্ণ।",
@@ -416,8 +397,7 @@ const bn: Dict = {
   human_topic: "কোন বিষয়ে কথা বলতে চান?",
   human_success: (ref) =>
     `✅ হ্যান্ডঅফ অনুরোধ গৃহীত (রেফ: **${ref}**). আপনার পছন্দের সময়ে কল আসবে।`,
-  fallback:
-    "সেবা, কোটেশন, প্রকল্প বা যোগাযোগে সাহায্য করতে পারি। নিচে অপশন বেছে নিন।",
+  fallback: "সেবা, কোটেশন, প্রকল্প বা যোগাযোগে সাহায্য করতে পারি। নিচে অপশন বেছে নিন।",
   input_placeholder: "বার্তা লিখুন বা অপশন বেছে নিন…",
   input_email_placeholder: "you@example.com",
   input_phone_placeholder: "+91 98xxx xxxxx",
@@ -428,8 +408,7 @@ const bn: Dict = {
   service_civil: "সিভিল ও সড়ক",
   service_govt: "সরকারি সরবরাহ (GeM)",
   service_ads: "আউটডোর ও ডিজিটাল বিজ্ঞাপন",
-  save_failed:
-    "এখন সংরক্ষণ করা যায়নি, তবে নিচে WhatsApp বা ইমেইলে পাঠাতে পারেন।",
+  save_failed: "এখন সংরক্ষণ করা যায়নি, তবে নিচে WhatsApp বা ইমেইলে পাঠাতে পারেন।",
   send: "পাঠান",
   language: "ভাষা",
 };

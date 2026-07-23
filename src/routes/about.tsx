@@ -105,7 +105,12 @@ function About() {
           </p>
         </div>
       </section>
-      <SpecialitiesMarquee items={ABOUT_ITEMS} variant="gold" direction="right" ariaLabel="About Praharsh Infrastructure" />
+      <SpecialitiesMarquee
+        items={ABOUT_ITEMS}
+        variant="gold"
+        direction="right"
+        ariaLabel="About Praharsh Infrastructure"
+      />
 
       {/* Approach Section */}
       <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">

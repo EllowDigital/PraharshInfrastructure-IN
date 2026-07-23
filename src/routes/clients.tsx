@@ -115,8 +115,6 @@ function Clients() {
     <>
       <SEO title="Clients & Partners · Praharsh Infrastructure" />
 
-
-
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-24 bg-navy text-white overflow-hidden">
         <div
@@ -150,7 +148,9 @@ function Clients() {
                 key={s.v}
                 className="bg-white/[0.04] backdrop-blur border border-white/10 p-6 rounded-sm hover:border-gold transition-colors"
               >
-                <div className="font-display text-3xl lg:text-4xl text-gold leading-none">{s.k}</div>
+                <div className="font-display text-3xl lg:text-4xl text-gold leading-none">
+                  {s.k}
+                </div>
                 <div className="mt-2 text-white/60 text-[0.7rem] uppercase tracking-[0.2em]">
                   {s.v}
                 </div>
