@@ -350,7 +350,7 @@ export function FloatingWhatsApp() {
         ],
       },
       actions: [
-        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_WA}`, variant: "primary", icon: Phone },
+        { id: "call", label: PHONE_DISPLAY, href: `tel:${PHONE_TEL}`, variant: "primary", icon: Phone, kind: "tel" },
         {
           id: "wa",
           label: "WhatsApp",
@@ -358,8 +358,18 @@ export function FloatingWhatsApp() {
           variant: "ghost",
           icon: MessageCircle,
           external: true,
+          kind: "whatsapp",
+          copyText: "Hello Praharsh Infrastructure, I have an enquiry.",
         },
-        { id: "email", label: "Email", href: `mailto:${EMAIL}`, variant: "ghost", icon: Mail },
+        {
+          id: "email",
+          label: "Email",
+          href: buildMailUrl("Website Enquiry", "Hello Praharsh Infrastructure, I have an enquiry."),
+          variant: "ghost",
+          icon: Mail,
+          kind: "email",
+          copyText: EMAIL,
+        },
       ],
       chips: [{ id: "menu", label: dict.chip_menu, icon: ArrowLeft, onClick: goRoot }],
     });
