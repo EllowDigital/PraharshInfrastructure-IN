@@ -29,11 +29,76 @@ import { supabase } from "@/integrations/supabase/client";
 import { CHAT_LOCALES, t, type ChatLocale } from "@/lib/chat-i18n";
 
 const PHONE_DISPLAY = "+91 78000 09165";
-const PHONE_WA = "917800009165";
+const PHONE_WA = "917800009165"; // digits only for wa.me
+const PHONE_TEL = "+917800009165"; // E.164 for tel:
 const EMAIL = "info@praharshinfrastructure.com";
 const ADDRESS =
   "Tower-2, 12th Floor, Assotech Business Cresterra, Sector 135, Noida";
 const HOURS = "Mon – Sat · 10:00 AM – 7:00 PM IST";
+
+// --- Robust cross-window openers ---------------------------------------------
+// In the Lovable preview iframe, `wa.me` follows a redirect to `api.whatsapp.com`
+// which is blocked in-frame (ERR_BLOCKED_BY_RESPONSE). We must open in the TOP
+// window (or a new tab) and provide a copy fallback if the browser blocks it.
+function isInIframe(): boolean {
+  try {
+    return typeof window !== "undefined" && window.self !== window.top;
+  } catch {
+    return true; // cross-origin access threw — we ARE in an iframe
+  }
+}
+
+async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Open an external URL as reliably as possible.
+ * Order: window.open (new tab) → top.location → self.location.
+ * Returns true if we believe navigation was initiated.
+ */
+function openExternal(url: string): boolean {
+  try {
+    const win = window.open(url, "_blank", "noopener,noreferrer");
+    if (win) return true;
+  } catch {}
+  try {
+    if (isInIframe() && window.top) {
+      (window.top as Window).location.href = url;
+      return true;
+    }
+  } catch {}
+  try {
+    window.location.href = url;
+    return true;
+  } catch {}
+  return false;
+}
+
+function buildWaUrl(text: string): string {
+  return `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(text)}`;
+}
+
+function buildMailUrl(subject: string, body: string): string {
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
