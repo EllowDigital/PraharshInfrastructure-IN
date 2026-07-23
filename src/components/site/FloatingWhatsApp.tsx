@@ -203,6 +203,53 @@ export function FloatingWhatsApp() {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [attachError, setAttachError] = useState<string | null>(null);
   const [showLangMenu, setShowLangMenu] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimerRef = useRef<number | null>(null);
+
+  const showNotice = useCallback((text: string, ms = 4500) => {
+    setNotice(text);
+    if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
+    noticeTimerRef.current = window.setTimeout(() => setNotice(null), ms);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (noticeTimerRef.current) window.clearTimeout(noticeTimerRef.current);
+    };
+  }, []);
+
+  const handleActionClick = useCallback(
+    async (a: ActionButton, e: React.MouseEvent) => {
+      const kind =
+        a.kind ??
+        (a.href.startsWith("tel:")
+          ? "tel"
+          : a.href.startsWith("mailto:")
+            ? "email"
+            : a.href.startsWith("https://wa.me") || a.href.startsWith("https://api.whatsapp")
+              ? "whatsapp"
+              : "link");
+
+      // tel: links are safe as normal anchors — let default happen
+      if (kind === "tel") return;
+
+      e.preventDefault();
+      const opened = openExternal(a.href);
+      if (!opened && a.copyText) {
+        const ok = await copyToClipboard(a.copyText);
+        showNotice(
+          ok
+            ? `Couldn't open ${kind === "whatsapp" ? "WhatsApp" : "your email app"} — the message was copied to your clipboard. Paste it into ${kind === "whatsapp" ? `WhatsApp (${PHONE_DISPLAY})` : `an email to ${EMAIL}`}.`
+            : `Couldn't open ${kind === "whatsapp" ? "WhatsApp" : "email"}. Please contact us at ${PHONE_DISPLAY} or ${EMAIL}.`,
+          7000,
+        );
+      } else if (!opened) {
+        showNotice(`Couldn't open the link. Please call ${PHONE_DISPLAY} or email ${EMAIL}.`, 6000);
+      }
+    },
+    [showNotice],
+  );
+
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
