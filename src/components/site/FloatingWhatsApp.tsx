@@ -175,8 +175,7 @@ type HandoffData = {
 };
 
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-const waLink = (text: string) =>
-  `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(text)}`;
+const waLink = (text: string) => buildWaUrl(text);
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
