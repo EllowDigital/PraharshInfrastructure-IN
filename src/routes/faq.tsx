@@ -40,11 +40,22 @@ const FAQS: { q: string; a: string }[] = [
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   return (
     <>
       <SEO
         title="FAQ | Praharsh Infrastructure"
         description="Frequently asked questions about services, certifications, timelines, warranty and how to work with Praharsh Infrastructure."
+        url="https://www.praharshinfrastructure.com/faq"
+        structuredData={faqSchema}
       />
       <div className="pt-24" />
       <Section
