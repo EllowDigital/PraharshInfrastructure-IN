@@ -8,13 +8,18 @@ import { Preloader } from "@/components/site/Preloader";
 import { ScrollToTop } from "@/components/site/ScrollToTop";
 import { SEO } from "@/components/site/SEO";
 import About from "@/routes/about";
+import Careers from "@/routes/careers";
 import Certifications from "@/routes/certifications";
 import Clients from "@/routes/clients";
 import Contact from "@/routes/contact";
+import Faq from "@/routes/faq";
 import GovernmentCapabilities from "@/routes/government-capabilities";
 import Home from "@/routes/index";
+import Privacy from "@/routes/privacy";
 import Projects from "@/routes/projects";
 import Services from "@/routes/services";
+import Sitemap from "@/routes/sitemap";
+import Terms from "@/routes/terms";
 
 function AppShell() {
   const location = useLocation();
@@ -103,6 +108,46 @@ function AppShell() {
             element={
               <AppErrorBoundary sectionName="contact_page">
                 <Contact />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <AppErrorBoundary sectionName="faq_page">
+                <Faq />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/careers"
+            element={
+              <AppErrorBoundary sectionName="careers_page">
+                <Careers />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <AppErrorBoundary sectionName="privacy_page">
+                <Privacy />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <AppErrorBoundary sectionName="terms_page">
+                <Terms />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/sitemap"
+            element={
+              <AppErrorBoundary sectionName="sitemap_page">
+                <Sitemap />
               </AppErrorBoundary>
             }
           />
