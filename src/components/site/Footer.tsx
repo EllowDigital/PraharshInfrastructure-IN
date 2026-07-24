@@ -32,7 +32,9 @@ export function Footer() {
     e.preventDefault();
     if (!email.trim()) return;
     const subject = encodeURIComponent("Newsletter subscription");
-    const body = encodeURIComponent(`Please add ${email} to the Praharsh Infrastructure newsletter.`);
+    const body = encodeURIComponent(
+      `Please add ${email} to the Praharsh Infrastructure newsletter.`,
+    );
     window.open(
       `mailto:info@praharshinfrastructure.com?subject=${subject}&body=${body}`,
       "_blank",
@@ -121,10 +123,7 @@ export function Footer() {
               { k: "GeM", v: "Empaneled" },
               { k: "MSME", v: "Registered" },
             ].map((t) => (
-              <div
-                key={t.k}
-                className="border border-white/10 px-3 py-2 text-center"
-              >
+              <div key={t.k} className="border border-white/10 px-3 py-2 text-center">
                 <div className="text-gold text-[0.6rem] tracking-widest">{t.k}</div>
                 <div className="text-[0.65rem] text-white/70 mt-0.5">{t.v}</div>
               </div>
