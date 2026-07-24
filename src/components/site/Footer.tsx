@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -9,13 +10,81 @@ import {
   Twitter,
   Youtube,
   Instagram,
+  ArrowRight,
+  CheckCircle2,
 } from "lucide-react";
 
-const socialIcons = [Linkedin, Facebook, Twitter, Instagram, Youtube] as const;
+const socialIcons: { Icon: typeof Linkedin; label: string; href: string }[] = [
+  { Icon: Linkedin, label: "LinkedIn", href: "#" },
+  { Icon: Facebook, label: "Facebook", href: "#" },
+  { Icon: Twitter, label: "Twitter", href: "#" },
+  { Icon: Instagram, label: "Instagram", href: "#" },
+  { Icon: Youtube, label: "YouTube", href: "#" },
+];
+
+const LAST_UPDATED = "24 July 2026";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    const subject = encodeURIComponent("Newsletter subscription");
+    const body = encodeURIComponent(`Please add ${email} to the Praharsh Infrastructure newsletter.`);
+    window.open(
+      `mailto:info@praharshinfrastructure.com?subject=${subject}&body=${body}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+    setSubscribed(true);
+    setEmail("");
+    window.setTimeout(() => setSubscribed(false), 4000);
+  };
+
   return (
     <footer className="bg-navy-deep text-white/80">
+      {/* Newsletter band */}
+      <div className="border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <div className="eyebrow text-gold mb-3">Stay Connected</div>
+            <h3 className="font-display text-2xl sm:text-3xl text-white leading-tight">
+              Project insights, tender updates and case studies — straight to your inbox.
+            </h3>
+          </div>
+          <form
+            onSubmit={handleSubscribe}
+            className="lg:col-span-6 flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              aria-label="Email address"
+              className="flex-1 bg-white/5 border border-white/15 focus:border-gold outline-none text-white placeholder:text-white/40 px-4 py-3 text-sm transition-colors"
+            />
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center gap-2 bg-gold text-navy px-6 py-3 text-sm font-medium hover:bg-white transition-colors"
+            >
+              {subscribed ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4" /> Subscribed
+                </>
+              ) : (
+                <>
+                  Subscribe <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="flex items-center gap-3 mb-6">
@@ -45,6 +114,22 @@ export function Footer() {
           >
             <Download className="w-4 h-4" /> Download Company Profile
           </a>
+
+          <div className="mt-8 grid grid-cols-3 gap-3 max-w-sm">
+            {[
+              { k: "ISO", v: "9001·14001·45001" },
+              { k: "GeM", v: "Empaneled" },
+              { k: "MSME", v: "Registered" },
+            ].map((t) => (
+              <div
+                key={t.k}
+                className="border border-white/10 px-3 py-2 text-center"
+              >
+                <div className="text-gold text-[0.6rem] tracking-widest">{t.k}</div>
+                <div className="text-[0.65rem] text-white/70 mt-0.5">{t.v}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="lg:col-span-2">
@@ -71,6 +156,11 @@ export function Footer() {
               </Link>
             </li>
             <li>
+              <Link to="/careers" className="hover:text-gold">
+                Careers
+              </Link>
+            </li>
+            <li>
               <Link to="/contact" className="hover:text-gold">
                 Contact
               </Link>
@@ -81,14 +171,60 @@ export function Footer() {
         <div className="lg:col-span-3">
           <div className="eyebrow text-gold mb-5">Capabilities</div>
           <ul className="space-y-3 text-sm">
-            <li>Infrastructure Development</li>
-            <li>Road Infrastructure</li>
-            <li>Solar Energy Solutions</li>
-            <li>Electrical & Lighting Works</li>
-            <li>Outdoor & Indoor Advertising</li>
-            <li>Digital Advertising</li>
-            <li>Branding & Signage</li>
-            <li>Government Supply Services</li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Infrastructure Development
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Road Infrastructure
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Solar Energy Solutions
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Electrical & Lighting Works
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Outdoor & Digital Advertising
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" className="hover:text-gold">
+                Branding & Signage
+              </Link>
+            </li>
+            <li>
+              <Link to="/government-capabilities" className="hover:text-gold">
+                Government Supply Services
+              </Link>
+            </li>
+          </ul>
+
+          <div className="eyebrow text-gold mb-4 mt-8">Resources</div>
+          <ul className="space-y-3 text-sm">
+            <li>
+              <Link to="/faq" className="hover:text-gold">
+                FAQ
+              </Link>
+            </li>
+            <li>
+              <Link to="/certifications" className="hover:text-gold">
+                Certifications
+              </Link>
+            </li>
+            <li>
+              <Link to="/sitemap" className="hover:text-gold">
+                Sitemap
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -122,13 +258,21 @@ export function Footer() {
             </li>
           </ul>
 
+          <div className="mt-8">
+            <div className="eyebrow text-gold mb-4">Business Hours</div>
+            <div className="text-sm space-y-1 text-white/70">
+              <div>Mon – Sat · 9:30 AM – 7:00 PM</div>
+              <div>Sunday · Closed</div>
+            </div>
+          </div>
+
           <div className="mt-6 flex gap-3">
-            {socialIcons.map((Icon) => (
+            {socialIcons.map(({ Icon, label, href }) => (
               <a
-                key={Icon.displayName ?? Icon.name}
-                href="#"
+                key={label}
+                href={href}
+                aria-label={label}
                 className="w-9 h-9 grid place-items-center border border-white/20 hover:border-gold hover:text-gold transition-colors"
-                aria-label="Social link"
               >
                 <Icon className="w-4 h-4" />
               </a>
@@ -136,13 +280,31 @@ export function Footer() {
           </div>
         </div>
       </div>
+
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/50">
-          <div>© {new Date().getFullYear()} Praharsh Infrastructure. All rights reserved.</div>
-          <div className="flex flex-wrap gap-6">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex flex-col lg:flex-row justify-between gap-4 text-xs text-white/50">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span>© {new Date().getFullYear()} Praharsh Infrastructure. All rights reserved.</span>
+            <span className="hidden sm:inline text-white/25">|</span>
+            <span>
+              Last updated: <span className="text-white/80">{LAST_UPDATED}</span>
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <span>GST: 09GBVPS0920R1ZI</span>
             <span>UDYAM-UP-50-0034245</span>
-            <span>GeM Seller ID: 6498190000819033</span>
+            <span>GeM ID: 6498190000819033</span>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link to="/privacy" className="hover:text-gold">
+              Privacy
+            </Link>
+            <Link to="/terms" className="hover:text-gold">
+              Terms
+            </Link>
+            <Link to="/sitemap" className="hover:text-gold">
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>

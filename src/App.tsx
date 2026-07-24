@@ -111,6 +111,46 @@ function AppShell() {
               </AppErrorBoundary>
             }
           />
+          <Route
+            path="/faq"
+            element={
+              <AppErrorBoundary sectionName="faq_page">
+                <Faq />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/careers"
+            element={
+              <AppErrorBoundary sectionName="careers_page">
+                <Careers />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <AppErrorBoundary sectionName="privacy_page">
+                <Privacy />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <AppErrorBoundary sectionName="terms_page">
+                <Terms />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/sitemap"
+            element={
+              <AppErrorBoundary sectionName="sitemap_page">
+                <Sitemap />
+              </AppErrorBoundary>
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
