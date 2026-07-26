@@ -20,6 +20,9 @@ import Projects from "@/routes/projects";
 import Services from "@/routes/services";
 import Sitemap from "@/routes/sitemap";
 import Terms from "@/routes/terms";
+import Insights from "@/routes/insights";
+import InsightArticle from "@/routes/insight-article";
+import ServiceLanding from "@/routes/service-landing";
 
 function AppShell() {
   const location = useLocation();
