@@ -54,9 +54,7 @@ export default function InsightArticle() {
           <h1 className="font-display text-4xl sm:text-5xl text-navy leading-tight">
             {article.title}
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            {article.excerpt}
-          </p>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">{article.excerpt}</p>
           <div className="mt-6 flex flex-wrap gap-5 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5" />

@@ -90,7 +90,10 @@ export default function ServiceLanding() {
       <Section eyebrow="What we deliver" title={`${page.hero.eyebrow} — full scope`}>
         <div className="grid gap-6 md:grid-cols-2">
           {page.offerings.map((o) => (
-            <div key={o.title} className="border border-border p-7 hover:border-gold transition-colors">
+            <div
+              key={o.title}
+              className="border border-border p-7 hover:border-gold transition-colors"
+            >
               <h2 className="font-display text-xl text-navy">{o.title}</h2>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{o.body}</p>
             </div>
@@ -112,7 +115,10 @@ export default function ServiceLanding() {
       </Section>
 
       {/* Benefits */}
-      <Section eyebrow="Why Praharsh" title="Enterprise-grade delivery, government-grade compliance">
+      <Section
+        eyebrow="Why Praharsh"
+        title="Enterprise-grade delivery, government-grade compliance"
+      >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {page.benefits.map((b) => (
             <div key={b.title} className="border-l-2 border-gold pl-5">
@@ -171,7 +177,10 @@ export default function ServiceLanding() {
           <div className="lg:col-span-8">
             <div className="eyebrow text-gold mb-3">Ready to start?</div>
             <h2 className="font-display text-3xl sm:text-4xl leading-tight">
-              {page.ctaText.replace(/^Request a?n? |^Partner With Us on a |^Discuss a /, "Let's talk about your ")}
+              {page.ctaText.replace(
+                /^Request a?n? |^Partner With Us on a |^Discuss a /,
+                "Let's talk about your ",
+              )}
             </h2>
           </div>
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">

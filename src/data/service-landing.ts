@@ -76,10 +76,26 @@ export const SERVICE_PAGES: Record<string, ServiceLandingPage> = {
       },
     ],
     process: [
-      { step: "01", title: "Site Survey", body: "Load analysis, sun-path & foundation assessment." },
-      { step: "02", title: "Design & BOQ", body: "MNRE-compliant design and priced BOQ within 5 days." },
-      { step: "03", title: "Supply & Install", body: "Turnkey supply, civil, erection and commissioning." },
-      { step: "04", title: "Handover & O&M", body: "Test certificates, training and 5-year O&M contract." },
+      {
+        step: "01",
+        title: "Site Survey",
+        body: "Load analysis, sun-path & foundation assessment.",
+      },
+      {
+        step: "02",
+        title: "Design & BOQ",
+        body: "MNRE-compliant design and priced BOQ within 5 days.",
+      },
+      {
+        step: "03",
+        title: "Supply & Install",
+        body: "Turnkey supply, civil, erection and commissioning.",
+      },
+      {
+        step: "04",
+        title: "Handover & O&M",
+        body: "Test certificates, training and 5-year O&M contract.",
+      },
     ],
     faqs: [
       {
@@ -137,16 +153,36 @@ export const SERVICE_PAGES: Record<string, ServiceLandingPage> = {
       },
     ],
     benefits: [
-      { title: "PWD & NHAI Panel", body: "Empanelled with UP PWD and cleared for MoRTH-spec works." },
-      { title: "IS/IRC Codes", body: "All specifications and materials to IRC:35, IS 15915, IS 5, MoRTH sections." },
-      { title: "In-House Engineering", body: "Structural, geotechnical and QC engineers on staff." },
-      { title: "Safety-First Sites", body: "ISO 45001 OH&S systems and full PPE on every project." },
+      {
+        title: "PWD & NHAI Panel",
+        body: "Empanelled with UP PWD and cleared for MoRTH-spec works.",
+      },
+      {
+        title: "IS/IRC Codes",
+        body: "All specifications and materials to IRC:35, IS 15915, IS 5, MoRTH sections.",
+      },
+      {
+        title: "In-House Engineering",
+        body: "Structural, geotechnical and QC engineers on staff.",
+      },
+      {
+        title: "Safety-First Sites",
+        body: "ISO 45001 OH&S systems and full PPE on every project.",
+      },
     ],
     process: [
       { step: "01", title: "DPR & Survey", body: "Topographical survey, DPR and design freeze." },
-      { step: "02", title: "Mobilisation", body: "Site huts, plant, equipment and manpower deployment." },
+      {
+        step: "02",
+        title: "Mobilisation",
+        body: "Site huts, plant, equipment and manpower deployment.",
+      },
       { step: "03", title: "Execution", body: "Layered construction with daily QA/QC signoff." },
-      { step: "04", title: "Handover", body: "As-built drawings, test reports and warranty documentation." },
+      {
+        step: "04",
+        title: "Handover",
+        body: "As-built drawings, test reports and warranty documentation.",
+      },
     ],
     faqs: [
       {
@@ -205,10 +241,26 @@ export const SERVICE_PAGES: Record<string, ServiceLandingPage> = {
       { title: "Smart Ready", body: "NEMA socket + CCMS compatibility on request." },
     ],
     process: [
-      { step: "01", title: "Photometric Design", body: "Lux-level and uniformity analysis pole-by-pole." },
-      { step: "02", title: "Supply & Test", body: "Factory-tested batches with pre-dispatch inspection." },
-      { step: "03", title: "Installation", body: "Certified electricians, torque-controlled fitments." },
-      { step: "04", title: "Warranty & O&M", body: "5-year comprehensive with SLA-based response." },
+      {
+        step: "01",
+        title: "Photometric Design",
+        body: "Lux-level and uniformity analysis pole-by-pole.",
+      },
+      {
+        step: "02",
+        title: "Supply & Test",
+        body: "Factory-tested batches with pre-dispatch inspection.",
+      },
+      {
+        step: "03",
+        title: "Installation",
+        body: "Certified electricians, torque-controlled fitments.",
+      },
+      {
+        step: "04",
+        title: "Warranty & O&M",
+        body: "5-year comprehensive with SLA-based response.",
+      },
     ],
     faqs: [
       {
@@ -263,15 +315,34 @@ export const SERVICE_PAGES: Record<string, ServiceLandingPage> = {
     ],
     benefits: [
       { title: "GeM ID 6498190000819033", body: "Verified Government e-Marketplace seller." },
-      { title: "UPSIC / DRDA Empanelled", body: "Approved supplier across multiple UP state agencies." },
+      {
+        title: "UPSIC / DRDA Empanelled",
+        body: "Approved supplier across multiple UP state agencies.",
+      },
       { title: "ISO 9001·14001·45001", body: "Full quality, environment and OH&S certification." },
       { title: "MSME (Udyam)", body: "MSME-registered with priority procurement eligibility." },
     ],
     process: [
-      { step: "01", title: "Tender Analysis", body: "Eligibility, BOQ and margin analysis in 24 hrs." },
-      { step: "02", title: "Bid Preparation", body: "Technical + financial bid, EMD and BG arrangement." },
-      { step: "03", title: "Award & Supply", body: "PO acceptance, factory supply, delivery to site." },
-      { step: "04", title: "Handover & Invoicing", body: "GRN, inspection, invoice and payment tracking." },
+      {
+        step: "01",
+        title: "Tender Analysis",
+        body: "Eligibility, BOQ and margin analysis in 24 hrs.",
+      },
+      {
+        step: "02",
+        title: "Bid Preparation",
+        body: "Technical + financial bid, EMD and BG arrangement.",
+      },
+      {
+        step: "03",
+        title: "Award & Supply",
+        body: "PO acceptance, factory supply, delivery to site.",
+      },
+      {
+        step: "04",
+        title: "Handover & Invoicing",
+        body: "GRN, inspection, invoice and payment tracking.",
+      },
     ],
     faqs: [
       {
@@ -283,10 +354,7 @@ export const SERVICE_PAGES: Record<string, ServiceLandingPage> = {
         a: "Yes — we have banking arrangements for EMD, PBG and mobilisation guarantees required in government tenders.",
       },
     ],
-    relatedInsights: [
-      "gem-empanelment-checklist-2026",
-      "solar-street-lighting-guide-india",
-    ],
+    relatedInsights: ["gem-empanelment-checklist-2026", "solar-street-lighting-guide-india"],
     ctaText: "Partner With Us on a Government Project",
   },
 };

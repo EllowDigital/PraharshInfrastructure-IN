@@ -59,7 +59,6 @@ function FooterLink({ to, children }: { to: string; children: ReactNode }) {
   );
 }
 
-
 const socialIcons: { Icon: typeof Linkedin; label: string; href: string }[] = [
   { Icon: Linkedin, label: "LinkedIn", href: "#" },
   { Icon: Facebook, label: "Facebook", href: "#" },

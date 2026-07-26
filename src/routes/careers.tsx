@@ -5,7 +5,11 @@ import { Briefcase, MapPin, Upload, CheckCircle2, Send, FileText, X } from "luci
 
 const OPENINGS = [
   { title: "Site Engineer — Electrical & Solar", location: "Lucknow, UP", type: "Full-time" },
-  { title: "Project Manager — Road Infrastructure", location: "Uttar Pradesh (Field)", type: "Full-time" },
+  {
+    title: "Project Manager — Road Infrastructure",
+    location: "Uttar Pradesh (Field)",
+    type: "Full-time",
+  },
   { title: "GeM & Tender Executive", location: "Lucknow, UP", type: "Full-time" },
   { title: "Business Development Manager", location: "Lucknow / Delhi NCR", type: "Full-time" },
   { title: "Design & Signage Production Lead", location: "Lucknow, UP", type: "Full-time" },
@@ -131,7 +135,7 @@ export default function Careers() {
           className="max-w-3xl bg-background border border-border p-8 grid gap-5"
         >
           <div className="grid gap-5 sm:grid-cols-2">
-            <Field label="Full Name *" >
+            <Field label="Full Name *">
               <input
                 required
                 type="text"
@@ -206,9 +210,7 @@ export default function Careers() {
             {!resume ? (
               <label className="flex items-center gap-3 border border-dashed border-border p-5 cursor-pointer hover:border-gold transition-colors">
                 <Upload className="w-5 h-5 text-navy" />
-                <span className="text-sm text-muted-foreground">
-                  Click to upload your resume
-                </span>
+                <span className="text-sm text-muted-foreground">Click to upload your resume</span>
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx"
