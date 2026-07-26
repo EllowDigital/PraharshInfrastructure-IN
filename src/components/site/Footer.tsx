@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -12,7 +12,53 @@ import {
   Instagram,
   ArrowRight,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
+
+function FooterColumn({
+  title,
+  children,
+  className = "",
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`lg:col-span-2 border-b border-white/10 lg:border-0 ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between py-4 lg:py-0 lg:cursor-default lg:pointer-events-none"
+      >
+        <span className="eyebrow text-gold lg:mb-5">{title}</span>
+        <ChevronDown
+          className={`w-4 h-4 text-gold transition-transform lg:hidden ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <ul
+        className={`space-y-3 text-sm overflow-hidden lg:!block lg:!max-h-none lg:pb-0 ${
+          open ? "max-h-[600px] pb-5" : "max-h-0 lg:max-h-none"
+        } transition-[max-height] duration-300`}
+      >
+        {children}
+      </ul>
+    </div>
+  );
+}
+
+function FooterLink({ to, children }: { to: string; children: ReactNode }) {
+  return (
+    <li>
+      <Link to={to} className="hover:text-gold">
+        {children}
+      </Link>
+    </li>
+  );
+}
+
 
 const socialIcons: { Icon: typeof Linkedin; label: string; href: string }[] = [
   { Icon: Linkedin, label: "LinkedIn", href: "#" },
