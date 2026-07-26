@@ -1,6 +1,6 @@
 import { SEO } from "@/components/site/SEO";
 import { SpecialitiesMarquee, SERVICES_ITEMS } from "@/components/site/SpecialitiesMarquee";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Section } from "@/components/site/Section";
 import {
   Lightbulb,
