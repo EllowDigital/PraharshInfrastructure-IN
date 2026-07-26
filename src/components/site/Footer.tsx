@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -12,7 +12,53 @@ import {
   Instagram,
   ArrowRight,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
+
+function FooterColumn({
+  title,
+  children,
+  className = "",
+}: {
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`lg:col-span-2 border-b border-white/10 lg:border-0 ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between py-4 lg:py-0 lg:cursor-default lg:pointer-events-none"
+      >
+        <span className="eyebrow text-gold lg:mb-5">{title}</span>
+        <ChevronDown
+          className={`w-4 h-4 text-gold transition-transform lg:hidden ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      <ul
+        className={`space-y-3 text-sm overflow-hidden lg:!block lg:!max-h-none lg:pb-0 ${
+          open ? "max-h-[600px] pb-5" : "max-h-0 lg:max-h-none"
+        } transition-[max-height] duration-300`}
+      >
+        {children}
+      </ul>
+    </div>
+  );
+}
+
+function FooterLink({ to, children }: { to: string; children: ReactNode }) {
+  return (
+    <li>
+      <Link to={to} className="hover:text-gold">
+        {children}
+      </Link>
+    </li>
+  );
+}
+
 
 const socialIcons: { Icon: typeof Linkedin; label: string; href: string }[] = [
   { Icon: Linkedin, label: "LinkedIn", href: "#" },
@@ -131,101 +177,28 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="lg:col-span-2">
-          <div className="eyebrow text-gold mb-5">Company</div>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <Link to="/about" className="hover:text-gold">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link to="/projects" className="hover:text-gold">
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link to="/clients" className="hover:text-gold">
-                Clients
-              </Link>
-            </li>
-            <li>
-              <Link to="/careers" className="hover:text-gold">
-                Careers
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:text-gold">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <FooterColumn title="Company">
+          <FooterLink to="/about">About Us</FooterLink>
+          <FooterLink to="/services">Services</FooterLink>
+          <FooterLink to="/insights">Insights & News</FooterLink>
+          <FooterLink to="/projects">Projects</FooterLink>
+          <FooterLink to="/clients">Clients</FooterLink>
+          <FooterLink to="/careers">Careers</FooterLink>
+          <FooterLink to="/contact">Contact</FooterLink>
+        </FooterColumn>
 
-        <div className="lg:col-span-3">
-          <div className="eyebrow text-gold mb-5">Capabilities</div>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Infrastructure Development
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Road Infrastructure
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Solar Energy Solutions
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Electrical & Lighting Works
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Outdoor & Digital Advertising
-              </Link>
-            </li>
-            <li>
-              <Link to="/services" className="hover:text-gold">
-                Branding & Signage
-              </Link>
-            </li>
-            <li>
-              <Link to="/government-capabilities" className="hover:text-gold">
-                Government Supply Services
-              </Link>
-            </li>
-          </ul>
-
-          <div className="eyebrow text-gold mb-4 mt-8">Resources</div>
-          <ul className="space-y-3 text-sm">
-            <li>
-              <Link to="/faq" className="hover:text-gold">
-                FAQ
-              </Link>
-            </li>
-            <li>
-              <Link to="/certifications" className="hover:text-gold">
-                Certifications
-              </Link>
-            </li>
-            <li>
-              <Link to="/sitemap" className="hover:text-gold">
-                Sitemap
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <FooterColumn title="Capabilities" className="lg:col-span-3">
+          <FooterLink to="/services/construction">Infrastructure & Construction</FooterLink>
+          <FooterLink to="/services/solar">Solar Energy Solutions</FooterLink>
+          <FooterLink to="/services/electrical">Electrical & Lighting Works</FooterLink>
+          <FooterLink to="/services/government-projects">Government Projects</FooterLink>
+          <FooterLink to="/services">Outdoor & Digital Advertising</FooterLink>
+          <FooterLink to="/services">Branding & Signage</FooterLink>
+          <FooterLink to="/government-capabilities">Government Capabilities</FooterLink>
+          <FooterLink to="/faq">FAQ</FooterLink>
+          <FooterLink to="/certifications">Certifications</FooterLink>
+          <FooterLink to="/sitemap">Sitemap</FooterLink>
+        </FooterColumn>
 
         <div className="lg:col-span-3">
           <div className="eyebrow text-gold mb-5">Contact</div>

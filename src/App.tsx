@@ -20,6 +20,9 @@ import Projects from "@/routes/projects";
 import Services from "@/routes/services";
 import Sitemap from "@/routes/sitemap";
 import Terms from "@/routes/terms";
+import Insights from "@/routes/insights";
+import InsightArticle from "@/routes/insight-article";
+import ServiceLanding from "@/routes/service-landing";
 
 function AppShell() {
   const location = useLocation();
@@ -68,6 +71,30 @@ function AppShell() {
             element={
               <AppErrorBoundary sectionName="services_page">
                 <Services />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/services/:slug"
+            element={
+              <AppErrorBoundary sectionName="service_landing_page">
+                <ServiceLanding />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/insights"
+            element={
+              <AppErrorBoundary sectionName="insights_page">
+                <Insights />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/insights/:slug"
+            element={
+              <AppErrorBoundary sectionName="insight_article_page">
+                <InsightArticle />
               </AppErrorBoundary>
             }
           />
