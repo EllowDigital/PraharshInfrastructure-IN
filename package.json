@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "audit": "npm audit",
+    "check": "npm run typecheck && npm run lint && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -57,7 +59,6 @@
     "react-hook-form": "^7.71.2",
     "react-resizable-panels": "^4.6.5",
     "react-router": "^8.3.0",
-    "react-router-dom": "^7.18.1",
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
@@ -68,25 +69,28 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.32.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.16.5",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
-    "eslint": "^9.32.0",
+    "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^15.15.0",
     "nitro": "3.0.260429-beta",
     "prettier": "^3.7.3",
     "sharp": "^0.35.3",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.56.1",
+    "typescript-eslint": "^8.65.0",
     "vite": "^7.3.1",
     "vite-imagetools": "^10.0.1"
+  },
+  "overrides": {
+    "brace-expansion": "^5.0.8"
   },
   "allowScripts": {
     "esbuild@0.28.1": true
