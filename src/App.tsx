@@ -75,6 +75,30 @@ function AppShell() {
             }
           />
           <Route
+            path="/services/:slug"
+            element={
+              <AppErrorBoundary sectionName="service_landing_page">
+                <ServiceLanding />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/insights"
+            element={
+              <AppErrorBoundary sectionName="insights_page">
+                <Insights />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
+            path="/insights/:slug"
+            element={
+              <AppErrorBoundary sectionName="insight_article_page">
+                <InsightArticle />
+              </AppErrorBoundary>
+            }
+          />
+          <Route
             path="/projects"
             element={
               <AppErrorBoundary sectionName="projects_page">
