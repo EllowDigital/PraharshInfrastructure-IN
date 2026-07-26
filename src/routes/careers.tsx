@@ -120,8 +120,8 @@ export default function Careers() {
         </div>
       </Section>
 
+      <div id="apply-form" />
       <Section
-        id="apply-form"
         eyebrow="Application Form"
         title="Send us your application"
         intro="Fill in your details, select the role and upload your resume. We'll open your email client with a pre-filled application — just attach your resume file and send."
