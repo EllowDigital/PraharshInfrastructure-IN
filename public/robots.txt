@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /docs/
 
+# Preferred host & sitemap
+Host: https://www.praharshinfrastructure.com
 Sitemap: https://www.praharshinfrastructure.com/sitemap.xml
