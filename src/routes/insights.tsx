@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowUpRight, Calendar, Clock, Tag } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";

@@ -1,4 +1,4 @@
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router";
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Tag } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";

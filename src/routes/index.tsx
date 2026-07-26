@@ -1,6 +1,6 @@
 import { SEO } from "@/components/site/SEO";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   ArrowUpRight,
   Lightbulb,

@@ -9,7 +9,7 @@ import {
   Building2,
   FileCheck2,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 type Accreditation = {
   id: string;

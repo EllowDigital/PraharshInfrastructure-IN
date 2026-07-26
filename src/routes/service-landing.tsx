@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router";
 import { ArrowUpRight, CheckCircle2, Phone, Mail } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
