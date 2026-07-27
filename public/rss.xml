@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Praharsh Infrastructure — Insights &amp; News</title>
+    <link>https://www.praharshinfrastructure.com/insights</link>
+    <atom:link href="https://www.praharshinfrastructure.com/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Field notes on solar, public lighting, road safety and government procurement from Praharsh Infrastructure.</description>
+    <language>en-in</language>
+    <lastBuildDate>Mon, 27 Jul 2026 11:53:53 GMT</lastBuildDate>
+    <item>
+      <title>Solar Street Lighting in India: A Complete Guide for Municipalities &amp; PWDs</title>
+      <link>https://www.praharshinfrastructure.com/insights/solar-street-lighting-guide-india</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/solar-street-lighting-guide-india</guid>
+      <pubDate>Sat, 30 May 2026 00:00:00 GMT</pubDate>
+      <category>Industry</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>How solar street lighting projects are transforming urban and rural infrastructure across India — component selection, tender specifications and lifecycle costs.&quot;,
+    category: &quot;Solar&quot;,
+    date: &quot;2026-07-18&quot;,
+    readTime: &quot;8 min read&quot;,
+    keywords:
+      &quot;solar street lighting India, solar high mast, PWD solar tender, municipal solar lighting, EESL solar&quot;,
+    relatedServices: [
+      { label: &quot;Solar Energy Solutions&quot;, to: &quot;/services/solar&quot; },
+      { label: &quot;Electrical &amp; Lighting Works&quot;, to: &quot;/services/electrical&quot; },
+      { label: &quot;Featured Projects&quot;, to: &quot;/projects&quot; },
+    ],
+    content: [
+      {
+        heading: &quot;Why solar street lighting is the new default&quot;,
+        body: &quot;Municipalities, PWDs and rural development authorities across India are moving from grid-tied HPSV/LED poles to fully solar-integrated street lighting. Falling panel prices, LiFePO4 battery reliability, and mature EPC vendors have made solar the lowest lifecycle-cost option for most public lighting mandates.&quot;,
+      },
+      {
+        heading: &quot;Core components of a compliant solar street light&quot;,
+        body: &quot;A tender-grade solar street light is more than a panel and a lamp. The specification must call out each subsystem with BIS and MNRE compliance.&quot;,
+        bullets: [
+          &quot;Mono-PERC solar module (50–100 Wp) with IEC 61215/61730 certification&quot;,
+          &quot;LiFePO4 battery with BMS, IP65 enclosure, 2000+ deep-cycle life&quot;,
+          &quot;MPPT-based integrated charge controller with dusk-to-dawn logic&quot;,
+          &quot;12–24W LED luminaire — &gt;120 lm/W, CRI &gt;70, 5-year warranty&quot;,
+          &quot;GI/aluminium pole 4–9 m with foundation as per site loading&quot;,
+        ],
+      },
+      {
+        heading: &quot;Tender &amp; GeM procurement notes&quot;,
+        body: &quot;GeM category listings for solar street lights now enforce MNRE benchmark specifications. Bidders should carry MSME/GeM empanelment, ISO 9001/14001/45001 and prior PWD/UPSIC/DRDA experience to qualify comfortably.&quot;,
+      },
+      {
+        heading: &quot;Talk to our solar team&quot;,
+        body: &quot;Praharsh Infrastructure has delivered solar street light, high mast and hybrid public lighting projects for state agencies across Uttar Pradesh. Explore our Solar Energy Solutions page or request a BOQ-ready proposal.&quot;,
+      },
+    ],
+  },
+  {
+    slug: &quot;gem-empanelment-checklist-2026&quot;,
+    title: &quot;GeM Empanelment in 2026: Documentation Checklist for Infra Contractors&quot;,
+    excerpt:
+      &quot;A step-by-step GeM (Government e-Marketplace) empanelment checklist for infrastructure, electrical and solar contractors bidding for central and state tenders.&quot;,
+    category: &quot;Government&quot;,
+    date: &quot;2026-07-12&quot;,
+    readTime: &quot;6 min read&quot;,
+    keywords:
+      &quot;GeM empanelment, government tender India, PWD contractor, UPSIC vendor, DRDA supply, MSME registration&quot;,
+    relatedServices: [
+      { label: &quot;Government Projects&quot;, to: &quot;/services/government-projects&quot; },
+      { label: &quot;Government Capabilities&quot;, to: &quot;/government-capabilities&quot; },
+      { label: &quot;Certifications&quot;, to: &quot;/certifications&quot; },
+    ],
+    content: [
+      {
+        heading: &quot;Why GeM matters&quot;,
+        body: &quot;The Government e-Marketplace is the single largest B2G procurement channel in India. For infrastructure suppliers, GeM offers direct access to Central Ministries, State PSUs, PWDs and Panchayati Raj procurement — without the traditional tender-house friction.&quot;,
+      },
+      {
+        heading: &quot;The empanelment checklist&quot;,
+        body: &quot;Before submitting a GeM seller registration, keep the following documents ready in your primary authorised signatory's Aadhaar-verified profile.&quot;,
+        bullets: [
+          &quot;PAN, GST, MSME (Udyam) certificates&quot;,
+          &quot;ISO 9001/14001/45001 (recommended for infra tenders)&quot;,
+          &quot;OEM authorisation or manufacturer declarations for supplied goods&quot;,
+          &quot;3-year audited financials, ITR and bank solvency certificate&quot;,
+          &quot;Past performance certificates from Central/State agencies&quot;,
+        ],
+      },
+      {
+        heading: &quot;Category-specific gotchas&quot;,
+        body: &quot;Solar, LED, and high-mast categories now require MNRE/BEE labeling; civil supply categories require BIS conformance. A generic OEM authorisation letter is often rejected — insist on category-specific ones.&quot;,
+      },
+      {
+        heading: &quot;How Praharsh helps&quot;,
+        body: &quot;As a GeM-empanelled infrastructure and government supply firm, we regularly execute tender-driven contracts for UPSIC, DRDA, PWD, UPRNSS and municipal bodies. See our Government Capabilities and Clients pages for the full portfolio.&quot;,
+      },
+    ],
+  },
+  {
+    slug: &quot;led-vs-conventional-public-lighting-tco&quot;,
+    title: &quot;LED vs Conventional Public Lighting: A 10-Year Total Cost of Ownership View&quot;,
+    excerpt:
+      &quot;Comparing HPSV, metal halide and modern LED street lighting on capex, opex and lifecycle cost — with realistic Indian tender numbers.&quot;,
+    category: &quot;Electrical&quot;,
+    date: &quot;2026-06-28&quot;,
+    readTime: &quot;5 min read&quot;,
+    keywords:
+      &quot;LED street light TCO, HPSV vs LED, public lighting India, energy efficient lighting tender&quot;,
+    relatedServices: [
+      { label: &quot;Electrical &amp; Lighting Works&quot;, to: &quot;/services/electrical&quot; },
+      { label: &quot;Infrastructure Projects&quot;, to: &quot;/services/construction&quot; },
+      { label: &quot;Featured Projects&quot;, to: &quot;/projects&quot; },
+    ],
+    content: [
+      {
+        heading: &quot;The old assumption is broken&quot;,
+        body: &quot;For decades, HPSV lamps were the default choice for Indian street lighting because of low upfront cost. In 2026, modern LED luminaires from BEE-labeled OEMs deliver 3–4x the useful life at a fraction of the annual energy bill.&quot;,
+      },
+      {
+        heading: &quot;10-year cost stack&quot;,
+        body: &quot;For a 1000-pole ULB rollout, LEDs typically break even on TCO in 24–30 months and save 55–65% on electricity across the lifecycle.&quot;,
+        bullets: [
+          &quot;HPSV 150W: high replacement (2 yr lamp life), 220V grid-only&quot;,
+          &quot;LED 60W: 50,000 h L70 life, driver-warranty 5 years&quot;,
+          &quot;Smart LED w/ CCMS: additional 10–15% opex saving via dimming&quot;,
+        ],
+      },
+      {
+        heading: &quot;What good tender copy looks like&quot;,
+        body: &quot;Specify lumen-per-watt (&gt;120 lm/W), driver surge protection (10 kV), IP66/IK08, and 5-year comprehensive warranty. Reference IS 10322 / LM-80 / LM-79 test reports rather than brand names.&quot;,
+      },
+      {
+        heading: &quot;Design a lighting rollout with us&quot;,
+        body: &quot;Explore our Electrical &amp; Lighting Works page or contact our BD team for a pole-by-pole audit and BOQ.&quot;,
+      },
+    ],
+  },
+  {
+    slug: &quot;road-infrastructure-safety-standards&quot;,
+    title: &quot;Building Safer Roads: Signage, Reflectivity &amp; Traffic Management Standards&quot;,
+    excerpt:
+      &quot;A field guide to road safety infrastructure — retroreflective signage, thermoplastic markings, guardrails and IRC-compliant traffic management for state and NH projects.&quot;,
+    category: &quot;Infrastructure&quot;,
+    date: &quot;2026-06-14&quot;,
+    readTime: &quot;7 min read&quot;,
+    keywords:
+      &quot;road safety infrastructure India, IRC signage, retroreflective signs, thermoplastic road marking, PWD road works&quot;,
+    relatedServices: [
+      { label: &quot;Road Infrastructure&quot;, to: &quot;/services/construction&quot; },
+      { label: &quot;Government Projects&quot;, to: &quot;/services/government-projects&quot; },
+      { label: &quot;Featured Projects&quot;, to: &quot;/projects&quot; },
+    ],
+    content: [
+      {
+        heading: &quot;The road-safety spec that actually matters&quot;,
+        body: &quot;The Ministry of Road Transport and Highways (MoRTH) and IRC have codified road safety furniture requirements — but tender enforcement varies. Delivering compliant, audit-safe roads means calling out the right IS numbers up-front.&quot;,
+      },
+      {
+        heading: &quot;Non-negotiable line items&quot;,
+        body: &quot;For every kilometre of NH / SH / MDR you construct or refurbish, plan for:&quot;,
+        bullets: [
+          &quot;Retroreflective signage on Type-IV sheeting (IS 15915)&quot;,
+          &quot;Thermoplastic road markings — MoRTH-approved white/yellow paint&quot;,
+          &quot;W-beam metal crash barriers on embankments &gt;3m&quot;,
+          &quot;Delineators, cat-eyes and edge markers at horizontal curves&quot;,
+          &quot;Solar blinker studs at unsignalised intersections&quot;,
+        ],
+      },
+      {
+        heading: &quot;Smart traffic control&quot;,
+        body: &quot;Adaptive traffic control (ATCS), variable message signs and integrated CCTV are now baseline for urban and smart-city road tenders. Praharsh integrates these systems with the underlying civil and lighting scope.&quot;,
+      },
+    ],
+  },
+  {
+    slug: &quot;outdoor-advertising-permit-guide-lucknow&quot;,
+    title: &quot;Outdoor Advertising Permits in UP: Unipole, Hoarding &amp; Digital Screen Approvals&quot;,
+    excerpt:
+      &quot;How brands and OOH agencies can obtain unipole, hoarding and LED wall permissions from Lucknow Nagar Nigam, LDA and highway authorities.</description>
+    </item>
+  </channel>
+</rss>
