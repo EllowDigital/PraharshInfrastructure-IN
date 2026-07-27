@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router";
 import { useEffect, useState, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
+import { SearchDialog } from "./SearchDialog";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -17,7 +18,27 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+
+  // Cmd/Ctrl+K to open search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((v) => !v);
+      } else if (
+        e.key === "/" &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Use a ref for the open state to access it in the scroll listener without recreating it
   const openRef = useRef(open);
@@ -117,25 +138,50 @@ export function Header() {
           ))}
         </nav>
 
-        <Link
-          to="/contact"
-          className="hidden lg:inline-flex items-center gap-2 bg-gold text-navy px-4 xl:px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors shadow-sm shrink-0"
-        >
-          Request Proposal
-        </Link>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search the site"
+            title="Search (⌘K)"
+            className="hidden md:inline-flex items-center gap-2 border border-white/20 text-white/85 hover:text-gold hover:border-gold px-3 py-2 text-xs transition-colors shrink-0"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span className="tracking-wide">Search</span>
+            <kbd className="ml-1 hidden xl:inline-block text-[0.6rem] px-1 py-0.5 border border-white/20 rounded-sm text-white/60">
+              ⌘K
+            </kbd>
+          </button>
 
-        {/* Mobile Toggle Button */}
-        <button
-          className="lg:hidden text-white p-2 -mr-2 grid place-items-center transition-transform active:scale-95 z-50"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? (
-            <X className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
-          ) : (
-            <Menu className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
-          )}
-        </button>
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search"
+            className="md:hidden text-white p-2 grid place-items-center"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+
+          <Link
+            to="/contact"
+            className="hidden lg:inline-flex items-center gap-2 bg-gold text-navy px-4 xl:px-5 py-2.5 text-sm font-medium tracking-wide hover:bg-white transition-colors shadow-sm shrink-0"
+          >
+            Request Proposal
+          </Link>
+
+          {/* Mobile Toggle Button */}
+          <button
+            className="lg:hidden text-white p-2 -mr-2 grid place-items-center transition-transform active:scale-95 z-50"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? (
+              <X className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
+            ) : (
+              <Menu className="w-6 h-6 sm:w-7 sm:h-7 animate-in fade-in zoom-in duration-300" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Fullscreen Overlay */}
@@ -179,6 +225,7 @@ export function Header() {
           </div>
         </div>
       </div>
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

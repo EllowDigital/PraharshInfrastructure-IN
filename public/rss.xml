@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Praharsh Infrastructure — Insights &amp; News</title>
+    <link>https://www.praharshinfrastructure.com/insights</link>
+    <atom:link href="https://www.praharshinfrastructure.com/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Field notes on solar, public lighting, road safety and government procurement from Praharsh Infrastructure.</description>
+    <language>en-in</language>
+    <lastBuildDate>Mon, 27 Jul 2026 11:54:10 GMT</lastBuildDate>
+    <item>
+      <title>Solar Street Lighting in India: A Complete Guide for Municipalities &amp; PWDs</title>
+      <link>https://www.praharshinfrastructure.com/insights/solar-street-lighting-guide-india</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/solar-street-lighting-guide-india</guid>
+      <pubDate>Sat, 18 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Solar</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>How solar street lighting projects are transforming urban and rural infrastructure across India — component selection, tender specifications and lifecycle costs.</description>
+    </item>
+    <item>
+      <title>GeM Empanelment in 2026: Documentation Checklist for Infra Contractors</title>
+      <link>https://www.praharshinfrastructure.com/insights/gem-empanelment-checklist-2026</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/gem-empanelment-checklist-2026</guid>
+      <pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Government</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>A step-by-step GeM (Government e-Marketplace) empanelment checklist for infrastructure, electrical and solar contractors bidding for central and state tenders.</description>
+    </item>
+    <item>
+      <title>LED vs Conventional Public Lighting: A 10-Year Total Cost of Ownership View</title>
+      <link>https://www.praharshinfrastructure.com/insights/led-vs-conventional-public-lighting-tco</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/led-vs-conventional-public-lighting-tco</guid>
+      <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
+      <category>Electrical</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>Comparing HPSV, metal halide and modern LED street lighting on capex, opex and lifecycle cost — with realistic Indian tender numbers.</description>
+    </item>
+    <item>
+      <title>Building Safer Roads: Signage, Reflectivity &amp; Traffic Management Standards</title>
+      <link>https://www.praharshinfrastructure.com/insights/road-infrastructure-safety-standards</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/road-infrastructure-safety-standards</guid>
+      <pubDate>Sun, 14 Jun 2026 00:00:00 GMT</pubDate>
+      <category>Infrastructure</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>A field guide to road safety infrastructure — retroreflective signage, thermoplastic markings, guardrails and IRC-compliant traffic management for state and NH projects.</description>
+    </item>
+    <item>
+      <title>Outdoor Advertising Permits in UP: Unipole, Hoarding &amp; Digital Screen Approvals</title>
+      <link>https://www.praharshinfrastructure.com/insights/outdoor-advertising-permit-guide-lucknow</link>
+      <guid isPermaLink="true">https://www.praharshinfrastructure.com/insights/outdoor-advertising-permit-guide-lucknow</guid>
+      <pubDate>Sat, 30 May 2026 00:00:00 GMT</pubDate>
+      <category>Industry</category>
+      <dc:creator>Praharsh Infrastructure</dc:creator>
+      <description>How brands and OOH agencies can obtain unipole, hoarding and LED wall permissions from Lucknow Nagar Nigam, LDA and highway authorities.</description>
+    </item>
+  </channel>
+</rss>
