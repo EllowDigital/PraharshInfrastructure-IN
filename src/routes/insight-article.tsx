@@ -2,7 +2,9 @@ import { Link, useParams, Navigate } from "react-router";
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Tag } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { INSIGHTS } from "@/data/insights";
+
 
 const BASE = "https://www.praharshinfrastructure.com";
 
