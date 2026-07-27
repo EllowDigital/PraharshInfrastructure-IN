@@ -38,11 +38,7 @@ for (const block of blocks) {
 items.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 const esc = (s) =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const lastBuild = new Date().toUTCString();
 const rss = `<?xml version="1.0" encoding="UTF-8"?>
