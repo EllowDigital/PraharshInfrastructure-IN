@@ -2,8 +2,10 @@ import { Link, Navigate, useParams } from "react-router";
 import { ArrowUpRight, CheckCircle2, Phone, Mail } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SERVICE_PAGES } from "@/data/service-landing";
 import { INSIGHTS } from "@/data/insights";
+
 
 const BASE = "https://www.praharshinfrastructure.com";
 
