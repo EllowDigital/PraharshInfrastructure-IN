@@ -1,6 +1,8 @@
 import { Link, NavLink, useLocation } from "react-router";
 import { useEffect, useState, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
+import { SearchDialog } from "./SearchDialog";
+
 
 const nav = [
   { to: "/", label: "Home" },
