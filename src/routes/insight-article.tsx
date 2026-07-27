@@ -42,6 +42,14 @@ export default function InsightArticle() {
         structuredData={structuredData}
       />
       <div className="pt-24" />
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 pt-8">
+        <Breadcrumbs
+          items={[
+            { label: "Insights", to: "/insights" },
+            { label: article.title },
+          ]}
+        />
+      </div>
       <Section>
         <Link
           to="/insights"
@@ -49,6 +57,7 @@ export default function InsightArticle() {
         >
           <ArrowLeft className="w-4 h-4" /> All insights
         </Link>
+
         <div className="max-w-3xl">
           <div className="flex items-center gap-2 text-[0.65rem] tracking-widest uppercase text-gold mb-5">
             <Tag className="w-3 h-3" /> {article.category}
