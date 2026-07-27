@@ -5,7 +5,6 @@ import { Section } from "@/components/site/Section";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { INSIGHTS } from "@/data/insights";
 
-
 const BASE = "https://www.praharshinfrastructure.com";
 
 export default function InsightArticle() {
@@ -43,12 +42,7 @@ export default function InsightArticle() {
       />
       <div className="pt-24" />
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 pt-8">
-        <Breadcrumbs
-          items={[
-            { label: "Insights", to: "/insights" },
-            { label: article.title },
-          ]}
-        />
+        <Breadcrumbs items={[{ label: "Insights", to: "/insights" }, { label: article.title }]} />
       </div>
       <Section>
         <Link

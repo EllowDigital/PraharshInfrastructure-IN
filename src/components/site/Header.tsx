@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { SearchDialog } from "./SearchDialog";
 
-
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
@@ -28,7 +27,11 @@ export function Header() {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setSearchOpen((v) => !v);
-      } else if (e.key === "/" && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+      } else if (
+        e.key === "/" &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
         e.preventDefault();
         setSearchOpen(true);
       }
@@ -36,7 +39,6 @@ export function Header() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
 
   // Use a ref for the open state to access it in the scroll listener without recreating it
   const openRef = useRef(open);
@@ -180,7 +182,6 @@ export function Header() {
             )}
           </button>
         </div>
-
       </div>
 
       {/* Mobile Menu Fullscreen Overlay */}
@@ -228,4 +229,3 @@ export function Header() {
     </header>
   );
 }
-

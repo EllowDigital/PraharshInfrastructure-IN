@@ -6,7 +6,6 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { SERVICE_PAGES } from "@/data/service-landing";
 import { INSIGHTS } from "@/data/insights";
 
-
 const BASE = "https://www.praharshinfrastructure.com";
 
 export default function ServiceLanding() {
@@ -53,15 +52,11 @@ export default function ServiceLanding() {
       <div className="pt-24 bg-navy-deep text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-8">
           <Breadcrumbs
-            items={[
-              { label: "Services", to: "/services" },
-              { label: page.hero.eyebrow },
-            ]}
+            items={[{ label: "Services", to: "/services" }, { label: page.hero.eyebrow }]}
             className="text-white/70 [&_a:hover]:text-gold [&_[aria-current='page']]:text-white"
           />
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-16 lg:py-24 grid lg:grid-cols-12 gap-10 items-end">
-
           <div className="lg:col-span-8">
             <div className="inline-flex items-center gap-2 text-[0.65rem] tracking-widest uppercase text-gold mb-5">
               <Icon className="w-4 h-4" /> {page.hero.eyebrow}

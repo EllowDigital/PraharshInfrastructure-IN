@@ -6,7 +6,6 @@ import { Section } from "@/components/site/Section";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { INSIGHTS, INSIGHT_CATEGORIES } from "@/data/insights";
 
-
 const BASE = "https://www.praharshinfrastructure.com";
 
 export default function Insights() {

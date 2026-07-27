@@ -24,7 +24,6 @@ import slideRoad from "@/assets/images/home/services/road-construction.png?w=640
 // @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideGovt from "@/assets/images/home/services/government-projects.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
 
-
 type PictureData = {
   sources: Record<string, string>;
   img: { src: string; w: number; h: number };
