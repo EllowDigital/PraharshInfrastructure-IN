@@ -224,6 +224,8 @@ export function Header() {
           </div>
         </div>
       </div>
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }
+
