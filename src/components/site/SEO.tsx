@@ -9,7 +9,7 @@ interface SEOProps {
   url?: string;
   type?: string;
   canonicalUrl?: string;
-  structuredData?: Record<string, any> | Record<string, any>[];
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export function SEO({
