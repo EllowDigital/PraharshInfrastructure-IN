@@ -4,9 +4,8 @@
  *
  * Usage: node scripts/generate-rss.mjs
  *
- * The script parses insights.ts as text (no TS compile step) to keep the
- * generator dependency-free. Whenever you add or update an insight, re-run
- * this script and commit public/rss.xml.
+ * Parses the insights.ts source as text (no TS compile step). Re-run this
+ * script whenever an article is added or updated, then commit public/rss.xml.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -17,20 +16,23 @@ const root = resolve(__dirname, "..");
 const BASE = "https://www.praharshinfrastructure.com";
 const src = readFileSync(resolve(root, "src/data/insights.ts"), "utf8");
 
-// Naive parse — matches object literals in the exported INSIGHTS array.
+// Split by `slug:` markers, then extract each field individually per block.
+const blocks = src.split(/\n\s{2,}\{\n/).slice(1);
+const field = (block, name) => {
+  const re = new RegExp(`${name}:\\s*(?:\\n\\s+)?"([^"]+(?:\\\\.[^"]*)*)"`);
+  const m = block.match(re);
+  return m ? m[1].replace(/\\"/g, '"') : null;
+};
+
 const items = [];
-const re =
-  /slug:\s*"([^"]+)"[\s\S]*?title:\s*"([^"]+)"[\s\S]*?excerpt:\s*[\s\S]*?"([^"]+(?:"[^"]*)*)"[\s\S]*?category:\s*"([^"]+)"[\s\S]*?date:\s*"([^"]+)"[\s\S]*?keywords:\s*[\s\S]*?"([^"]+(?:"[^"]*)*)"/g;
-let m;
-while ((m = re.exec(src)) !== null) {
-  items.push({
-    slug: m[1],
-    title: m[2],
-    excerpt: m[3],
-    category: m[4],
-    date: m[5],
-    keywords: m[6],
-  });
+for (const block of blocks) {
+  const slug = field(block, "slug");
+  const title = field(block, "title");
+  const excerpt = field(block, "excerpt");
+  const category = field(block, "category");
+  const date = field(block, "date");
+  if (!slug || !title || !date) continue;
+  items.push({ slug, title, excerpt: excerpt || "", category: category || "", date });
 }
 
 items.sort((a, b) => (a.date < b.date ? 1 : -1));
