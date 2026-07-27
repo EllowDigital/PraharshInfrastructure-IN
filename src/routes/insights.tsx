@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight, Calendar, Clock, Tag } from "lucide-react";
+import { ArrowUpRight, Calendar, Clock, Rss, Tag } from "lucide-react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { INSIGHTS, INSIGHT_CATEGORIES } from "@/data/insights";
 
 const BASE = "https://www.praharshinfrastructure.com";
@@ -39,11 +40,22 @@ export default function Insights() {
         structuredData={structuredData}
       />
       <div className="pt-24" />
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-10 pt-8">
+        <Breadcrumbs items={[{ label: "Insights" }]} />
+      </div>
       <Section
         eyebrow="Insights & News"
         title="Field notes from India's infrastructure frontline"
         intro="Practical guides on solar, public lighting, road safety and government procurement — written by our engineering and tender teams."
-      />
+      >
+        <a
+          href="/rss.xml"
+          className="inline-flex items-center gap-2 border border-border px-4 py-2 text-xs tracking-widest uppercase text-navy hover:border-gold hover:text-gold transition-colors"
+        >
+          <Rss className="w-3.5 h-3.5" /> Subscribe via RSS
+        </a>
+      </Section>
+
       <Section muted>
         <div className="flex flex-wrap gap-2 mb-10">
           {INSIGHT_CATEGORIES.map((c) => (

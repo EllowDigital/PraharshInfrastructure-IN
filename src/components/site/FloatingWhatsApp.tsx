@@ -340,7 +340,6 @@ export function FloatingWhatsApp() {
       { id: "certs", label: dict.chip_certs, icon: CheckCircle2, onClick: () => showCerts() },
       { id: "hours", label: dict.chip_hours, icon: Clock, onClick: () => showHours() },
       { id: "human", label: dict.chip_human, icon: User, onClick: () => startHandoff() },
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     ],
     [dict],
   );
@@ -499,7 +498,6 @@ export function FloatingWhatsApp() {
           }),
         250,
       );
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [dict, pushBot, pushUser, showFaq, goRoot],
   );
