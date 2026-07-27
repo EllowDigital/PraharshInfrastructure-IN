@@ -13,17 +13,17 @@ import {
 
 // Responsive picture sources (avif/webp/jpg) via vite-imagetools
 const IMG_QUERY = "?w=640;1024;1600;1920&format=avif;webp;jpg&as=picture";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore -- imagetools query
+// @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideCivil from "@/assets/images/home/services/civil-infrastructure.jpg?w=640;1024;1600;1920&format=avif;webp;jpg&as=picture";
-// @ts-ignore
+// @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideHighmast from "@/assets/images/home/featured/featured-highmast.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
-// @ts-ignore
+// @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideSolar from "@/assets/images/home/featured/featured-streetsolar.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
-// @ts-ignore
+// @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideRoad from "@/assets/images/home/services/road-construction.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
-// @ts-ignore
+// @ts-ignore vite-imagetools returns a PictureData object at build time
 import slideGovt from "@/assets/images/home/services/government-projects.png?w=640;1024;1600;1920&format=avif;webp;png&as=picture";
+
 
 type PictureData = {
   sources: Record<string, string>;
