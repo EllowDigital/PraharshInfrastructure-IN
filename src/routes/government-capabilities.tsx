@@ -20,7 +20,7 @@ import {
   Sparkles,
   Clock,
 } from "lucide-react";
-import govtImg from "@/assets/images/projects/gem-government-supply.png";
+import govtImg from "@/assets/images/projects/gem-government-supply.webp";
 
 const credentials = [
   {

@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useRef, useState, useCallback, useEffect, type FormEvent } from "react";
 
 import { Section } from "@/components/site/Section";
+import { generateReferenceId, checkClientRateLimit } from "@/lib/enquiry";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 type FieldErrors = Record<string, string>;
@@ -47,29 +48,25 @@ const VALIDATION_RULES = {
 
 function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const formLoadedAtRef = useRef<number>(Date.now());
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [referenceId, setReferenceId] = useState("");
 
-  // Auto-dismiss success message after 8 seconds
+  // Auto-dismiss success message after 12 seconds
   useEffect(() => {
     if (submissionState === "success") {
       const timeout = setTimeout(() => {
         setSubmissionState("idle");
         setSuccessMessage("");
-      }, 8000);
+        setReferenceId("");
+        formLoadedAtRef.current = Date.now();
+      }, 12000);
       return () => clearTimeout(timeout);
     }
   }, [submissionState]);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
-    };
-  }, []);
 
   const validateField = useCallback((name: string, value: string): string => {
     const validator = VALIDATION_RULES[name as keyof typeof VALIDATION_RULES];
@@ -104,16 +101,39 @@ function Contact() {
     [validateField],
   );
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Prevent double submission
     if (submissionState === "submitting") return;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Validate all fields
+    // Anti-spam: honeypot must be empty
+    if (((formData.get("bot-field") as string) || "").trim()) {
+      // Silently succeed to avoid tipping off bots
+      setSuccessMessage(
+        "Thank you! Your enquiry has been received. Our team will respond within one working day.",
+      );
+      setSubmissionState("success");
+      return;
+    }
+
+    // Anti-spam: form must be visible for at least 3 seconds
+    if (Date.now() - formLoadedAtRef.current < 3000) {
+      setErrorMessage("Please take a moment to review your details before submitting.");
+      return;
+    }
+
+    // Client-side rate limit (localStorage, no backend)
+    const rl = checkClientRateLimit("contact", { max: 3, windowMs: 10 * 60 * 1000 });
+    if (!rl.allowed) {
+      const mins = Math.ceil(rl.retryAfterSec / 60);
+      setErrorMessage(
+        `You've sent several enquiries recently. Please try again in about ${mins} minute${mins === 1 ? "" : "s"}, or email info@praharshinfrastructure.com directly.`,
+      );
+      return;
+    }
+
     const errors = validateForm(formData);
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
@@ -125,7 +145,6 @@ function Contact() {
     setErrorMessage("");
     setSubmissionState("submitting");
 
-    // Construct and sanitize payload
     const data = {
       name: (formData.get("name") as string)?.trim() || "",
       company: (formData.get("company") as string)?.trim() || "",
@@ -133,58 +152,46 @@ function Contact() {
       phone: (formData.get("phone") as string)?.trim() || "",
       projectType: (formData.get("type") as string)?.trim() || "",
       brief: (formData.get("brief") as string)?.trim() || "",
-      honeypot: formData.get("bot-field"),
     };
 
-    try {
-      // Set timeout for fetch (30 seconds)
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
-      submitTimeoutRef.current = timeoutId;
+    const refId = generateReferenceId("PI");
+    const subject = `[${refId}] Enquiry — ${data.projectType || "General"} — ${data.name}`;
+    const body = [
+      `Reference ID: ${refId}`,
+      `Submitted: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST`,
+      "",
+      "— Contact —",
+      `Name: ${data.name}`,
+      `Company: ${data.company || "—"}`,
+      `Email: ${data.email}`,
+      `Phone: ${data.phone || "—"}`,
+      "",
+      "— Project —",
+      `Type: ${data.projectType || "—"}`,
+      "",
+      "Brief:",
+      data.brief || "—",
+      "",
+      "---",
+      "Sent via praharshinfrastructure.com contact form.",
+      "Please keep the Reference ID in the subject when replying.",
+    ].join("\n");
 
-      const response = await fetch("/.netlify/functions/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        signal: controller.signal,
-      });
+    const mailto = `mailto:info@praharshinfrastructure.com?cc=${encodeURIComponent(
+      data.email,
+    )}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      clearTimeout(timeoutId);
+    // Open in the user's mail client. No server, no database, no network call.
+    window.location.href = mailto;
 
-      if (!response.ok) {
-        const result = await response.json().catch(() => ({}));
-        throw new Error(result.message || `Server error (${response.status}). Please try again.`);
-      }
-
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.message || "Form submission failed. Please try again.");
-      }
-
-      form.reset();
-      formRef.current?.reset();
-      setFieldErrors({});
-      setErrorMessage("");
-      setSuccessMessage(
-        "Thank you! Your enquiry has been received. Our team will respond within one working day.",
-      );
-      setSubmissionState("success");
-    } catch (error) {
-      setSubmissionState("error");
-
-      if (error instanceof Error) {
-        if (error.name === "AbortError") {
-          setErrorMessage("Request timed out. Please check your connection and try again.");
-        } else {
-          setErrorMessage(error.message);
-        }
-      } else {
-        setErrorMessage("An unexpected error occurred. Please try again or contact us directly.");
-      }
-    }
+    form.reset();
+    formRef.current?.reset();
+    formLoadedAtRef.current = Date.now();
+    setReferenceId(refId);
+    setSuccessMessage(
+      `Your email client has opened with a pre-filled enquiry. Just hit Send — we reply within one working day. Your reference ID is ${refId}.`,
+    );
+    setSubmissionState("success");
   };
 
   return (
@@ -261,9 +268,24 @@ function Contact() {
           <div className="lg:col-span-7 bg-secondary p-8 lg:p-12 border-t-2 border-gold">
             {submissionState === "success" ? (
               <div className="py-20 text-center">
-                <div className="eyebrow text-gold mb-4">✓ Success</div>
-                <h3 className="font-display text-3xl text-navy">Your enquiry has been received.</h3>
-                <p className="mt-4 text-muted-foreground">{successMessage}</p>
+                <div className="eyebrow text-gold mb-4">✓ Enquiry Ready</div>
+                <h3 className="font-display text-3xl text-navy">Your enquiry is on its way.</h3>
+                <p className="mt-4 text-muted-foreground max-w-md mx-auto">{successMessage}</p>
+                {referenceId && (
+                  <div className="mt-6 inline-flex flex-col items-center gap-1 border border-gold/40 bg-gold/5 px-6 py-3">
+                    <span className="eyebrow text-[0.6rem] text-muted-foreground">
+                      Reference ID
+                    </span>
+                    <span className="font-mono text-navy tracking-widest">{referenceId}</span>
+                  </div>
+                )}
+                <p className="mt-6 text-xs text-muted-foreground">
+                  If your mail client didn't open, email us at{" "}
+                  <a href="mailto:info@praharshinfrastructure.com" className="text-navy underline">
+                    info@praharshinfrastructure.com
+                  </a>
+                  .
+                </p>
               </div>
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>

@@ -6,27 +6,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Filter } from "lucide-react";
 
 // --- Assets/Projects ---
-import solarStreetLightingImg from "@/assets/images/projects/solar-street-lighting.png";
-import solarHighMastImg from "@/assets/images/projects/solar-high-mast-lighting.png";
-import highMastLightingImg from "@/assets/images/projects/high-mast-lighting.png";
+import solarStreetLightingImg from "@/assets/images/projects/solar-street-lighting.webp";
+import solarHighMastImg from "@/assets/images/projects/solar-high-mast-lighting.webp";
+import highMastLightingImg from "@/assets/images/projects/high-mast-lighting.webp";
 
-import highwayLightingInfrastructureImg from "@/assets/images/projects/highway-lighting-infrastructure.png";
-import roadSafetySignageImg from "@/assets/images/projects/road-safety-signage.png";
-import urbanRoadDevelopmentImg from "@/assets/images/projects/urban-road-development.png";
-import trafficManagementInfrastructureImg from "@/assets/images/projects/traffic-management-infrastructure.png";
+import highwayLightingInfrastructureImg from "@/assets/images/projects/highway-lighting-infrastructure.webp";
+import roadSafetySignageImg from "@/assets/images/projects/road-safety-signage.webp";
+import urbanRoadDevelopmentImg from "@/assets/images/projects/urban-road-development.webp";
+import trafficManagementInfrastructureImg from "@/assets/images/projects/traffic-management-infrastructure.webp";
 
-import traditionalHoardingsImg from "@/assets/images/projects/traditional-hoardings.png";
-import transitRetailBrandingImg from "@/assets/images/projects/transit-retail-branding.png";
-import ledVideoWallsImg from "@/assets/images/projects/led-video-walls.png";
-import digitalCampaignInfrastructureImg from "@/assets/images/projects/digital-campaign-infrastructure.png";
-import publicityDisplaySignageImg from "@/assets/images/projects/publicity-display-signage.png";
-import acpFacadeBrandingImg from "@/assets/images/projects/acp-facade-branding.png";
-import publicInformationDisplayImg from "@/assets/images/projects/public-information-display.png";
+import traditionalHoardingsImg from "@/assets/images/projects/traditional-hoardings.webp";
+import transitRetailBrandingImg from "@/assets/images/projects/transit-retail-branding.webp";
+import ledVideoWallsImg from "@/assets/images/projects/led-video-walls.webp";
+import digitalCampaignInfrastructureImg from "@/assets/images/projects/digital-campaign-infrastructure.webp";
+import publicityDisplaySignageImg from "@/assets/images/projects/publicity-display-signage.webp";
+import acpFacadeBrandingImg from "@/assets/images/projects/acp-facade-branding.webp";
+import publicInformationDisplayImg from "@/assets/images/projects/public-information-display.webp";
 
-import gemGovernmentSupplyImg from "@/assets/images/projects/gem-government-supply.png";
-import solarLightingEquipmentSupplyImg from "@/assets/images/projects/solar-lighting-equipment-supply.png";
-import signageDisplayMaterialSupplyImg from "@/assets/images/projects/signage-display-material-supply.png";
-import civilInfrastructureMaterialSupplyImg from "@/assets/images/projects/civil-infrastructure-material-supply.png";
+import gemGovernmentSupplyImg from "@/assets/images/projects/gem-government-supply.webp";
+import solarLightingEquipmentSupplyImg from "@/assets/images/projects/solar-lighting-equipment-supply.webp";
+import signageDisplayMaterialSupplyImg from "@/assets/images/projects/signage-display-material-supply.webp";
+import civilInfrastructureMaterialSupplyImg from "@/assets/images/projects/civil-infrastructure-material-supply.webp";
 
 const projects = [
   // Solar Light Illumination
