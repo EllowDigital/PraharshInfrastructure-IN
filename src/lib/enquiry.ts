@@ -42,15 +42,7 @@ export function checkClientRateLimit(
 }
 
 /** Opens the user's mail client with a pre-composed enquiry. */
-export function openMailto({
-  to,
-  subject,
-  body,
-}: {
-  to: string;
-  subject: string;
-  body: string;
-}) {
+export function openMailto({ to, subject, body }: { to: string; subject: string; body: string }) {
   const href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = href;
 }

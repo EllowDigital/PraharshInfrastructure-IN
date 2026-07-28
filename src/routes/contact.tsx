@@ -273,7 +273,9 @@ function Contact() {
                 <p className="mt-4 text-muted-foreground max-w-md mx-auto">{successMessage}</p>
                 {referenceId && (
                   <div className="mt-6 inline-flex flex-col items-center gap-1 border border-gold/40 bg-gold/5 px-6 py-3">
-                    <span className="eyebrow text-[0.6rem] text-muted-foreground">Reference ID</span>
+                    <span className="eyebrow text-[0.6rem] text-muted-foreground">
+                      Reference ID
+                    </span>
                     <span className="font-mono text-navy tracking-widest">{referenceId}</span>
                   </div>
                 )}
