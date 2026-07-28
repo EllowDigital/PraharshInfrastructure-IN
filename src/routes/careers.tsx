@@ -1,7 +1,8 @@
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useRef, useState, type FormEvent, type ChangeEvent } from "react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
 import { Briefcase, MapPin, Upload, CheckCircle2, Send, FileText, X } from "lucide-react";
+import { generateReferenceId, checkClientRateLimit } from "@/lib/enquiry";
 
 const OPENINGS = [
   { title: "Site Engineer — Electrical & Solar", location: "Lucknow, UP", type: "Full-time" },
