@@ -39,13 +39,13 @@ import {
 
 // --- Services Images ---
 import civilInfrastructureImg from "@/assets/images/home/services/civil-infrastructure.jpg";
-import roadConstructionImg from "@/assets/images/home/services/road-construction.png";
-import solarStreetLightImg from "@/assets/images/home/services/solar-street-light.jpg";
-import electricalSolutionsImg from "@/assets/images/home/services/electrical-solutions.png";
-import outdoorAdvertisingImg from "@/assets/images/home/services/outdoor-advertising.png";
-import digitalMarketingImg from "@/assets/images/home/services/digital-marketing.png";
-import brandDevelopmentImg from "@/assets/images/home/services/brand-development.png";
-import governmentProjectsImg from "@/assets/images/home/services/government-projects.png";
+import roadConstructionImg from "@/assets/images/home/services/road-construction.webp";
+import solarStreetLightImg from "@/assets/images/home/services/solar-street-light.webp";
+import electricalSolutionsImg from "@/assets/images/home/services/electrical-solutions.webp";
+import outdoorAdvertisingImg from "@/assets/images/home/services/outdoor-advertising.webp";
+import digitalMarketingImg from "@/assets/images/home/services/digital-marketing.webp";
+import brandDevelopmentImg from "@/assets/images/home/services/brand-development.webp";
+import governmentProjectsImg from "@/assets/images/home/services/government-projects.webp";
 
 // --- Client Images ---
 import client1 from "@/assets/images/clients/client1.png";
@@ -59,13 +59,13 @@ import client8 from "@/assets/images/clients/client8.jfif";
 import client9 from "@/assets/images/clients/client9.jfif";
 
 // --- Featured Images ---
-import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.png";
-import highmastImg from "@/assets/images/home/featured/featured-highmast.png";
-import solarLightingImg from "@/assets/images/home/featured/featured-solar.png";
-import roadInfrastructureImg from "@/assets/images/home/featured/featured-road.png";
+import featuredSolarProjectImg from "@/assets/images/home/featured/featured-streetsolar.webp";
+import highmastImg from "@/assets/images/home/featured/featured-highmast.webp";
+import solarLightingImg from "@/assets/images/home/featured/featured-solar.webp";
+import roadInfrastructureImg from "@/assets/images/home/featured/featured-road.webp";
 
 // --- Who we are ---
-import teamImg from "@/assets/images/home/about-team.png";
+import teamImg from "@/assets/images/home/about-team.webp";
 
 // --- Constants & Data ---
 const SERVICES = [
