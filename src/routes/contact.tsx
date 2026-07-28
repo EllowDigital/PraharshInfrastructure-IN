@@ -268,9 +268,22 @@ function Contact() {
           <div className="lg:col-span-7 bg-secondary p-8 lg:p-12 border-t-2 border-gold">
             {submissionState === "success" ? (
               <div className="py-20 text-center">
-                <div className="eyebrow text-gold mb-4">✓ Success</div>
-                <h3 className="font-display text-3xl text-navy">Your enquiry has been received.</h3>
-                <p className="mt-4 text-muted-foreground">{successMessage}</p>
+                <div className="eyebrow text-gold mb-4">✓ Enquiry Ready</div>
+                <h3 className="font-display text-3xl text-navy">Your enquiry is on its way.</h3>
+                <p className="mt-4 text-muted-foreground max-w-md mx-auto">{successMessage}</p>
+                {referenceId && (
+                  <div className="mt-6 inline-flex flex-col items-center gap-1 border border-gold/40 bg-gold/5 px-6 py-3">
+                    <span className="eyebrow text-[0.6rem] text-muted-foreground">Reference ID</span>
+                    <span className="font-mono text-navy tracking-widest">{referenceId}</span>
+                  </div>
+                )}
+                <p className="mt-6 text-xs text-muted-foreground">
+                  If your mail client didn't open, email us at{" "}
+                  <a href="mailto:info@praharshinfrastructure.com" className="text-navy underline">
+                    info@praharshinfrastructure.com
+                  </a>
+                  .
+                </p>
               </div>
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
