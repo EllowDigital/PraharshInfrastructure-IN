@@ -1,7 +1,7 @@
 import { SEO } from "@/components/site/SEO";
 import { SpecialitiesMarquee, ABOUT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Section } from "@/components/site/Section";
-import teamImg from "@/assets/images/about/about.png";
+import teamImg from "@/assets/images/about/about.webp";
 import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
 
 // 1. Extract static data outside the component to prevent unnecessary re-allocations

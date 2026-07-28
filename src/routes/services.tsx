@@ -15,14 +15,14 @@ import {
 } from "lucide-react";
 
 // Services Page Assets
-import civilImg from "@/assets/images/services/civil.png";
-import roadsImg from "@/assets/images/services/road.png";
-import solarImg from "@/assets/images/services/solar.png";
-import electricalImg from "@/assets/images/services/electrical&lighting.png";
-import unipoleImg from "@/assets/images/services/indoor&outdoor.png";
-import DigitalImg from "@/assets/images/services/digital.png";
-import brandImg from "@/assets/images/services/branding.png";
-import servicesGovtImg from "@/assets/images/services/govt.png";
+import civilImg from "@/assets/images/services/civil.webp";
+import roadsImg from "@/assets/images/services/road.webp";
+import solarImg from "@/assets/images/services/solar.webp";
+import electricalImg from "@/assets/images/services/electrical&lighting.webp";
+import unipoleImg from "@/assets/images/services/indoor&outdoor.webp";
+import DigitalImg from "@/assets/images/services/digital.webp";
+import brandImg from "@/assets/images/services/branding.webp";
+import servicesGovtImg from "@/assets/images/services/govt.webp";
 
 const services = [
   {
