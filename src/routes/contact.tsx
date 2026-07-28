@@ -48,29 +48,25 @@ const VALIDATION_RULES = {
 
 function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const formLoadedAtRef = useRef<number>(Date.now());
   const [submissionState, setSubmissionState] = useState<SubmissionState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [successMessage, setSuccessMessage] = useState("");
+  const [referenceId, setReferenceId] = useState("");
 
-  // Auto-dismiss success message after 8 seconds
+  // Auto-dismiss success message after 12 seconds
   useEffect(() => {
     if (submissionState === "success") {
       const timeout = setTimeout(() => {
         setSubmissionState("idle");
         setSuccessMessage("");
-      }, 8000);
+        setReferenceId("");
+        formLoadedAtRef.current = Date.now();
+      }, 12000);
       return () => clearTimeout(timeout);
     }
   }, [submissionState]);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
-    };
-  }, []);
 
   const validateField = useCallback((name: string, value: string): string => {
     const validator = VALIDATION_RULES[name as keyof typeof VALIDATION_RULES];
