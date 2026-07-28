@@ -101,16 +101,39 @@ function Contact() {
     [validateField],
   );
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Prevent double submission
     if (submissionState === "submitting") return;
 
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    // Validate all fields
+    // Anti-spam: honeypot must be empty
+    if (((formData.get("bot-field") as string) || "").trim()) {
+      // Silently succeed to avoid tipping off bots
+      setSuccessMessage(
+        "Thank you! Your enquiry has been received. Our team will respond within one working day.",
+      );
+      setSubmissionState("success");
+      return;
+    }
+
+    // Anti-spam: form must be visible for at least 3 seconds
+    if (Date.now() - formLoadedAtRef.current < 3000) {
+      setErrorMessage("Please take a moment to review your details before submitting.");
+      return;
+    }
+
+    // Client-side rate limit (localStorage, no backend)
+    const rl = checkClientRateLimit("contact", { max: 3, windowMs: 10 * 60 * 1000 });
+    if (!rl.allowed) {
+      const mins = Math.ceil(rl.retryAfterSec / 60);
+      setErrorMessage(
+        `You've sent several enquiries recently. Please try again in about ${mins} minute${mins === 1 ? "" : "s"}, or email info@praharshinfrastructure.com directly.`,
+      );
+      return;
+    }
+
     const errors = validateForm(formData);
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
@@ -122,7 +145,6 @@ function Contact() {
     setErrorMessage("");
     setSubmissionState("submitting");
 
-    // Construct and sanitize payload
     const data = {
       name: (formData.get("name") as string)?.trim() || "",
       company: (formData.get("company") as string)?.trim() || "",
@@ -130,58 +152,46 @@ function Contact() {
       phone: (formData.get("phone") as string)?.trim() || "",
       projectType: (formData.get("type") as string)?.trim() || "",
       brief: (formData.get("brief") as string)?.trim() || "",
-      honeypot: formData.get("bot-field"),
     };
 
-    try {
-      // Set timeout for fetch (30 seconds)
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
-      submitTimeoutRef.current = timeoutId;
+    const refId = generateReferenceId("PI");
+    const subject = `[${refId}] Enquiry — ${data.projectType || "General"} — ${data.name}`;
+    const body = [
+      `Reference ID: ${refId}`,
+      `Submitted: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST`,
+      "",
+      "— Contact —",
+      `Name: ${data.name}`,
+      `Company: ${data.company || "—"}`,
+      `Email: ${data.email}`,
+      `Phone: ${data.phone || "—"}`,
+      "",
+      "— Project —",
+      `Type: ${data.projectType || "—"}`,
+      "",
+      "Brief:",
+      data.brief || "—",
+      "",
+      "---",
+      "Sent via praharshinfrastructure.com contact form.",
+      "Please keep the Reference ID in the subject when replying.",
+    ].join("\n");
 
-      const response = await fetch("/.netlify/functions/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        signal: controller.signal,
-      });
+    const mailto = `mailto:info@praharshinfrastructure.com?cc=${encodeURIComponent(
+      data.email,
+    )}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      clearTimeout(timeoutId);
+    // Open in the user's mail client. No server, no database, no network call.
+    window.location.href = mailto;
 
-      if (!response.ok) {
-        const result = await response.json().catch(() => ({}));
-        throw new Error(result.message || `Server error (${response.status}). Please try again.`);
-      }
-
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.message || "Form submission failed. Please try again.");
-      }
-
-      form.reset();
-      formRef.current?.reset();
-      setFieldErrors({});
-      setErrorMessage("");
-      setSuccessMessage(
-        "Thank you! Your enquiry has been received. Our team will respond within one working day.",
-      );
-      setSubmissionState("success");
-    } catch (error) {
-      setSubmissionState("error");
-
-      if (error instanceof Error) {
-        if (error.name === "AbortError") {
-          setErrorMessage("Request timed out. Please check your connection and try again.");
-        } else {
-          setErrorMessage(error.message);
-        }
-      } else {
-        setErrorMessage("An unexpected error occurred. Please try again or contact us directly.");
-      }
-    }
+    form.reset();
+    formRef.current?.reset();
+    formLoadedAtRef.current = Date.now();
+    setReferenceId(refId);
+    setSuccessMessage(
+      `Your email client has opened with a pre-filled enquiry. Just hit Send — we reply within one working day. Your reference ID is ${refId}.`,
+    );
+    setSubmissionState("success");
   };
 
   return (
