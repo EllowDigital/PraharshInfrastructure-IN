@@ -294,9 +294,17 @@ export default function Careers() {
 
           {error && <div className="text-sm text-red-600">{error}</div>}
           {sent && (
-            <div className="flex items-center gap-2 text-sm text-green-700">
-              <CheckCircle2 className="w-4 h-4" /> Email client opened — please attach your resume
-              and hit send.
+            <div className="flex flex-col gap-2 text-sm text-green-700 bg-green-50 border border-green-200 p-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" /> Email client opened — please attach your resume
+                and hit send.
+              </div>
+              {refId && (
+                <div className="text-xs text-navy">
+                  Reference ID: <span className="font-mono tracking-widest">{refId}</span> — keep
+                  this in the subject when replying.
+                </div>
+              )}
             </div>
           )}
 
