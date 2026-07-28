@@ -1,7 +1,8 @@
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useRef, useState, type FormEvent, type ChangeEvent } from "react";
 import { SEO } from "@/components/site/SEO";
 import { Section } from "@/components/site/Section";
 import { Briefcase, MapPin, Upload, CheckCircle2, Send, FileText, X } from "lucide-react";
+import { generateReferenceId, checkClientRateLimit } from "@/lib/enquiry";
 
 const OPENINGS = [
   { title: "Site Engineer — Electrical & Solar", location: "Lucknow, UP", type: "Full-time" },
@@ -19,6 +20,7 @@ const OPENINGS = [
 const MAX_MB = 10;
 
 export default function Careers() {
+  const formLoadedAtRef = useRef<number>(Date.now());
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -27,9 +29,11 @@ export default function Careers() {
     experience: "",
     location: "",
     message: "",
+    website: "", // honeypot
   });
   const [resume, setResume] = useState<File | null>(null);
   const [sent, setSent] = useState(false);
+  const [refId, setRefId] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,12 +55,46 @@ export default function Careers() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    // Honeypot
+    if (form.website.trim()) {
+      setSent(true);
+      return;
+    }
+    // Time trap
+    if (Date.now() - formLoadedAtRef.current < 3000) {
+      setError("Please take a moment to review your details before submitting.");
+      return;
+    }
+    // Client-side rate limit
+    const rl = checkClientRateLimit("careers", { max: 3, windowMs: 10 * 60 * 1000 });
+    if (!rl.allowed) {
+      const mins = Math.ceil(rl.retryAfterSec / 60);
+      setError(
+        `You've submitted several applications recently. Please try again in about ${mins} minute${mins === 1 ? "" : "s"}.`,
+      );
+      return;
+    }
+
     if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) {
       setError("Please fill in your name, email and phone.");
       return;
     }
-    const subject = `Application: ${form.role} — ${form.name}`;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (!/^\+?[\d\s\-()]{7,}$/.test(form.phone)) {
+      setError("Please enter a valid phone number.");
+      return;
+    }
+
+    const reference = generateReferenceId("PI-CAR");
+    const subject = `[${reference}] Application: ${form.role} — ${form.name}`;
     const bodyLines = [
+      `Reference ID: ${reference}`,
+      `Submitted: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST`,
+      "",
       `Applicant: ${form.name}`,
       `Email: ${form.email}`,
       `Phone: ${form.phone}`,
@@ -75,8 +113,9 @@ export default function Careers() {
       subject,
     )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
     window.location.href = mailto;
+    setRefId(reference);
     setSent(true);
-    window.setTimeout(() => setSent(false), 8000);
+    window.setTimeout(() => setSent(false), 12000);
   };
 
   return (
@@ -133,7 +172,21 @@ export default function Careers() {
         <form
           onSubmit={onSubmit}
           className="max-w-3xl bg-background border border-border p-8 grid gap-5"
+          noValidate
         >
+          {/* Honeypot — hidden from real users */}
+          <div className="sr-only" aria-hidden="true">
+            <label htmlFor="website">Website (leave blank)</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={(e) => setForm({ ...form, website: e.target.value })}
+            />
+          </div>
           <div className="grid gap-5 sm:grid-cols-2">
             <Field label="Full Name *">
               <input
@@ -241,9 +294,17 @@ export default function Careers() {
 
           {error && <div className="text-sm text-red-600">{error}</div>}
           {sent && (
-            <div className="flex items-center gap-2 text-sm text-green-700">
-              <CheckCircle2 className="w-4 h-4" /> Email client opened — please attach your resume
-              and hit send.
+            <div className="flex flex-col gap-2 text-sm text-green-700 bg-green-50 border border-green-200 p-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" /> Email client opened — please attach your resume
+                and hit send.
+              </div>
+              {refId && (
+                <div className="text-xs text-navy">
+                  Reference ID: <span className="font-mono tracking-widest">{refId}</span> — keep
+                  this in the subject when replying.
+                </div>
+              )}
             </div>
           )}
 
