@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, ArrowUpRight, FileBadge2 } from "lucide-react";
 import { useRef, useState, useCallback, useEffect, type FormEvent } from "react";
 
 import { Section } from "@/components/site/Section";
+import { generateReferenceId, checkClientRateLimit } from "@/lib/enquiry";
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 type FieldErrors = Record<string, string>;
