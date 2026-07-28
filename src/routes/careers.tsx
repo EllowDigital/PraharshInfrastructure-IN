@@ -172,7 +172,21 @@ export default function Careers() {
         <form
           onSubmit={onSubmit}
           className="max-w-3xl bg-background border border-border p-8 grid gap-5"
+          noValidate
         >
+          {/* Honeypot — hidden from real users */}
+          <div className="sr-only" aria-hidden="true">
+            <label htmlFor="website">Website (leave blank)</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={(e) => setForm({ ...form, website: e.target.value })}
+            />
+          </div>
           <div className="grid gap-5 sm:grid-cols-2">
             <Field label="Full Name *">
               <input
