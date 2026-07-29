@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router";
 import {
   Mail,
@@ -10,8 +10,6 @@ import {
   Twitter,
   Youtube,
   Instagram,
-  ArrowRight,
-  CheckCircle2,
   ChevronDown,
 } from "lucide-react";
 
