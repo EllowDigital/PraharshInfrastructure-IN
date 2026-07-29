@@ -115,12 +115,16 @@ function About() {
       {/* Approach Section */}
       <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">
         <div className="grid gap-12 lg:-mt-8 lg:grid-cols-12">
-          <div className="image-zoom overflow-hidden rounded-xl lg:col-span-6">
+          <div className="image-zoom overflow-hidden rounded-xl lg:col-span-6 bg-secondary aspect-[4/5]">
             <img
               src={teamImg}
               alt="Praharsh engineers reviewing site plans"
-              className="aspect-[4/5] w-full object-cover"
+              width={800}
+              height={1000}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
           </div>
 

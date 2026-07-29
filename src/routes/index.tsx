@@ -291,8 +291,12 @@ export default function Home({ onHeroReady }: HomeProps) {
                 <img
                   src={teamImg}
                   alt=""
+                  width={1200}
+                  height={800}
+                  sizes="(max-width: 1024px) 100vw, 66vw"
                   className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                   loading="lazy"
+                  decoding="async"
                   aria-hidden="true"
                 />
                 <div className="absolute top-6 sm:top-8 right-6 sm:right-8">
@@ -547,8 +551,12 @@ export default function Home({ onHeroReady }: HomeProps) {
                 <img
                   src={FEATURED_PROJECTS[0].img}
                   alt={FEATURED_PROJECTS[0].title}
+                  width={1200}
+                  height={900}
+                  sizes="(max-width: 1024px) 100vw, 58vw"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
                 <div className="relative h-full flex flex-col justify-end p-8 sm:p-10">
@@ -712,8 +720,11 @@ export default function Home({ onHeroReady }: HomeProps) {
                   <img
                     src={client.src}
                     alt={`${client.name} Logo`}
+                    width={200}
+                    height={100}
                     className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
                     loading="lazy"
+                    decoding="async"
                   />
                 </a>
               ))}
