@@ -391,8 +391,12 @@ export default function Home({ onHeroReady }: HomeProps) {
                     <img
                       src={feature.img}
                       alt=""
+                      width={1200}
+                      height={800}
+                      sizes="(max-width: 1024px) 100vw, 66vw"
                       className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
                       loading="lazy"
+                      decoding="async"
                       aria-hidden="true"
                     />
                     <div className="relative">
