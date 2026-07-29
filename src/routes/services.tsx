@@ -169,12 +169,16 @@ function Services() {
                   i % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
                 }`}
               >
-                <div className="lg:col-span-7 image-zoom">
+                <div className="lg:col-span-7 image-zoom bg-secondary aspect-[16/11] overflow-hidden">
                   <img
                     src={s.img}
                     alt={s.name}
-                    className="w-full aspect-[16/11] object-cover"
+                    width={1200}
+                    height={825}
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="lg:col-span-5">

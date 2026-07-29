@@ -138,6 +138,10 @@ export function Footer() {
             <img
               src="/images/logo.jpeg"
               alt="Praharsh Infrastructure"
+              width={44}
+              height={44}
+              loading="lazy"
+              decoding="async"
               className="w-11 h-11 object-contain rounded-sm"
             />
             <div>

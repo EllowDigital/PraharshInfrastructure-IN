@@ -44,6 +44,12 @@ export function Preloader({ isVisible }: PreloaderProps) {
         <img
           src="/images/logo.jpeg"
           alt="Praharsh Infrastructure"
+          width={80}
+          height={80}
+          loading="eager"
+          // @ts-expect-error React 18 supports lowercase attribute
+          fetchpriority="high"
+          decoding="sync"
           className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-md shadow-2xl"
         />
         <div className="w-full h-[2px] bg-white/10 overflow-hidden relative">

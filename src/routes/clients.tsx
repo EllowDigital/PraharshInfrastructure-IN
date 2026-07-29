@@ -219,7 +219,10 @@ function Clients() {
                 <img
                   src={client.src}
                   alt={`${client.name} Logo`}
+                  width={200}
+                  height={100}
                   loading="lazy"
+                  decoding="async"
                   className="max-h-full max-w-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                 />
                 <span className="absolute inset-x-0 -bottom-6 opacity-0 group-hover:opacity-100 group-hover:-bottom-5 transition-all text-center text-[0.65rem] text-gold uppercase tracking-wider px-2 truncate">
