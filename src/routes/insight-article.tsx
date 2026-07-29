@@ -12,21 +12,49 @@ export default function InsightArticle() {
   const article = INSIGHTS.find((a) => a.slug === slug);
   if (!article) return <Navigate to="/insights" replace />;
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: article.title,
-    description: article.excerpt,
-    datePublished: article.date,
-    author: { "@type": "Organization", name: "Praharsh Infrastructure" },
-    publisher: {
-      "@type": "Organization",
-      name: "Praharsh Infrastructure",
-      logo: { "@type": "ImageObject", url: `${BASE}/images/logo.jpeg` },
+  const articleText = article.content
+    .map((s) => [s.heading, s.body, ...(s.bullets || [])].join(" "))
+    .join(" ");
+  const wordCount = articleText.trim().split(/\s+/).filter(Boolean).length;
+  const articleUrl = `${BASE}/insights/${article.slug}`;
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.excerpt,
+      datePublished: article.date,
+      dateModified: article.date,
+      inLanguage: "en-IN",
+      articleSection: article.category,
+      wordCount,
+      timeRequired: article.readTime.replace(/\s*min read\s*/i, "M").replace(/^/, "PT"),
+      keywords: article.keywords,
+      url: articleUrl,
+      mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+      image: article.cover ? [article.cover] : [`${BASE}/images/logo.jpeg`],
+      author: {
+        "@type": "Organization",
+        name: "Praharsh Infrastructure",
+        url: BASE,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Praharsh Infrastructure",
+        logo: { "@type": "ImageObject", url: `${BASE}/images/logo.jpeg` },
+      },
     },
-    mainEntityOfPage: `${BASE}/insights/${article.slug}`,
-    keywords: article.keywords,
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+        { "@type": "ListItem", position: 2, name: "Insights", item: `${BASE}/insights` },
+        { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+      ],
+    },
+  ];
 
   const related = INSIGHTS.filter((a) => a.slug !== article.slug).slice(0, 3);
 
