@@ -70,29 +70,30 @@ const socialIcons: { Icon: typeof Linkedin; label: string; href: string }[] = [
 const LAST_UPDATED = "24 July 2026";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    const subject = encodeURIComponent("Newsletter subscription");
-    const body = encodeURIComponent(
-      `Please add ${email} to the Praharsh Infrastructure newsletter.`,
-    );
-    window.open(
-      `mailto:info@praharshinfrastructure.com?subject=${subject}&body=${body}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
-    setSubscribed(true);
-    setEmail("");
-    window.setTimeout(() => setSubscribed(false), 4000);
-  };
+  // Newsletter code preserved but hidden from the site.
+  // const [email, setEmail] = useState("");
+  // const [subscribed, setSubscribed] = useState(false);
+  //
+  // const handleSubscribe = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   if (!email.trim()) return;
+  //   const subject = encodeURIComponent("Newsletter subscription");
+  //   const body = encodeURIComponent(
+  //     `Please add ${email} to the Praharsh Infrastructure newsletter.`,
+  //   );
+  //   window.open(
+  //     `mailto:info@praharshinfrastructure.com?subject=${subject}&body=${body}`,
+  //     "_blank",
+  //     "noopener,noreferrer",
+  //   );
+  //   setSubscribed(true);
+  //   setEmail("");
+  //   window.setTimeout(() => setSubscribed(false), 4000);
+  // };
 
   return (
     <footer className="bg-navy-deep text-white/80">
-      {/* Newsletter band */}
+      {/* Newsletter band — temporarily hidden (code retained for future use)
       <div className="border-b border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
@@ -131,6 +132,7 @@ export function Footer() {
           </form>
         </div>
       </div>
+      */}
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
