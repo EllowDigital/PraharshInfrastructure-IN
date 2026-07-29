@@ -110,7 +110,16 @@ function Govt() {
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-28 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-25">
-          <img src={govtImg} alt="" width={1600} height={900} sizes="100vw" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+          <img
+            src={govtImg}
+            alt=""
+            width={1600}
+            height={900}
+            sizes="100vw"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/50" />
         </div>
         {/* decorative gold grid */}
