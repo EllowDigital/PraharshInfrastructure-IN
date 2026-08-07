@@ -1,8 +1,13 @@
 import { SEO } from "@/components/site/SEO";
 import { SpecialitiesMarquee, ABOUT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Section } from "@/components/site/Section";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { Reveal } from "@/components/site/Reveal";
 import teamImg from "@/assets/images/about/about.webp";
 import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
+
+const BASE = "https://www.praharshinfrastructure.com";
+
 
 // 1. Extract static data outside the component to prevent unnecessary re-allocations
 const APPROACH_DATA = [
