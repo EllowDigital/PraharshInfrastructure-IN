@@ -52,8 +52,7 @@ export function SmartImage({
       <img
         {...rest}
         loading={priority ? "eager" : (rest.loading ?? "lazy")}
-        // @ts-expect-error React 18 supports lowercase attribute
-        fetchpriority={priority ? "high" : (rest.fetchPriority ?? "auto")}
+        fetchPriority={priority ? "high" : (rest.fetchPriority ?? "auto")}
         decoding={priority ? "sync" : "async"}
         onLoad={(e) => {
           setLoaded(true);

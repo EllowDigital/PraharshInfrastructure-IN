@@ -1,8 +1,13 @@
 import { SEO } from "@/components/site/SEO";
 import { SpecialitiesMarquee, ABOUT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Section } from "@/components/site/Section";
+import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { Reveal } from "@/components/site/Reveal";
 import teamImg from "@/assets/images/about/about.webp";
 import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
+
+const BASE = "https://www.praharshinfrastructure.com";
+
 
 // 1. Extract static data outside the component to prevent unnecessary re-allocations
 const APPROACH_DATA = [
@@ -75,10 +80,54 @@ const HERO_FACTS = [
   { k: "Delivery Model", v: "Government & Institutional" },
 ];
 
+const ABOUT_STRUCTURED_DATA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${BASE}/about#webpage`,
+    url: `${BASE}/about`,
+    name: "About Praharsh Infrastructure",
+    description:
+      "Praharsh Infrastructure is a Lucknow-based infrastructure and 360° branding solutions company delivering illumination, electrical, solar and civil projects for government departments.",
+    isPartOf: { "@type": "WebSite", url: BASE, name: "Praharsh Infrastructure" },
+    about: {
+      "@type": "Organization",
+      name: "Praharsh Infrastructure",
+      url: BASE,
+      areaServed: "IN",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lucknow",
+        addressRegion: "Uttar Pradesh",
+        addressCountry: "IN",
+      },
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Core Strengths of Praharsh Infrastructure",
+    numberOfItems: CORE_STRENGTHS.length,
+    itemListElement: CORE_STRENGTHS.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.title,
+      description: s.description,
+    })),
+  },
+];
+
 function About() {
   return (
     <>
-      <SEO title="Praharsh Infrastructure" />
+      <SEO
+        title="About Us | Praharsh Infrastructure, Lucknow"
+        description="Praharsh Infrastructure is a Lucknow-based infrastructure and 360° branding solutions company delivering illumination, electrical, road, solar and civil projects for UPSIC, DRDA, PWD and other government agencies."
+        keywords="About Praharsh Infrastructure, infrastructure company Lucknow, government contractor UP, solar and electrical infrastructure"
+        url={`${BASE}/about`}
+        canonicalUrl={`${BASE}/about`}
+        structuredData={ABOUT_STRUCTURED_DATA}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-navy pt-28 sm:pt-32 lg:pt-40 pb-14 sm:pb-20 lg:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-20">
@@ -93,7 +142,12 @@ function About() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-10">
+          <Breadcrumbs
+            items={[{ label: "About" }]}
+            className="mb-6 text-white/70 [&_[aria-current]]:text-gold"
+          />
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+
             <div className="lg:col-span-8">
               <div className="eyebrow reveal mb-5 flex items-center text-gold">
                 <span className="gold-rule mr-3 inline-block align-middle" />
@@ -104,7 +158,7 @@ function About() {
                 Building today, <span className="italic text-gold">empowering tomorrow.</span>
               </h1>
 
-              <p className="reveal reveal-delay-2 mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg leading-relaxed text-white/75">
+              <p className="reveal reveal-delay-2 mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg leading-relaxed text-white/80">
                 Praharsh Infrastructure is a fast-growing infrastructure and 360° branding solutions
                 company based in Lucknow, UP — specialising in illumination, electrical
                 installations, road infrastructure, solar energy, healthcare supplies and government
@@ -114,11 +168,11 @@ function About() {
             </div>
 
             <div className="reveal reveal-delay-3 lg:col-span-4">
-              <dl className="grid gap-px overflow-hidden rounded-xl border border-white/15 bg-white/10 sm:grid-cols-3 lg:grid-cols-1">
+              <dl className="grid gap-px overflow-hidden rounded-xl border border-white/20 bg-white/10 sm:grid-cols-3 lg:grid-cols-1">
                 {HERO_FACTS.map((f) => (
                   <div key={f.k} className="bg-navy/80 p-5 backdrop-blur-sm">
                     <dt className="eyebrow text-gold">{f.k}</dt>
-                    <dd className="mt-2 text-sm text-white/80">{f.v}</dd>
+                    <dd className="mt-2 text-sm text-white/85">{f.v}</dd>
                   </div>
                 ))}
               </dl>
@@ -136,7 +190,7 @@ function About() {
       {/* Approach Section */}
       <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">
         <div className="grid gap-8 sm:gap-10 lg:gap-14 lg:-mt-8 lg:grid-cols-12">
-          <div className="image-zoom overflow-hidden rounded-xl lg:col-span-5 bg-secondary aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] lg:sticky lg:top-28">
+          <Reveal className="image-zoom overflow-hidden rounded-xl lg:col-span-5 bg-secondary aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] lg:sticky lg:top-28">
             <img
               src={teamImg}
               alt="Praharsh engineers reviewing site plans"
@@ -147,22 +201,27 @@ function About() {
               loading="lazy"
               decoding="async"
             />
-          </div>
+          </Reveal>
 
           <div className="lg:col-span-7">
             <ul className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
-              {APPROACH_DATA.map((item) => {
+              {APPROACH_DATA.map((item, i) => {
                 const Icon = item.icon;
                 return (
-                  <li key={item.title} className="card-hover bg-background p-6 sm:p-8">
-                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-gold shadow-sm">
+                  <Reveal
+                    as="li"
+                    key={item.title}
+                    delay={Math.min(i, 4) * 80}
+                    className="lift-card group bg-background p-6 sm:p-8"
+                  >
+                    <div className="icon-pop grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-gold shadow-sm">
                       <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
                     </div>
                     <h3 className="mt-5 font-display text-xl sm:text-2xl text-navy">{item.title}</h3>
                     <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
-                  </li>
+                  </Reveal>
                 );
               })}
             </ul>
@@ -174,8 +233,13 @@ function About() {
       <Section muted eyebrow="Core Strengths" title="What sets Praharsh apart.">
         <ul className="-mt-4 sm:-mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {CORE_STRENGTHS.map((strength, i) => (
-            <li key={strength.title} className="card-hover group bg-background p-6 sm:p-8">
-              <span className="font-display text-3xl text-gold/60 transition-colors group-hover:text-gold">
+            <Reveal
+              as="li"
+              key={strength.title}
+              delay={Math.min(i, 6) * 60}
+              className="lift-card group bg-background p-6 sm:p-8"
+            >
+              <span className="font-display text-3xl text-gold/80 transition-colors group-hover:text-gold">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-4 font-display text-lg sm:text-xl text-navy leading-tight">
@@ -184,10 +248,11 @@ function About() {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {strength.description}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </Section>
+
     </>
   );
 }
