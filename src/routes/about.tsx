@@ -8,7 +8,6 @@ import { Target, Compass, ShieldCheck, Globe2 } from "lucide-react";
 
 const BASE = "https://www.praharshinfrastructure.com";
 
-
 // 1. Extract static data outside the component to prevent unnecessary re-allocations
 const APPROACH_DATA = [
   {
@@ -147,7 +146,6 @@ function About() {
             className="mb-6 text-white/70 [&_[aria-current]]:text-gold"
           />
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-
             <div className="lg:col-span-8">
               <div className="eyebrow reveal mb-5 flex items-center text-gold">
                 <span className="gold-rule mr-3 inline-block align-middle" />
@@ -163,7 +161,8 @@ function About() {
                 company based in Lucknow, UP — specialising in illumination, electrical
                 installations, road infrastructure, solar energy, healthcare supplies and government
                 civil development. We deliver projects for UPSIC, DRDA, UPRNN, PWD, Nagar Palika /
-                Panchayat, UP Tourism, UP 100, ODOP, DIPR, UPID and other state and central agencies.
+                Panchayat, UP Tourism, UP 100, ODOP, DIPR, UPID and other state and central
+                agencies.
               </p>
             </div>
 
@@ -217,7 +216,9 @@ function About() {
                     <div className="icon-pop grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-gold shadow-sm">
                       <Icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
                     </div>
-                    <h3 className="mt-5 font-display text-xl sm:text-2xl text-navy">{item.title}</h3>
+                    <h3 className="mt-5 font-display text-xl sm:text-2xl text-navy">
+                      {item.title}
+                    </h3>
                     <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
@@ -252,7 +253,6 @@ function About() {
           ))}
         </ul>
       </Section>
-
     </>
   );
 }
