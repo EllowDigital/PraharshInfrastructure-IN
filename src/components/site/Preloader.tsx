@@ -48,7 +48,7 @@ export function Preloader({ isVisible }: PreloaderProps) {
           height={80}
           loading="eager"
           // @ts-expect-error React 18 supports lowercase attribute
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="sync"
           className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-md shadow-2xl"
         />
