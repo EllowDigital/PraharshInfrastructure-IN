@@ -80,10 +80,54 @@ const HERO_FACTS = [
   { k: "Delivery Model", v: "Government & Institutional" },
 ];
 
+const ABOUT_STRUCTURED_DATA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${BASE}/about#webpage`,
+    url: `${BASE}/about`,
+    name: "About Praharsh Infrastructure",
+    description:
+      "Praharsh Infrastructure is a Lucknow-based infrastructure and 360° branding solutions company delivering illumination, electrical, solar and civil projects for government departments.",
+    isPartOf: { "@type": "WebSite", url: BASE, name: "Praharsh Infrastructure" },
+    about: {
+      "@type": "Organization",
+      name: "Praharsh Infrastructure",
+      url: BASE,
+      areaServed: "IN",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lucknow",
+        addressRegion: "Uttar Pradesh",
+        addressCountry: "IN",
+      },
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Core Strengths of Praharsh Infrastructure",
+    numberOfItems: CORE_STRENGTHS.length,
+    itemListElement: CORE_STRENGTHS.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.title,
+      description: s.description,
+    })),
+  },
+];
+
 function About() {
   return (
     <>
-      <SEO title="Praharsh Infrastructure" />
+      <SEO
+        title="About Us | Praharsh Infrastructure, Lucknow"
+        description="Praharsh Infrastructure is a Lucknow-based infrastructure and 360° branding solutions company delivering illumination, electrical, road, solar and civil projects for UPSIC, DRDA, PWD and other government agencies."
+        keywords="About Praharsh Infrastructure, infrastructure company Lucknow, government contractor UP, solar and electrical infrastructure"
+        url={`${BASE}/about`}
+        canonicalUrl={`${BASE}/about`}
+        structuredData={ABOUT_STRUCTURED_DATA}
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-navy pt-28 sm:pt-32 lg:pt-40 pb-14 sm:pb-20 lg:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 opacity-20">
@@ -98,7 +142,12 @@ function About() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-10">
+          <Breadcrumbs
+            items={[{ label: "About" }]}
+            className="mb-6 text-white/70 [&_[aria-current]]:text-gold"
+          />
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+
             <div className="lg:col-span-8">
               <div className="eyebrow reveal mb-5 flex items-center text-gold">
                 <span className="gold-rule mr-3 inline-block align-middle" />
