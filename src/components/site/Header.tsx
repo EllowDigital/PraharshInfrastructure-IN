@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { useEffect, useState, useRef } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { SearchDialog } from "./SearchDialog";
+import { SmartImage } from "@/components/site/SmartImage";
 
 const nav = [
   { to: "/", label: "Home" },
