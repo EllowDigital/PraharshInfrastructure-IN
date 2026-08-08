@@ -289,15 +289,16 @@ export default function Home({ onHeroReady }: HomeProps) {
             <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
               {/* Editorial headline tile */}
               <div className="col-span-12 lg:col-span-8 bg-navy border border-navy-mid p-8 sm:p-12 lg:p-16 flex flex-col justify-end min-h-[420px] lg:min-h-[520px] relative overflow-hidden group image-zoom">
-                <img
+                <SmartImage
                   src={teamImg}
                   alt=""
                   width={1200}
                   height={800}
                   sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                   loading="lazy"
-                  decoding="async"
+                  wrapperClassName="absolute inset-0"
+                  skeletonColor="rgba(11,31,77,0.6)"
+                  className="w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                   aria-hidden="true"
                 />
                 <div className="absolute top-6 sm:top-8 right-6 sm:right-8">
