@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import { SpecialitiesMarquee, SERVICES_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Link } from "react-router";
 import { Section } from "@/components/site/Section";
