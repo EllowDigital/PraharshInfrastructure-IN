@@ -390,15 +390,16 @@ export default function Home({ onHeroReady }: HomeProps) {
                     to="/services"
                     className="col-span-12 lg:col-span-8 relative bg-navy border border-navy-mid p-8 sm:p-10 hover:border-gold/40 transition-all group min-h-[320px] flex flex-col justify-end overflow-hidden"
                   >
-                    <img
+                    <SmartImage
                       src={feature.img}
                       alt=""
                       width={1200}
                       height={800}
                       sizes="(max-width: 1024px) 100vw, 66vw"
-                      className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
                       loading="lazy"
-                      decoding="async"
+                      wrapperClassName="absolute inset-0"
+                      skeletonColor="rgba(11,31,77,0.6)"
+                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
                       aria-hidden="true"
                     />
                     <div className="relative">
