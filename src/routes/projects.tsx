@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import { SpecialitiesMarquee, PROJECTS_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { useState, useMemo } from "react";
 import { Section } from "@/components/site/Section";
