@@ -169,6 +169,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
       <div className="absolute inset-0 z-0">
         {slides.map((s, i) => {
           const isActive = i === active;
+          const isLoaded = Boolean(loadedSlides[i]);
           const { sources, img } = s.data;
           return (
             <div
