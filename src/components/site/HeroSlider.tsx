@@ -81,6 +81,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
     setHasReportedReady((prev) => (prev ? prev : true));
   }, []);
 
+  const markLoaded = useCallback((index: number) => {
+    setLoadedSlides((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
+  }, []);
+
   useEffect(() => {
     if (hasReportedReady) onReady?.();
   }, [hasReportedReady, onReady]);
