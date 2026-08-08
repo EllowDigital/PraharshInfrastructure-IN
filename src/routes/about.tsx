@@ -191,15 +191,15 @@ function About() {
       <Section eyebrow="Our Approach" title="Engineering discipline. Public-sector accountability.">
         <div className="grid gap-8 sm:gap-10 lg:gap-14 lg:-mt-8 lg:grid-cols-12">
           <Reveal className="image-zoom overflow-hidden rounded-xl lg:col-span-5 bg-secondary aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/5] lg:sticky lg:top-28">
-            <img
+            <SmartImage
               src={teamImg}
               alt="Praharsh engineers reviewing site plans"
               width={800}
               height={1000}
               sizes="(max-width: 1024px) 100vw, 42vw"
-              className="w-full h-full object-cover"
               loading="lazy"
-              decoding="async"
+              wrapperClassName="w-full h-full"
+              className="w-full h-full object-cover"
             />
           </Reveal>
 
