@@ -62,7 +62,9 @@ export function SEO({
       <meta property="twitter:image" content={image} />
 
       {/* Structured Data (JSON-LD) */}
-      <script type="application/ld+json">{JSON.stringify(finalStructuredData)}</script>
+      {finalStructuredData ? (
+        <script type="application/ld+json">{JSON.stringify(finalStructuredData)}</script>
+      ) : null}
     </Helmet>
   );
 }
