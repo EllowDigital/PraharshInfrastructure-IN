@@ -93,6 +93,7 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-deep text-white/80">
+      <OrganizationJsonLd />
       {/* Newsletter band — temporarily hidden (code retained for future use)
       <div className="border-b border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-8 lg:grid-cols-12 lg:items-center">
