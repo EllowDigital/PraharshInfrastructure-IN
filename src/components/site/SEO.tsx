@@ -25,27 +25,10 @@ export function SEO({
   const defaultCanonicalUrl = url;
   const finalCanonicalUrl = canonicalUrl || defaultCanonicalUrl;
 
-  const defaultOrganizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Praharsh Infrastructure",
-    url: "https://www.praharshinfrastructure.com",
-    logo: "https://www.praharshinfrastructure.com/images/logo.jpeg",
-    description,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Lucknow",
-      addressRegion: "Uttar Pradesh",
-      addressCountry: "IN",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer service",
-      availableLanguage: ["English", "Hindi"],
-    },
-  };
+  // Site-wide Organization data is emitted once by <OrganizationJsonLd /> in the footer,
+  // so pages only add their own structured data when provided.
+  const finalStructuredData = structuredData;
 
-  const finalStructuredData = structuredData || defaultOrganizationSchema;
 
   return (
     <Helmet>
@@ -79,7 +62,9 @@ export function SEO({
       <meta property="twitter:image" content={image} />
 
       {/* Structured Data (JSON-LD) */}
-      <script type="application/ld+json">{JSON.stringify(finalStructuredData)}</script>
+      {finalStructuredData ? (
+        <script type="application/ld+json">{JSON.stringify(finalStructuredData)}</script>
+      ) : null}
     </Helmet>
   );
 }
