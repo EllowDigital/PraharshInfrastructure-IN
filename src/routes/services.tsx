@@ -171,15 +171,15 @@ function Services() {
                 }`}
               >
                 <div className="lg:col-span-7 image-zoom bg-secondary aspect-[16/11] overflow-hidden">
-                  <img
+                  <SmartImage
                     src={s.img}
                     alt={s.name}
                     width={1200}
                     height={825}
                     sizes="(max-width: 1024px) 100vw, 58vw"
-                    className="w-full h-full object-cover"
                     loading="lazy"
-                    decoding="async"
+                    wrapperClassName="w-full h-full"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="lg:col-span-5">
