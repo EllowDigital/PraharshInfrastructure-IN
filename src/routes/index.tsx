@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import React from "react";
 import { Link } from "react-router";
 import {
@@ -288,15 +289,16 @@ export default function Home({ onHeroReady }: HomeProps) {
             <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
               {/* Editorial headline tile */}
               <div className="col-span-12 lg:col-span-8 bg-navy border border-navy-mid p-8 sm:p-12 lg:p-16 flex flex-col justify-end min-h-[420px] lg:min-h-[520px] relative overflow-hidden group image-zoom">
-                <img
+                <SmartImage
                   src={teamImg}
                   alt=""
                   width={1200}
                   height={800}
                   sizes="(max-width: 1024px) 100vw, 66vw"
-                  className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                   loading="lazy"
-                  decoding="async"
+                  wrapperClassName="absolute inset-0"
+                  skeletonColor="rgba(11,31,77,0.6)"
+                  className="w-full h-full object-cover opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                   aria-hidden="true"
                 />
                 <div className="absolute top-6 sm:top-8 right-6 sm:right-8">
@@ -388,15 +390,16 @@ export default function Home({ onHeroReady }: HomeProps) {
                     to="/services"
                     className="col-span-12 lg:col-span-8 relative bg-navy border border-navy-mid p-8 sm:p-10 hover:border-gold/40 transition-all group min-h-[320px] flex flex-col justify-end overflow-hidden"
                   >
-                    <img
+                    <SmartImage
                       src={feature.img}
                       alt=""
                       width={1200}
                       height={800}
                       sizes="(max-width: 1024px) 100vw, 66vw"
-                      className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
                       loading="lazy"
-                      decoding="async"
+                      wrapperClassName="absolute inset-0"
+                      skeletonColor="rgba(11,31,77,0.6)"
+                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 group-hover:scale-105 transition-all duration-700"
                       aria-hidden="true"
                     />
                     <div className="relative">
@@ -552,15 +555,16 @@ export default function Home({ onHeroReady }: HomeProps) {
                 to="/projects"
                 className="col-span-12 lg:col-span-7 relative overflow-hidden border border-navy-mid group min-h-[380px] lg:min-h-[520px] image-zoom"
               >
-                <img
+                <SmartImage
                   src={FEATURED_PROJECTS[0].img}
                   alt={FEATURED_PROJECTS[0].title}
                   width={1200}
                   height={900}
                   sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
-                  decoding="async"
+                  wrapperClassName="absolute inset-0"
+                  skeletonColor="rgba(11,31,77,0.6)"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
                 <div className="relative h-full flex flex-col justify-end p-8 sm:p-10">
@@ -721,14 +725,15 @@ export default function Home({ onHeroReady }: HomeProps) {
                   title={client.name}
                   className="bg-white p-4 flex items-center justify-center h-24 w-40 sm:h-28 sm:w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
                 >
-                  <img
+                  <SmartImage
                     src={client.src}
                     alt={`${client.name} Logo`}
                     width={200}
                     height={100}
-                    className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
+                    sizes="(max-width: 640px) 160px, 224px"
                     loading="lazy"
-                    decoding="async"
+                    wrapperClassName="max-h-full max-w-full"
+                    className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
                   />
                 </a>
               ))}
