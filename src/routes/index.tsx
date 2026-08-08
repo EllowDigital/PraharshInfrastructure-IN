@@ -725,14 +725,15 @@ export default function Home({ onHeroReady }: HomeProps) {
                   title={client.name}
                   className="bg-white p-4 flex items-center justify-center h-24 w-40 sm:h-28 sm:w-56 shrink-0 rounded-sm shadow-sm hover:shadow-md transition-all duration-300"
                 >
-                  <img
+                  <SmartImage
                     src={client.src}
                     alt={`${client.name} Logo`}
                     width={200}
                     height={100}
-                    className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
+                    sizes="(max-width: 640px) 160px, 224px"
                     loading="lazy"
-                    decoding="async"
+                    wrapperClassName="max-h-full max-w-full"
+                    className="max-h-full max-w-full object-contain hover:scale-110 transition-transform duration-300"
                   />
                 </a>
               ))}
