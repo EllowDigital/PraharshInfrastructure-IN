@@ -555,15 +555,16 @@ export default function Home({ onHeroReady }: HomeProps) {
                 to="/projects"
                 className="col-span-12 lg:col-span-7 relative overflow-hidden border border-navy-mid group min-h-[380px] lg:min-h-[520px] image-zoom"
               >
-                <img
+                <SmartImage
                   src={FEATURED_PROJECTS[0].img}
                   alt={FEATURED_PROJECTS[0].title}
                   width={1200}
                   height={900}
                   sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
-                  decoding="async"
+                  wrapperClassName="absolute inset-0"
+                  skeletonColor="rgba(11,31,77,0.6)"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
                 <div className="relative h-full flex flex-col justify-end p-8 sm:p-10">
