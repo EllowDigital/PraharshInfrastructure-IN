@@ -29,7 +29,6 @@ export function SEO({
   // so pages only add their own structured data when provided.
   const finalStructuredData = structuredData;
 
-
   return (
     <Helmet>
       {/* Primary Meta Tags */}
