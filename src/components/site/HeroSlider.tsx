@@ -68,6 +68,7 @@ type HeroSliderProps = { onReady?: () => void };
 
 export function HeroSlider({ onReady }: HeroSliderProps) {
   const [active, setActive] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState<Record<number, boolean>>({});
   const [hasReportedReady, setHasReportedReady] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
