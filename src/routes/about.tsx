@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import { SpecialitiesMarquee, ABOUT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Section } from "@/components/site/Section";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
