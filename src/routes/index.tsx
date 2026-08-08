@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import React from "react";
 import { Link } from "react-router";
 import {
