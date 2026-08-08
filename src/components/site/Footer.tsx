@@ -12,6 +12,8 @@ import {
   Instagram,
   ChevronDown,
 } from "lucide-react";
+import { SmartImage } from "@/components/site/SmartImage";
+import { OrganizationJsonLd } from "@/components/site/OrganizationJsonLd";
 
 function FooterColumn({
   title,
