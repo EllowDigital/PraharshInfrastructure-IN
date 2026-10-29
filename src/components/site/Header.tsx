@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { useEffect, useState, useRef } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { SearchDialog } from "./SearchDialog";
+import { SmartImage } from "@/components/site/SmartImage";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -105,15 +106,15 @@ export function Header() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4 z-50">
         <Link to="/" className="flex items-center gap-3 group shrink-0">
-          <img
+          <SmartImage
             src="/images/logo.jpeg"
             alt="Praharsh Infrastructure"
             width={40}
             height={40}
-            loading="eager"
-
-            fetchPriority="high"
-            decoding="sync"
+            sizes="40px"
+            priority
+            wrapperClassName="w-9 h-9 sm:w-10 sm:h-10 rounded-sm shrink-0"
+            skeletonColor="rgba(255,255,255,0.08)"
             className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-sm shadow-sm"
           />
           <div className="leading-tight">

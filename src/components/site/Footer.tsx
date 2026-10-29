@@ -12,6 +12,8 @@ import {
   Instagram,
   ChevronDown,
 } from "lucide-react";
+import { SmartImage } from "@/components/site/SmartImage";
+import { OrganizationJsonLd } from "@/components/site/OrganizationJsonLd";
 
 function FooterColumn({
   title,
@@ -91,6 +93,7 @@ export function Footer() {
 
   return (
     <footer className="bg-navy-deep text-white/80">
+      <OrganizationJsonLd />
       {/* Newsletter band — temporarily hidden (code retained for future use)
       <div className="border-b border-white/10">
         <div className="mx-auto max-w-7xl px-6 lg:px-10 py-12 grid gap-8 lg:grid-cols-12 lg:items-center">
@@ -135,15 +138,18 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10 py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="flex items-center gap-3 mb-6">
-            <img
+            <SmartImage
               src="/images/logo.jpeg"
               alt="Praharsh Infrastructure"
               width={44}
               height={44}
+              sizes="44px"
               loading="lazy"
-              decoding="async"
+              wrapperClassName="w-11 h-11 rounded-sm shrink-0"
+              skeletonColor="rgba(255,255,255,0.08)"
               className="w-11 h-11 object-contain rounded-sm"
             />
+
             <div>
               <div className="font-display text-white text-lg">Praharsh Infrastructure</div>
               <div className="eyebrow text-gold/90 text-[0.6rem]">

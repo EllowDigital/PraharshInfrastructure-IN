@@ -68,6 +68,7 @@ type HeroSliderProps = { onReady?: () => void };
 
 export function HeroSlider({ onReady }: HeroSliderProps) {
   const [active, setActive] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState<Record<number, boolean>>({});
   const [hasReportedReady, setHasReportedReady] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
@@ -78,6 +79,10 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
 
   const reportReady = useCallback(() => {
     setHasReportedReady((prev) => (prev ? prev : true));
+  }, []);
+
+  const markLoaded = useCallback((index: number) => {
+    setLoadedSlides((prev) => (prev[index] ? prev : { ...prev, [index]: true }));
   }, []);
 
   useEffect(() => {
@@ -164,6 +169,7 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
       <div className="absolute inset-0 z-0">
         {slides.map((s, i) => {
           const isActive = i === active;
+          const isLoaded = Boolean(loadedSlides[i]);
           const { sources, img } = s.data;
           return (
             <div
@@ -176,6 +182,19 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
               aria-label={`${i + 1} of ${slides.length}: ${s.label}`}
               aria-hidden={!isActive}
             >
+              {/* Blurred skeleton placeholder — reserves space, no layout shift */}
+              <div
+                aria-hidden="true"
+                className={`absolute inset-0 transition-opacity duration-700 ${
+                  isLoaded ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <div className="absolute inset-0 bg-navy-deep" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_35%,rgba(212,160,23,0.18),transparent_60%),radial-gradient(ellipse_at_75%_70%,rgba(11,31,77,0.9),transparent_65%)] blur-2xl scale-110" />
+                {!prefersReducedMotion && (
+                  <div className="absolute inset-0 animate-pulse bg-white/[0.03]" />
+                )}
+              </div>
               <picture>
                 {Object.entries(sources).map(([fmt, srcSet]) => (
                   <source key={fmt} type={`image/${fmt}`} srcSet={srcSet} sizes="100vw" />
@@ -186,7 +205,9 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                   height={img.h}
                   alt=""
                   draggable={false}
-                  className={`w-full h-full object-cover ${
+                  className={`relative w-full h-full object-cover transition-opacity duration-700 ${
+                    isLoaded ? "opacity-100" : "opacity-0"
+                  } ${
                     prefersReducedMotion
                       ? ""
                       : `transition-transform duration-[9000ms] ease-out ${
@@ -196,8 +217,14 @@ export function HeroSlider({ onReady }: HeroSliderProps) {
                   loading={i === 0 ? "eager" : "lazy"}
                   fetchPriority={i === 0 ? "high" : "auto"}
                   decoding={i === 0 ? "sync" : "async"}
-                  onLoad={i === 0 ? reportReady : undefined}
-                  onError={i === 0 ? reportReady : undefined}
+                  onLoad={() => {
+                    markLoaded(i);
+                    if (i === 0) reportReady();
+                  }}
+                  onError={() => {
+                    markLoaded(i);
+                    if (i === 0) reportReady();
+                  }}
                 />
               </picture>
             </div>

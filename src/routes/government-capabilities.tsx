@@ -1,4 +1,5 @@
 import { SEO } from "@/components/site/SEO";
+import { SmartImage } from "@/components/site/SmartImage";
 import { SpecialitiesMarquee, GOVERNMENT_ITEMS } from "@/components/site/SpecialitiesMarquee";
 import { Link } from "react-router";
 import { Section } from "@/components/site/Section";
@@ -110,14 +111,16 @@ function Govt() {
       {/* HERO */}
       <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-28 bg-navy text-white overflow-hidden">
         <div className="absolute inset-0 opacity-25">
-          <img
+          <SmartImage
             src={govtImg}
             alt=""
+            aria-hidden="true"
             width={1600}
             height={900}
             sizes="100vw"
             loading="lazy"
-            decoding="async"
+            wrapperClassName="absolute inset-0"
+            skeletonColor="rgba(11,31,77,0.6)"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-navy/50" />
